@@ -7,19 +7,22 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-0DL8SC5JKB');
     </script>
+
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Personality Paathshala</title>
     <meta name="description" content="Get in touch with Personality Paathshala. We'd love to hear your questions, feedback, or suggestions.">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -78,7 +81,7 @@
                 </a>
                 <nav class="hidden md:flex space-x-8">
                     <a href="index.html" class="text-gray-600 hover:text-purple-600">Home</a>
-                    <a href="sitemap.html" class="text-gray-600 hover:text-purple-600">Quizzes</a>
+                    <a href="sitemap.html" class="text-gray-600 hover:text-purple-600">Sitemap</a>
                     <a href="faq.html" class="text-gray-600 hover:text-purple-600">FAQ</a>
                     <a href="contact.html" class="text-purple-600 font-semibold">Contact</a>
                 </nav>
@@ -104,8 +107,8 @@
                     <!-- Contact Form -->
                     <div>
                         <h2 class="text-2xl font-bold text-gray-800 mb-6">Send Us a Message</h2>
-                        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-6">
-                            <!-- Netlify hidden inputs for form identification and spam prevention -->
+                        <!-- FIXED FORM with thankyou.html redirect -->
+                        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="thankyou.html" class="space-y-6">
                             <input type="hidden" name="form-name" value="contact" />
                             <p class="hidden">
                                 <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
@@ -180,7 +183,7 @@
                     <h4 class="font-semibold mb-4">Quick Links</h4>
                     <ul class="space-y-2">
                         <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
-                        <li><a href="about.html" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="aboutus.html" class="text-gray-400 hover:text-white">About Us</a></li>
                         <li><a href="contact.html" class="text-white font-semibold">Contact</a></li>
                         <li><a href="sitemap.html" class="text-gray-400 hover:text-white">Site Map</a></li>
                     </ul>
@@ -189,7 +192,7 @@
                     <h4 class="font-semibold mb-4">Legal</h4>
                     <ul class="space-y-2">
                         <li><a href="privacy.html" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
-                        <li><a href="terms.html" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="termsofservice.html" class="text-gray-400 hover:text-white">Terms of Service</a></li>
                     </ul>
                 </div>
                 <div>

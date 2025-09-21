@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0DL8SC5JKB');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekend Warrior Meter - Home Buddy or Adventure Seeker?</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS for theme, animations, and additional styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Dark Mode --- */
+        .dark .dark-mode-bg { background-color: #111827; }
+        .dark .dark-mode-text { color: #f9fafb; }
+        .dark .dark-mode-surface { background-color: #1f2937; }
+        .dark .dark-mode-border { border-color: #374151; }
+        .dark .dark-mode-subtext { color: #9ca3af; }
+
+        /* --- Animations --- */
+        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .pulse { animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .9; transform: scale(1.02); }
+        }
+
+        /* --- Button Styles --- */
+        .choice-btn, .share-btn, .control-btn {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .choice-btn:hover, .share-btn:hover, .control-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Social Share Colors --- */
+        .whatsapp-btn { background-color: #25D366; }
+        .twitter-btn { background-color: #1DA1F2; }
+        .facebook-btn { background-color: #1877F2; }
+        .telegram-btn { background-color: #24A1DE; }
+        .instagram-btn {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        }
+
+        /* --- Score Animation --- */
+        .score-reveal {
+            animation: scoreReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 10px rgba(34, 197, 94, 0.5), 0 0 20px rgba(34, 197, 94, 0.3); /* Green Shadow */
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* --- Funny Comments Styling --- */
+        .funny-comments-container {
+            perspective: 1000px;
+        }
+
+        .funny-comment-card {
+            opacity: 0;
+            transform: rotateX(-90deg) translateY(50px);
+            transform-origin: bottom center;
+            animation: revealComment 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .funny-comment-card p {
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1.75rem; /* leading-7 */
+        }
+
+        @media (min-width: 768px) {
+            .funny-comment-card p {
+                font-size: 1.5rem; /* md:text-2xl */
+                line-height: 2rem; /* md:leading-8 */
+            }
+        }
+
+
+        @keyframes revealComment {
+            from {
+                opacity: 0;
+                transform: rotateX(-90deg) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0deg) translateY(0);
+            }
+        }
+        
+        /* --- Typing Effect --- */
+        .typing-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #22c55e; } /* green-500 */
+        }
+        
+        /* --- Background Animation --- */
+        #animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: -50px; /* Start from below the screen */
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--translateX)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode-bg text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+    <div id="animation-container"></div>
+    <!-- Header for Toggles -->
+    <header class="absolute top-4 w-full px-4 z-20 flex items-center justify-between">
+        <!-- Back to Main Page Button (Initially hidden) -->
+        <a id="back-to-main-btn" href="index.html" role="button" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </a>
+
+        <div class="flex items-center space-x-2 ml-auto">
+             <!-- Language Toggle -->
+            <button id="language-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:focus:ring-offset-gray-900 w-28 h-10 flex items-center justify-center text-sm">
+                <!-- Text updated by JS -->
+            </button>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+                <svg id="theme-icon-dark" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg id="theme-icon-light" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-2 bg-gray-200 dark:bg-gray-700 z-10 hidden">
+        <div id="progress-bar" class="h-full bg-green-500 progress-bar-fill" style="width: 0%;"></div>
+    </div>
+    
+    <main class="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-screen relative z-10">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center max-w-2xl fade-in">
+            <h1 class="text-4xl md:text-6xl font-extrabold dark-mode-text tracking-tight mb-4">The <span class="text-green-500" data-lang-key="title">Weekend Warrior Meter</span></h1>
+            <p class="text-lg md:text-xl dark-mode-subtext mb-8" data-lang-key="subtitle">
+                Do you spend your weekends recharging your social battery or your phone battery? Let's find out if you're a couch potato or a professional explorer!
+            </p>
+            <div class="mb-6 w-full max-w-sm mx-auto">
+                <input type="text" id="name-input" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white" data-lang-placeholder="name_placeholder">
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-8 italic" data-lang-key="privacy_disclaimer"></p>
+            <button id="start-btn" data-lang-key="start_button" class="bg-green-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-green-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300 pulse">
+                Analyze My Weekend!
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden w-full max-w-3xl">
+            <div id="question-container" class="text-center pt-16">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <div id="feedback-container" class="mt-6 text-center text-md dark-mode-subtext min-h-[60px]">
+                <!-- Feedback will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Calculating Screen -->
+        <div id="calculating-screen" class="hidden text-center w-full max-w-2xl">
+            <svg class="animate-spin h-16 w-16 text-green-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h2 id="calculating-text" class="text-2xl font-bold dark-mode-text" data-lang-key="calculating_text">Packing your virtual bags...</h2>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center w-full max-w-4xl pt-16">
+            <h2 class="text-2xl font-bold dark-mode-subtext mb-2" data-lang-key="result_level_label">Your Weekend Persona</h2>
+            <div id="final-score" class="text-7xl md:text-8xl font-extrabold text-green-500 mb-4">0%</div>
+            <h3 id="result-title" class="text-3xl md:text-4xl font-extrabold dark-mode-text mb-3"></h3>
+            <p id="result-description" class="text-lg md:text-xl dark-mode-subtext mb-8 max-w-2xl mx-auto"></p>
+            
+            <div id="funny-comments-container" class="funny-comments-container mt-8 mb-8 max-w-2xl mx-auto">
+                <!-- Comments will be injected here -->
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="mb-8">
+                <p class="font-bold dark-mode-text mb-3" data-lang-key="share_results_label">Share Your Report & Get an Award!</p>
+                <div id="share-buttons" class="flex justify-center items-center flex-wrap gap-4">
+                    <a id="whatsapp-share" href="https://ppscore.co.in" target="_blank" class="share-btn whatsapp-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l.217.324-1.125 4.108 4.224-1.103.337.202z" /></svg>
+                    </a>
+                    <a id="twitter-share" href="https://ppscore.co.in" target="_blank" class="share-btn twitter-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.794 4.649-.69.188-1.433.23-2.184.085.617 1.914 2.408 3.258 4.53 3.301-1.724 1.352-3.883 2.093-6.138 1.795 1.815 1.163 3.973 1.84 6.262 1.84 7.218 0 11.168-5.986 11.168-11.168 0-.17-.003-.34-.01-.508.77-.556 1.438-1.248 1.968-2.04z"/></svg>
+                    </a>
+                    <a id="facebook-share" href="https://ppscore.co.in" target="_blank" class="share-btn facebook-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                    </a>                      
+                    <a id="telegram-share" href="https://ppscore.co.in" target="_blank" class="share-btn telegram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-1.39.2-1.62l15.97-5.85c.73-.27 1.36.17 1.15.99L16.4 18.28c-.21.83-1.2.5-1.54-.26L9.78 18.65z"/></svg>
+                    </a>
+                    <a id="instagram-share" href="https://ppscore.co.in" target="_blank" class="share-btn instagram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <p id="final-quote" class="text-lg dark-mode-text max-w-3xl mx-auto mb-8 italic">
+                <!-- Quote inserted by JS -->
+            </p>
+
+            <button id="restart-btn" data-lang-key="restart_button" class="bg-green-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-green-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300">
+                Plan Another Weekend!
+            </button>
+
+            <!-- Explore More Section -->
+            <div class="mt-16 py-8 border-t-2 border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
+                 <h3 class="text-2xl md:text-3xl font-extrabold dark-mode-text mb-4" data-lang-key="explore_title">Your Analysis Isn't Over Yet!</h3>
+                 <p class="text-lg dark-mode-subtext mb-8" data-lang-key="explore_desc">
+                   You've audited your weekend plans, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.
+                 </p>
+                 <a id="explore-btn" href="index.html" class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 inline-block" data-lang-key="explore_button">
+                   Visit PersonalityPaathshala
+                 </a>
+                 <div class="mt-8 mb-6">
+                    <p class="font-semibold mb-2 text-green-400 dark:text-green-300" data-lang-key="support_title">Loved this quiz? Help us create more!</p>
+                    <p class="text-base text-gray-700 dark:text-white mb-3" data-lang-key="support_desc">Your small contribution keeps our creative engine running and helps us serve more fun.</p>
+                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QvFHmdPg3T4Pqh" async> </script> </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Screen -->
+        <div id="journey-screen" class="hidden text-center w-full max-w-2xl pt-16">
+            <h2 class="text-4xl font-extrabold text-green-500 mb-4" data-lang-key="journey_title">Your Official Weekend Award!</h2>
+            <p class="text-lg dark-mode-subtext mb-8" data-lang-key="journey_subtitle">You shared your score! The Weekend Gods are pleased. Please accept this official award for your services to... well, your kind of weekend!</p>
+            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-xl border-4 border-yellow-400">
+                <div class="text-center p-4">
+                    <div id="award-emoji" class="text-5xl mb-4">🏆</div>
+                    <h3 id="award-title" class="text-2xl font-bold dark-mode-text">Award Title</h3>
+                    <p class="dark-mode-subtext mt-2">Awarded to</p>
+                    <p id="award-name" class="text-3xl font-bold text-green-500 my-2">[Your Name]</p>
+                    <p id="award-reason" class="dark-mode-text">For outstanding contributions to... something.</p>
+                </div>
+            </div>
+             <button id="go-back-btn" data-lang-key="go_back_button" class="mt-8 bg-gray-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Back to My Score
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-xs text-gray-400 dark:text-gray-500">
+        <p data-lang-key="disclaimer">Disclaimer: This quiz is for fun. We are not responsible for any cancelled plans or spontaneous trips that may occur.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- LANGUAGE CONTENT STORE ---
+            const content = {
+                en: {
+                    title: "Weekend Warrior Meter",
+                    subtitle: "Do you spend your weekends recharging your social battery or your phone battery? Let's find out if you're a couch potato or a professional explorer!",
+                    name_placeholder: "Enter your weekend name...",
+                    privacy_disclaimer: "Your secret love for doing nothing is safe with us. We won't tell anyone you watched 10 hours of TV.",
+                    start_button: "Analyze My Weekend!",
+                    calculating_text: "Packing your virtual bags...",
+                    result_level_label: "Your Weekend Persona",
+                    result_level_label_personalized: "{name}'s Weekend Persona",
+                    share_results_label: "Share Your Report & Get an Award!",
+                    restart_button: "Plan Another Weekend!",
+                    disclaimer: "Disclaimer: This quiz is for fun. We are not responsible for any cancelled plans or spontaneous trips that may occur.",
+                    question_counter: "Question {current} of {total}",
+                    
+                    result_homebody_title: "The Ultimate Homebody",
+                    result_homebody_desc: "{name}, your bed is your kingdom and Netflix is your loyal subject. The outside world is a myth. 'Going out' means going to the balcony.",
+                    result_balanced_title: "The Balanced Weekender",
+                    result_balanced_desc: "{name}, you have mastered the art of balance. One day for adventure, one day for recovery. You're a perfectly brewed cup of chai - a mix of strong and calm.",
+                    result_explorer_title: "The Adventure Seeker",
+                    result_explorer_desc: "{name}, your bags are always packed. You have more trekking photos than selfies. 'Let's go somewhere' is your answer to everything.",
+                    result_warrior_title: "Weekend Warrior Pro Max",
+                    result_warrior_desc: "{name}, do you even have a home? You probably climb a mountain before breakfast on Saturday. Your idea of relaxing is planning your next three adventures.",
+                    
+                    final_quote_homebody: "\"My favorite weekend activity is not having to set an alarm.\"",
+                    final_quote_balanced: "\"Saturday is for the streets, Sunday is for the sheets.\"",
+                    final_quote_explorer: "\"Let's find some beautiful place to get lost.\"",
+                    final_quote_warrior: "\"Sleep is for weekdays.\"",
+                    
+                    funny_comments: {
+                        homebody: [
+                            "You've worn the same pajamas for 48 hours straight and you're proud of it.",
+                            "Your idea of an 'outing' is walking from the bedroom to the kitchen.",
+                            "You have a deeper relationship with your couch than with most people.",
+                            "You consider scrolling through Instagram a form of travel."
+                        ],
+                        balanced: [
+                            "You need a party on Saturday to have something to recover from on Sunday.",
+                            "Your weekend motto is 'Work hard, party harder, sleep hardest'.",
+                            "You have two modes: 'Let's go!' and 'Please don't make me move'.",
+                            "You're the human equivalent of a perfect work-life balance."
+                        ],
+                        explorer: [
+                            "You have more unread emails than unvisited places.",
+                            "Your friends know not to make plans with you, but to ask 'Where are you this weekend?'",
+                            "You think a 'staycation' is a form of punishment.",
+                            "Your phone's most used app is Google Maps."
+                        ],
+                        warrior: [
+                            "You probably think 'rest day' is a myth.",
+                            "Your idea of a short trip is a 10-hour drive.",
+                            "You've already planned your weekends for the next six months.",
+                            "You don't get tired, you just get more awesome."
+                        ]
+                    },
+
+                    journey_title: "Your Official Weekend Award!",
+                    journey_subtitle: "You shared your score! The Weekend Gods are pleased. Please accept this official award for your services to... well, your kind of weekend!",
+                    go_back_button: "Back to My Score",
+
+                    explore_title: "Your Analysis Isn't Over Yet!",
+                    explore_desc: "You've audited your weekend plans, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.",
+                    explore_button: "Visit PersonalityPaathshala",
+                    support_title: "Loved this quiz? Help us create more!",
+                    support_desc: "Your small contribution keeps our creative engine running and helps us serve more fun.",
+
+                    questions: [
+                        { id: 1, question: "A long weekend is announced. Your first thought is:", answers: [ { text: "'Finally, 3 days of uninterrupted sleep!'", score: 1, feedback: "The dream of the truly tired." }, { text: "'Time to plan a quick trip to the mountains!'", score: 3, feedback: "The bags are already packed." }, { text: "'Maybe a day trip and two days of chilling.'", score: 2, feedback: "The best of both worlds." } ] },
+                        { id: 2, question: "Your ideal Sunday morning involves:", answers: [ { text: "Waking up at noon.", score: 1, feedback: "A well-deserved rest." }, { text: "A 6 AM trek.", score: 3, feedback: "The early bird gets the view." }, { text: "Brunch with friends.", score: 2, feedback: "A classic social Sunday." } ] },
+                        { id: 3, question: "A friend calls with a spontaneous plan. You:", answers: [ { text: "'I'm already in my pajamas, sorry.'", score: 1, feedback: "The pajamas are a sacred bond." }, { text: "'Let me check my schedule' (which is empty).", score: 2, feedback: "The illusion of being busy." }, { text: "'I'm in! Where are we going?'", score: 3, feedback: "The adventurer." } ] },
+                        { id: 4, question: "Your weekend uniform is:", answers: [ { text: "The same pajamas you've been wearing since Friday night.", score: 1, feedback: "Comfort is key." }, { text: "Activewear, just in case an adventure calls.", score: 3, feedback: "Always prepared." }, { text: "Something stylish but comfortable, for a brunch or a movie.", score: 2, feedback: "The casual fashionista." } ] },
+                        { id: 5, question: "The phrase 'Let's do something fun' on a weekend means:", answers: [ { text: "Let's find a new series to binge-watch.", score: 1, feedback: "An adventure on the screen." }, { text: "Let's explore a new part of the city.", score: 2, feedback: "The urban explorer." }, { text: "Let's go skydiving!", score: 3, feedback: "The adrenaline junkie." } ] },
+                        { id: 6, question: "Your phone is mostly used on weekends for:", answers: [ { text: "Ordering food and watching movies.", score: 1, feedback: "The essentials." }, { text: "Coordinating plans with 10 different people.", score: 3, feedback: "The social planner." }, { text: "A bit of both.", score: 2, feedback: "The balanced user." } ] },
+                        { id: 7, question: "When you hear 'camping', you think:", answers: [ { text: "Bugs, no Wi-Fi, and sleeping on the ground. No, thank you.", score: 1, feedback: "The comfort lover." }, { text: "Sounds fun, as long as there's a proper bathroom.", score: 2, feedback: "The 'glamper'." }, { text: "Stargazing, bonfires, and adventure! Let's go!", score: 3, feedback: "The nature lover." } ] },
+                        { id: 8, question: "Your 'me time' involves:", answers: [ { text: "Being completely alone with a book or a game.", score: 1, feedback: "The peaceful soul." }, { text: "A solo trip to a new place.", score: 3, feedback: "The independent explorer." }, { text: "A spa day or a shopping trip.", score: 2, feedback: "The self-care expert." } ] },
+                        { id: 9, question: "The weather on a Saturday is perfect. You:", answers: [ { text: "Open the windows to enjoy it from the comfort of your home.", score: 1, feedback: "Indoor nature." }, { text: "Immediately call friends to make a plan to go out.", score: 3, feedback: "Carpe Diem!" }, { text: "Go for a walk in a nearby park.", score: 2, feedback: "A gentle adventure." } ] },
+                        { id: 10, question: "After a long week, you need to:", answers: [ { text: "Recharge your social battery by being alone.", score: 1, feedback: "The introvert's ritual." }, { text: "Recharge by meeting friends and having fun.", score: 3, feedback: "The extrovert's fuel." }, { text: "A little bit of both.", score: 2, feedback: "The ambivert's balance." } ] },
+                        { id: 11, question: "Your definition of a 'productive weekend' is:", answers: [ { text: "Finishing a whole season of a TV show.", score: 1, feedback: "A marathon of a different kind." }, { text: "Cleaning the house, doing laundry, and grocery shopping.", score: 2, feedback: "The responsible adult." }, { text: "Learning a new skill or visiting a new place.", score: 3, feedback: "The explorer." } ] },
+                        { id: 12, question: "You're invited to a party on a Friday night. You:", answers: [ { text: "Go, but leave by 10 PM.", score: 2, feedback: "The strategic party-goer." }, { text: "Are the last person to leave the dance floor.", score: 3, feedback: "The life of the party." }, { text: "Suddenly feel a 'headache' coming on.", score: 1, feedback: "The master of excuses." } ] },
+                        { id: 13, question: "Your travel bag is:", answers: [ { text: "Somewhere in the attic, covered in dust.", score: 1, feedback: "It's in hibernation." }, { text: "Always half-packed, just in case.", score: 3, feedback: "Ready for anything." }, { text: "Neatly stored and ready for the next planned trip.", score: 2, feedback: "The organized traveler." } ] },
+                        { id: 14, question: "A friend asks 'What did you do this weekend?'. You're proud to say:", answers: [ { text: "'Absolutely nothing. It was glorious.'", score: 1, feedback: "The king/queen of relaxation." }, { text: "'I went on a spontaneous road trip!'", score: 3, feedback: "The storyteller." }, { text: "'I caught up on some errands and saw a movie.'", score: 2, feedback: "The balanced life." } ] },
+                        { id: 15, question: "Your favorite type of shoes are:", answers: [ { text: "Comfortable home slippers.", score: 1, feedback: "The ultimate comfort." }, { text: "Sturdy trekking shoes.", score: 3, feedback: "Ready for any terrain." }, { text: "Stylish sneakers that are good for walking.", score: 2, feedback: "Fashion meets function." } ] },
+                        { id: 16, question: "The phrase 'Sunday Scaries' means:", answers: [ { text: "The dread of Monday approaching.", score: 1, feedback: "We feel you." }, { text: "The fear of having wasted the weekend.", score: 3, feedback: "The FOMO is real." }, { text: "A good reason to have an extra-long Sunday brunch.", score: 2, feedback: "The cure." } ] },
+                        { id: 17, question: "Your ideal vacation involves a:", answers: [ { text: "Detailed itinerary.", score: 2, feedback: "The planner." }, { text: "One-way ticket and no plans.", score: 3, feedback: "The true adventurer." }, { text: "Hotel with a really nice bed.", score: 1, feedback: "The comfort-seeker." } ] },
+                        { id: 18, question: "A 'staycation' is:", answers: [ { text: "The best type of vacation.", score: 1, feedback: "The home-lover." }, { text: "A sad excuse for a real trip.", score: 3, feedback: "The explorer." }, { text: "A good way to save money and relax.", score: 2, feedback: "The pragmatist." } ] },
+                        { id: 19, question: "The most important item for a weekend is:", answers: [ { text: "A comfortable blanket.", score: 1, feedback: "The cozy one." }, { text: "A fully charged power bank.", score: 3, feedback: "The prepared adventurer." }, { text: "A good playlist.", score: 2, feedback: "The vibe-setter." } ] },
+                        { id: 20, question: "Your friends describe you as:", answers: [ { text: "The one who is always up for anything.", score: 3, feedback: "The 'yes' person." }, { text: "The one who is impossible to get out of the house.", score: 1, feedback: "The homebody." }, { text: "The one who needs at least 3 days' notice to make a plan.", score: 2, feedback: "The planner." } ] },
+                        { id: 21, question: "When you hear 'adventure', you think:", answers: [ { text: "Climbing mountains and exploring jungles.", score: 3, feedback: "The wild one." }, { text: "Trying a new restaurant.", score: 2, feedback: "The urban explorer." }, { text: "Finding a new show on Netflix.", score: 1, feedback: "The digital explorer." } ] },
+                        { id: 22, question: "Your favorite part of the day on a weekend is:", answers: [ { text: "The morning, full of possibilities.", score: 3, feedback: "The early bird." }, { text: "The afternoon nap.", score: 1, feedback: "The siesta king/queen." }, { text: "The evening, when the fun begins.", score: 2, feedback: "The night owl." } ] },
+                        { id: 23, question: "You receive a message 'Let's make a plan'. You reply:", answers: [ { text: "'Sure, when and where?'", score: 3, feedback: "Ready for action." }, { text: "'Sounds good!' (and then never follow up)", score: 2, feedback: "The polite ghoster." }, { text: "Leave them on 'read'.", score: 1, feedback: "The ultimate plan-canceller." } ] },
+                        { id: 24, question: "Your phone's wallpaper is probably a picture of:", answers: [ { text: "A beautiful landscape from a trip.", score: 3, feedback: "The traveler." }, { text: "Your pet or your bed.", score: 1, feedback: "The comfort-lover." }, { text: "A fun memory with friends.", score: 2, feedback: "The socialite." } ] },
+                        { id: 25, question: "This quiz was:", answers: [ { text: "A fun distraction from my many plans.", score: 3, feedback: "We're glad to be part of your adventure." }, { text: "The most exciting thing I've done all day.", score: 1, feedback: "We're honored." }, { text: "A good break between episodes.", score: 2, feedback: "A well-deserved break." } ] }
+                    ]
+                },
+                hi: {
+                    title: "वीकेंड वॉरियर मीटर",
+                    subtitle: "क्या आप अपने सप्ताहांत को अपनी सामाजिक बैटरी या अपने फोन की बैटरी को रिचार्ज करने में बिताते हैं? आइए जानें कि आप एक काउच पोटैटो हैं या एक पेशेवर खोजकर्ता!",
+                    name_placeholder: "अपना सप्ताहांत का नाम दर्ज करें...",
+                    privacy_disclaimer: "कुछ भी न करने के लिए आपका गुप्त प्रेम हमारे पास सुरक्षित है। हम किसी को नहीं बताएंगे कि आपने 10 घंटे टीवी देखा।",
+                    start_button: "मेरे सप्ताहांत का विश्लेषण करें!",
+                    calculating_text: "आपके आभासी बैग पैक हो रहे हैं...",
+                    result_level_label: "आपका सप्ताहांत व्यक्तित्व",
+                    result_level_label_personalized: "{name} का सप्ताहांत व्यक्तित्व",
+                    share_results_label: "अपनी रिपोर्ट साझा करें और एक पुरस्कार प्राप्त करें!",
+                    restart_button: "एक और सप्ताहांत की योजना बनाएं!",
+                    disclaimer: "अस्वीकरण: यह क्विज़ मनोरंजन के लिए है। हम किसी भी रद्द की गई योजनाओं या अचानक यात्राओं के लिए जिम्मेदार नहीं हैं जो हो सकती हैं।",
+                    question_counter: "प्रश्न {current} / {total}",
+
+                    result_homebody_title: "परम होमबॉडी",
+                    result_homebody_desc: "{name}, आपका बिस्तर आपका राज्य है और नेटफ्लिक्स आपका वफादार विषय है। बाहरी दुनिया एक मिथक है। 'बाहर जाना' का मतलब बालकनी में जाना है।",
+                    result_balanced_title: "संतुलित वीकेंडर",
+                    result_balanced_desc: "{name}, आपने संतुलन की कला में महारत हासिल कर ली है। एक दिन रोमांच के लिए, एक दिन ठीक होने के लिए। आप एक पूरी तरह से पी गई चाय के कप की तरह हैं - मजबूत और शांत का मिश्रण।",
+                    result_explorer_title: "साहसिक साधक",
+                    result_explorer_desc: "{name}, आपके बैग हमेशा पैक रहते हैं। आपके पास सेल्फी से ज्यादा ट्रेकिंग की तस्वीरें हैं। 'चलो कहीं चलते हैं' हर चीज का आपका जवाब है।",
+                    result_warrior_title: "वीकेंड वॉरियर प्रो मैक्स",
+                    result_warrior_desc: "{name}, क्या तुम असली भी हो? तुम शायद शनिवार को नाश्ते से पहले एक पहाड़ पर चढ़ते हो। आराम करने का आपका विचार आपकी अगली तीन साहसिक योजनाओं की योजना बना रहा है।",
+
+                    final_quote_homebody: "\"मेरी पसंदीदा सप्ताहांत गतिविधि अलार्म सेट न करना है।\"",
+                    final_quote_balanced: "\"शनिवार सड़कों के लिए है, रविवार चादरों के लिए है।\"",
+                    final_quote_explorer: "\"चलो खो जाने के लिए कोई खूबसूरत जगह ढूंढते हैं।\"",
+                    final_quote_warrior: "\"नींद सप्ताह के दिनों के लिए है।\"",
+                    
+                    funny_comments: {
+                        homebody: [
+                            "आपने 48 घंटे सीधे एक ही पजामा पहना है और आपको इस पर गर्व है।",
+                            "आपका 'बाहर घूमने' का विचार बेडरूम से रसोई तक चलना है।",
+                            "आपका अपने सोफे के साथ ज्यादातर लोगों से ज्यादा गहरा रिश्ता है।",
+                            "आप इंस्टाग्राम स्क्रॉल करने को यात्रा का एक रूप मानते हैं।"
+                        ],
+                        balanced: [
+                            "आपको शनिवार को एक पार्टी की आवश्यकता है ताकि रविवार को ठीक होने के लिए कुछ हो।",
+                            "आपका सप्ताहांत का आदर्श वाक्य है 'कड़ी मेहनत करो, पार्टी उससे भी ज्यादा करो, सबसे ज्यादा सोओ'।" ,
+                            "आपके दो मोड हैं: 'चलो चलें!' और 'कृपया मुझे हिलने पर मजबूर न करें'।" ,
+                            "आप एक आदर्श कार्य-जीवन संतुलन के मानव समकक्ष हैं।"
+                        ],
+                        explorer: [
+                            "आपके पास अविजित स्थानों से अधिक अपठित ईमेल हैं।",
+                            "आपके दोस्त आपसे योजना बनाने के लिए नहीं पूछते, बल्कि पूछते हैं 'तुम इस सप्ताहांत कहाँ हो?'",
+                            "आप सोचते हैं कि 'स्टेकेशन' एक प्रकार की सजा है।",
+                            "आपके फोन का सबसे ज्यादा इस्तेमाल किया जाने वाला ऐप गूगल मैप्स है।"
+                        ],
+                        warrior: [
+                            "आप शायद सोचते हैं कि 'आराम का दिन' एक मिथक है।",
+                            "एक छोटी यात्रा का आपका विचार 10 घंटे की ड्राइव है।",
+                            "आपने अगले छह महीनों के लिए अपने सप्ताहांत की योजना पहले ही बना ली है।",
+                            "आप थकते नहीं हैं, आप बस और भी भयानक हो जाते हैं।"
+                        ]
+                    },
+
+                    journey_title: "आपका आधिकारिक सप्ताहांत पुरस्कार!",
+                    journey_subtitle: "आपने अपना स्कोर साझा किया! सप्ताहांत के देवता प्रसन्न हैं। कृपया... ठीक है, आपके तरह के सप्ताहांत के लिए सेवाओं के लिए इस आधिकारिक पुरस्कार को स्वीकार करें!",
+                    go_back_button: "मेरे स्कोर पर वापस जाएं",
+
+                    explore_title: "आपका विश्लेषण अभी खत्म नहीं हुआ है!",
+                    explore_desc: "आपने अपनी सप्ताहांत की योजनाओं का ऑडिट किया है, लेकिन आपके बाकी प्रफुल्लित करने वाले व्यक्तित्व के बारे में क्या? आपका प्रेम जीवन, आपके गुस्से के मुद्दे... पर्सनैलिटी पाठशाला में आपके लिए मज़ेदार कैलकुलेटर की एक पूरी कक्षा है।",
+                    explore_button: "पर्सनैलिटी पाठशाला पर जाएँ",
+                    support_title: "यह क्विज़ पसंद आया? और बनाने में हमारी मदद करें!",
+                    support_desc: "आपका छोटा सा योगदान हमारी रचनात्मकता को चालू रखता है और हमें और मज़ा परोसने में मदद करता है।",
+                    
+                    questions: [
+                        { id: 1, question: "एक लंबा सप्ताहांत घोषित किया गया है। आपका पहला विचार है:", answers: [ { text: "'अंत में, 3 दिन की निर्बाध नींद!'", score: 1, feedback: "वास्तव में थके हुए का सपना।" }, { text: "'पहाड़ों की एक त्वरित यात्रा की योजना बनाने का समय!'", score: 3, feedback: "बैग पहले से ही पैक हैं।" }, { text: "'शायद एक दिन की यात्रा और दो दिन चिलिंग।'", score: 2, feedback: "दोनों दुनिया का सर्वश्रेष्ठ।" } ] },
+                        { id: 2, question: "आपकी आदर्श रविवार की सुबह में शामिल है:", answers: [ { text: "दोपहर में उठना।", score: 1, feedback: "एक अच्छी तरह से योग्य आराम।" }, { text: "सुबह 6 बजे की ट्रेक।", score: 3, feedback: "जल्दी उठने वाले को दृश्य मिलता है।" }, { text: "दोस्तों के साथ ब्रंच।", score: 2, feedback: "एक क्लासिक सामाजिक रविवार।" } ] },
+                        { id: 3, question: "एक दोस्त एक सहज योजना के साथ फोन करता है। आप:", answers: [ { text: "'मैं पहले से ही अपने पजामे में हूँ, क्षमा करें।'", score: 1, feedback: "पजामा एक पवित्र बंधन है।" }, { text: "'मुझे अपना कार्यक्रम देखने दो' (जो खाली है)।", score: 2, feedback: "व्यस्त होने का भ्रम।" }, { text: "'मैं अंदर हूँ! हम कहाँ जा रहे हैं?'", score: 3, feedback: "साहसी।" } ] },
+                        { id: 4, question: "आपकी सप्ताहांत की वर्दी है:", answers: [ { text: "वही पजामा जो आप शुक्रवार की रात से पहन रहे हैं।", score: 1, feedback: "आराम महत्वपूर्ण है।" }, { text: "एक्टिववियर, बस मामले में एक साहसिक कार्य बुलाता है।", score: 3, feedback: "हमेशा तैयार।" }, { text: "कुछ स्टाइलिश लेकिन आरामदायक, एक ब्रंच या एक फिल्म के लिए।", score: 2, feedback: "आकस्मिक फैशनिस्टा।" } ] },
+                        { id: 5, question: "वाक्यांश 'चलो कुछ मजेदार करते हैं' एक सप्ताहांत पर मतलब है:", answers: [ { text: "चलो बिंज-वॉच के लिए एक नई श्रृंखला ढूंढते हैं।", score: 1, feedback: "स्क्रीन पर एक साहसिक कार्य।" }, { text: "चलो शहर का एक नया हिस्सा तलाशते हैं।", score: 2, feedback: "शहरी खोजकर्ता।" }, { text: "चलो स्काइडाइविंग करते हैं!", score: 3, feedback: "एड्रेनालाईन जंकी।" } ] },
+                        { id: 6, question: "आपका फोन ज्यादातर सप्ताहांत पर उपयोग किया जाता है:", answers: [ { text: "भोजन ऑर्डर करने और फिल्में देखने के लिए।", score: 1, feedback: "आवश्यकताएं।" }, { text: "10 अलग-अलग लोगों के साथ योजनाओं का समन्वय करने के लिए।", score: 3, feedback: "सामाजिक योजनाकार।" }, { text: "दोनों का थोड़ा सा।", score: 2, feedback: "संतुलित उपयोगकर्ता।" } ] },
+                        { id: 7, question: "जब आप 'कैंपिंग' सुनते हैं, तो आप सोचते हैं:", answers: [ { text: "कीड़े, कोई वाई-फाई नहीं, और जमीन पर सोना। नहीं, धन्यवाद।", score: 1, feedback: "आराम प्रेमी।" }, { text: "मजेदार लगता है, जब तक कि एक उचित बाथरूम हो।", score: 2, feedback: "'ग्लैम्पर'।" }, { text: "तारों को देखना, अलाव, और रोमांच! चलो चलें!", score: 3, feedback: "प्रकृति प्रेमी।" } ] },
+                        { id: 8, question: "आपके 'मी टाइम' में शामिल है:", answers: [ { text: "एक किताब या एक खेल के साथ पूरी तरह से अकेला होना।", score: 1, feedback: "शांतिपूर्ण आत्मा।" }, { text: "एक नई जगह की एक एकल यात्रा।", score: 3, feedback: "स्वतंत्र खोजकर्ता।" }, { text: "एक स्पा दिन या एक खरीदारी यात्रा।", score: 2, feedback: "आत्म-देखभाल विशेषज्ञ।" } ] },
+                        { id: 9, question: "एक शनिवार को मौसम एकदम सही है। आप:", answers: [ { text: "अपने घर के आराम से इसका आनंद लेने के लिए खिड़कियां खोलें।", score: 1, feedback: "इनडोर प्रकृति।" }, { text: "बाहर जाने की योजना बनाने के लिए तुरंत दोस्तों को फोन करें।", score: 3, feedback: "कारपे डायम!" }, { text: "पास के एक पार्क में टहलने जाएं।", score: 2, feedback: "एक कोमल साहसिक।" } ] },
+                        { id: 10, question: "एक लंबे सप्ताह के बाद, आपको आवश्यकता है:", answers: [ { text: "अकेले रहकर अपनी सामाजिक बैटरी को रिचार्ज करने के लिए।", score: 1, feedback: "अंतर्मुखी का अनुष्ठान।" }, { text: "दोस्तों से मिलकर और मस्ती करके रिचार्ज करने के लिए।", score: 3, feedback: "बहिर्मुखी का ईंधन।" }, { text: "दोनों का थोड़ा सा।", score: 2, feedback: "उभयमुखी का संतुलन।" } ] },
+                        { id: 11, question: "एक 'उत्पादक सप्ताहांत' की आपकी परिभाषा है:", answers: [ { text: "एक टीवी शो का पूरा सीजन खत्म करना।", score: 1, feedback: "एक अलग तरह का मैराथन।" }, { text: "घर की सफाई, कपड़े धोना और किराने की खरीदारी करना।", score: 2, feedback: "जिम्मेदार वयस्क।" }, { text: "एक नया कौशल सीखना या एक नई जगह का दौरा करना।", score: 3, feedback: "खोजकर्ता।" } ] },
+                        { id: 12, question: "आपको शुक्रवार की रात एक पार्टी में आमंत्रित किया गया है। आप:", answers: [ { text: "जाओ, लेकिन रात 10 बजे तक निकल जाओ।", score: 2, feedback: "रणनीतिक पार्टी-जाने वाला।" }, { text: "डांस फ्लोर छोड़ने वाले आखिरी व्यक्ति हैं।", score: 3, feedback: "पार्टी की जान।" }, { text: "अचानक एक 'सिरदर्द' महसूस होता है।", score: 1, feedback: "बहाने का मास्टर।" } ] },
+                        { id: 13, question: "आपका यात्रा बैग है:", answers: [ { text: "अटारी में कहीं, धूल से ढका हुआ।", score: 1, feedback: "यह हाइबरनेशन में है।" }, { text: "हमेशा आधा-पैक, बस मामले में।", score: 3, feedback: "किसी भी चीज़ के लिए तैयार।" }, { text: "साफ-सुथरा संग्रहीत और अगली नियोजित यात्रा के लिए तैयार।", score: 2, feedback: "संगठित यात्री।" } ] },
+                        { id: 14, question: "एक दोस्त पूछता है 'तुमने इस सप्ताहांत क्या किया?'। आप गर्व से कहते हैं:", answers: [ { text: "'बिल्कुल कुछ नहीं। यह शानदार था।'", score: 1, feedback: "विश्राम का राजा/रानी।" }, { text: "'मैं एक सहज सड़क यात्रा पर गया था!'", score: 3, feedback: "कहानीकार।" }, { text: "'मैंने कुछ काम निपटाए और एक फिल्म देखी।'", score: 2, feedback: "संतुलित जीवन।" } ] },
+                        { id: 15, question: "आपके पसंदीदा प्रकार के जूते हैं:", answers: [ { text: "आरामदायक घर की चप्पलें।", score: 1, feedback: "परम आराम।" }, { text: "मजबूत ट्रेकिंग जूते।", score: 3, feedback: "किसी भी इलाके के लिए तैयार।" }, { text: "स्टाइलिश स्नीकर्स जो चलने के लिए अच्छे हैं।", score: 2, feedback: "फैशन समारोह से मिलता है।" } ] },
+                        { id: 16, question: "वाक्यांश 'संडे स्केरीज़' का अर्थ है:", answers: [ { text: "सोमवार के आने का डर।", score: 1, feedback: "हम आपको महसूस करते हैं।" }, { text: "सप्ताहांत बर्बाद करने का डर।", score: 3, feedback: "FOMO असली है।" }, { text: "एक अतिरिक्त-लंबी रविवार ब्रंच करने का एक अच्छा कारण।", score: 2, feedback: "इलाज।" } ] },
+                        { id: 17, question: "आपकी आदर्श छुट्टी में शामिल है:", answers: [ { text: "एक विस्तृत यात्रा कार्यक्रम।", score: 2, feedback: "योजनाकार।" }, { text: "एक-तरफ़ा टिकट और कोई योजना नहीं।", score: 3, feedback: "सच्चा साहसी।" }, { text: "एक बहुत अच्छे बिस्तर वाला एक होटल।", score: 1, feedback: "आराम-चाहने वाला।" } ] },
+                        { id: 18, question: "एक 'स्टेकेशन' है:", answers: [ { text: "सबसे अच्छी तरह की छुट्टी।", score: 1, feedback: "घर-प्रेमी।" }, { text: "एक वास्तविक यात्रा के लिए एक दुखद बहाना।", score: 3, feedback: "खोजकर्ता।" }, { text: "पैसे बचाने और आराम करने का एक अच्छा तरीका।", score: 2, feedback: "व्यावहारिक।" } ] },
+                        { id: 19, question: "एक सप्ताहांत के लिए सबसे महत्वपूर्ण वस्तु है:", answers: [ { text: "एक आरामदायक कंबल।", score: 1, feedback: "आरामदायक।" }, { text: "एक पूरी तरह से चार्ज किया हुआ पावर बैंक।", score: 3, feedback: "तैयार साहसी।" }, { text: "एक अच्छी प्लेलिस्ट।", score: 2, feedback: "वाइब-सेटर।" } ] },
+                        { id: 20, question: "आपके दोस्त आपको इस रूप में वर्णित करते हैं:", answers: [ { text: "जो हमेशा किसी भी चीज़ के लिए तैयार रहता है।", score: 3, feedback: "'हाँ' व्यक्ति।" }, { text: "जिसे घर से बाहर निकालना असंभव है।", score: 1, feedback: "घर का आदमी।" }, { text: "जिसे एक योजना बनाने के लिए कम से कम 3 दिन का नोटिस चाहिए।", score: 2, feedback: "योजनाकार।" } ] },
+                        { id: 21, question: "जब आप 'साहसिक' सुनते हैं, तो आप सोचते हैं:", answers: [ { text: "पहाड़ों पर चढ़ना और जंगलों की खोज करना।", score: 3, feedback: "जंगली।" }, { text: "एक नया रेस्तरां आज़माना।", score: 2, feedback: "शहरी खोजकर्ता।" }, { text: "नेटफ्लिक्स पर एक नया शो खोजना।", score: 1, feedback: "डिजिटल खोजकर्ता।" } ] },
+                        { id: 22, question: "एक सप्ताहांत पर दिन का आपका पसंदीदा हिस्सा है:", answers: [ { text: "सुबह, संभावनाओं से भरी।", score: 3, feedback: "जल्दी उठने वाला।" }, { text: "दोपहर की झपकी।", score: 1, feedback: "सिएस्टा राजा/रानी।" }, { text: "शाम, जब मज़ा शुरू होता है।", score: 2, feedback: "रात का उल्लू।" } ] },
+                        { id: 23, question: "आपको एक संदेश मिलता है 'चलो एक योजना बनाते हैं'। आप जवाब देते हैं:", answers: [ { text: "'ज़रूर, कब और कहाँ?'", score: 3, feedback: "कार्रवाई के लिए तैयार।" }, { text: "'अच्छा लगता है!' (और फिर कभी फॉलो अप न करें)", score: 2, feedback: "विनम्र घोस्टर।" }, { text: "उन्हें 'पढ़ा' पर छोड़ दें।", score: 1, feedback: "परम योजना-रद्द करने वाला।" } ] },
+                        { id: 24, question: "आपके फोन का वॉलपेपर शायद एक तस्वीर है:", answers: [ { text: "एक यात्रा से एक सुंदर परिदृश्य की।", score: 3, feedback: "यात्री।" }, { text: "आपके पालतू जानवर या आपके बिस्तर की।", score: 1, feedback: "आराम-प्रेमी।" }, { text: "दोस्तों के साथ एक मजेदार स्मृति की।", score: 2, feedback: "सोशलाइट।" } ] },
+                        { id: 25, question: "यह क्विज़ था:", answers: [ { text: "मेरी कई योजनाओं से एक मजेदार व्याकुलता।", score: 3, feedback: "हम आपके साहसिक कार्य का हिस्सा बनकर खुश हैं।" }, { text: "मैंने पूरे दिन में जो सबसे रोमांचक काम किया है।", score: 1, feedback: "हम सम्मानित हैं।" }, { text: "एपिसोड के बीच एक अच्छा ब्रेक।", score: 2, feedback: "एक अच्छी तरह से योग्य ब्रेक।" } ] }
+                    ]
+                }
+            };
+            
+            // --- STATE MANAGEMENT & DOM ELEMENTS ---
+            let currentQuestionIndex = 0;
+            let userAnswers = {};
+            let currentLang = 'en';
+            let quizQuestions = [];
+            let userName = '';
+            const QUESTIONS_PER_QUIZ = 15;
+
+            const allLangElements = document.querySelectorAll('[data-lang-key]');
+            const langPlaceholderElements = document.querySelectorAll('[data-lang-placeholder]');
+            const languageToggle = document.getElementById('language-toggle');
+            const startScreen = document.getElementById('start-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const calculatingScreen = document.getElementById('calculating-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const journeyScreen = document.getElementById('journey-screen');
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const goBackBtn = document.getElementById('go-back-btn');
+            const backToMainBtn = document.getElementById('back-to-main-btn');
+            const nameInput = document.getElementById('name-input');
+            const questionContainer = document.getElementById('question-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const finalScoreEl = document.getElementById('final-score');
+            const resultTitleEl = document.getElementById('result-title');
+            const resultDescriptionEl = document.getElementById('result-description');
+            const finalQuoteEl = document.getElementById('final-quote');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const shareButtonsContainer = document.getElementById('share-buttons');
+            const exploreBtn = document.getElementById('explore-btn');
+
+            // --- LANGUAGE LOGIC ---
+            const updateLanguage = (lang) => {
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                document.documentElement.lang = lang;
+                
+                languageToggle.innerHTML = (lang === 'en') 
+                    ? `<i class="fa-solid fa-language mr-2"></i> हिन्दी`
+                    : `<i class="fa-solid fa-language mr-2"></i> English`;
+
+                allLangElements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    const value = getNestedValue(content[lang], key);
+                    if (value) el.innerHTML = value;
+                });
+                
+                langPlaceholderElements.forEach(el => {
+                    const key = el.dataset.langPlaceholder;
+                    const value = getNestedValue(content[lang], key);
+                    if(value) el.placeholder = value;
+                });
+            };
+
+            const getNestedValue = (obj, key) => key.split('.').reduce((acc, part) => acc && acc[part], obj);
+
+            // --- THEME LOGIC ---
+            const applyTheme = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIconDark.classList.remove('hidden');
+                    themeIconLight.classList.add('hidden');
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
+            applyTheme(isDarkMode);
+
+            // --- UI FUNCTIONS ---
+            const renderQuestion = () => {
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const q_id = quizQuestions[currentQuestionIndex];
+                    const q_data_en = content.en.questions.find(item => item.id === q_id);
+                    const q_lang = content[currentLang].questions.find(item => item.id === q_id);
+                    
+                    if(!q_data_en || !q_lang) {
+                        goHome();
+                        return;
+                    }
+
+                    const shuffledAnswers = [...q_lang.answers].sort(() => Math.random() - 0.5);
+
+                    let answersHTML = shuffledAnswers.map(answer => {
+                        return `
+                        <button data-score="${answer.score}" class="choice-btn w-full text-left p-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-green-100 dark:hover:bg-green-500 transition-colors duration-200">
+                            ${answer.text}
+                        </button>
+                    `}).join('');
+                    
+                    const counterText = content[currentLang].question_counter
+                        .replace('{current}', currentQuestionIndex + 1)
+                        .replace('{total}', QUESTIONS_PER_QUIZ);
+
+                    questionContainer.innerHTML = `
+                        <div class="fade-in">
+                            <p class="text-lg font-semibold dark-mode-subtext mb-4">${counterText}</p>
+                            <h2 class="text-2xl md:text-3xl font-bold dark-mode-text mb-8">${q_lang.question.replace(/{name}/g, `<strong>${userName}</strong>`)}</h2>
+                            <div class="flex flex-col items-center space-y-4">${answersHTML}</div>
+                        </div>
+                    `;
+                    feedbackContainer.innerHTML = '';
+                    updateProgressBar();
+                } else {
+                    showCalculatingScreen();
+                }
+            };
+            
+            const updateProgressBar = () => {
+                const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            };
+
+            // --- CORE LOGIC ---
+            const startQuiz = () => {
+                userName = nameInput.value.trim();
+                if (!userName) {
+                    userName = (currentLang === 'en') ? 'Explorer' : 'खोजकर्ता';
+                }
+
+                let allQuestionIds = content.en.questions.map(q => q.id);
+                allQuestionIds.sort(() => Math.random() - 0.5);
+                quizQuestions = allQuestionIds.slice(0, QUESTIONS_PER_QUIZ);
+                currentQuestionIndex = 0;
+                userAnswers = {};
+
+                startScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    startScreen.classList.add('hidden');
+                    startScreen.classList.remove('fade-out');
+                    quizScreen.classList.remove('hidden');
+                    quizScreen.classList.add('fade-in');
+                    progressContainer.classList.remove('hidden');
+                    backToMainBtn.classList.remove('hidden');
+                    renderQuestion();
+                }, 500);
+            };
+
+            const handleAnswer = (e) => {
+                const selectedBtn = e.target.closest('.choice-btn');
+                if (!selectedBtn) return;
+
+                const score = parseInt(selectedBtn.dataset.score);
+                const question_id = quizQuestions[currentQuestionIndex];
+                const question_data_lang = content[currentLang].questions.find(item => item.id === question_id);
+                
+                const answer_data_lang = question_data_lang.answers.find(a => a.score === score);
+                if (answer_data_lang) {
+                    feedbackContainer.innerHTML = `<p class="fade-in font-semibold text-lg text-teal-600 dark:text-teal-400">${answer_data_lang.feedback}</p>`;
+                }
+
+                userAnswers[question_id] = score;
+                
+                questionContainer.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn !== selectedBtn) {
+                        btn.classList.add('opacity-50');
+                    } else {
+                        btn.classList.add('ring-4', 'ring-green-400');
+                    }
+                });
+                
+                setTimeout(() => {
+                    if (questionContainer.firstElementChild) {
+                        questionContainer.firstElementChild.classList.replace('fade-in', 'fade-out');
+                    }
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    }, 500);
+                }, 1800);
+            };
+
+            const showCalculatingScreen = () => {
+                quizScreen.classList.add('fade-out');
+                progressContainer.classList.add('hidden');
+                backToMainBtn.classList.add('hidden');
+                setTimeout(() => {
+                    quizScreen.classList.add('hidden');
+                    quizScreen.classList.remove('fade-out');
+                    calculatingScreen.classList.remove('hidden');
+                    calculatingScreen.classList.add('fade-in');
+                    const calculatingTexts = [
+                        content[currentLang].calculating_text, 
+                        (currentLang === 'en' ? "Checking your weekend plans..." : "आपके सप्ताहांत की योजनाओं की जाँच हो रही है..."),
+                        (currentLang === 'en' ? "Asking your couch for its opinion..." : "आपके सोफे से उसकी राय पूछी जा रही है...")
+                    ];
+                    document.getElementById('calculating-text').innerText = calculatingTexts[Math.floor(Math.random()*calculatingTexts.length)];
+                    setTimeout(showResults, 2500);
+                }, 500);
+            }
+            
+            const showResults = (isThemeOrLangUpdate = false) => {
+                if (!isThemeOrLangUpdate) {
+                     calculatingScreen.classList.add('fade-out');
+                     setTimeout(() => {
+                        calculatingScreen.classList.add('hidden');
+                        calculatingScreen.classList.remove('fade-out');
+                        resultsScreen.classList.remove('hidden');
+                        resultsScreen.classList.add('slide-up');
+                        calculateAndDisplayScores();
+                    }, 500);
+                } else {
+                    calculateAndDisplayScores();
+                }
+            };
+
+            const calculateAndDisplayScores = () => {
+                let totalScore = 0;
+                Object.values(userAnswers).forEach(score => {
+                    totalScore += score;
+                });
+
+                const minPossibleScore = QUESTIONS_PER_QUIZ * 1;
+                const maxPossibleScore = QUESTIONS_PER_QUIZ * 3;
+                const scoreRange = maxPossibleScore - minPossibleScore;
+                const userScoreOffset = totalScore - minPossibleScore;
+
+                let weekendPercentage = 0;
+                if (scoreRange > 0) {
+                    weekendPercentage = Math.round((userScoreOffset / scoreRange) * 100);
+                }
+                
+                finalScoreEl.classList.remove('score-reveal');
+                void finalScoreEl.offsetWidth; // Trigger reflow
+                finalScoreEl.classList.add('score-reveal');
+
+                let startValue = 0;
+                const duration = 1200;
+                const endValue = weekendPercentage;
+                const startTime = performance.now();
+
+                function animateCountUp(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    if (elapsedTime < duration) {
+                        const progress = elapsedTime / duration;
+                        const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+                        const currentValue = Math.round(startValue + (endValue - startValue) * easedProgress);
+                        finalScoreEl.textContent = `${currentValue}%`;
+                        requestAnimationFrame(animateCountUp);
+                    } else {
+                        finalScoreEl.textContent = `${endValue}%`;
+                    }
+                }
+                requestAnimationFrame(animateCountUp);
+
+                let resultKey;
+                if (weekendPercentage <= 25) resultKey = 'homebody';
+                else if (weekendPercentage <= 50) resultKey = 'balanced';
+                else if (weekendPercentage <= 75) resultKey = 'explorer';
+                else resultKey = 'warrior';
+                
+                finalQuoteEl.dataset.resultKey = resultKey;
+                document.getElementById('award-name').textContent = userName;
+
+                const personalizedLabel = content[currentLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+
+                resultTitleEl.textContent = content[currentLang][`result_${resultKey}_title`];
+                resultDescriptionEl.innerHTML = content[currentLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                finalQuoteEl.textContent = content[currentLang][`final_quote_${resultKey}`];
+                
+                const awardEmoji = document.getElementById('award-emoji');
+                const awardTitle = document.getElementById('award-title');
+                const awardReason = document.getElementById('award-reason');
+
+                if (resultKey === 'homebody') {
+                    awardEmoji.innerText = '🛋️';
+                    awardTitle.innerText = 'The Couch Potato Trophy';
+                    awardReason.innerText = 'For outstanding services to napping.';
+                } else {
+                    awardEmoji.innerText = '🏆';
+                    awardTitle.innerText = 'The Adventure Medal';
+                    awardReason.innerText = 'For services to exploration and fun.';
+                }
+
+                displayFunnyComments(resultKey);
+                updateShareLinks(weekendPercentage, content[currentLang][`result_${resultKey}_title`]);
+            };
+
+            const startBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                stopBackgroundAnimations();
+                
+                const emojis = ['😴', '🧗', '🏕️', '🍿', '🗺️', '😂', '🏞️', '✈️'];
+                const numEmojis = 25;
+
+                for (let i = 0; i < numEmojis; i++) {
+                    const emoji = document.createElement('span');
+                    emoji.className = 'floating-emoji';
+                    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    emoji.style.left = `${Math.random() * 100}vw`;
+                    emoji.style.fontSize = `${1 + Math.random() * 2}rem`;
+                    const duration = 8 + Math.random() * 10;
+                    const delay = Math.random() * 7;
+                    const translateX = `${(Math.random() - 0.5) * 200}px`;
+                    const rotate = `${(Math.random() - 0.5) * 720}deg`;
+                    
+                    emoji.style.setProperty('--translateX', translateX);
+                    emoji.style.setProperty('--rotate', rotate);
+                    emoji.style.animation = `floatUp ${duration}s ease-in ${delay}s infinite`;
+                    
+                    container.appendChild(emoji);
+                }
+            };
+
+            const stopBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (container) {
+                    container.innerHTML = '';
+                }
+            };
+
+            const typewriter = (element, text, callback) => {
+                let i = 0;
+                const speed = 40; // milliseconds per character
+                const originalHTML = element.innerHTML;
+                element.innerHTML = originalHTML + '<span class="typing-text"></span><span class="typing-cursor border-l-2 border-green-500 h-6 inline-block align-middle">&nbsp;</span>';
+                const textSpan = element.querySelector('.typing-text');
+                const cursorSpan = element.querySelector('.typing-cursor');
+                
+                function type() {
+                    if (i < text.length) {
+                        textSpan.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        if(cursorSpan) {
+                           cursorSpan.style.display = 'none';
+                        }
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+
+            const displayFunnyComments = (resultKey) => {
+                const commentsContainer = document.getElementById('funny-comments-container');
+                if (!commentsContainer) return;
+                commentsContainer.innerHTML = '';
+                const commentsPool = content[currentLang].funny_comments[resultKey] || [];
+                
+                const shuffledComments = [...commentsPool].sort(() => 0.5 - Math.random());
+                const selectedComments = shuffledComments.slice(0, 3);
+
+                let commentIndex = 0;
+
+                function typeNextComment() {
+                    if (commentIndex < selectedComments.length) {
+                        const commentText = selectedComments[commentIndex];
+                        
+                        const card = document.createElement('div');
+                        card.className = 'funny-comment-card bg-green-100 dark:bg-gray-800 p-4 rounded-lg mb-4 text-gray-700 dark:text-green-300 italic shadow-md';
+                        
+                        const p = document.createElement('p');
+                        p.innerHTML = `<i class="fa-solid fa-quote-left mr-2 text-green-500"></i> `;
+                        card.appendChild(p);
+
+                        card.style.animationDelay = `0.2s`;
+                        
+                        commentsContainer.appendChild(card);
+                        
+                        setTimeout(() => {
+                            typewriter(p, commentText, () => {
+                                commentIndex++;
+                                setTimeout(typeNextComment, 800); 
+                            });
+                        }, 600);
+                    }
+                }
+                
+                startBackgroundAnimations();
+                typeNextComment();
+            };
+
+
+            const updateShareLinks = (percentage, title) => {
+                const text = encodeURIComponent(`My Weekend Warrior Score is ${percentage}%! Turns out I'm a "${title}". Find out your weekend style:`);
+                const url = encodeURIComponent(window.location.href);
+                
+                document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                document.getElementById('telegram-share').href = `https://t.me/share/url?url=${url}&text=${text}`;
+                document.getElementById('instagram-share').href = `https://www.instagram.com/`;
+            };
+            
+            const goHome = () => {
+                stopBackgroundAnimations();
+                [quizScreen, resultsScreen, journeyScreen, progressContainer, backToMainBtn, calculatingScreen].forEach(el => el.classList.add('hidden'));
+                startScreen.classList.remove('hidden', 'fade-out');
+                startScreen.classList.add('fade-in');
+                nameInput.value = '';
+                currentQuestionIndex = 0;
+                userAnswers = {};
+                quizQuestions = [];
+                progressBar.style.width = '0%';
+            };
+
+            const showJourneyScreen = (e) => {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                resultsScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    resultsScreen.classList.add('hidden');
+                    resultsScreen.classList.remove('fade-out');
+                    journeyScreen.classList.remove('hidden');
+                    journeyScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            const showResultsScreenFromJourney = () => {
+                journeyScreen.classList.add('fade-out');
+                 setTimeout(() => {
+                    journeyScreen.classList.add('hidden');
+                    journeyScreen.classList.remove('fade-out');
+                    resultsScreen.classList.remove('hidden');
+                    resultsScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            // --- EVENT LISTENERS ---
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', goHome);
+            backToMainBtn.addEventListener('click', goHome);
+            goBackBtn.addEventListener('click', showResultsScreenFromJourney);
+            quizScreen.addEventListener('click', handleAnswer);
+            shareButtonsContainer.addEventListener('click', (e) => {
+                const shareBtn = e.target.closest('a.share-btn');
+                if (shareBtn && shareBtn.href && shareBtn.href !== '#') {
+                    showJourneyScreen(e);
+                }
+            });
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+                if (!resultsScreen.classList.contains('hidden')) { showResults(true); }
+            });
+            languageToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'hi' : 'en';
+                updateLanguage(newLang);
+                if (!quizScreen.classList.contains('hidden') || !calculatingScreen.classList.contains('hidden')) { 
+                    goHome();
+                } else if (!resultsScreen.classList.contains('hidden')) {
+                    const resultKey = finalQuoteEl.dataset.resultKey;
+                    const personalizedLabel = content[newLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                    document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+                    resultTitleEl.textContent = content[newLang][`result_${resultKey}_title`];
+                    resultDescriptionEl.innerHTML = content[newLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                    finalQuoteEl.textContent = content[newLang][`final_quote_${resultKey}`];
+                    displayFunnyComments(resultKey);
+                }
+            });
+
+            // Initial Load
+            const savedLang = localStorage.getItem('language') || 'en';
+            updateLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>

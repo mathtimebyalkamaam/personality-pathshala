@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0DL8SC5JKB');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugaadu Meter - How Resourceful Are You?</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS for theme, animations, and additional styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Dark Mode --- */
+        .dark .dark-mode-bg { background-color: #111827; }
+        .dark .dark-mode-text { color: #f9fafb; }
+        .dark .dark-mode-surface { background-color: #1f2937; }
+        .dark .dark-mode-border { border-color: #374151; }
+        .dark .dark-mode-subtext { color: #9ca3af; }
+
+        /* --- Animations --- */
+        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .pulse { animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .9; transform: scale(1.02); }
+        }
+
+        /* --- Button Styles --- */
+        .choice-btn, .share-btn, .control-btn {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .choice-btn:hover, .share-btn:hover, .control-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Social Share Colors --- */
+        .whatsapp-btn { background-color: #25D366; }
+        .twitter-btn { background-color: #1DA1F2; }
+        .facebook-btn { background-color: #1877F2; }
+        .telegram-btn { background-color: #24A1DE; }
+        .instagram-btn {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        }
+
+        /* --- Score Animation --- */
+        .score-reveal {
+            animation: scoreReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.5), 0 0 20px rgba(245, 158, 11, 0.3); /* Amber Shadow */
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* --- Funny Comments Styling --- */
+        .funny-comments-container {
+            perspective: 1000px;
+        }
+
+        .funny-comment-card {
+            opacity: 0;
+            transform: rotateX(-90deg) translateY(50px);
+            transform-origin: bottom center;
+            animation: revealComment 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .funny-comment-card p {
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1.75rem; /* leading-7 */
+        }
+
+        @media (min-width: 768px) {
+            .funny-comment-card p {
+                font-size: 1.5rem; /* md:text-2xl */
+                line-height: 2rem; /* md:leading-8 */
+            }
+        }
+
+
+        @keyframes revealComment {
+            from {
+                opacity: 0;
+                transform: rotateX(-90deg) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0deg) translateY(0);
+            }
+        }
+        
+        /* --- Typing Effect --- */
+        .typing-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #f59e0b; } /* amber-500 */
+        }
+        
+        /* --- Background Animation --- */
+        #animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: -50px; /* Start from below the screen */
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--translateX)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode-bg text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+    <div id="animation-container"></div>
+    <!-- Header for Toggles -->
+    <header class="absolute top-4 w-full px-4 z-20 flex items-center justify-between">
+        <!-- Back to Main Page Button (Initially hidden) -->
+        <a id="back-to-main-btn" href="index.html" role="button" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </a>
+
+        <div class="flex items-center space-x-2 ml-auto">
+             <!-- Language Toggle -->
+            <button id="language-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 dark:focus:ring-offset-gray-900 w-28 h-10 flex items-center justify-center text-sm">
+                <!-- Text updated by JS -->
+            </button>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+                <svg id="theme-icon-dark" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg id="theme-icon-light" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-2 bg-gray-200 dark:bg-gray-700 z-10 hidden">
+        <div id="progress-bar" class="h-full bg-amber-500 progress-bar-fill" style="width: 0%;"></div>
+    </div>
+    
+    <main class="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-screen relative z-10">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center max-w-2xl fade-in">
+            <h1 class="text-4xl md:text-6xl font-extrabold dark-mode-text tracking-tight mb-4">The <span class="text-amber-500" data-lang-key="title">Jugaadu Meter</span></h1>
+            <p class="text-lg md:text-xl dark-mode-subtext mb-8" data-lang-key="subtitle">
+                Do you fix a leaky tap with chewing gum? Can you make a phone stand out of anything? Let's see if you're a Desi Engineer or just someone who follows the manual!
+            </p>
+            <div class="mb-6 w-full max-w-sm mx-auto">
+                <input type="text" id="name-input" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-900 dark:text-white" data-lang-placeholder="name_placeholder">
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-8 italic" data-lang-key="privacy_disclaimer"></p>
+            <button id="start-btn" data-lang-key="start_button" class="bg-amber-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-amber-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-amber-300 pulse">
+                Start Jugaad!
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden w-full max-w-3xl">
+            <div id="question-container" class="text-center pt-16">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <div id="feedback-container" class="mt-6 text-center text-md dark-mode-subtext min-h-[60px]">
+                <!-- Feedback will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Calculating Screen -->
+        <div id="calculating-screen" class="hidden text-center w-full max-w-2xl">
+            <svg class="animate-spin h-16 w-16 text-amber-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h2 id="calculating-text" class="text-2xl font-bold dark-mode-text" data-lang-key="calculating_text">Searching for spare parts...</h2>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center w-full max-w-4xl pt-16">
+            <h2 class="text-2xl font-bold dark-mode-subtext mb-2" data-lang-key="result_level_label">Your Jugaadu Level</h2>
+            <div id="final-score" class="text-7xl md:text-8xl font-extrabold text-amber-500 mb-4">0%</div>
+            <h3 id="result-title" class="text-3xl md:text-4xl font-extrabold dark-mode-text mb-3"></h3>
+            <p id="result-description" class="text-lg md:text-xl dark-mode-subtext mb-8 max-w-2xl mx-auto"></p>
+            
+            <div id="funny-comments-container" class="funny-comments-container mt-8 mb-8 max-w-2xl mx-auto">
+                <!-- Comments will be injected here -->
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="mb-8">
+                <p class="font-bold dark-mode-text mb-3" data-lang-key="share_results_label">Share Your Jugaadu Report & Get a Patent!</p>
+                <div id="share-buttons" class="flex justify-center items-center flex-wrap gap-4">
+                    <a id="whatsapp-share" href="https://ppscore.co.in" target="_blank" class="share-btn whatsapp-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l.217.324-1.125 4.108 4.224-1.103.337.202z" /></svg>
+                    </a>
+                    <a id="twitter-share" href="https://ppscore.co.in" target="_blank" class="share-btn twitter-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.794 4.649-.69.188-1.433.23-2.184.085.617 1.914 2.408 3.258 4.53 3.301-1.724 1.352-3.883 2.093-6.138 1.795 1.815 1.163 3.973 1.84 6.262 1.84 7.218 0 11.168-5.986 11.168-11.168 0-.17-.003-.34-.01-.508.77-.556 1.438-1.248 1.968-2.04z"/></svg>
+                    </a>
+                    <a id="facebook-share" href="https://ppscore.co.in" target="_blank" class="share-btn facebook-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                    </a>                      
+                    <a id="telegram-share" href="https://ppscore.co.in" target="_blank" class="share-btn telegram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-1.39.2-1.62l15.97-5.85c.73-.27 1.36.17 1.15.99L16.4 18.28c-.21.83-1.2.5-1.54-.26L9.78 18.65z"/></svg>
+                    </a>
+                    <a id="instagram-share" href="https://ppscore.co.in" target="_blank" class="share-btn instagram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <p id="final-quote" class="text-lg dark-mode-text max-w-3xl mx-auto mb-8 italic">
+                <!-- Quote inserted by JS -->
+            </p>
+
+            <button id="restart-btn" data-lang-key="restart_button" class="bg-amber-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-amber-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-amber-300">
+                Let's Fix It Again!
+            </button>
+
+            <!-- Explore More Section -->
+            <div class="mt-16 py-8 border-t-2 border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
+                 <h3 class="text-2xl md:text-3xl font-extrabold dark-mode-text mb-4" data-lang-key="explore_title">Your Analysis Isn't Over Yet!</h3>
+                 <p class="text-lg dark-mode-subtext mb-8" data-lang-key="explore_desc">
+                   You've audited your life-hack skills, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.
+                 </p>
+                 <a id="explore-btn" href="index.html" class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 inline-block" data-lang-key="explore_button">
+                   Visit PersonalityPaathshala
+                 </a>
+                 <div class="mt-8 mb-6">
+                    <p class="font-semibold mb-2 text-amber-400 dark:text-amber-300" data-lang-key="support_title">Loved this quiz? Help us create more!</p>
+                    <p class="text-base text-gray-700 dark:text-white mb-3" data-lang-key="support_desc">Your small contribution keeps our creative engine running and helps us serve more fun.</p>
+                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QvFHmdPg3T4Pqh" async> </script> </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Screen -->
+        <div id="journey-screen" class="hidden text-center w-full max-w-2xl pt-16">
+            <h2 class="text-4xl font-extrabold text-amber-500 mb-4" data-lang-key="journey_title">Your Jugaad Patent!</h2>
+            <p class="text-lg dark-mode-subtext mb-8" data-lang-key="journey_subtitle">You shared your score, you genius! As a reward, here is the official patent for one of your brilliant, world-changing inventions.</p>
+            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-xl border-4 border-gray-500">
+                <div class="text-center p-4 border-2 border-dashed border-gray-400">
+                    <h3 class="text-2xl font-bold dark-mode-text">The Government of Jugaad</h3>
+                    <p class="dark-mode-subtext mt-2 uppercase tracking-widest">Official Patent</p>
+                    <div class="my-4">
+                        <i class="fas fa-tools text-5xl text-amber-500"></i>
+                    </div>
+                    <p class="dark-mode-subtext">Hereby grants to the inventor:</p>
+                    <p id="patent-name" class="text-3xl font-bold text-amber-500 my-2">[Your Name]</p>
+                    <p class="dark-mode-text">The exclusive right to the invention known as:<br><strong class="text-xl">The Chewing Gum Tap Sealant</strong></p>
+                </div>
+            </div>
+             <button id="go-back-btn" data-lang-key="go_back_button" class="mt-8 bg-gray-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Back to My Score
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-xs text-gray-400 dark:text-gray-500">
+        <p data-lang-key="disclaimer">Disclaimer: This quiz is for fun. Please do not actually try to fix your car with a rubber band.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- LANGUAGE CONTENT STORE ---
+            const content = {
+                en: {
+                    title: "Jugaadu Meter",
+                    subtitle: "Do you fix a leaky tap with chewing gum? Can you make a phone stand out of anything? Let's see if you're a Desi Engineer or just someone who follows the manual!",
+                    name_placeholder: "Enter your Jugaadu name...",
+                    privacy_disclaimer: "Your secret life hacks are safe with us. We won't tell anyone you used a fork as an antenna.",
+                    start_button: "Start Jugaad!",
+                    calculating_text: "Searching for spare parts...",
+                    result_level_label: "Your Jugaadu Level",
+                    result_level_label_personalized: "{name}'s Jugaadu Level",
+                    share_results_label: "Share Your Jugaadu Report & Get a Patent!",
+                    restart_button: "Let's Fix It Again!",
+                    disclaimer: "Disclaimer: This quiz is for fun. Please do not actually try to fix your car with a rubber band.",
+                    question_counter: "Question {current} of {total}",
+                    
+                    result_by_the_book_title: "By-The-Book Believer",
+                    result_by_the_book_desc: "{name}, the instruction manual is your holy book. If something breaks, you either call a professional or buy a new one. Creativity is for artists, not for fixing things!",
+                    result_hacker_title: "The Life Hacker",
+                    result_hacker_desc: "{name}, you've watched a few 5-Minute Crafts videos and you're not afraid to use them. You know how to make a speaker with a paper cup, but you might still call a plumber for a big leak.",
+                    result_specialist_title: "The Jugaad Specialist",
+                    result_specialist_desc: "{name}, you are the go-to person in your friend circle when something breaks. You see a problem and your brain immediately thinks of 10 different ways to fix it using only a paperclip and some tape.",
+                    result_engineer_title: "The Desi Engineer",
+                    result_engineer_desc: "{name}, you are a legend. You could probably build a rocket to the moon using a pressure cooker and a bicycle pump. ISRO should hire you immediately.",
+                    
+                    final_quote_by_the_book: "\"If it's broken, just buy a new one.\"",
+                    final_quote_hacker: "\"There's a YouTube tutorial for that.\"",
+                    final_quote_specialist: "\"Give me a safety pin, and I shall move the Earth.\"",
+                    final_quote_engineer: "\"Rules are for people who don't know how to build their own.\"",
+                    
+                    funny_comments: {
+                        by_the_book: [
+                            "You probably read the terms and conditions before clicking 'I Agree'.",
+                            "If your remote runs out of batteries, you buy a new TV.",
+                            "You think a 'life hack' is a type of computer virus.",
+                            "You have a specific tool for every single task. No improvising allowed."
+                        ],
+                        hacker: [
+                            "Your home is filled with plastic bottles cut in half for various purposes.",
+                            "You've tried to cook an egg on an iron. Once.",
+                            "You know how to open a bottle with a piece of paper, but it takes you 20 minutes.",
+                            "You're not cheap, you're 'resourceful'."
+                        ],
+                        specialist: [
+                            "Your car's side mirror is held on by a complex system of ropes and duct tape.",
+                            "You've fixed your broken glasses with a stapler.",
+                            "You see a broken appliance as a fun weekend project.",
+                            "You have a special drawer for 'things that might be useful someday'."
+                        ],
+                        engineer: [
+                            "You've used a slipper to hammer a nail. And it worked.",
+                            "You don't see a broken fan; you see a potential drone.",
+                            "You once built a washing machine using a bucket and a ceiling fan.",
+                            "You believe 'warranty' is a challenge, not a promise."
+                        ]
+                    },
+
+                    journey_title: "Your Jugaad Patent!",
+                    journey_subtitle: "You shared your score, you genius! As a reward, here is the official patent for one of your brilliant, world-changing inventions.",
+                    go_back_button: "Back to My Score",
+
+                    explore_title: "Your Analysis Isn't Over Yet!",
+                    explore_desc: "You've audited your life-hack skills, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.",
+                    explore_button: "Visit PersonalityPaathshala",
+                    support_title: "Loved this quiz? Help us create more!",
+                    support_desc: "Your small contribution keeps our creative engine running and helps us serve more fun.",
+
+                    questions: [
+                        { id: 1, question: "Your shirt button falls off minutes before a meeting. You:", answers: [ { text: "Panic and find a different shirt.", score: 1, feedback: "A classic, but not very jugaadu." }, { text: "Use a paperclip or a stapler to hold it together.", score: 3, feedback: "The corporate jugaad!" }, { text: "Just hold your file over it and hope no one notices.", score: 2, feedback: "A risky maneuver." } ] },
+                        { id: 2, question: "You don't have a bottle opener. You:", answers: [ { text: "Don't drink the beverage.", score: 1, feedback: "You give up too easily!" }, { text: "Use a key or the edge of a table.", score: 2, feedback: "The standard hack." }, { text: "Use a folded piece of paper with sheer force of will.", score: 3, feedback: "Physics bows to you." } ] },
+                        { id: 3, question: "Your phone stand breaks. You:", answers: [ { text: "Order a new one online.", score: 1, feedback: "The capitalist solution." }, { text: "Prop it up against a water bottle.", score: 2, feedback: "Simple and effective." }, { text: "Fashion one out of a pair of sunglasses or a binder clip.", score: 3, feedback: "An engineering marvel." } ] },
+                        { id: 4, question: "The zipper on your pants is stuck. You:", answers: [ { text: "Consider changing your pants.", score: 1, feedback: "A bit dramatic, don't you think?" }, { text: "Rub a pencil's graphite tip on the teeth.", score: 2, feedback: "The scientific approach." }, { text: "Yank it with all your might, risking everything.", score: 3, feedback: "High risk, high reward." } ] },
+                        { id: 5, question: "You need to amplify your phone's sound without a speaker. You:", answers: [ { text: "Just listen to it at max volume.", score: 1, feedback: "If it works, it works." }, { text: "Put it in a glass or a ceramic bowl.", score: 3, feedback: "The acoustic engineer!" }, { text: "Cup your hand around the speaker.", score: 2, feedback: "The classic quick fix." } ] },
+                        { id: 6, question: "A tap is leaking and dripping loudly. You:", answers: [ { text: "Call a plumber immediately.", score: 1, feedback: "The responsible adult." }, { text: "Tie a string from the tap to the sink so the drops slide down quietly.", score: 3, feedback: "Genius! You didn't fix the leak, but you fixed the sound." }, { text: "Just close the bathroom door.", score: 2, feedback: "Out of sight, out of mind." } ] },
+                        { id: 7, question: "You need to hang a photo frame but have no nail. You:", answers: [ { text: "Let the photo frame lean against the wall.", score: 2, feedback: "The casual decorator." }, { text: "Use a hardened piece of uncooked spaghetti.", score: 3, feedback: "Is there anything pasta can't do?" }, { text: "Wait until you can go to the hardware store.", score: 1, feedback: "Patience is a virtue, I guess." } ] },
+                        { id: 8, question: "You're eating chips and don't want to get your keyboard greasy. You:", answers: [ { text: "Don't eat the chips.", score: 1, feedback: "The self-control champion." }, { text: "Use chopsticks to pick them up.", score: 3, feedback: "The master of precision." }, { text: "Eat with one hand and type with the other, very carefully.", score: 2, feedback: "Living life on the edge." } ] },
+                        { id: 9, question: "You need to cool a drink quickly. You:", answers: [ { text: "Put it in the freezer and wait for an hour.", score: 1, feedback: "The patient one." }, { text: "Wrap it in a wet paper towel before putting it in the freezer.", score: 3, feedback: "The master of thermodynamics." }, { text: "Just add a lot of ice cubes.", score: 2, feedback: "The obvious choice." } ] },
+                        { id: 10, question: "You're cooking and the recipe asks for a rolling pin, which you don't have. You:", answers: [ { text: "Decide to make something else.", score: 1, feedback: "The quitter." }, { text: "Use a wine bottle or a sturdy glass.", score: 3, feedback: "Resourcefulness level: 100." }, { text: "Try to flatten the dough with your hands.", score: 2, feedback: "The hands-on approach." } ] },
+                        { id: 11, question: "Your glasses keep slipping down your nose. You:", answers: [ { text: "Keep pushing them up every 5 seconds.", score: 2, feedback: "The endless struggle." }, { text: "Go to an optician to get them adjusted.", score: 1, feedback: "The 'correct' way." }, { text: "Wrap tiny rubber bands around the ends of the arms.", score: 3, feedback: "An elegant, invisible solution." } ] },
+                        { id: 12, question: "You have a tangled mess of earphones. You:", answers: [ { text: "Spend 20 minutes patiently untangling them.", score: 1, feedback: "The zen master." }, { text: "Consider buying new wireless ones.", score: 2, feedback: "The modern solution." }, { text: "Decide you prefer silence.", score: 3, feedback: "The problem solved itself." } ] },
+                        { id: 13, question: "You need to seal a bag of chips but have no clip. You:", answers: [ { text: "Eat the whole bag in one sitting.", score: 3, feedback: "The only real solution." }, { text: "Fold it over and hope for the best.", score: 2, feedback: "The optimist." }, { text: "Go find a clip from another room.", score: 1, feedback: "The organized one." } ] },
+                        { id: 14, question: "The TV remote is dead and you have no new batteries. You:", answers: [ { text: "Get up and change the channel manually.", score: 1, feedback: "The horror!" }, { text: "Take the batteries out, rub them together, and put them back in for 5 more minutes of life.", score: 3, feedback: "The battery whisperer." }, { text: "Steal the batteries from the wall clock.", score: 2, feedback: "Time is less important than TV." } ] },
+                        { id: 15, question: "You're at a hotel and forgot your charger. You:", answers: [ { text: "Ask the front desk if they have a spare.", score: 1, feedback: "The sensible traveler." }, { text: "Use the USB port on the back of the hotel TV.", score: 3, feedback: "The tech detective." }, { text: "Put your phone on airplane mode and hope it lasts.", score: 2, feedback: "The power saver." } ] },
+                        { id: 16, question: "You need a bookmark but don't have one. You:", answers: [ { text: "Fold the corner of the page.", score: 2, feedback: "The classic sin." }, { text: "Use a random piece of paper or a receipt.", score: 1, feedback: "Simple and effective." }, { text: "Use a strand of your own hair.", score: 3, feedback: "Innovative, but also a bit gross." } ] },
+                        { id: 17, question: "Your shoe is smelly. You:", answers: [ { text: "Wash them.", score: 1, feedback: "The proper method." }, { text: "Put dry tea bags inside to absorb the odor.", score: 3, feedback: "The master of fragrances." }, { text: "Just wear different shoes.", score: 2, feedback: "The avoidance technique." } ] },
+                        { id: 18, question: "You're cutting onions and don't want to cry. You:", answers: [ { text: "Cry. It's part of the experience.", score: 1, feedback: "The emotional chef." }, { text: "Wear swimming goggles.", score: 3, feedback: "Ridiculous, but it works!" }, { text: "Try to cut them very fast.", score: 2, feedback: "The speed demon." } ] },
+                        { id: 19, question: "You need to pack shoes in a suitcase with clean clothes. You:", answers: [ { text: "Pack them in a separate bag.", score: 1, feedback: "The organized packer." }, { text: "Use a shower cap to cover the dirty soles.", score: 3, feedback: "Five-star hotel thinking!" }, { text: "Just put them in and hope for the best.", score: 2, feedback: "The risk-taker." } ] },
+                        { id: 20, question: "You have a wobbly table. You:", answers: [ { text: "Fold a piece of paper or cardboard and stick it under the leg.", score: 2, feedback: "The classic restaurant fix." }, { text: "Go find a proper tool to fix it.", score: 1, feedback: "The handyman." }, { text: "Just avoid leaning on that side of the table.", score: 3, feedback: "The master of adaptation." } ] },
+                        { id: 21, question: "You need to carry multiple grocery bags in one trip. You:", answers: [ { text: "Make multiple trips. It's good exercise.", score: 1, feedback: "The fitness enthusiast." }, { text: "Use a carabiner or a key ring to hold all the bags.", score: 3, feedback: "The load-bearing champion." }, { text: "Try to hang all 10 bags on each arm until your fingers turn blue.", score: 2, feedback: "The classic struggle." } ] },
+                        { id: 22, question: "The last piece of a biscuit is stuck in the tea. You:", answers: [ { text: "Accept its fate and let it go. It's a sacrifice to the Tea Gods.", score: 1, feedback: "A noble sacrifice." }, { text: "Use a spoon to fish it out.", score: 2, feedback: "The rescue mission." }, { text: "Drink the entire cup of tea very fast to catch it at the end.", score: 3, feedback: "The ultimate prize." } ] },
+                        { id: 23, question: "You need to clean your keyboard. You:", answers: [ { text: "Buy a special keyboard cleaning kit.", score: 1, feedback: "The professional cleaner." }, { text: "Use a sticky note's adhesive side to pick up dust between the keys.", score: 3, feedback: "The office supply wizard." }, { text: "Turn it upside down and shake it vigorously.", score: 2, feedback: "The classic shake-down." } ] },
+                        { id: 24, question: "You want to eat a mango without making a mess. You:", answers: [ { text: "Cut it into neat cubes with a knife.", score: 1, feedback: "The civilized method." }, { text: "Cut it in half, score it, and turn it inside out like a hedgehog.", score: 2, feedback: "The smart way." }, { text: "Just bite into it and deal with the juicy mess later.", score: 3, feedback: "The true mango lover." } ] },
+                        { id: 25, question: "Your car's windshield is foggy. You:", answers: [ { text: "Use the defogger button.", score: 1, feedback: "Well, that's what it's for." }, { text: "Wipe it with your hand, leaving a streaky mess.", score: 2, feedback: "The classic mistake." }, { text: "Cut a potato in half and rub it on the inside of the glass.", score: 3, feedback: "The Desi scientist." } ] }
+                    ]
+                },
+                hi: {
+                    title: "जुगाड़ू मीटर",
+                    subtitle: "क्या आप टपकते नल को च्यूइंग गम से ठीक करते हैं? क्या आप किसी भी चीज़ से फ़ोन स्टैंड बना सकते हैं? आइए देखें कि आप एक देसी इंजीनियर हैं या सिर्फ़ कोई है जो मैनुअल का पालन करता है!",
+                    name_placeholder: "अपना जुगाड़ू नाम दर्ज करें...",
+                    privacy_disclaimer: "आपके गुप्त जीवन के हैक्स हमारे पास सुरक्षित हैं। हम किसी को नहीं बताएंगे कि आपने एंटीना के रूप में एक कांटे का इस्तेमाल किया।",
+                    start_button: "जुगाड़ शुरू करें!",
+                    calculating_text: "अतिरिक्त पुर्जों की तलाश में...",
+                    result_level_label: "आपका जुगाड़ू स्तर",
+                    result_level_label_personalized: "{name} का जुगाड़ू स्तर",
+                    share_results_label: "अपनी जुगाड़ू रिपोर्ट साझा करें और एक पेटेंट प्राप्त करें!",
+                    restart_button: "चलो इसे फिर से ठीक करें!",
+                    disclaimer: "अस्वीकरण: यह क्विज़ मनोरंजन के लिए है। कृपया वास्तव में अपनी कार को एक रबर बैंड से ठीक करने का प्रयास न करें।",
+                    question_counter: "प्रश्न {current} / {total}",
+
+                    result_by_the_book_title: "किताबी कीड़ा",
+                    result_by_the_book_desc: "{name}, निर्देश पुस्तिका आपकी पवित्र पुस्तक है। अगर कुछ टूट जाता है, तो आप या तो एक पेशेवर को बुलाते हैं या एक नया खरीदते हैं। रचनात्मकता कलाकारों के लिए है, चीजों को ठीक करने के लिए नहीं!",
+                    result_hacker_title: "द लाइफ हैकर",
+                    result_hacker_desc: "{name}, आपने कुछ 5-मिनट के क्राफ्ट वीडियो देखे हैं और आप उन्हें इस्तेमाल करने से नहीं डरते। आप जानते हैं कि एक पेपर कप से स्पीकर कैसे बनाया जाता है, लेकिन आप अभी भी एक बड़ी लीक के लिए एक प्लंबर को बुला सकते हैं।",
+                    result_specialist_title: "जुगाड़ विशेषज्ञ",
+                    result_specialist_desc: "{name}, जब कुछ टूट जाता है तो आपके दोस्त आपको ही याद करते हैं। आप एक समस्या देखते हैं और आपका दिमाग तुरंत इसे केवल एक पेपरक्लिप और कुछ टेप का उपयोग करके ठीक करने के 10 अलग-अलग तरीकों के बारे में सोचता है।",
+                    result_engineer_title: "देसी इंजीनियर",
+                    result_engineer_desc: "{name}, आप एक किंवदंती हैं। आप शायद एक प्रेशर कुकर और एक साइकिल पंप का उपयोग करके चंद्रमा पर एक रॉकेट बना सकते हैं। इसरो को आपको तुरंत काम पर रखना चाहिए।",
+
+                    final_quote_by_the_book: "\"अगर यह टूट गया है, तो बस एक नया खरीद लो।\"",
+                    final_quote_hacker: "\"इसके लिए एक यूट्यूब ट्यूटोरियल है।\"",
+                    final_quote_specialist: "\"मुझे एक सेफ्टी पिन दो, और मैं पृथ्वी को हिला दूँगा।\"",
+                    final_quote_engineer: "\"नियम उन लोगों के लिए हैं जो अपने खुद के नियम बनाना नहीं जानते।\"",
+                    
+                    funny_comments: {
+                        by_the_book: [
+                            "आप शायद 'मैं सहमत हूँ' पर क्लिक करने से पहले नियम और शर्तें पढ़ते हैं।",
+                            "अगर आपके रिमोट की बैटरी खत्म हो जाती है, तो आप एक नया टीवी खरीदते हैं।",
+                            "आप सोचते हैं कि 'लाइफ हैक' एक प्रकार का कंप्यूटर वायरस है।",
+                            "आपके पास हर एक काम के लिए एक विशिष्ट उपकरण है। कोई सुधार की अनुमति नहीं है।"
+                        ],
+                        hacker: [
+                            "आपका घर विभिन्न उद्देश्यों के लिए आधे में कटी हुई प्लास्टिक की बोतलों से भरा है।",
+                            "आपने एक बार लोहे पर एक अंडा पकाने की कोशिश की है।",
+                            "आप जानते हैं कि कागज के एक टुकड़े से एक बोतल कैसे खोलें, लेकिन इसमें आपको 20 मिनट लगते हैं।",
+                            "आप सस्ते नहीं हैं, आप 'साधन संपन्न' हैं।"
+                        ],
+                        specialist: [
+                            "आपकी कार का साइड मिरर रस्सियों और डक्ट टेप की एक जटिल प्रणाली द्वारा टिका हुआ है।",
+                            "आपने एक स्टेपलर से अपने टूटे हुए चश्मे को ठीक किया है।",
+                            "आप एक टूटे हुए उपकरण को एक मजेदार सप्ताहांत परियोजना के रूप में देखते हैं।",
+                            "आपके पास 'ऐसी चीजें जो किसी दिन उपयोगी हो सकती हैं' के लिए एक विशेष दराज है।"
+                        ],
+                        engineer: [
+                            "आपने एक कील ठोकने के लिए एक चप्पल का इस्तेमाल किया है। और यह काम कर गया।",
+                            "आप एक टूटा हुआ पंखा नहीं देखते हैं; आप एक संभावित ड्रोन देखते हैं।",
+                            "आपने एक बार एक बाल्टी और एक छत के पंखे का उपयोग करके एक वॉशिंग मशीन बनाई थी।",
+                            "आप मानते हैं कि 'वारंटी' एक चुनौती है, वादा नहीं।"
+                        ]
+                    },
+
+                    journey_title: "आपका जुगाड़ पेटेंट!",
+                    journey_subtitle: "आपने अपना स्कोर साझा किया, आप प्रतिभाशाली हैं! एक पुरस्कार के रूप में, यहाँ आपके शानदार, विश्व-परिवर्तनकारी आविष्कारों में से एक के लिए आधिकारिक पेटेंट है।",
+                    go_back_button: "मेरे स्कोर पर वापस जाएं",
+
+                    explore_title: "आपका विश्लेषण अभी खत्म नहीं हुआ है!",
+                    explore_desc: "आपने अपने जीवन-हैक कौशल का ऑडिट किया है, लेकिन आपके बाकी प्रफुल्लित करने वाले व्यक्तित्व के बारे में क्या? आपका प्रेम जीवन, आपके गुस्से के मुद्दे... पर्सनैलिटी पाठशाला में आपके लिए मज़ेदार कैलकुलेटर की एक पूरी कक्षा है।",
+                    explore_button: "पर्सनैलिटी पाठशाला पर जाएँ",
+                    support_title: "यह क्विज़ पसंद आया? और बनाने में हमारी मदद करें!",
+                    support_desc: "आपका छोटा सा योगदान हमारी रचनात्मकता को चालू रखता है और हमें और मज़ा परोसने में मदद करता है।",
+                    
+                    questions: [
+                        { id: 1, question: "एक मीटिंग से कुछ मिनट पहले आपकी शर्ट का बटन टूट जाता है। आप:", answers: [ { text: "घबराकर दूसरी शर्ट ढूंढते हैं।", score: 1, feedback: "एक क्लासिक, लेकिन बहुत जुगाड़ू नहीं।" }, { text: "इसे एक साथ रखने के लिए एक पेपरक्लिप या एक स्टेपलर का उपयोग करें।", score: 3, feedback: "कॉर्पोरेट जुगाड़!" }, { text: "बस अपनी फ़ाइल को उस पर रखें और उम्मीद करें कि कोई नोटिस नहीं करेगा।", score: 2, feedback: "एक जोखिम भरा पैंतरेबाज़ी।" } ] },
+                        { id: 2, question: "आपके पास बोतल खोलने वाला नहीं है। आप:", answers: [ { text: "पेय न पिएं।", score: 1, feedback: "आप बहुत आसानी से हार मान लेते हैं!" }, { text: "एक चाबी या मेज के किनारे का उपयोग करें।", score: 2, feedback: "मानक हैक।" }, { text: "सरासर इच्छा शक्ति के साथ कागज के एक मुड़े हुए टुकड़े का उपयोग करें।", score: 3, feedback: "भौतिकी आपके सामने झुकती है।" } ] },
+                        { id: 3, question: "आपका फोन स्टैंड टूट जाता है। आप:", answers: [ { text: "ऑनलाइन एक नया ऑर्डर करें।", score: 1, feedback: "पूंजीवादी समाधान।" }, { text: "इसे एक पानी की बोतल के सहारे खड़ा करें।", score: 2, feedback: "सरल और प्रभावी।" }, { text: "एक जोड़ी धूप के चश्मे या एक बाइंडर क्लिप से एक बनाएं।", score: 3, feedback: "एक इंजीनियरिंग चमत्कार।" } ] },
+                        { id: 4, question: "आपकी पैंट की जिप फंस गई है। आप:", answers: [ { text: "अपनी पैंट बदलने पर विचार करें।", score: 1, feedback: "थोड़ा नाटकीय, क्या आपको नहीं लगता?" }, { text: "दांतों पर एक पेंसिल की ग्रेफाइट टिप रगड़ें।", score: 2, feedback: "वैज्ञानिक दृष्टिकोण।" }, { text: "इसे अपनी पूरी ताकत से खींचें, सब कुछ जोखिम में डालकर।", score: 3, feedback: "उच्च जोखिम, उच्च इनाम।" } ] },
+                        { id: 5, question: "आपको स्पीकर के बिना अपने फोन की आवाज बढ़ानी है। आप:", answers: [ { text: "बस इसे अधिकतम वॉल्यूम पर सुनें।", score: 1, feedback: "अगर यह काम करता है, तो यह काम करता है।" }, { text: "इसे एक गिलास या एक सिरेमिक कटोरे में रखें।", score: 3, feedback: "ध्वनिक इंजीनियर!" }, { text: "स्पीकर के चारों ओर अपना हाथ कप करें।", score: 2, feedback: "क्लासिक त्वरित सुधार।" } ] },
+                        { id: 6, question: "एक नल टपक रहा है और जोर से टपक रहा है। आप:", answers: [ { text: "तुरंत एक प्लंबर को बुलाएं।", score: 1, feedback: "जिम्मेदार वयस्क।" }, { text: "नल से सिंक तक एक तार बांधें ताकि बूंदें चुपचाप नीचे खिसक जाएं।", score: 3, feedback: "जीनियस! आपने रिसाव को ठीक नहीं किया, लेकिन आपने आवाज को ठीक कर दिया।" }, { text: "बस बाथरूम का दरवाजा बंद कर दें।", score: 2, feedback: "नज़र से ओझल, मन से ओझल।" } ] },
+                        { id: 7, question: "आपको एक फोटो फ्रेम लटकाना है लेकिन कोई कील नहीं है। आप:", answers: [ { text: "फोटो फ्रेम को दीवार के सहारे झुकने दें।", score: 2, feedback: "आकस्मिक डेकोरेटर।" }, { text: "कच्चे स्पेगेटी के एक कठोर टुकड़े का उपयोग करें।", score: 3, feedback: "क्या ऐसा कुछ है जो पास्ता नहीं कर सकता?" }, { text: "हार्डवेयर की दुकान पर जाने तक प्रतीक्षा करें।", score: 1, feedback: "धैर्य एक गुण है, मुझे लगता है।" } ] },
+                        { id: 8, question: "आप चिप्स खा रहे हैं और अपने कीबोर्ड को चिकना नहीं करना चाहते। आप:", answers: [ { text: "चिप्स न खाएं।", score: 1, feedback: "आत्म-नियंत्रण चैंपियन।" }, { text: "उन्हें उठाने के लिए चॉपस्टिक का उपयोग करें।", score: 3, feedback: "सटीकता का मास्टर।" }, { text: "एक हाथ से खाएं और दूसरे से टाइप करें, बहुत सावधानी से।", score: 2, feedback: "धार पर जीवन जीना।" } ] },
+                        { id: 9, question: "आपको एक पेय को जल्दी से ठंडा करने की आवश्यकता है। आप:", answers: [ { text: "इसे फ्रीजर में रखें और एक घंटे तक प्रतीक्षा करें।", score: 1, feedback: "धैर्यवान।" }, { text: "इसे फ्रीजर में रखने से पहले एक गीले कागज के तौलिये में लपेटें।", score: 3, feedback: "थर्मोडायनामिक्स का मास्टर।" }, { text: "बस बहुत सारे बर्फ के टुकड़े डालें।", score: 2, feedback: "स्पष्ट विकल्प।" } ] },
+                        { id: 10, question: "आप खाना बना रहे हैं और रेसिपी में एक रोलिंग पिन के लिए कहा गया है, जो आपके पास नहीं है। आप:", answers: [ { text: "कुछ और बनाने का फैसला करें।", score: 1, feedback: "छोड़ने वाला।" }, { text: "एक वाइन की बोतल या एक मजबूत गिलास का उपयोग करें।", score: 3, feedback: "संसाधनशीलता स्तर: 100।" }, { text: "अपने हाथों से आटा समतल करने की कोशिश करें।", score: 2, feedback: "हाथों-हाथ दृष्टिकोण।" } ] },
+                        { id: 11, question: "आपके चश्मे आपकी नाक से नीचे फिसलते रहते हैं। आप:", answers: [ { text: "हर 5 सेकंड में उन्हें ऊपर धकेलते रहें।", score: 2, feedback: "अंतहीन संघर्ष।" }, { text: "उन्हें समायोजित करने के लिए एक ऑप्टिशियन के पास जाएं।", score: 1, feedback: "'सही' तरीका।" }, { text: "भुजाओं के सिरों के चारों ओर छोटे रबर बैंड लपेटें।", score: 3, feedback: "एक सुरुचिपूर्ण, अदृश्य समाधान।" } ] },
+                        { id: 12, question: "आपके पास इयरफ़ोन का एक उलझा हुआ जाल है। आप:", answers: [ { text: "उन्हें धैर्यपूर्वक सुलझाने में 20 मिनट बिताएं।", score: 1, feedback: "ज़ेन मास्टर।" }, { text: "नए वायरलेस खरीदने पर विचार करें।", score: 2, feedback: "आधुनिक समाधान।" }, { text: "तय करें कि आप चुप्पी पसंद करते हैं।", score: 3, feedback: "समस्या ने खुद को हल कर लिया।" } ] },
+                        { id: 13, question: "आपको चिप्स का एक बैग सील करना है लेकिन कोई क्लिप नहीं है। आप:", answers: [ { text: "पूरा बैग एक ही बैठक में खाएं।", score: 3, feedback: "एकमात्र वास्तविक समाधान।" }, { text: "इसे मोड़ें और सर्वश्रेष्ठ की उम्मीद करें।", score: 2, feedback: "आशावादी।" }, { text: "दूसरे कमरे से एक क्लिप खोजने जाएं।", score: 1, feedback: "संगठित।" } ] },
+                        { id: 14, question: "टीवी रिमोट मर चुका है और आपके पास नई बैटरी नहीं हैं। आप:", answers: [ { text: "उठो और मैन्युअल रूप से चैनल बदलो।", score: 1, feedback: "भयानक!" }, { text: "बैटरी निकालें, उन्हें एक साथ रगड़ें, और उन्हें 5 और मिनट के जीवन के लिए वापस रख दें।", score: 3, feedback: "बैटरी फुसफुसाने वाला।" }, { text: "दीवार घड़ी से बैटरी चुराएं।", score: 2, feedback: "समय टीवी से कम महत्वपूर्ण है।" } ] },
+                        { id: 15, question: "आप एक होटल में हैं और अपना चार्जर भूल गए हैं। आप:", answers: [ { text: "फ्रंट डेस्क से पूछें कि क्या उनके पास कोई अतिरिक्त है।", score: 1, feedback: "समझदार यात्री।" }, { text: "होटल टीवी के पीछे यूएसबी पोर्ट का उपयोग करें।", score: 3, feedback: "तकनीकी जासूस।" }, { text: "अपने फोन को हवाई जहाज मोड पर रखें और उम्मीद करें कि यह चलेगा।", score: 2, feedback: "पावर सेवर।" } ] },
+                        { id: 16, question: "आपको एक बुकमार्क की आवश्यकता है लेकिन आपके पास एक नहीं है। आप:", answers: [ { text: "पृष्ठ का कोना मोड़ें।", score: 2, feedback: "क्लासिक पाप।" }, { text: "कागज का एक यादृच्छिक टुकड़ा या एक रसीद का उपयोग करें।", score: 1, feedback: "सरल और प्रभावी।" }, { text: "अपने ही बालों का एक किनारा इस्तेमाल करें।", score: 3, feedback: "अभिनव, लेकिन थोड़ा घिनौना भी।" } ] },
+                        { id: 17, question: "आपके जूते से बदबू आ रही है। आप:", answers: [ { text: "उन्हें धो लें।", score: 1, feedback: "उचित तरीका।" }, { text: "गंध को अवशोषित करने के लिए अंदर सूखी चाय की थैलियाँ रखें।", score: 3, feedback: "सुगंध का मास्टर।" }, { text: "बस अलग जूते पहनें।", score: 2, feedback: "परिहार तकनीक।" } ] },
+                        { id: 18, question: "आप प्याज काट रहे हैं और रोना नहीं चाहते। आप:", answers: [ { text: "रोओ। यह अनुभव का हिस्सा है।", score: 1, feedback: "भावुक रसोइया।" }, { text: "तैराकी चश्मा पहनें।", score: 3, feedback: "हास्यास्पद, लेकिन यह काम करता है!" }, { text: "उन्हें बहुत तेजी से काटने की कोशिश करें।", score: 2, feedback: "गति दानव।" } ] },
+                        { id: 19, question: "आपको एक सूटकेस में साफ कपड़ों के साथ जूते पैक करने हैं। आप:", answers: [ { text: "उन्हें एक अलग बैग में पैक करें।", score: 1, feedback: "संगठित पैकर।" }, { text: "गंदे तलवों को ढकने के लिए एक शॉवर कैप का उपयोग करें।", score: 3, feedback: "फाइव-स्टार होटल सोच!" }, { text: "बस उन्हें अंदर रखो और सर्वश्रेष्ठ की उम्मीद करो।", score: 2, feedback: "जोखिम लेने वाला।" } ] },
+                        { id: 20, question: "आपके पास एक डगमगाती मेज है। आप:", answers: [ { text: "कागज या कार्डबोर्ड का एक टुकड़ा मोड़ें और इसे पैर के नीचे चिपका दें।", score: 2, feedback: "क्लासिक रेस्तरां फिक्स।" }, { text: "इसे ठीक करने के लिए एक उचित उपकरण खोजने जाएं।", score: 1, feedback: "हैंडीमैन।" }, { text: "बस मेज के उस तरफ झुकने से बचें।", score: 3, feedback: "अनुकूलन का मास्टर।" } ] },
+                        { id: 21, question: "आपको एक यात्रा में कई किराने की थैलियाँ ले जानी हैं। आप:", answers: [ { text: "कई यात्राएं करें। यह अच्छा व्यायाम है।", score: 1, feedback: "फिटनेस उत्साही।" }, { text: "सभी थैलियों को पकड़ने के लिए एक carabiner या एक चाबी की अंगूठी का उपयोग करें।", score: 3, feedback: "भार वहन करने वाला चैंपियन।" }, { text: "प्रत्येक हाथ पर सभी 10 बैग लटकाने की कोशिश करें जब तक कि आपकी उंगलियां नीली न हो जाएं।", score: 2, feedback: "क्लासिक संघर्ष।" } ] },
+                        { id: 22, question: "एक बिस्कुट का आखिरी टुकड़ा चाय में फंस गया है। आप:", answers: [ { text: "इसके भाग्य को स्वीकार करें और इसे जाने दें। यह चाय देवताओं के लिए एक बलिदान है।", score: 1, feedback: "एक महान बलिदान।" }, { text: "इसे बाहर निकालने के लिए एक चम्मच का उपयोग करें।", score: 2, feedback: "बचाव मिशन।" }, { text: "अंत में इसे पकड़ने के लिए पूरी कप चाय बहुत तेजी से पिएं।", score: 3, feedback: "अंतिम पुरस्कार।" } ] },
+                        { id: 23, question: "आपको अपना कीबोर्ड साफ करना है। आप:", answers: [ { text: "एक विशेष कीबोर्ड सफाई किट खरीदें।", score: 1, feedback: "पेशेवर क्लीनर।" }, { text: "कुंजियों के बीच धूल उठाने के लिए एक चिपचिपे नोट के चिपकने वाले हिस्से का उपयोग करें।", score: 3, feedback: "कार्यालय की आपूर्ति जादूगर।" }, { text: "इसे उल्टा करें और इसे जोर से हिलाएं।", score: 2, feedback: "क्लासिक शेक-डाउन।" } ] },
+                        { id: 24, question: "आप बिना किसी गड़बड़ी के एक आम खाना चाहते हैं। आप:", answers: [ { text: "इसे एक चाकू से साफ क्यूब्स में काटें।", score: 1, feedback: "सभ्य तरीका।" }, { text: "इसे आधा काटें, इसे स्कोर करें, और इसे एक हेजहोग की तरह अंदर से बाहर कर दें।", score: 2, feedback: "स्मार्ट तरीका।" }, { text: "बस इसमें काटें और बाद में रसदार गड़बड़ी से निपटें।", score: 3, feedback: "सच्चा आम प्रेमी।" } ] },
+                        { id: 25, question: "आपकी कार की विंडशील्ड धुंधली है। आप:", answers: [ { text: "डीफॉगर बटन का उपयोग करें।", score: 1, feedback: "खैर, यही इसके लिए है।" }, { text: "इसे अपने हाथ से पोंछें, एक लकीरदार गड़बड़ छोड़कर।", score: 2, feedback: "क्लासिक गलती।" }, { text: "एक आलू को आधा काटें और इसे कांच के अंदर रगड़ें।", score: 3, feedback: "देसी वैज्ञानिक।" } ] }
+                    ]
+                }
+            };
+            
+            // --- STATE MANAGEMENT & DOM ELEMENTS ---
+            let currentQuestionIndex = 0;
+            let userAnswers = {};
+            let currentLang = 'en';
+            let quizQuestions = [];
+            let userName = '';
+            const QUESTIONS_PER_QUIZ = 15;
+
+            const allLangElements = document.querySelectorAll('[data-lang-key]');
+            const langPlaceholderElements = document.querySelectorAll('[data-lang-placeholder]');
+            const languageToggle = document.getElementById('language-toggle');
+            const startScreen = document.getElementById('start-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const calculatingScreen = document.getElementById('calculating-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const journeyScreen = document.getElementById('journey-screen');
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const goBackBtn = document.getElementById('go-back-btn');
+            const backToMainBtn = document.getElementById('back-to-main-btn');
+            const nameInput = document.getElementById('name-input');
+            const questionContainer = document.getElementById('question-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const finalScoreEl = document.getElementById('final-score');
+            const resultTitleEl = document.getElementById('result-title');
+            const resultDescriptionEl = document.getElementById('result-description');
+            const finalQuoteEl = document.getElementById('final-quote');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const shareButtonsContainer = document.getElementById('share-buttons');
+            const exploreBtn = document.getElementById('explore-btn');
+
+            // --- LANGUAGE LOGIC ---
+            const updateLanguage = (lang) => {
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                document.documentElement.lang = lang;
+                
+                languageToggle.innerHTML = (lang === 'en') 
+                    ? `<i class="fa-solid fa-language mr-2"></i> हिन्दी`
+                    : `<i class="fa-solid fa-language mr-2"></i> English`;
+
+                allLangElements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    const value = getNestedValue(content[lang], key);
+                    if (value) el.innerHTML = value;
+                });
+                
+                langPlaceholderElements.forEach(el => {
+                    const key = el.dataset.langPlaceholder;
+                    const value = getNestedValue(content[lang], key);
+                    if(value) el.placeholder = value;
+                });
+            };
+
+            const getNestedValue = (obj, key) => key.split('.').reduce((acc, part) => acc && acc[part], obj);
+
+            // --- THEME LOGIC ---
+            const applyTheme = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIconDark.classList.remove('hidden');
+                    themeIconLight.classList.add('hidden');
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
+            applyTheme(isDarkMode);
+
+            // --- UI FUNCTIONS ---
+            const renderQuestion = () => {
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const q_id = quizQuestions[currentQuestionIndex];
+                    const q_data_en = content.en.questions.find(item => item.id === q_id);
+                    const q_lang = content[currentLang].questions.find(item => item.id === q_id);
+                    
+                    if(!q_data_en || !q_lang) {
+                        goHome();
+                        return;
+                    }
+
+                    const shuffledAnswers = [...q_lang.answers].sort(() => Math.random() - 0.5);
+
+                    let answersHTML = shuffledAnswers.map(answer => {
+                        return `
+                        <button data-score="${answer.score}" class="choice-btn w-full text-left p-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-amber-100 dark:hover:bg-amber-500 transition-colors duration-200">
+                            ${answer.text}
+                        </button>
+                    `}).join('');
+                    
+                    const counterText = content[currentLang].question_counter
+                        .replace('{current}', currentQuestionIndex + 1)
+                        .replace('{total}', QUESTIONS_PER_QUIZ);
+
+                    questionContainer.innerHTML = `
+                        <div class="fade-in">
+                            <p class="text-lg font-semibold dark-mode-subtext mb-4">${counterText}</p>
+                            <h2 class="text-2xl md:text-3xl font-bold dark-mode-text mb-8">${q_lang.question.replace(/{name}/g, `<strong>${userName}</strong>`)}</h2>
+                            <div class="flex flex-col items-center space-y-4">${answersHTML}</div>
+                        </div>
+                    `;
+                    feedbackContainer.innerHTML = '';
+                    updateProgressBar();
+                } else {
+                    showCalculatingScreen();
+                }
+            };
+            
+            const updateProgressBar = () => {
+                const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            };
+
+            // --- CORE LOGIC ---
+            const startQuiz = () => {
+                userName = nameInput.value.trim();
+                if (!userName) {
+                    userName = (currentLang === 'en') ? 'Innovator' : 'आविष्कारक';
+                }
+
+                let allQuestionIds = content.en.questions.map(q => q.id);
+                allQuestionIds.sort(() => Math.random() - 0.5);
+                quizQuestions = allQuestionIds.slice(0, QUESTIONS_PER_QUIZ);
+                currentQuestionIndex = 0;
+                userAnswers = {};
+
+                startScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    startScreen.classList.add('hidden');
+                    startScreen.classList.remove('fade-out');
+                    quizScreen.classList.remove('hidden');
+                    quizScreen.classList.add('fade-in');
+                    progressContainer.classList.remove('hidden');
+                    backToMainBtn.classList.remove('hidden');
+                    renderQuestion();
+                }, 500);
+            };
+
+            const handleAnswer = (e) => {
+                const selectedBtn = e.target.closest('.choice-btn');
+                if (!selectedBtn) return;
+
+                const score = parseInt(selectedBtn.dataset.score);
+                const question_id = quizQuestions[currentQuestionIndex];
+                const question_data_lang = content[currentLang].questions.find(item => item.id === question_id);
+                
+                const answer_data_lang = question_data_lang.answers.find(a => a.score === score);
+                if (answer_data_lang) {
+                    feedbackContainer.innerHTML = `<p class="fade-in font-semibold text-lg text-teal-600 dark:text-teal-400">${answer_data_lang.feedback}</p>`;
+                }
+
+                userAnswers[question_id] = score;
+                
+                questionContainer.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn !== selectedBtn) {
+                        btn.classList.add('opacity-50');
+                    } else {
+                        btn.classList.add('ring-4', 'ring-amber-400');
+                    }
+                });
+                
+                setTimeout(() => {
+                    if (questionContainer.firstElementChild) {
+                        questionContainer.firstElementChild.classList.replace('fade-in', 'fade-out');
+                    }
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    }, 500);
+                }, 1800);
+            };
+
+            const showCalculatingScreen = () => {
+                quizScreen.classList.add('fade-out');
+                progressContainer.classList.add('hidden');
+                backToMainBtn.classList.add('hidden');
+                setTimeout(() => {
+                    quizScreen.classList.add('hidden');
+                    quizScreen.classList.remove('fade-out');
+                    calculatingScreen.classList.remove('hidden');
+                    calculatingScreen.classList.add('fade-in');
+                    const calculatingTexts = [
+                        content[currentLang].calculating_text, 
+                        (currentLang === 'en' ? "Rummaging through the toolbox..." : "टूलबॉक्स में छानबीन..."),
+                        (currentLang === 'en' ? "Applying duct tape to the numbers..." : "नंबरों पर डक्ट टेप लगाना...")
+                    ];
+                    document.getElementById('calculating-text').innerText = calculatingTexts[Math.floor(Math.random()*calculatingTexts.length)];
+                    setTimeout(showResults, 2500);
+                }, 500);
+            }
+            
+            const showResults = (isThemeOrLangUpdate = false) => {
+                if (!isThemeOrLangUpdate) {
+                     calculatingScreen.classList.add('fade-out');
+                     setTimeout(() => {
+                        calculatingScreen.classList.add('hidden');
+                        calculatingScreen.classList.remove('fade-out');
+                        resultsScreen.classList.remove('hidden');
+                        resultsScreen.classList.add('slide-up');
+                        calculateAndDisplayScores();
+                    }, 500);
+                } else {
+                    calculateAndDisplayScores();
+                }
+            };
+
+            const calculateAndDisplayScores = () => {
+                let totalScore = 0;
+                Object.values(userAnswers).forEach(score => {
+                    totalScore += score;
+                });
+
+                const minPossibleScore = QUESTIONS_PER_QUIZ * 1;
+                const maxPossibleScore = QUESTIONS_PER_QUIZ * 3;
+                const scoreRange = maxPossibleScore - minPossibleScore;
+                const userScoreOffset = totalScore - minPossibleScore;
+
+                let jugaaduPercentage = 0;
+                if (scoreRange > 0) {
+                    jugaaduPercentage = Math.round((userScoreOffset / scoreRange) * 100);
+                }
+                
+                finalScoreEl.classList.remove('score-reveal');
+                void finalScoreEl.offsetWidth; // Trigger reflow
+                finalScoreEl.classList.add('score-reveal');
+
+                let startValue = 0;
+                const duration = 1200;
+                const endValue = jugaaduPercentage;
+                const startTime = performance.now();
+
+                function animateCountUp(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    if (elapsedTime < duration) {
+                        const progress = elapsedTime / duration;
+                        const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+                        const currentValue = Math.round(startValue + (endValue - startValue) * easedProgress);
+                        finalScoreEl.textContent = `${currentValue}%`;
+                        requestAnimationFrame(animateCountUp);
+                    } else {
+                        finalScoreEl.textContent = `${endValue}%`;
+                    }
+                }
+                requestAnimationFrame(animateCountUp);
+
+                let resultKey;
+                if (jugaaduPercentage <= 25) resultKey = 'by_the_book';
+                else if (jugaaduPercentage <= 50) resultKey = 'hacker';
+                else if (jugaaduPercentage <= 75) resultKey = 'specialist';
+                else resultKey = 'engineer';
+                
+                finalQuoteEl.dataset.resultKey = resultKey;
+                document.getElementById('patent-name').textContent = userName;
+
+                const personalizedLabel = content[currentLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+
+                resultTitleEl.textContent = content[currentLang][`result_${resultKey}_title`];
+                resultDescriptionEl.innerHTML = content[currentLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                finalQuoteEl.textContent = content[currentLang][`final_quote_${resultKey}`];
+                
+                displayFunnyComments(resultKey);
+                updateShareLinks(jugaaduPercentage, content[currentLang][`result_${resultKey}_title`]);
+            };
+
+            const startBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                stopBackgroundAnimations();
+                
+                const emojis = ['💡', '🛠️', '🔩', '⚙️', '🔧', '😂', '🤯'];
+                const numEmojis = 25;
+
+                for (let i = 0; i < numEmojis; i++) {
+                    const emoji = document.createElement('span');
+                    emoji.className = 'floating-emoji';
+                    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    emoji.style.left = `${Math.random() * 100}vw`;
+                    emoji.style.fontSize = `${1 + Math.random() * 2}rem`;
+                    const duration = 8 + Math.random() * 10;
+                    const delay = Math.random() * 7;
+                    const translateX = `${(Math.random() - 0.5) * 200}px`;
+                    const rotate = `${(Math.random() - 0.5) * 720}deg`;
+                    
+                    emoji.style.setProperty('--translateX', translateX);
+                    emoji.style.setProperty('--rotate', rotate);
+                    emoji.style.animation = `floatUp ${duration}s ease-in ${delay}s infinite`;
+                    
+                    container.appendChild(emoji);
+                }
+            };
+
+            const stopBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (container) {
+                    container.innerHTML = '';
+                }
+            };
+
+            const typewriter = (element, text, callback) => {
+                let i = 0;
+                const speed = 40; // milliseconds per character
+                const originalHTML = element.innerHTML;
+                element.innerHTML = originalHTML + '<span class="typing-text"></span><span class="typing-cursor border-l-2 border-amber-500 h-6 inline-block align-middle">&nbsp;</span>';
+                const textSpan = element.querySelector('.typing-text');
+                const cursorSpan = element.querySelector('.typing-cursor');
+                
+                function type() {
+                    if (i < text.length) {
+                        textSpan.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        if(cursorSpan) {
+                           cursorSpan.style.display = 'none';
+                        }
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+
+            const displayFunnyComments = (resultKey) => {
+                const commentsContainer = document.getElementById('funny-comments-container');
+                if (!commentsContainer) return;
+                commentsContainer.innerHTML = '';
+                const commentsPool = content[currentLang].funny_comments[resultKey] || [];
+                
+                const shuffledComments = [...commentsPool].sort(() => 0.5 - Math.random());
+                const selectedComments = shuffledComments.slice(0, 3);
+
+                let commentIndex = 0;
+
+                function typeNextComment() {
+                    if (commentIndex < selectedComments.length) {
+                        const commentText = selectedComments[commentIndex];
+                        
+                        const card = document.createElement('div');
+                        card.className = 'funny-comment-card bg-amber-100 dark:bg-gray-800 p-4 rounded-lg mb-4 text-gray-700 dark:text-amber-300 italic shadow-md';
+                        
+                        const p = document.createElement('p');
+                        p.innerHTML = `<i class="fa-solid fa-quote-left mr-2 text-amber-500"></i> `;
+                        card.appendChild(p);
+
+                        card.style.animationDelay = `0.2s`;
+                        
+                        commentsContainer.appendChild(card);
+                        
+                        setTimeout(() => {
+                            typewriter(p, commentText, () => {
+                                commentIndex++;
+                                setTimeout(typeNextComment, 800); 
+                            });
+                        }, 600);
+                    }
+                }
+                
+                startBackgroundAnimations();
+                typeNextComment();
+            };
+
+
+            const updateShareLinks = (percentage, title) => {
+                const text = encodeURIComponent(`My Jugaadu Score is ${percentage}%! Turns out I'm a "${title}". Find out how resourceful you are:`);
+                const url = encodeURIComponent(window.location.href);
+                
+                document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                document.getElementById('telegram-share').href = `https://t.me/share/url?url=${url}&text=${text}`;
+                document.getElementById('instagram-share').href = `https://www.instagram.com/`;
+            };
+            
+            const goHome = () => {
+                stopBackgroundAnimations();
+                [quizScreen, resultsScreen, journeyScreen, progressContainer, backToMainBtn, calculatingScreen].forEach(el => el.classList.add('hidden'));
+                startScreen.classList.remove('hidden', 'fade-out');
+                startScreen.classList.add('fade-in');
+                nameInput.value = '';
+                currentQuestionIndex = 0;
+                userAnswers = {};
+                quizQuestions = [];
+                progressBar.style.width = '0%';
+            };
+
+            const showJourneyScreen = (e) => {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                resultsScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    resultsScreen.classList.add('hidden');
+                    resultsScreen.classList.remove('fade-out');
+                    journeyScreen.classList.remove('hidden');
+                    journeyScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            const showResultsScreenFromJourney = () => {
+                journeyScreen.classList.add('fade-out');
+                 setTimeout(() => {
+                    journeyScreen.classList.add('hidden');
+                    journeyScreen.classList.remove('fade-out');
+                    resultsScreen.classList.remove('hidden');
+                    resultsScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            // --- EVENT LISTENERS ---
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', goHome);
+            backToMainBtn.addEventListener('click', goHome);
+            goBackBtn.addEventListener('click', showResultsScreenFromJourney);
+            quizScreen.addEventListener('click', handleAnswer);
+            shareButtonsContainer.addEventListener('click', (e) => {
+                const shareBtn = e.target.closest('a.share-btn');
+                if (shareBtn && shareBtn.href && shareBtn.href !== '#') {
+                    showJourneyScreen(e);
+                }
+            });
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+                if (!resultsScreen.classList.contains('hidden')) { showResults(true); }
+            });
+            languageToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'hi' : 'en';
+                updateLanguage(newLang);
+                if (!quizScreen.classList.contains('hidden') || !calculatingScreen.classList.contains('hidden')) { 
+                    goHome();
+                } else if (!resultsScreen.classList.contains('hidden')) {
+                    const resultKey = finalQuoteEl.dataset.resultKey;
+                    const personalizedLabel = content[newLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                    document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+                    resultTitleEl.textContent = content[newLang][`result_${resultKey}_title`];
+                    resultDescriptionEl.innerHTML = content[newLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                    finalQuoteEl.textContent = content[newLang][`final_quote_${resultKey}`];
+                    displayFunnyComments(resultKey);
+                }
+            });
+
+            // Initial Load
+            const savedLang = localStorage.getItem('language') || 'en';
+            updateLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>
+

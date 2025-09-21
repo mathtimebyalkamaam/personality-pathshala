@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0DL8SC5JKB');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanskaari Meter - How Traditional Are You?</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS for theme, animations, and additional styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Dark Mode --- */
+        .dark .dark-mode-bg { background-color: #111827; }
+        .dark .dark-mode-text { color: #f9fafb; }
+        .dark .dark-mode-surface { background-color: #1f2937; }
+        .dark .dark-mode-border { border-color: #374151; }
+        .dark .dark-mode-subtext { color: #9ca3af; }
+
+        /* --- Animations --- */
+        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .pulse { animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .9; transform: scale(1.02); }
+        }
+
+        /* --- Button Styles --- */
+        .choice-btn, .share-btn, .control-btn {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .choice-btn:hover, .share-btn:hover, .control-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Social Share Colors --- */
+        .whatsapp-btn { background-color: #25D366; }
+        .twitter-btn { background-color: #1DA1F2; }
+        .facebook-btn { background-color: #1877F2; }
+        .telegram-btn { background-color: #24A1DE; }
+        .instagram-btn {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        }
+
+        /* --- Score Animation --- */
+        .score-reveal {
+            animation: scoreReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 10px rgba(249, 115, 22, 0.5), 0 0 20px rgba(249, 115, 22, 0.3); /* Orange Shadow */
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* --- Funny Comments Styling --- */
+        .funny-comments-container {
+            perspective: 1000px;
+        }
+
+        .funny-comment-card {
+            opacity: 0;
+            transform: rotateX(-90deg) translateY(50px);
+            transform-origin: bottom center;
+            animation: revealComment 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .funny-comment-card p {
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1.75rem; /* leading-7 */
+        }
+
+        @media (min-width: 768px) {
+            .funny-comment-card p {
+                font-size: 1.5rem; /* md:text-2xl */
+                line-height: 2rem; /* md:leading-8 */
+            }
+        }
+
+
+        @keyframes revealComment {
+            from {
+                opacity: 0;
+                transform: rotateX(-90deg) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0deg) translateY(0);
+            }
+        }
+        
+        /* --- Typing Effect --- */
+        .typing-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #f97316; } /* orange-600 */
+        }
+        
+        /* --- Background Animation --- */
+        #animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: -50px; /* Start from below the screen */
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--translateX)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode-bg text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+    <div id="animation-container"></div>
+    <!-- Header for Toggles -->
+    <header class="absolute top-4 w-full px-4 z-20 flex items-center justify-between">
+        <!-- Back to Main Page Button (Initially hidden) -->
+        <a id="back-to-main-btn" href="index.html" role="button" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </a>
+
+        <div class="flex items-center space-x-2 ml-auto">
+             <!-- Language Toggle -->
+            <button id="language-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 dark:focus:ring-offset-gray-900 w-28 h-10 flex items-center justify-center text-sm">
+                <!-- Text updated by JS -->
+            </button>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+                <svg id="theme-icon-dark" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg id="theme-icon-light" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-2 bg-gray-200 dark:bg-gray-700 z-10 hidden">
+        <div id="progress-bar" class="h-full bg-orange-500 progress-bar-fill" style="width: 0%;"></div>
+    </div>
+    
+    <main class="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-screen relative z-10">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center max-w-2xl fade-in">
+            <h1 class="text-4xl md:text-6xl font-extrabold dark-mode-text tracking-tight mb-4">The <span class="text-orange-500" data-lang-key="title">Sanskaari Meter</span></h1>
+            <p class="text-lg md:text-xl dark-mode-subtext mb-8" data-lang-key="subtitle">
+                Do you touch your elder's feet? Do you know all the lyrics to the Hanuman Chalisa? Let's see if you're a modern rebel or Alok Nath's favorite child!
+            </p>
+            <div class="mb-6 w-full max-w-sm mx-auto">
+                <input type="text" id="name-input" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-900 dark:text-white" data-lang-placeholder="name_placeholder">
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-8 italic" data-lang-key="privacy_disclaimer"></p>
+            <button id="start-btn" data-lang-key="start_button" class="bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-orange-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-orange-300 pulse">
+                Get Aashirvaad!
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden w-full max-w-3xl">
+            <div id="question-container" class="text-center pt-16">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <div id="feedback-container" class="mt-6 text-center text-md dark-mode-subtext min-h-[60px]">
+                <!-- Feedback will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Calculating Screen -->
+        <div id="calculating-screen" class="hidden text-center w-full max-w-2xl">
+            <svg class="animate-spin h-16 w-16 text-orange-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h2 id="calculating-text" class="text-2xl font-bold dark-mode-text" data-lang-key="calculating_text">Consulting the elders...</h2>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center w-full max-w-4xl pt-16">
+            <h2 class="text-2xl font-bold dark-mode-subtext mb-2" data-lang-key="result_level_label">Your Sanskaari Level</h2>
+            <div id="final-score" class="text-7xl md:text-8xl font-extrabold text-orange-500 mb-4">0%</div>
+            <h3 id="result-title" class="text-3xl md:text-4xl font-extrabold dark-mode-text mb-3"></h3>
+            <p id="result-description" class="text-lg md:text-xl dark-mode-subtext mb-8 max-w-2xl mx-auto"></p>
+            
+            <div id="funny-comments-container" class="funny-comments-container mt-8 mb-8 max-w-2xl mx-auto">
+                <!-- Comments will be injected here -->
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="mb-8">
+                <p class="font-bold dark-mode-text mb-3" data-lang-key="share_results_label">Share Your Sanskaar Report & Get Blessings!</p>
+                <div id="share-buttons" class="flex justify-center items-center flex-wrap gap-4">
+                    <a id="whatsapp-share" href="https://ppscore.co.in" target="_blank" class="share-btn whatsapp-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l.217.324-1.125 4.108 4.224-1.103.337.202z" /></svg>
+                    </a>
+                    <a id="twitter-share" href="https://ppscore.co.in" target="_blank" class="share-btn twitter-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.794 4.649-.69.188-1.433.23-2.184.085.617 1.914 2.408 3.258 4.53 3.301-1.724 1.352-3.883 2.093-6.138 1.795 1.815 1.163 3.973 1.84 6.262 1.84 7.218 0 11.168-5.986 11.168-11.168 0-.17-.003-.34-.01-.508.77-.556 1.438-1.248 1.968-2.04z"/></svg>
+                    </a>
+                    <a id="facebook-share" href="https://ppscore.co.in" target="_blank" class="share-btn facebook-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                    </a>                      
+                    <a id="telegram-share" href="https://ppscore.co.in" target="_blank" class="share-btn telegram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-1.39.2-1.62l15.97-5.85c.73-.27 1.36.17 1.15.99L16.4 18.28c-.21.83-1.2.5-1.54-.26L9.78 18.65z"/></svg>
+                    </a>
+                    <a id="instagram-share" href="https://ppscore.co.in" target="_blank" class="share-btn instagram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <p id="final-quote" class="text-lg dark-mode-text max-w-3xl mx-auto mb-8 italic">
+                <!-- Quote inserted by JS -->
+            </p>
+
+            <button id="restart-btn" data-lang-key="restart_button" class="bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-orange-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-orange-300">
+                Re-check My Sanskaar!
+            </button>
+
+            <!-- Explore More Section -->
+            <div class="mt-16 py-8 border-t-2 border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
+                 <h3 class="text-2xl md:text-3xl font-extrabold dark-mode-text mb-4" data-lang-key="explore_title">Your Analysis Isn't Over Yet!</h3>
+                 <p class="text-lg dark-mode-subtext mb-8" data-lang-key="explore_desc">
+                   You've audited your sanskaars, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.
+                 </p>
+                 <a id="explore-btn" href="index.html" class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 inline-block" data-lang-key="explore_button">
+                   Visit PersonalityPaathshala
+                 </a>
+                 <div class="mt-8 mb-6">
+                    <p class="font-semibold mb-2 text-orange-400 dark:text-orange-300" data-lang-key="support_title">Loved this quiz? Help us create more!</p>
+                    <p class="text-base text-gray-700 dark:text-white mb-3" data-lang-key="support_desc">Your small contribution keeps our creative engine running and helps us serve more fun.</p>
+                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QvFHmdPg3T4Pqh" async> </script> </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Screen -->
+        <div id="journey-screen" class="hidden text-center w-full max-w-2xl pt-16">
+            <h2 class="text-4xl font-extrabold text-orange-500 mb-4" data-lang-key="journey_title">Your Certificate of Sanskaar!</h2>
+            <p class="text-lg dark-mode-subtext mb-8" data-lang-key="journey_subtitle">You shared your score! The elders are pleased. As a reward, please accept this official certificate of your cultural values.</p>
+            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-xl border-4 border-orange-400">
+                <div class="text-center p-4 border-2 border-dashed border-gray-400">
+                    <h3 class="text-2xl font-bold dark-mode-text" style="font-family: serif;">Akhil Bhartiya Sanskar Samiti</h3>
+                    <p class="dark-mode-subtext mt-2 uppercase tracking-widest">Certificate of Excellence</p>
+                    <div class="my-4 text-5xl text-orange-500">
+                        🕉️
+                    </div>
+                    <p class="dark-mode-subtext">This is to certify that</p>
+                    <p id="certificate-name" class="text-3xl font-bold text-orange-500 my-2">[Your Name]</p>
+                    <p class="dark-mode-text">has demonstrated a commendable level of 'sanskaar'. Your parents are proud.</p>
+                </div>
+            </div>
+             <button id="go-back-btn" data-lang-key="go_back_button" class="mt-8 bg-gray-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Back to My Score
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-xs text-gray-400 dark:text-gray-500">
+        <p data-lang-key="disclaimer">Disclaimer: This quiz is for fun. We are not responsible if your parents start comparing you to Sharmaji's kid.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- LANGUAGE CONTENT STORE ---
+            const content = {
+                en: {
+                    title: "Sanskaari Meter",
+                    subtitle: "Do you touch your elder's feet? Do you know all the lyrics to the Hanuman Chalisa? Let's see if you're a modern rebel or Alok Nath's favorite child!",
+                    name_placeholder: "Enter your sanskaari name...",
+                    privacy_disclaimer: "Your secret love for ripped jeans is safe with us. We won't tell your grandmother.",
+                    start_button: "Get Aashirvaad!",
+                    calculating_text: "Consulting the elders...",
+                    result_level_label: "Your Sanskaari Level",
+                    result_level_label_personalized: "{name}'s Sanskaari Level",
+                    share_results_label: "Share Your Sanskaar Report & Get Blessings!",
+                    restart_button: "Re-check My Sanskaar!",
+                    disclaimer: "Disclaimer: This quiz is for fun. We are not responsible if your parents start comparing you to Sharmaji's kid.",
+                    question_counter: "Question {current} of {total}",
+                    
+                    result_rebel_title: "The Rebel",
+                    result_rebel_desc: "{name}, the word 'sanskaar' is not in your dictionary. You probably call your father 'bro'. Your parents are worried, but your friends think you're cool.",
+                    result_modern_title: "The Modern Mix",
+                    result_modern_desc: "{name}, you're a perfect blend. You'll touch your grandma's feet, but you'll also go to a music festival. You know how to balance both worlds.",
+                    result_good_kid_title: "The Good Bachcha",
+                    result_good_kid_desc: "{name}, Sharmaji's kid has got nothing on you. You're the ideal child every parent dreams of. You probably wake up at 6 AM to do surya namaskar.",
+                    result_alok_nath_title: "Alok Nath Incarnate",
+                    result_alok_nath_desc: "{name}, you are the final boss of sanskaar. You probably breathe out aashirvaad. We are honored to be in your presence, Babuji.",
+                    
+                    final_quote_rebel: "\"Rules are meant to be broken. So are traditions.\"",
+                    final_quote_modern: "\"A little bit of tradition, a lot of fun.\"",
+                    final_quote_good_kid: "\"Mummy Papa kehte hain...\"",
+                    final_quote_alok_nath: "\"Kanyadaan is the greatest daan.\"",
+                    
+                    funny_comments: {
+                        rebel: [
+                            "You probably think 'aarti' is your friend's name.",
+                            "You've worn shoes inside a temple in your dreams.",
+                            "Your idea of a family gathering is a group chat.",
+                            "You call your elders by their first name. So brave."
+                        ],
+                        modern: [
+                            "You fast on Mondays, but you'll have a sabudana khichdi feast.",
+                            "You touch your elders' feet, but only from a respectable distance.",
+                            "You know the lyrics to the Gayatri Mantra... and also to the latest Badshah song.",
+                            "You'll go to a jagran, but you'll be on your phone the whole time."
+                        ],
+                        good_kid: [
+                            "You can make perfectly round rotis.",
+                            "You've never talked back to your parents. Ever.",
+                            "You know the entire family tree, including your great-great-grandfather's dog's name.",
+                            "You're the designated 'prasad' distributor at every puja."
+                        ],
+                        alok_nath: [
+                            "You probably give people blessings instead of saying 'hello'.",
+                            "You think ripped jeans are a sign of the apocalypse.",
+                            "You are the reason they serve 'shagun ka ek rupaya'.",
+                            "You cried at the end of Baghban. And the beginning. And the middle."
+                        ]
+                    },
+
+                    journey_title: "Your Certificate of Sanskaar!",
+                    journey_subtitle: "You shared your score! The elders are pleased. As a reward, please accept this official certificate of your cultural values.",
+                    go_back_button: "Back to My Score",
+
+                    explore_title: "Your Analysis Isn't Over Yet!",
+                    explore_desc: "You've audited your sanskaars, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.",
+                    explore_button: "Visit PersonalityPaathshala",
+                    support_title: "Loved this quiz? Help us create more!",
+                    support_desc: "Your small contribution keeps our creative engine running and helps us serve more fun.",
+
+                    questions: [
+                        { id: 1, question: "An elder relative comes to your house. You:", answers: [ { text: "Touch their feet.", score: 3, feedback: "The perfect start!" }, { text: "Say 'Namaste' with folded hands.", score: 2, feedback: "Respectful and classic." }, { text: "Give them a casual 'Hey, what's up?'", score: 1, feedback: "So modern, so rebellious." } ] },
+                        { id: 2, question: "Your mom asks you to get 'dhania-pudina' from the market. You:", answers: [ { text: "Come back with the exact items and the correct change.", score: 3, feedback: "The perfect child." }, { text: "Forget one of the items.", score: 2, feedback: "Close enough." }, { text: "Come back with Cornetto ice cream instead.", score: 1, feedback: "You live by your own rules." } ] },
+                        { id: 3, question: "What are your thoughts on arranged marriage?", answers: [ { text: "It's a beautiful tradition.", score: 3, feedback: "The traditionalist." }, { text: "I'm open to it, but I'd like to know the person first.", score: 2, feedback: "The best of both worlds." }, { text: "I'll find my own partner, thank you very much.", score: 1, feedback: "The romantic rebel." } ] },
+                        { id: 4, question: "A relative asks, 'Beta, shaadi kab karoge?'. You:", answers: [ { text: "Shyly say 'Jab aap bolenge, uncle.'", score: 3, feedback: "The perfect answer." }, { text: "Give a vague, non-committal smile and escape.", score: 2, feedback: "The diplomat." }, { text: "Ask them, 'Aapka beta/beti kab kar rahe hain?'", score: 1, feedback: "The uno reverse card!" } ] },
+                        { id: 5, question: "How do you eat your dal-chawal?", answers: [ { text: "With a spoon, like a civilized person.", score: 2, feedback: "Neat and tidy." }, { text: "With your hands, the way it's meant to be eaten.", score: 3, feedback: "The authentic way." }, { text: "I prefer pizza.", score: 1, feedback: "The international foodie." } ] },
+                        { id: 6, question: "You see your parents calling. You:", answers: [ { text: "Pick up on the first ring.", score: 3, feedback: "The obedient child." }, { text: "Let it ring a couple of times so you don't look too free.", score: 2, feedback: "The strategist." }, { text: "Call them back later when you're in the mood.", score: 1, feedback: "Living on the edge." } ] },
+                        { id: 7, question: "What is your opinion on ripped jeans?", answers: [ { text: "It's fashion! Looks cool.", score: 1, feedback: "The fashionista." }, { text: "Why would anyone pay for broken clothes?", score: 3, feedback: "The logical one." }, { text: "They're okay, but not for family functions.", score: 2, feedback: "The compromiser." } ] },
+                        { id: 8, question: "When a guest comes over, your mom asks you to sing a song. You:", answers: [ { text: "Politely refuse because you're an adult.", score: 1, feedback: "The modern adult." }, { text: "Sing the same song you've been singing since you were 5.", score: 3, feedback: "The family entertainer." }, { text: "Pretend you have a sore throat.", score: 2, feedback: "The classic excuse." } ] },
+                        { id: 9, question: "You finish your meal, but there's a little bit left on your plate. You:", answers: [ { text: "Finish every last grain because 'ann ka apmaan nahi karte'.", score: 3, feedback: "Your mom is proud." }, { text: "Are too full to finish it.", score: 2, feedback: "A reasonable response." }, { text: "Don't care, you're done.", score: 1, feedback: "The rebel." } ] },
+                        { id: 10, question: "Your mom compares you to 'Sharmaji ka beta/beti'. You:", answers: [ { text: "Feel motivated to do better.", score: 3, feedback: "The ideal competitor." }, { text: "Roll your eyes and ignore it.", score: 1, feedback: "The unbothered one." }, { text: "Say 'Then go and adopt them!'", score: 2, feedback: "A risky comeback." } ] },
+                        { id: 11, question: "Do you know how to make chai?", answers: [ { text: "Of course, I make the best chai in the family.", score: 3, feedback: "The chai master." }, { text: "I can manage, but it's not great.", score: 2, feedback: "The apprentice." }, { text: "I only drink green tea.", score: 1, feedback: "The modern health enthusiast." } ] },
+                        { id: 12, question: "You see PDA (Public Display of Affection). You:", answers: [ { text: "Look away awkwardly.", score: 3, feedback: "The traditionalist." }, { text: "Think 'good for them'.", score: 1, feedback: "The liberal." }, { text: "Stare for a bit, then feel shy.", score: 2, feedback: "The curious cat." } ] },
+                        { id: 13, question: "What do you do with the plastic covers on new electronics?", answers: [ { text: "Remove them immediately.", score: 1, feedback: "The clean freak." }, { text: "Keep them on until they fall off on their own in 5 years.", score: 3, feedback: "Protecting the investment." }, { text: "Remove them carefully and save them.", score: 2, feedback: "Just in case." } ] },
+                        { id: 14, question: "Your parents tell you to be home by 10 PM. You:", answers: [ { text: "Are already in bed by 9:30 PM.", score: 3, feedback: "The obedient one." }, { text: "Argue for a 10:30 PM extension.", score: 2, feedback: "The negotiator." }, { text: "Come home at midnight and hope they're asleep.", score: 1, feedback: "The rule-breaker." } ] },
+                        { id: 15, question: "How do you address your dad's friend?", answers: [ { text: "As 'Uncle'.", score: 3, feedback: "The respectful way." }, { text: "As 'Mr. Sharma'.", score: 2, feedback: "Formal and polite." }, { text: "By his first name.", score: 1, feedback: "The western influence." } ] },
+                        { id: 16, question: "The best part of Diwali is:", answers: [ { text: "The family puja.", score: 3, feedback: "The spiritual one." }, { text: "The delicious food.", score: 2, feedback: "The foodie." }, { text: "The long holiday.", score: 1, feedback: "The realist." } ] },
+                        { id: 17, question: "You have to sit on the floor to eat. You:", answers: [ { text: "Are perfectly comfortable with it.", score: 3, feedback: "Down to earth, literally." }, { text: "Find it a bit difficult but manage.", score: 2, feedback: "The adapter." }, { text: "Ask for a chair and a table.", score: 1, feedback: "The modern diner." } ] },
+                        { id: 18, question: "Your friend gets a tattoo. You think:", answers: [ { text: "'Wow, that's so cool!'", score: 1, feedback: "The supporter." }, { text: "'What will their parents say?'", score: 3, feedback: "The family representative." }, { text: "'I wonder if it hurt.'", score: 2, feedback: "The curious one." } ] },
+                        { id: 19, question: "You are offered 'soan papdi' on Diwali. You:", answers: [ { text: "Politely accept it and thank them.", score: 2, feedback: "The diplomat." }, { text: "Accept it, and then pass it on to another relative.", score: 3, feedback: "The circle of soan papdi." }, { text: "Say 'No thank you, I'm on a diet.'", score: 1, feedback: "The health-conscious one." } ] },
+                        { id: 20, question: "Your parents ask you to add a relative on Facebook. You:", answers: [ { text: "Do it immediately.", score: 3, feedback: "The family connector." }, { text: "Say you will, and then 'forget'.", score: 2, feedback: "The procrastinator." }, { text: "Say 'I don't really use Facebook anymore.'", score: 1, feedback: "The modern lie." } ] },
+                        { id: 21, question: "Your mom saves every plastic container 'just in case'. You:", answers: [ { text: "Find it annoying.", score: 1, feedback: "The minimalist." }, { text: "Understand the logic completely.", score: 2, feedback: "The practical one." }, { text: "You have your own collection of containers.", score: 3, feedback: "Like mother, like child." } ] },
+                        { id: 22, question: "How many of the wedding functions do you attend?", answers: [ { text: "Just the main reception.", score: 1, feedback: "The efficient guest." }, { text: "The wedding and the reception.", score: 2, feedback: "The good guest." }, { text: "Haldi, Mehendi, Sangeet, Wedding, Reception... all of them!", score: 3, feedback: "The full-package guest." } ] },
+                        { id: 23, question: "You see an elder standing on a bus. You:", answers: [ { text: "Immediately offer your seat.", score: 3, feedback: "The perfect sanskaar." }, { text: "Look out the window and pretend you didn't see them.", score: 1, feedback: "The window gazer." }, { text: "Feel guilty but hope someone else offers their seat first.", score: 2, feedback: "The hesitant hero." } ] },
+                        { id: 24, question: "What is a 'pandit'?", answers: [ { text: "A type of Indian bread.", score: 1, feedback: "That's a paratha." }, { text: "A Hindu priest who performs rituals.", score: 3, feedback: "Correct!" }, { text: "A famous Indian cricketer.", score: 2, feedback: "You're thinking of Pandya." } ] },
+                        { id: 25, question: "Your parents are right:", answers: [ { text: "Sometimes.", score: 1, feedback: "The realist." }, { text: "Most of the time.", score: 2, feedback: "The good listener." }, { text: "Always. Parents are always right.", score: 3, feedback: "The adarsh baalak." } ] }
+                    ]
+                },
+                hi: {
+                    title: "संस्कारी मीटर",
+                    subtitle: "क्या आप अपने बड़ों के पैर छूते हैं? क्या आपको हनुमान चालीसा के सभी बोल याद हैं? आइए देखें कि आप एक आधुनिक विद्रोही हैं या आलोक नाथ के पसंदीदा बच्चे!",
+                    name_placeholder: "अपना संस्कारी नाम दर्ज करें...",
+                    privacy_disclaimer: "फटी जींस के लिए आपका गुप्त प्रेम हमारे पास सुरक्षित है। हम आपकी दादी को नहीं बताएंगे।",
+                    start_button: "आशीर्वाद प्राप्त करें!",
+                    calculating_text: "बड़ों से सलाह ली जा रही है...",
+                    result_level_label: "आपका संस्कारी स्तर",
+                    result_level_label_personalized: "{name} का संस्कारी स्तर",
+                    share_results_label: "अपनी संस्कार रिपोर्ट साझा करें और आशीर्वाद प्राप्त करें!",
+                    restart_button: "मेरे संस्कारों की फिर से जाँच करें!",
+                    disclaimer: "अस्वीकरण: यह क्विज़ मनोरंजन के लिए है। हम जिम्मेदार नहीं हैं यदि आपके माता-पिता आपको शर्माजी के बच्चे से तुलना करना शुरू कर दें।",
+                    question_counter: "प्रश्न {current} / {total}",
+
+                    result_rebel_title: "विद्रोही",
+                    result_rebel_desc: "{name}, 'संस्कार' शब्द आपके शब्दकोश में नहीं है। आप शायद अपने पिता को 'ब्रो' कहते हैं। आपके माता-पिता चिंतित हैं, लेकिन आपके दोस्त सोचते हैं कि आप कूल हैं।",
+                    result_modern_title: "आधुनिक मिश्रण",
+                    result_modern_desc: "{name}, आप एक आदर्श मिश्रण हैं। आप अपनी दादी के पैर छुएंगे, लेकिन आप एक संगीत समारोह में भी जाएंगे। आप दोनों दुनिया को संतुलित करना जानते हैं।",
+                    result_good_kid_title: "अच्छा बच्चा",
+                    result_good_kid_desc: "{name}, शर्माजी के बच्चे के पास आप पर कुछ नहीं है। आप वह आदर्श बच्चा हैं जिसका हर माता-पिता सपना देखता है। आप शायद सुबह 6 बजे सूर्य नमस्कार करने के लिए उठते हैं।",
+                    result_alok_nath_title: "आलोक नाथ अवतार",
+                    result_alok_nath_desc: "{name}, आप संस्कार के अंतिम बॉस हैं। आप शायद आशीर्वाद बाहर निकालते हैं। हम आपकी उपस्थिति में सम्मानित हैं, बाबूजी।",
+
+                    final_quote_rebel: "\"नियम तोड़ने के लिए होते हैं। तो परंपराएं भी।\"",
+                    final_quote_modern: "\"थोड़ी सी परंपरा, बहुत सारी मस्ती।\"",
+                    final_quote_good_kid: "\"मम्मी पापा कहते हैं...\"",
+                    final_quote_alok_nath: "\"कन्यादान सबसे बड़ा दान है।\"",
+                    
+                    funny_comments: {
+                        rebel: [
+                            "आप शायद सोचते हैं कि 'आरती' आपके दोस्त का नाम है।",
+                            "आपने अपने सपनों में एक मंदिर के अंदर जूते पहने हैं।",
+                            "आपका पारिवारिक मिलन का विचार एक समूह चैट है।",
+                            "आप अपने बड़ों को उनके पहले नाम से बुलाते हैं। बहुत बहादुर।"
+                        ],
+                        modern: [
+                            "आप सोमवार को उपवास करते हैं, लेकिन आप एक साबूदाना खिचड़ी दावत करेंगे।",
+                            "आप अपने बड़ों के पैर छूते हैं, लेकिन केवल एक सम्मानजनक दूरी से।",
+                            "आपको गायत्री मंत्र के बोल याद हैं... और नवीनतम बादशाह गीत के भी।",
+                            "आप एक जागरण में जाएंगे, लेकिन आप पूरे समय अपने फोन पर रहेंगे।"
+                        ],
+                        good_kid: [
+                            "आप पूरी तरह से गोल रोटियां बना सकते हैं।",
+                            "आपने कभी भी अपने माता-पिता से पलटकर बात नहीं की है। कभी नहीं।",
+                            "आपको पूरे परिवार का पेड़ पता है, जिसमें आपके परदादा के कुत्ते का नाम भी शामिल है।",
+                            "आप हर पूजा में 'प्रसाद' वितरक हैं।"
+                        ],
+                        alok_nath: [
+                            "आप शायद लोगों को 'नमस्ते' कहने के बजाय आशीर्वाद देते हैं।",
+                            "आप सोचते हैं कि फटी जींस सर्वनाश का संकेत है।",
+                            "आप ही कारण हैं कि वे 'शगुन का एक रुपया' परोसते हैं।",
+                            "आप बागबान के अंत में रोए थे। और शुरुआत में। और बीच में।"
+                        ]
+                    },
+
+                    journey_title: "आपका संस्कार का प्रमाण पत्र!",
+                    journey_subtitle: "आपने अपना स्कोर साझा किया! बड़ों को खुशी हुई। एक पुरस्कार के रूप में, कृपया अपने सांस्कृतिक मूल्यों का यह आधिकारिक प्रमाण पत्र स्वीकार करें।",
+                    go_back_button: "मेरे स्कोर पर वापस जाएं",
+
+                    explore_title: "आपका विश्लेषण अभी खत्म नहीं हुआ है!",
+                    explore_desc: "आपने अपने संस्कारों का ऑडिट किया है, लेकिन आपके बाकी प्रफुल्लित करने वाले व्यक्तित्व के बारे में क्या? आपका प्रेम जीवन, आपके गुस्से के मुद्दे... पर्सनैलिटी पाठशाला में आपके लिए मज़ेदार कैलकुलेटर की एक पूरी कक्षा है।",
+                    explore_button: "पर्सनैलिटी पाठशाला पर जाएँ",
+                    support_title: "यह क्विज़ पसंद आया? और बनाने में हमारी मदद करें!",
+                    support_desc: "आपका छोटा सा योगदान हमारी रचनात्मकता को चालू रखता है और हमें और मज़ा परोसने में मदद करता है।",
+                    
+                    questions: [
+                        { id: 1, question: "एक बड़े रिश्तेदार आपके घर आते हैं। आप:", answers: [ { text: "उनके पैर छूते हैं।", score: 3, feedback: "एकदम सही शुरुआत!" }, { text: "हाथ जोड़कर 'नमस्ते' कहते हैं।", score: 2, feedback: "सम्मानजनक और क्लासिक।" }, { text: "उन्हें लापरवाही से 'हे, क्या हो रहा है?' कहते हैं।", score: 1, feedback: "इतना आधुनिक, इतना विद्रोही।" } ] },
+                        { id: 2, question: "आपकी माँ आपको बाजार से 'धनिया-पुदीना' लाने के लिए कहती हैं। आप:", answers: [ { text: "सटीक वस्तुओं और सही चेंज के साथ वापस आते हैं।", score: 3, feedback: "आदर्श बच्चा।" }, { text: "एक आइटम भूल जाते हैं।", score: 2, feedback: "लगभग सही।" }, { text: "इसके बजाय कॉर्नेटो आइसक्रीम के साथ वापस आते हैं।", score: 1, feedback: "आप अपने नियमों से जीते हैं।" } ] },
+                        { id: 3, question: "अरेंज मैरिज के बारे में आपके क्या विचार हैं?", answers: [ { text: "यह एक सुंदर परंपरा है।", score: 3, feedback: "परंपरावादी।" }, { text: "मैं इसके लिए खुला हूँ, लेकिन मैं पहले व्यक्ति को जानना चाहूँगा।", score: 2, feedback: "दोनों दुनिया का सर्वश्रेष्ठ।" }, { text: "मैं अपना साथी खुद ढूंढूंगा, बहुत-बहुत धन्यवाद।", score: 1, feedback: "रोमांटिक विद्रोही।" } ] },
+                        { id: 4, question: "एक रिश्तेदार पूछता है, 'बेटा, शादी कब करोगे?'। आप:", answers: [ { text: "शर्माते हुए कहते हैं 'जब आप बोलेंगे, अंकल।'", score: 3, feedback: "एकदम सही जवाब।" }, { text: "एक अस्पष्ट, गैर-प्रतिबद्ध मुस्कान दें और बच निकलें।", score: 2, feedback: "राजनयिक।" }, { text: "उनसे पूछें, 'आपका बेटा/बेटी कब कर रहे हैं?'", score: 1, feedback: "ऊनो रिवर्स कार्ड!" } ] },
+                        { id: 5, question: "आप अपना दाल-चावल कैसे खाते हैं?", answers: [ { text: "एक चम्मच से, एक सभ्य व्यक्ति की तरह।", score: 2, feedback: "साफ और सुथरा।" }, { text: "अपने हाथों से, जिस तरह से इसे खाया जाना चाहिए।", score: 3, feedback: "प्रामाणिक तरीका।" }, { text: "मैं पिज्जा पसंद करता हूँ।", score: 1, feedback: "अंतर्राष्ट्रीय खाने का शौकीन।" } ] },
+                        { id: 6, question: "आप अपने माता-पिता को फोन करते हुए देखते हैं। आप:", answers: [ { text: "पहली घंटी पर उठाएं।", score: 3, feedback: "आज्ञाकारी बच्चा।" }, { text: "इसे कुछ बार बजने दें ताकि आप बहुत खाली न दिखें।", score: 2, feedback: "रणनीतिकार।" }, { text: "जब आपका मूड हो तब उन्हें बाद में फोन करें।", score: 1, feedback: "धार पर जीना।" } ] },
+                        { id: 7, question: "फटी जींस पर आपकी क्या राय है?", answers: [ { text: "यह फैशन है! अच्छा लगता है।", score: 1, feedback: "फैशनिस्टा।" }, { text: "कोई टूटे हुए कपड़ों के लिए पैसे क्यों देगा?", score: 3, feedback: "तार्किक।" }, { text: "वे ठीक हैं, लेकिन पारिवारिक समारोहों के लिए नहीं।", score: 2, feedback: "समझौता करने वाला।" } ] },
+                        { id: 8, question: "जब कोई मेहमान आता है, तो आपकी माँ आपको एक गाना गाने के लिए कहती हैं। आप:", answers: [ { text: "विनम्रता से मना कर दें क्योंकि आप एक वयस्क हैं।", score: 1, feedback: "आधुनिक वयस्क।" }, { text: "वही गाना गाएं जो आप 5 साल की उम्र से गा रहे हैं।", score: 3, feedback: "परिवार का मनोरंजन करने वाला।" }, { text: "गले में खराश होने का नाटक करें।", score: 2, feedback: "क्लासिक बहाना।" } ] },
+                        { id: 9, question: "आप अपना भोजन समाप्त करते हैं, लेकिन आपकी थाली में थोड़ा सा बचा है। आप:", answers: [ { text: "हर आखिरी दाना खत्म करें क्योंकि 'अन्न का अपमान नहीं करते'।" , score: 3, feedback: "आपकी माँ को गर्व है।" }, { text: "इसे खत्म करने के लिए बहुत भरा हुआ है।", score: 2, feedback: "एक उचित प्रतिक्रिया।" }, { text: "परवाह नहीं, आपका हो गया।", score: 1, feedback: "विद्रोही।" } ] },
+                        { id: 10, question: "आपकी माँ आपकी तुलना 'शर्माजी का बेटा/बेटी' से करती हैं। आप:", answers: [ { text: "बेहतर करने के लिए प्रेरित महसूस करें।", score: 3, feedback: "आदर्श प्रतियोगी।" }, { text: "आंखें घुमाएं और इसे अनदेखा करें।", score: 1, feedback: "अविचलित।" }, { text: "कहो 'तो जाओ और उन्हें गोद ले लो!'", score: 2, feedback: "एक जोखिम भरा वापसी।" } ] },
+                        { id: 11, question: "क्या आप चाय बनाना जानते हैं?", answers: [ { text: "बेशक, मैं परिवार में सबसे अच्छी चाय बनाता हूँ।", score: 3, feedback: "चाय मास्टर।" }, { text: "मैं प्रबंध कर सकता हूँ, लेकिन यह बहुत अच्छा नहीं है।", score: 2, feedback: "प्रशिक्षु।" }, { text: "मैं केवल ग्रीन टी पीता हूँ।", score: 1, feedback: "आधुनिक स्वास्थ्य उत्साही।" } ] },
+                        { id: 12, question: "आप पीडीए (सार्वजनिक स्नेह का प्रदर्शन) देखते हैं। आप:", answers: [ { text: "अजीब तरह से दूर देखो।", score: 3, feedback: "परंपरावादी।" }, { text: "सोचो 'उनके लिए अच्छा है'।" , score: 1, feedback: "उदार।" }, { text: "थोड़ी देर घूरें, फिर शर्म महसूस करें।", score: 2, feedback: "जिज्ञासु बिल्ली।" } ] },
+                        { id: 13, question: "आप नए इलेक्ट्रॉनिक्स पर प्लास्टिक कवर का क्या करते हैं?", answers: [ { text: "उन्हें तुरंत हटा दें।", score: 1, feedback: "साफ-सफाई करने वाला।" }, { text: "उन्हें तब तक चालू रखें जब तक कि वे 5 साल में अपने आप गिर न जाएं।", score: 3, feedback: "निवेश की रक्षा करना।" }, { text: "उन्हें सावधानी से हटाएं और उन्हें सहेजें।", score: 2, feedback: "बस मामले में।" } ] },
+                        { id: 14, question: "आपके माता-पिता आपको रात 10 बजे तक घर आने के लिए कहते हैं। आप:", answers: [ { text: "रात 9:30 बजे तक बिस्तर पर हैं।", score: 3, feedback: "आज्ञाकारी।" }, { text: "10:30 बजे के विस्तार के लिए बहस करें।", score: 2, feedback: "वार्ताकार।" }, { text: "आधी रात को घर आओ और उम्मीद करो कि वे सो रहे हैं।", score: 1, feedback: "नियम-तोड़ने वाला।" } ] },
+                        { id: 15, question: "आप अपने पिता के दोस्त को कैसे संबोधित करते हैं?", answers: [ { text: "'अंकल' के रूप में।", score: 3, feedback: "सम्मानजनक तरीका।" }, { text: "'श्री शर्मा' के रूप में।", score: 2, feedback: "औपचारिक और विनम्र।" }, { text: "उनके पहले नाम से।", score: 1, feedback: "पश्चिमी प्रभाव।" } ] },
+                        { id: 16, question: "दिवाली का सबसे अच्छा हिस्सा है:", answers: [ { text: "परिवार पूजा।", score: 3, feedback: "आध्यात्मिक।" }, { text: "स्वादिष्ट भोजन।", score: 2, feedback: "खाने का शौकीन।" }, { text: "लंबी छुट्टी।", score: 1, feedback: "यथार्थवादी।" } ] },
+                        { id: 17, question: "आपको खाने के लिए फर्श पर बैठना है। आप:", answers: [ { text: "इसके साथ पूरी तरह से सहज हैं।", score: 3, feedback: "जमीन से जुड़ा, सचमुच।" }, { text: "इसे थोड़ा मुश्किल लगता है लेकिन प्रबंधित करते हैं।", score: 2, feedback: "अनुकूलक।" }, { text: "एक कुर्सी और एक मेज मांगें।", score: 1, feedback: "आधुनिक डिनर।" } ] },
+                        { id: 18, question: "आपका दोस्त एक टैटू बनवाता है। आप सोचते हैं:", answers: [ { text: "'वाह, यह बहुत अच्छा है!'", score: 1, feedback: "समर्थक।" }, { text: "'उनके माता-पिता क्या कहेंगे?'", score: 3, feedback: "परिवार का प्रतिनिधि।" }, { text: "'मुझे आश्चर्य है कि क्या यह दर्दनाक था।'", score: 2, feedback: "जिज्ञासु।" } ] },
+                        { id: 19, question: "आपको दिवाली पर 'सोन पापड़ी' की पेशकश की जाती है। आप:", answers: [ { text: "विनम्रता से इसे स्वीकार करें और उन्हें धन्यवाद दें।", score: 2, feedback: "राजनयिक।" }, { text: "इसे स्वीकार करें, और फिर इसे किसी अन्य रिश्तेदार को दें।", score: 3, feedback: "सोन पापड़ी का चक्र।" }, { text: "कहो 'नहीं धन्यवाद, मैं एक आहार पर हूँ।'", score: 1, feedback: "स्वास्थ्य के प्रति जागरूक।" } ] },
+                        { id: 20, question: "आपके माता-पिता आपको फेसबुक पर एक रिश्तेदार को जोड़ने के लिए कहते हैं। आप:", answers: [ { text: "इसे तुरंत करें।", score: 3, feedback: "परिवार योजक।" }, { text: "कहो कि तुम करोगे, और फिर 'भूल जाओ'।" , score: 2, feedback: "टालमटोल करने वाला।" }, { text: "कहो 'मैं वास्तव में अब फेसबुक का उपयोग नहीं करता।'", score: 1, feedback: "आधुनिक झूठ।" } ] },
+                        { id: 21, question: "आपकी माँ हर प्लास्टिक कंटेनर को 'बस मामले में' बचाती हैं। आप:", answers: [ { text: "इसे कष्टप्रद लगता है।", score: 1, feedback: "न्यूनतमवादी।" }, { text: "तर्क को पूरी तरह से समझें।", score: 2, feedback: "व्यावहारिक।" }, { text: "आपके पास कंटेनरों का अपना संग्रह है।", score: 3, feedback: "जैसी माँ, वैसी बेटी।" } ] },
+                        { id: 22, question: "आप शादी के कितने समारोहों में शामिल होते हैं?", answers: [ { text: "बस मुख्य रिसेप्शन।", score: 1, feedback: "कुशल अतिथि।" }, { text: "शादी और रिसेप्शन।", score: 2, feedback: "अच्छा अतिथि।" }, { text: "हल्दी, मेहंदी, संगीत, शादी, रिसेप्शन... वे सब!", score: 3, feedback: "पूर्ण-पैकेज अतिथि।" } ] },
+                        { id: 23, question: "आप एक बस में एक बड़े को खड़ा देखते हैं। आप:", answers: [ { text: "तुरंत अपनी सीट की पेशकश करें।", score: 3, feedback: "आदर्श संस्कार।" }, { text: "खिड़की से बाहर देखो और ऐसा दिखावा करो कि तुमने उन्हें नहीं देखा।", score: 1, feedback: "खिड़की निहारने वाला।" }, { text: "दोषी महसूस करें लेकिन उम्मीद करें कि कोई और पहले अपनी सीट की पेशकश करेगा।", score: 2, feedback: "झिझकने वाला नायक।" } ] },
+                        { id: 24, question: "'पंडित' क्या है?", answers: [ { text: "एक प्रकार की भारतीय रोटी।", score: 1, feedback: "वह एक पराठा है।" }, { text: "एक हिंदू पुजारी जो अनुष्ठान करता है।", score: 3, feedback: "सही!" }, { text: "एक प्रसिद्ध भारतीय क्रिकेटर।", score: 2, feedback: "आप पांड्या के बारे में सोच रहे हैं।" } ] },
+                        { id: 25, question: "आपके माता-पिता सही हैं:", answers: [ { text: "कभी-कभी।", score: 1, feedback: "यथार्थवादी।" }, { text: "अधिकांश समय।", score: 2, feedback: "अच्छा श्रोता।" }, { text: "हमेशा। माता-पिता हमेशा सही होते हैं।", score: 3, feedback: "आदर्श बालक।" } ] }
+                    ]
+                }
+            };
+            
+            // --- STATE MANAGEMENT & DOM ELEMENTS ---
+            let currentQuestionIndex = 0;
+            let userAnswers = {};
+            let currentLang = 'en';
+            let quizQuestions = [];
+            let userName = '';
+            const QUESTIONS_PER_QUIZ = 15;
+
+            const allLangElements = document.querySelectorAll('[data-lang-key]');
+            const langPlaceholderElements = document.querySelectorAll('[data-lang-placeholder]');
+            const languageToggle = document.getElementById('language-toggle');
+            const startScreen = document.getElementById('start-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const calculatingScreen = document.getElementById('calculating-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const journeyScreen = document.getElementById('journey-screen');
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const goBackBtn = document.getElementById('go-back-btn');
+            const backToMainBtn = document.getElementById('back-to-main-btn');
+            const nameInput = document.getElementById('name-input');
+            const questionContainer = document.getElementById('question-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const finalScoreEl = document.getElementById('final-score');
+            const resultTitleEl = document.getElementById('result-title');
+            const resultDescriptionEl = document.getElementById('result-description');
+            const finalQuoteEl = document.getElementById('final-quote');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const shareButtonsContainer = document.getElementById('share-buttons');
+            const exploreBtn = document.getElementById('explore-btn');
+
+            // --- LANGUAGE LOGIC ---
+            const updateLanguage = (lang) => {
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                document.documentElement.lang = lang;
+                
+                languageToggle.innerHTML = (lang === 'en') 
+                    ? `<i class="fa-solid fa-language mr-2"></i> हिन्दी`
+                    : `<i class="fa-solid fa-language mr-2"></i> English`;
+
+                allLangElements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    const value = getNestedValue(content[lang], key);
+                    if (value) el.innerHTML = value;
+                });
+                
+                langPlaceholderElements.forEach(el => {
+                    const key = el.dataset.langPlaceholder;
+                    const value = getNestedValue(content[lang], key);
+                    if(value) el.placeholder = value;
+                });
+            };
+
+            const getNestedValue = (obj, key) => key.split('.').reduce((acc, part) => acc && acc[part], obj);
+
+            // --- THEME LOGIC ---
+            const applyTheme = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIconDark.classList.remove('hidden');
+                    themeIconLight.classList.add('hidden');
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
+            applyTheme(isDarkMode);
+
+            // --- UI FUNCTIONS ---
+            const renderQuestion = () => {
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const q_id = quizQuestions[currentQuestionIndex];
+                    const q_data_en = content.en.questions.find(item => item.id === q_id);
+                    const q_lang = content[currentLang].questions.find(item => item.id === q_id);
+                    
+                    if(!q_data_en || !q_lang) {
+                        goHome();
+                        return;
+                    }
+
+                    const shuffledAnswers = [...q_lang.answers].sort(() => Math.random() - 0.5);
+
+                    let answersHTML = shuffledAnswers.map(answer => {
+                        return `
+                        <button data-score="${answer.score}" class="choice-btn w-full text-left p-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-orange-100 dark:hover:bg-orange-500 transition-colors duration-200">
+                            ${answer.text}
+                        </button>
+                    `}).join('');
+                    
+                    const counterText = content[currentLang].question_counter
+                        .replace('{current}', currentQuestionIndex + 1)
+                        .replace('{total}', QUESTIONS_PER_QUIZ);
+
+                    questionContainer.innerHTML = `
+                        <div class="fade-in">
+                            <p class="text-lg font-semibold dark-mode-subtext mb-4">${counterText}</p>
+                            <h2 class="text-2xl md:text-3xl font-bold dark-mode-text mb-8">${q_lang.question.replace(/{name}/g, `<strong>${userName}</strong>`)}</h2>
+                            <div class="flex flex-col items-center space-y-4">${answersHTML}</div>
+                        </div>
+                    `;
+                    feedbackContainer.innerHTML = '';
+                    updateProgressBar();
+                } else {
+                    showCalculatingScreen();
+                }
+            };
+            
+            const updateProgressBar = () => {
+                const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            };
+
+            // --- CORE LOGIC ---
+            const startQuiz = () => {
+                userName = nameInput.value.trim();
+                if (!userName) {
+                    userName = (currentLang === 'en') ? 'Sanskaari' : 'संस्कारी';
+                }
+
+                let allQuestionIds = content.en.questions.map(q => q.id);
+                allQuestionIds.sort(() => Math.random() - 0.5);
+                quizQuestions = allQuestionIds.slice(0, QUESTIONS_PER_QUIZ);
+                currentQuestionIndex = 0;
+                userAnswers = {};
+
+                startScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    startScreen.classList.add('hidden');
+                    startScreen.classList.remove('fade-out');
+                    quizScreen.classList.remove('hidden');
+                    quizScreen.classList.add('fade-in');
+                    progressContainer.classList.remove('hidden');
+                    backToMainBtn.classList.remove('hidden');
+                    renderQuestion();
+                }, 500);
+            };
+
+            const handleAnswer = (e) => {
+                const selectedBtn = e.target.closest('.choice-btn');
+                if (!selectedBtn) return;
+
+                const score = parseInt(selectedBtn.dataset.score);
+                const question_id = quizQuestions[currentQuestionIndex];
+                const question_data_lang = content[currentLang].questions.find(item => item.id === question_id);
+                
+                const answer_data_lang = question_data_lang.answers.find(a => a.score === score);
+                if (answer_data_lang) {
+                    feedbackContainer.innerHTML = `<p class="fade-in font-semibold text-lg text-teal-600 dark:text-teal-400">${answer_data_lang.feedback}</p>`;
+                }
+
+                userAnswers[question_id] = score;
+                
+                questionContainer.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn !== selectedBtn) {
+                        btn.classList.add('opacity-50');
+                    } else {
+                        btn.classList.add('ring-4', 'ring-orange-400');
+                    }
+                });
+                
+                setTimeout(() => {
+                    if (questionContainer.firstElementChild) {
+                        questionContainer.firstElementChild.classList.replace('fade-in', 'fade-out');
+                    }
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    }, 500);
+                }, 1800);
+            };
+
+            const showCalculatingScreen = () => {
+                quizScreen.classList.add('fade-out');
+                progressContainer.classList.add('hidden');
+                backToMainBtn.classList.add('hidden');
+                setTimeout(() => {
+                    quizScreen.classList.add('hidden');
+                    quizScreen.classList.remove('fade-out');
+                    calculatingScreen.classList.remove('hidden');
+                    calculatingScreen.classList.add('fade-in');
+                    const calculatingTexts = [
+                        content[currentLang].calculating_text, 
+                        (currentLang === 'en' ? "Asking your grandmother for her opinion..." : "आपकी दादी से उनकी राय पूछ रहे हैं..."),
+                        (currentLang === 'en' ? "Checking if you know the lyrics to 'Vaishnav Jan To'..." : "जाँच हो रही है कि क्या आपको 'वैष्णव जन तो' के बोल याद हैं...")
+                    ];
+                    document.getElementById('calculating-text').innerText = calculatingTexts[Math.floor(Math.random()*calculatingTexts.length)];
+                    setTimeout(showResults, 2500);
+                }, 500);
+            }
+            
+            const showResults = (isThemeOrLangUpdate = false) => {
+                if (!isThemeOrLangUpdate) {
+                     calculatingScreen.classList.add('fade-out');
+                     setTimeout(() => {
+                        calculatingScreen.classList.add('hidden');
+                        calculatingScreen.classList.remove('fade-out');
+                        resultsScreen.classList.remove('hidden');
+                        resultsScreen.classList.add('slide-up');
+                        calculateAndDisplayScores();
+                    }, 500);
+                } else {
+                    calculateAndDisplayScores();
+                }
+            };
+
+            const calculateAndDisplayScores = () => {
+                let totalScore = 0;
+                Object.values(userAnswers).forEach(score => {
+                    totalScore += score;
+                });
+
+                const minPossibleScore = QUESTIONS_PER_QUIZ * 1;
+                const maxPossibleScore = QUESTIONS_PER_QUIZ * 3;
+                const scoreRange = maxPossibleScore - minPossibleScore;
+                const userScoreOffset = totalScore - minPossibleScore;
+
+                let sanskaariPercentage = 0;
+                if (scoreRange > 0) {
+                    sanskaariPercentage = Math.round((userScoreOffset / scoreRange) * 100);
+                }
+                
+                finalScoreEl.classList.remove('score-reveal');
+                void finalScoreEl.offsetWidth; // Trigger reflow
+                finalScoreEl.classList.add('score-reveal');
+
+                let startValue = 0;
+                const duration = 1200;
+                const endValue = sanskaariPercentage;
+                const startTime = performance.now();
+
+                function animateCountUp(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    if (elapsedTime < duration) {
+                        const progress = elapsedTime / duration;
+                        const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+                        const currentValue = Math.round(startValue + (endValue - startValue) * easedProgress);
+                        finalScoreEl.textContent = `${currentValue}%`;
+                        requestAnimationFrame(animateCountUp);
+                    } else {
+                        finalScoreEl.textContent = `${endValue}%`;
+                    }
+                }
+                requestAnimationFrame(animateCountUp);
+
+                let resultKey;
+                if (sanskaariPercentage <= 25) resultKey = 'rebel';
+                else if (sanskaariPercentage <= 50) resultKey = 'modern';
+                else if (sanskaariPercentage <= 75) resultKey = 'good_kid';
+                else resultKey = 'alok_nath';
+                
+                finalQuoteEl.dataset.resultKey = resultKey;
+                document.getElementById('certificate-name').textContent = userName;
+
+                const personalizedLabel = content[currentLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+
+                resultTitleEl.textContent = content[currentLang][`result_${resultKey}_title`];
+                resultDescriptionEl.innerHTML = content[currentLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                finalQuoteEl.textContent = content[currentLang][`final_quote_${resultKey}`];
+                
+                displayFunnyComments(resultKey);
+                updateShareLinks(sanskaariPercentage, content[currentLang][`result_${resultKey}_title`]);
+            };
+
+            const startBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                stopBackgroundAnimations();
+                
+                const emojis = ['🙏', '🕉️', '😇', '😂', '👪', '✨', '🧘'];
+                const numEmojis = 25;
+
+                for (let i = 0; i < numEmojis; i++) {
+                    const emoji = document.createElement('span');
+                    emoji.className = 'floating-emoji';
+                    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    emoji.style.left = `${Math.random() * 100}vw`;
+                    emoji.style.fontSize = `${1 + Math.random() * 2}rem`;
+                    const duration = 8 + Math.random() * 10;
+                    const delay = Math.random() * 7;
+                    const translateX = `${(Math.random() - 0.5) * 200}px`;
+                    const rotate = `${(Math.random() - 0.5) * 720}deg`;
+                    
+                    emoji.style.setProperty('--translateX', translateX);
+                    emoji.style.setProperty('--rotate', rotate);
+                    emoji.style.animation = `floatUp ${duration}s ease-in ${delay}s infinite`;
+                    
+                    container.appendChild(emoji);
+                }
+            };
+
+            const stopBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (container) {
+                    container.innerHTML = '';
+                }
+            };
+
+            const typewriter = (element, text, callback) => {
+                let i = 0;
+                const speed = 40; // milliseconds per character
+                const originalHTML = element.innerHTML;
+                element.innerHTML = originalHTML + '<span class="typing-text"></span><span class="typing-cursor border-l-2 border-orange-500 h-6 inline-block align-middle">&nbsp;</span>';
+                const textSpan = element.querySelector('.typing-text');
+                const cursorSpan = element.querySelector('.typing-cursor');
+                
+                function type() {
+                    if (i < text.length) {
+                        textSpan.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        if(cursorSpan) {
+                           cursorSpan.style.display = 'none';
+                        }
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+
+            const displayFunnyComments = (resultKey) => {
+                const commentsContainer = document.getElementById('funny-comments-container');
+                if (!commentsContainer) return;
+                commentsContainer.innerHTML = '';
+                const commentsPool = content[currentLang].funny_comments[resultKey] || [];
+                
+                const shuffledComments = [...commentsPool].sort(() => 0.5 - Math.random());
+                const selectedComments = shuffledComments.slice(0, 3);
+
+                let commentIndex = 0;
+
+                function typeNextComment() {
+                    if (commentIndex < selectedComments.length) {
+                        const commentText = selectedComments[commentIndex];
+                        
+                        const card = document.createElement('div');
+                        card.className = 'funny-comment-card bg-orange-100 dark:bg-gray-800 p-4 rounded-lg mb-4 text-gray-700 dark:text-orange-300 italic shadow-md';
+                        
+                        const p = document.createElement('p');
+                        p.innerHTML = `<i class="fa-solid fa-quote-left mr-2 text-orange-500"></i> `;
+                        card.appendChild(p);
+
+                        card.style.animationDelay = `0.2s`;
+                        
+                        commentsContainer.appendChild(card);
+                        
+                        setTimeout(() => {
+                            typewriter(p, commentText, () => {
+                                commentIndex++;
+                                setTimeout(typeNextComment, 800); 
+                            });
+                        }, 600);
+                    }
+                }
+                
+                startBackgroundAnimations();
+                typeNextComment();
+            };
+
+
+            const updateShareLinks = (percentage, title) => {
+                const text = encodeURIComponent(`My Sanskaari Score is ${percentage}%! Turns out I'm a "${title}". Find out how sanskaari you are:`);
+                const url = encodeURIComponent(window.location.href);
+                
+                document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                document.getElementById('telegram-share').href = `https://t.me/share/url?url=${url}&text=${text}`;
+                document.getElementById('instagram-share').href = `https://www.instagram.com/`;
+            };
+            
+            const goHome = () => {
+                stopBackgroundAnimations();
+                [quizScreen, resultsScreen, journeyScreen, progressContainer, backToMainBtn, calculatingScreen].forEach(el => el.classList.add('hidden'));
+                startScreen.classList.remove('hidden', 'fade-out');
+                startScreen.classList.add('fade-in');
+                nameInput.value = '';
+                currentQuestionIndex = 0;
+                userAnswers = {};
+                quizQuestions = [];
+                progressBar.style.width = '0%';
+            };
+
+            const showJourneyScreen = (e) => {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                resultsScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    resultsScreen.classList.add('hidden');
+                    resultsScreen.classList.remove('fade-out');
+                    journeyScreen.classList.remove('hidden');
+                    journeyScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            const showResultsScreenFromJourney = () => {
+                journeyScreen.classList.add('fade-out');
+                 setTimeout(() => {
+                    journeyScreen.classList.add('hidden');
+                    journeyScreen.classList.remove('fade-out');
+                    resultsScreen.classList.remove('hidden');
+                    resultsScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            // --- EVENT LISTENERS ---
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', goHome);
+            backToMainBtn.addEventListener('click', goHome);
+            goBackBtn.addEventListener('click', showResultsScreenFromJourney);
+            quizScreen.addEventListener('click', handleAnswer);
+            shareButtonsContainer.addEventListener('click', (e) => {
+                const shareBtn = e.target.closest('a.share-btn');
+                if (shareBtn && shareBtn.href && shareBtn.href !== '#') {
+                    showJourneyScreen(e);
+                }
+           
+            });
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+                if (!resultsScreen.classList.contains('hidden')) { showResults(true); }
+            });
+            languageToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'hi' : 'en';
+                updateLanguage(newLang);
+                if (!quizScreen.classList.contains('hidden') || !calculatingScreen.classList.contains('hidden')) { 
+                    goHome();
+                } else if (!resultsScreen.classList.contains('hidden')) {
+                    const resultKey = finalQuoteEl.dataset.resultKey;
+                    const personalizedLabel = content[newLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                    document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+                    resultTitleEl.textContent = content[newLang][`result_${resultKey}_title`];
+                    resultDescriptionEl.innerHTML = content[newLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                    finalQuoteEl.textContent = content[newLang][`final_quote_${resultKey}`];
+                    displayFunnyComments(resultKey);
+                }
+            });
+
+            // Initial Load
+            const savedLang = localStorage.getItem('language') || 'en';
+            updateLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>

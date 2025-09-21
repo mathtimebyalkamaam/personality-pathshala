@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0DL8SC5JKB');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desi Parent Meter - How Desi Is Your Parenting?</title>
+        
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS for theme, animations, and additional styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Dark Mode --- */
+        .dark .dark-mode-bg { background-color: #111827; }
+        .dark .dark-mode-text { color: #f9fafb; }
+        .dark .dark-mode-surface { background-color: #1f2937; }
+        .dark .dark-mode-border { border-color: #374151; }
+        .dark .dark-mode-subtext { color: #9ca3af; }
+
+        /* --- Animations --- */
+        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .pulse { animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .9; transform: scale(1.02); }
+        }
+
+        /* --- Button Styles --- */
+        .choice-btn, .share-btn, .control-btn {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .choice-btn:hover, .share-btn:hover, .control-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Social Share Colors --- */
+        .whatsapp-btn { background-color: #25D366; }
+        .twitter-btn { background-color: #1DA1F2; }
+        .facebook-btn { background-color: #1877F2; }
+        .telegram-btn { background-color: #24A1DE; }
+        .instagram-btn {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        }
+
+        /* --- Score Animation --- */
+        .score-reveal {
+            animation: scoreReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 10px rgba(239, 68, 68, 0.5), 0 0 20px rgba(239, 68, 68, 0.3); /* Red Shadow */
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* --- Funny Comments Styling --- */
+        .funny-comments-container {
+            perspective: 1000px;
+        }
+
+        .funny-comment-card {
+            opacity: 0;
+            transform: rotateX(-90deg) translateY(50px);
+            transform-origin: bottom center;
+            animation: revealComment 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .funny-comment-card p {
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1.75rem; /* leading-7 */
+        }
+
+        @media (min-width: 768px) {
+            .funny-comment-card p {
+                font-size: 1.5rem; /* md:text-2xl */
+                line-height: 2rem; /* md:leading-8 */
+            }
+        }
+
+
+        @keyframes revealComment {
+            from {
+                opacity: 0;
+                transform: rotateX(-90deg) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0deg) translateY(0);
+            }
+        }
+        
+        /* --- Typing Effect --- */
+        .typing-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #ef4444; } /* red-500 */
+        }
+        
+        /* --- Background Animation --- */
+        #animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: -50px; /* Start from below the screen */
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--translateX)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode-bg text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+    <div id="animation-container"></div>
+    <!-- Header for Toggles -->
+    <header class="absolute top-4 w-full px-4 z-20 flex items-center justify-between">
+        <!-- Back to Main Page Button (Initially hidden) -->
+        <a id="back-to-main-btn" href="index.html" role="button" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </a>
+
+        <div class="flex items-center space-x-2 ml-auto">
+             <!-- Language Toggle -->
+            <button id="language-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-900 w-28 h-10 flex items-center justify-center text-sm">
+                <!-- Text updated by JS -->
+            </button>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+                <svg id="theme-icon-dark" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg id="theme-icon-light" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-2 bg-gray-200 dark:bg-gray-700 z-10 hidden">
+        <div id="progress-bar" class="h-full bg-red-500 progress-bar-fill" style="width: 0%;"></div>
+    </div>
+    
+    <main class="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-screen relative z-10">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center max-w-2xl fade-in">
+            <h1 class="text-4xl md:text-6xl font-extrabold dark-mode-text tracking-tight mb-4">The <span class="text-red-500" data-lang-key="title">Desi Parent Meter</span></h1>
+            <p class="text-lg md:text-xl dark-mode-subtext mb-8" data-lang-key="subtitle">
+                Do you compare your child to Sharmaji's kid? Is 'log kya kahenge' your life's motto? Let's find out if you're a cool friend or a classic desi parent!
+            </p>
+            <div class="mb-6 w-full max-w-sm mx-auto">
+                <input type="text" id="name-input" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-900 dark:text-white" data-lang-placeholder="name_placeholder">
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-8 italic" data-lang-key="privacy_disclaimer"></p>
+            <button id="start-btn" data-lang-key="start_button" class="bg-red-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-red-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300 pulse">
+                Check My Parvarish!
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden w-full max-w-3xl">
+            <div id="question-container" class="text-center pt-16">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <div id="feedback-container" class="mt-6 text-center text-md dark-mode-subtext min-h-[60px]">
+                <!-- Feedback will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Calculating Screen -->
+        <div id="calculating-screen" class="hidden text-center w-full max-w-2xl">
+            <svg class="animate-spin h-16 w-16 text-red-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h2 id="calculating-text" class="text-2xl font-bold dark-mode-text" data-lang-key="calculating_text">Consulting with the ancestors...</h2>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center w-full max-w-4xl pt-16">
+            <h2 class="text-2xl font-bold dark-mode-subtext mb-2" data-lang-key="result_level_label">Your Desi Parent Level</h2>
+            <div id="final-score" class="text-7xl md:text-8xl font-extrabold text-red-500 mb-4">0%</div>
+            <h3 id="result-title" class="text-3xl md:text-4xl font-extrabold dark-mode-text mb-3"></h3>
+            <p id="result-description" class="text-lg md:text-xl dark-mode-subtext mb-8 max-w-2xl mx-auto"></p>
+            
+            <div id="funny-comments-container" class="funny-comments-container mt-8 mb-8 max-w-2xl mx-auto">
+                <!-- Comments will be injected here -->
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="mb-8">
+                <p class="font-bold dark-mode-text mb-3" data-lang-key="share_results_label">Share Your Report & Get a Certificate!</p>
+                <div id="share-buttons" class="flex justify-center items-center flex-wrap gap-4">
+                    <a id="whatsapp-share" href="https://ppscore.co.in" target="_blank" class="share-btn whatsapp-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l.217.324-1.125 4.108 4.224-1.103.337.202z" /></svg>
+                    </a>
+                    <a id="twitter-share" href="https://ppscore.co.in" target="_blank" class="share-btn twitter-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.794 4.649-.69.188-1.433.23-2.184.085.617 1.914 2.408 3.258 4.53 3.301-1.724 1.352-3.883 2.093-6.138 1.795 1.815 1.163 3.973 1.84 6.262 1.84 7.218 0 11.168-5.986 11.168-11.168 0-.17-.003-.34-.01-.508.77-.556 1.438-1.248 1.968-2.04z"/></svg>
+                    </a>
+                    <a id="facebook-share" href="https://ppscore.co.in" target="_blank" class="share-btn facebook-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                    </a>                      
+                    <a id="telegram-share" href="https://ppscore.co.in" target="_blank" class="share-btn telegram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-1.39.2-1.62l15.97-5.85c.73-.27 1.36.17 1.15.99L16.4 18.28c-.21.83-1.2.5-1.54-.26L9.78 18.65z"/></svg>
+                    </a>
+                    <a id="instagram-share" href="https://ppscore.co.in" target="_blank" class="share-btn instagram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <p id="final-quote" class="text-lg dark-mode-text max-w-3xl mx-auto mb-8 italic">
+                <!-- Quote inserted by JS -->
+            </p>
+
+            <button id="restart-btn" data-lang-key="restart_button" class="bg-red-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-red-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300">
+                Re-check My Parvarish!
+            </button>
+
+            <!-- Explore More Section -->
+            <div class="mt-16 py-8 border-t-2 border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
+                 <h3 class="text-2xl md:text-3xl font-extrabold dark-mode-text mb-4" data-lang-key="explore_title">Your Analysis Isn't Over Yet!</h3>
+                 <p class="text-lg dark-mode-subtext mb-8" data-lang-key="explore_desc">
+                   You've audited your parenting skills, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.
+                 </p>
+                 <a id="explore-btn" href="index.html" class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 inline-block" data-lang-key="explore_button">
+                   Visit PersonalityPaathshala
+                 </a>
+                 <div class="mt-8 mb-6">
+                    <p class="font-semibold mb-2 text-red-400 dark:text-red-300" data-lang-key="support_title">Loved this quiz? Help us create more!</p>
+                    <p class="text-base text-gray-700 dark:text-white mb-3" data-lang-key="support_desc">Your small contribution keeps our creative engine running and helps us serve more fun.</p>
+                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QvFHmdPg3T4Pqh" async> </script> </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Screen -->
+        <div id="journey-screen" class="hidden text-center w-full max-w-2xl pt-16">
+            <h2 class="text-4xl font-extrabold text-red-500 mb-4" data-lang-key="journey_title">Your Certificate of Parvarish!</h2>
+            <p class="text-lg dark-mode-subtext mb-8" data-lang-key="journey_subtitle">You shared your score! The ancestors are proud. As a reward, please accept this official certificate for your excellent upbringing skills.</p>
+            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-xl border-4 border-yellow-400">
+                <div class="text-center p-4 border-2 border-dashed border-gray-400">
+                    <h3 class="text-2xl font-bold dark-mode-text" style="font-family: serif;">Akhil Bhartiya Parent Sangh</h3>
+                    <p class="dark-mode-subtext mt-2 uppercase tracking-widest">Certificate of Parvarish</p>
+                    <div class="my-4 text-5xl text-red-500">
+                        🏆
+                    </div>
+                    <p class="dark-mode-subtext">This is to certify that</p>
+                    <p id="certificate-name" class="text-3xl font-bold text-red-500 my-2">[Your Name]</p>
+                    <p class="dark-mode-text">is an outstanding parent, approved by Sharmaji himself.</p>
+                </div>
+            </div>
+             <button id="go-back-btn" data-lang-key="go_back_button" class="mt-8 bg-gray-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Back to My Score
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-xs text-gray-400 dark:text-gray-500">
+        <p data-lang-key="disclaimer">Disclaimer: This quiz is for fun. We are not responsible if you suddenly develop the urge to ask every young person about their marriage plans.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- LANGUAGE CONTENT STORE ---
+            const content = {
+                en: {
+                    title: "Desi Parent Meter",
+                    subtitle: "Do you compare your child to Sharmaji's kid? Is 'log kya kahenge' your life's motto? Let's find out if you're a cool friend or a classic desi parent!",
+                    name_placeholder: "Enter your 'parent' name...",
+                    privacy_disclaimer: "Your secret stash of empty plastic containers is safe with us.",
+                    start_button: "Check My Parvarish!",
+                    calculating_text: "Consulting with the ancestors...",
+                    result_level_label: "Your Desi Parent Level",
+                    result_level_label_personalized: "{name}'s Desi Parent Level",
+                    share_results_label: "Share Your Report & Get a Certificate!",
+                    restart_button: "Re-check My Parvarish!",
+                    disclaimer: "Disclaimer: This quiz is for fun. We are not responsible if you suddenly develop the urge to ask every young person about their marriage plans.",
+                    question_counter: "Question {current} of {total}",
+                    
+                    result_cool_dost_title: "The Cool Dost",
+                    result_cool_dost_desc: "{name}, your kid probably calls you by your first name. You're less of a parent, more of a friend who pays the bills. Your house rules are more like... suggestions.",
+                    result_modern_parent_title: "The Modern Parent",
+                    result_modern_parent_desc: "{name}, you're a mix of old and new. You'll let your kid go to a concert, but you'll track their location on an app. You believe in balance, and also in knowing everything.",
+                    result_classic_parent_title: "Classic Desi Parent",
+                    result_classic_parent_desc: "{name}, Sharmaji's kid is your benchmark for success. You believe a flying chappal is a valid form of communication and that every problem can be solved by eating dahi-cheeni.",
+                    result_parampara_pro_max_title: "Parampara Pro Max",
+                    result_parampara_pro_max_desc: "{name}, you are the final boss of desi parenting. Your 'no' can be heard from space. Your kids are probably doctors or engineers... or both. Alok Nath looks up to you.",
+                    
+                    final_quote_cool_dost: "\"Just be home... sometime tonight.\"",
+                    final_quote_modern_parent: "\"I trust you, but I'm going to verify.\"",
+                    final_quote_classic_parent: "\"Log kya kahenge?\"",
+                    final_quote_parampara_pro_max: "\"Humare zamaane mein...\"",
+                    
+                    funny_comments: {
+                        cool_dost: [
+                            "Your kid's friends think you're cooler than them.",
+                            "You've probably said 'It's just a phase' to a tattoo.",
+                            "Your most used phrase is 'As long as you're happy'.",
+                            "You've never used the line 'Humare zamaane mein...'."
+                        ],
+                        modern_parent: [
+                            "You know what 'rizz' is, but you're not sure if you should be happy about it.",
+                            "You have your kid's password, 'for safety'.",
+                            "You let them go to Goa, but with 17 phone calls a day.",
+                            "You're a mix of 'YOLO' and 'Log Kya Kahenge'."
+                        ],
+                        classic_parent: [
+                            "You believe every cough can be cured with adrak wali chai.",
+                            "Your kid's report card is a public document.",
+                            "You have a special drawer for empty plastic containers.",
+                            "You've used the phrase 'Is ghar mein meri koi izzat nahi hai'."
+                        ],
+                        parampara_pro_max: [
+                            "Your kids have two career options: doctor or engineer. The third is disgrace.",
+                            "You think 'love marriage' is a myth created by Bollywood.",
+                            "A flying chappal is your primary weapon of mass instruction.",
+                            "You've compared your child to every kid in the neighborhood, solar system, and galaxy."
+                        ]
+                    },
+
+                    journey_title: "Your Certificate of Parvarish!",
+                    journey_subtitle: "You shared your score! The ancestors are proud. As a reward, please accept this official certificate for your excellent upbringing skills.",
+                    go_back_button: "Back to My Score",
+
+                    explore_title: "Your Analysis Isn't Over Yet!",
+                    explore_desc: "You've audited your parenting skills, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.",
+                    explore_button: "Visit PersonalityPaathshala",
+                    support_title: "Loved this quiz? Help us create more!",
+                    support_desc: "Your small contribution keeps our creative engine running and helps us serve more fun.",
+
+                    questions: [
+                        { id: 1, question: "Your child gets 99 out of 100 on a test. You say:", answers: [ { text: "'Great job! I'm so proud!'", score: 1, feedback: "A supportive, modern response." }, { text: "'That's good, but where did the other 1 mark go?'", score: 3, feedback: "The classic desi parent question." }, { text: "'Who got 100?'", score: 2, feedback: "Always keeping an eye on the competition." } ] },
+                        { id: 2, question: "Your child says they want to be a YouTuber. You:", answers: [ { text: "'Follow your dreams!'", score: 1, feedback: "The cool parent." }, { text: "'Okay, but first get a degree in engineering.'", score: 3, feedback: "The classic backup plan." }, { text: "Ask 'How much money do they make?'", score: 2, feedback: "A practical question." } ] },
+                        { id: 3, question: "The plastic film on a new remote control should be:", answers: [ { text: "Removed immediately for a better feel.", score: 1, feedback: "You live in the moment." }, { text: "Kept on forever to protect it from the universe.", score: 3, feedback: "This is the way." }, { text: "Kept on until it starts peeling off by itself.", score: 2, feedback: "A good compromise." } ] },
+                        { id: 4, question: "Your child wants to go for a sleepover at a friend's house. You say:", answers: [ { text: "'Sure, have fun!'", score: 1, feedback: "So much trust!" }, { text: "'Is our house a hotel that you want to stay outside?'", score: 3, feedback: "The ultimate guilt trip." }, { text: "'Who are these friends? Give me their parents' numbers.'", score: 2, feedback: "The background check is mandatory." } ] },
+                        { id: 5, question: "When a guest comes over, you tell your child to:", answers: [ { text: "Just be themselves.", score: 1, feedback: "A novel concept." }, { text: "Show them your latest dance/singing performance.", score: 2, feedback: "The little entertainer." }, { text: "Touch their feet and get blessings.", score: 3, feedback: "Sanskaar level: 100." } ] },
+                        { id: 6, question: "Your child says 'I'm hungry'. You offer them:", answers: [ { text: "Whatever they want to eat.", score: 1, feedback: "The personal chef." }, { text: "An apple, because 'an apple a day...'", score: 2, feedback: "The health-conscious parent." }, { text: "A lecture on how you used to eat whatever was cooked without complaining.", score: 3, feedback: "The historian." } ] },
+                        { id: 7, question: "The best way to wake up your child for school is:", answers: [ { text: "A gentle nudge and a soft voice.", score: 1, feedback: "Like in the movies." }, { text: "Switch on all the lights and take away their blanket.", score: 3, feedback: "The classic wake-up call." }, { text: "Shouting 'Get up! It's 8 o'clock!' when it's only 7.", score: 2, feedback: "A strategic lie." } ] },
+                        { id: 8, question: "Old clothes are for:", answers: [ { text: "Donating.", score: 1, feedback: "The philanthropist." }, { text: "Making 'pocha' (cleaning rags).", score: 3, feedback: "The ultimate form of recycling." }, { text: "Wearing at home.", score: 2, feedback: "The comfort clothes." } ] },
+                        { id: 9, question: "Your child asks for privacy. You:", answers: [ { text: "Respect their space and close the door.", score: 1, feedback: "The modern parent." }, { text: "Laugh.", score: 3, feedback: "What is this 'privacy' you speak of?" }, { text: "Say 'This is my house, I have no privacy, so you have no privacy.'", score: 2, feedback: "The classic argument." } ] },
+                        { id: 10, question: "Your child falls down and gets a small scratch. You:", answers: [ { text: "Kiss it and make it better.", score: 1, feedback: "The loving parent." }, { text: "First say 'I told you not to run!' and then look at the scratch.", score: 3, feedback: "The 'I-told-you-so' specialist." }, { text: "Put haldi on it.", score: 2, feedback: "The ultimate antiseptic." } ] },
+                        { id: 11, question: "The purpose of a guest room sofa cover is:", answers: [ { text: "To protect the sofa from guests.", score: 3, feedback: "The sofa is for 'dekhna', not for 'baithna'." }, { text: "To be removed only when very special guests arrive.", score: 2, feedback: "The VVIP treatment." }, { text: "What sofa cover?", score: 1, feedback: "You live a dangerous life." } ] },
+                        { id: 12, question: "Your child doesn't finish their food. You:", answers: [ { text: "Tell them it's okay.", score: 1, feedback: "The understanding parent." }, { text: "Give them an emotional lecture about starving children.", score: 3, feedback: "The master of guilt." }, { text: "Make them sit at the table until they finish it.", score: 2, feedback: "The disciplinarian." } ] },
+                        { id: 13, question: "When you call your child and they don't pick up, you:", answers: [ { text: "Assume they're busy and will call back.", score: 1, feedback: "The trusting one." }, { text: "Call them 17 more times in a row.", score: 3, feedback: "The professional caller." }, { text: "Immediately call their friends to ask where they are.", score: 2, feedback: "The detective." } ] },
+                        { id: 14, question: "An empty plastic container is:", answers: [ { text: "Trash.", score: 1, feedback: "So wasteful." }, { text: "A future home for leftovers.", score: 3, feedback: "The circle of life." }, { text: "A potential pot for a plant.", score: 2, feedback: "The gardener." } ] },
+                        { id: 15, question: "Your child wants to go on a trip to Goa with friends. You:", answers: [ { text: "'Sure, send me pictures!'", score: 1, feedback: "The chillest parent alive." }, { text: "First need a conference call with all the friends' parents.", score: 3, feedback: "The security council." }, { text: "Say 'Yes, we can all go together as a family!'", score: 2, feedback: "The family pack." } ] },
+                        { id: 16, question: "Your child wears ripped jeans. You say:", answers: [ { text: "'Nice jeans!'", score: 1, feedback: "The fashion-forward parent." }, { text: "'Do you want money to buy new pants? Did a dog attack you?'", score: 3, feedback: "The classic concern." }, { text: "'At least wear something underneath so your skin doesn't show.'", score: 2, feedback: "The compromise." } ] },
+                        { id: 17, question: "The TV volume in your house is usually at:", answers: [ { text: "A reasonable level.", score: 1, feedback: "What's that?" }, { text: "Loud enough for the neighbors to enjoy the show.", score: 3, feedback: "Sharing is caring." }, { text: "Depends on who has the remote.", score: 2, feedback: "The remote is power." } ] },
+                        { id: 18, question: "Your child teaches you a new phone feature. You:", answers: [ { text: "Learn it and use it.", score: 1, feedback: "The tech-savvy parent." }, { text: "Forget it in 5 minutes and ask them again.", score: 2, feedback: "The student." }, { text: "Say 'My old way was better.'", score: 3, feedback: "The traditionalist." } ] },
+                        { id: 19, question: "You see a Tupperware container at a friend's house that looks familiar. You:", answers: [ { text: "Ignore it.", score: 1, feedback: "Let it go." }, { text: "Ask 'Is that my dabba from 2018?'", score: 3, feedback: "The dabba detective." }, { text: "Mentally note to never give them a dabba again.", score: 2, feedback: "The lesson learned." } ] },
+                        { id: 20, question: "Your child says 'I'm bored'. You:", answers: [ { text: "Suggest a game or an activity.", score: 1, feedback: "The entertainer." }, { text: "Hand them a textbook.", score: 2, feedback: "The academic." }, { text: "Say 'When I was your age, I didn't have time to be bored!'", score: 3, feedback: "The historian." } ] },
+                        { id: 21, question: "What's the best investment?", answers: [ { text: "Stocks and mutual funds.", score: 1, feedback: "The financial planner." }, { text: "A plot of land.", score: 2, feedback: "The classic choice." }, { text: "My child's engineering degree.", score: 3, feedback: "The ultimate ROI." } ] },
+                        { id: 22, question: "When your child is sick, the first line of defense is:", answers: [ { text: "Calling a doctor.", score: 1, feedback: "The modern approach." }, { text: "Haldi Doodh (turmeric milk).", score: 3, feedback: "The ultimate cure." }, { text: "Asking Google for remedies.", score: 2, feedback: "Dr. Google." } ] },
+                        { id: 23, question: "You have guests over. The 'guest' crockery is:", answers: [ { text: "Used for the guests, obviously.", score: 2, feedback: "As it should be." }, { text: "Too precious to be used by anyone, even guests.", score: 3, feedback: "It's a museum piece." }, { text: "What guest crockery? We use the same plates for everyone.", score: 1, feedback: "The minimalist." } ] },
+                        { id: 24, question: "Your child asks for pocket money. You:", answers: [ { text: "Give them a fixed amount every month.", score: 1, feedback: "The organized parent." }, { text: "First ask 'What for?' and then demand a full expense report.", score: 2, feedback: "The auditor." }, { text: "Give them a 30-minute lecture on the value of money.", score: 3, feedback: "The economist." } ] },
+                        { id: 25, question: "You're at a traffic light and see your child's friend in another car. You:", answers: [ { text: "Smile and wave.", score: 1, feedback: "The cool parent." }, { text: "Stare at them until they notice you and feel awkward.", score: 2, feedback: "The observer." }, { text: "Roll down the window and shout 'BETA, SAY HI TO AUNTY!'", score: 3, feedback: "The official desi greeting." } ] }
+                    ]
+                },
+                hi: {
+                    title: "देसी पेरेंट मीटर",
+                    subtitle: "क्या आप अपने बच्चे की तुलना शर्माजी के बच्चे से करते हैं? क्या 'लोग क्या कहेंगे' आपके जीवन का आदर्श वाक्य है? आइए जानें कि आप एक शांत दोस्त हैं या एक क्लासिक देसी माता-पिता!",
+                    name_placeholder: "अपना 'माता-पिता' नाम दर्ज करें...",
+                    privacy_disclaimer: "खाली प्लास्टिक के कंटेनरों का आपका गुप्त भंडार हमारे पास सुरक्षित है।",
+                    start_button: "मेरी परवरिश की जाँच करें!",
+                    calculating_text: "पूर्वजों से सलाह ली जा रही है...",
+                    result_level_label: "आपका देसी पेरेंट स्तर",
+                    result_level_label_personalized: "{name} का देसी पेरेंट स्तर",
+                    share_results_label: "अपनी रिपोर्ट साझा करें और एक प्रमाण पत्र प्राप्त करें!",
+                    restart_button: "मेरी परवरिश की फिर से जाँच करें!",
+                    disclaimer: "अस्वीकरण: यह क्विज़ मनोरंजन के लिए है। हम जिम्मेदार नहीं हैं यदि आप अचानक हर युवा से उनकी शादी की योजनाओं के बारे में पूछने की इच्छा विकसित करते हैं।",
+                    question_counter: "प्रश्न {current} / {total}",
+
+                    result_cool_dost_title: "कूल दोस्त",
+                    result_cool_dost_desc: "{name}, आपका बच्चा शायद आपको आपके पहले नाम से बुलाता है। आप एक माता-पिता से कम, एक दोस्त हैं जो बिलों का भुगतान करता है। आपके घर के नियम... सुझावों की तरह अधिक हैं।",
+                    result_modern_parent_title: "आधुनिक माता-पिता",
+                    result_modern_parent_desc: "{name}, आप पुराने और नए का मिश्रण हैं। आप अपने बच्चे को एक संगीत कार्यक्रम में जाने देंगे, लेकिन आप एक ऐप पर उनके स्थान को ट्रैक करेंगे। आप संतुलन में विश्वास करते हैं, और सब कुछ जानने में भी।",
+                    result_classic_parent_title: "क्लासिक देसी पेरेंट",
+                    result_classic_parent_desc: "{name}, शर्माजी का बच्चा सफलता के लिए आपका मानदंड है। आप मानते हैं कि उड़તી चप्पल संचार का एक वैध रूप है और हर समस्या को दही-चीनी खाकर हल किया जा सकता है।",
+                    result_parampara_pro_max_title: "परंपरा प्रो मैक्स",
+                    result_parampara_pro_max_desc: "{name}, आप देसी पेरेंटिंग के अंतिम बॉस हैं। आपका 'नहीं' अंतरिक्ष से सुना जा सकता है। आपके बच्चे शायद डॉक्टर या इंजीनियर हैं... या दोनों। आलोक नाथ आपको देखते हैं।",
+
+                    final_quote_cool_dost: "\"बस घर आ जाना... आज रात कभी।\"",
+                    final_quote_modern_parent: "\"मुझे तुम पर भरोसा है, लेकिन मैं सत्यापित करूँगा।\"",
+                    final_quote_classic_parent: "\"लोग क्या कहेंगे?\"",
+                    final_quote_parampara_pro_max: "\"हमारे ज़माने में...\"",
+                    
+                    funny_comments: {
+                        cool_dost: [
+                            "आपके बच्चे के दोस्त सोचते हैं कि आप उनसे ज्यादा कूल हैं।",
+                            "आपने शायद एक टैटू पर 'यह सिर्फ एक चरण है' कहा है।",
+                            "आपका सबसे अधिक इस्तेमाल किया जाने वाला वाक्यांश है 'जब तक तुम खुश हो'।" ,
+                            "आपने कभी भी 'हमारे ज़माने में...' लाइन का इस्तेमाल नहीं किया है।"
+                        ],
+                        modern_parent: [
+                            "आप जानते हैं कि 'रिज़' क्या है, लेकिन आप निश्चित नहीं हैं कि आपको इसके बारे में खुश होना चाहिए या नहीं।",
+                            "आपके पास अपने बच्चे का पासवर्ड है, 'सुरक्षा के लिए'।" ,
+                            "आप उन्हें गोवा जाने देते हैं, लेकिन दिन में 17 फोन कॉल के साथ।",
+                            "आप 'YOLO' और 'लोग क्या कहेंगे' का मिश्रण हैं।"
+                        ],
+                        classic_parent: [
+                            "आप मानते हैं कि हर खांसी का इलाज अदरक वाली चाय से किया जा सकता है।",
+                            "आपके बच्चे का रिपोर्ट कार्ड एक सार्वजनिक दस्तावेज है।",
+                            "आपके पास खाली प्लास्टिक के कंटेनरों के लिए एक विशेष दराज है।",
+                            "आपने 'इस घर में मेरी कोई इज्जत नहीं है' वाक्यांश का इस्तेमाल किया है।"
+                        ],
+                        parampara_pro_max: [
+                            "आपके बच्चों के पास दो करियर विकल्प हैं: डॉक्टर या इंजीनियर। तीसरा अपमान है।",
+                            "आप सोचते हैं कि 'प्रेम विवाह' बॉलीवुड द्वारा बनाया गया एक मिथक है।",
+                            "एक उड़તી चप्पल आपके सामूहिक निर्देश का प्राथमिक हथियार है।",
+                            "आपने अपने बच्चे की तुलना पड़ोस, सौर मंडल और आकाशगंगा के हर बच्चे से की है।"
+                        ]
+                    },
+
+                    journey_title: "आपका परवरिश का प्रमाण पत्र!",
+                    journey_subtitle: "आपने अपना स्कोर साझा किया! पूर्वज गर्वित हैं। एक पुरस्कार के रूप में, कृपया अपने उत्कृष्ट पालन-पोषण कौशल के लिए यह आधिकारिक प्रमाण पत्र स्वीकार करें।",
+                    go_back_button: "मेरे स्कोर पर वापस जाएं",
+
+                    explore_title: "आपका विश्लेषण अभी खत्म नहीं हुआ है!",
+                    explore_desc: "आपने अपने पालन-पोषण कौशल का ऑडिट किया है, लेकिन आपके बाकी प्रफुल्लित करने वाले व्यक्तित्व के बारे में क्या? आपका प्रेम जीवन, आपके गुस्से के मुद्दे... पर्सनैलिटी पाठशाला में आपके लिए मज़ेदार कैलकुलेटर की एक पूरी कक्षा है।",
+                    explore_button: "पर्सनैलिटी पाठशाला पर जाएँ",
+                    support_title: "यह क्विज़ पसंद आया? और बनाने में हमारी मदद करें!",
+                    support_desc: "आपका छोटा सा योगदान हमारी रचनात्मकता को चालू रखता है और हमें और मज़ा परोसने में मदद करता है।",
+                    
+                    questions: [
+                        { id: 1, question: "आपका बच्चा एक परीक्षा में 100 में से 99 अंक प्राप्त करता है। आप कहते हैं:", answers: [ { text: "'बहुत बढ़िया! मुझे बहुत गर्व है!'", score: 1, feedback: "एक सहायक, आधुनिक प्रतिक्रिया।" }, { text: "'यह अच्छा है, लेकिन बाकी 1 अंक कहाँ गया?'", score: 3, feedback: "क्लासिक देसी माता-पिता का सवाल।" }, { text: "'100 किसे मिला?'", score: 2, feedback: "हमेशा प्रतियोगिता पर नजर रखना।" } ] },
+                        { id: 2, question: "आपका बच्चा कहता है कि वह एक YouTuber बनना चाहता है। आप:", answers: [ { text: "'अपने सपनों का पीछा करो!'", score: 1, feedback: "कूल माता-पिता।" }, { text: "'ठीक है, लेकिन पहले इंजीनियरिंग में डिग्री प्राप्त करो।'", score: 3, feedback: "क्लासिक बैकअप योजना।" }, { text: "पूछें 'वे कितना पैसा कमाते हैं?'", score: 2, feedback: "एक व्यावहारिक सवाल।" } ] },
+                        { id: 3, question: "एक नए रिमोट कंट्रोल पर प्लास्टिक की फिल्म होनी चाहिए:", answers: [ { text: "बेहतर महसूस के लिए तुरंत हटा दिया गया।", score: 1, feedback: "आप पल में जीते हैं।" }, { text: "ब्रह्मांड से इसे बचाने के लिए हमेशा के लिए चालू रखा गया।", score: 3, feedback: "यही तरीका है।" }, { text: "तब तक चालू रखा जब तक कि यह अपने आप छिलने न लगे।", score: 2, feedback: "एक अच्छा समझौता।" } ] },
+                        { id: 4, question: "आपका बच्चा एक दोस्त के घर स्लीपओवर के लिए जाना चाहता है। आप कहते हैं:", answers: [ { text: "'ज़रूर, मज़े करो!'", score: 1, feedback: "इतना भरोसा!" }, { text: "'क्या हमारा घर एक होटल है जो तुम बाहर रहना चाहते हो?'", score: 3, feedback: "परम अपराध बोध यात्रा।" }, { text: "'ये दोस्त कौन हैं? मुझे उनके माता-पिता के नंबर दो।'", score: 2, feedback: "पृष्ठभूमि की जांच अनिवार्य है।" } ] },
+                        { id: 5, question: "जब कोई मेहमान आता है, तो आप अपने बच्चे से कहते हैं:", answers: [ { text: "बस वे जैसे हैं वैसे ही रहें।", score: 1, feedback: "एक उपन्यास अवधारणा।" }, { text: "उन्हें अपना नवीनतम नृत्य/गायन प्रदर्शन दिखाएं।", score: 2, feedback: "छोटा मनोरंजनकर्ता।" }, { text: "उनके पैर छुओ और आशीर्वाद लो।", score: 3, feedback: "संस्कार स्तर: 100।" } ] },
+                        { id: 6, question: "आपका बच्चा कहता है 'मुझे भूख लगी है'। आप उन्हें प्रदान करते हैं:", answers: [ { text: "जो कुछ भी वे खाना चाहते हैं।", score: 1, feedback: "व्यक्तिगत शेफ।" }, { text: "एक सेब, क्योंकि 'एक सेब एक दिन...'", score: 2, feedback: "स्वास्थ्य के प्रति जागरूक माता-पिता।" }, { text: "एक व्याख्यान कि आप कैसे बिना किसी शिकायत के जो कुछ भी पकाया जाता था खा लेते थे।", score: 3, feedback: "इतिहासकार।" } ] },
+                        { id: 7, question: "स्कूल के लिए अपने बच्चे को जगाने का सबसे अच्छा तरीका है:", answers: [ { text: "एक कोमल कुहनी से हलका धक्का और एक नरम आवाज।", score: 1, feedback: "फिल्मों की तरह।" }, { text: "सभी बत्तियाँ चालू करें और उनका कंबल ले लें।", score: 3, feedback: "क्लासिक वेक-अप कॉल।" }, { text: "'उठो! 8 बज गए हैं!' चिल्लाना जब केवल 7 बजे हों।", score: 2, feedback: "एक रणनीतिक झूठ।" } ] },
+                        { id: 8, question: "पुराने कपड़े हैं:", answers: [ { text: "दान करने के लिए।", score: 1, feedback: "परोपकारी।" }, { text: "'पोछा' बनाने के लिए।", score: 3, feedback: "पुनर्चक्रण का अंतिम रूप।" }, { text: "घर पर पहनने के लिए।", score: 2, feedback: "आरामदायक कपड़े।" } ] },
+                        { id: 9, question: "आपका बच्चा गोपनीयता मांगता है। आप:", answers: [ { text: "उनकी जगह का सम्मान करें और दरवाजा बंद कर दें।", score: 1, feedback: "आधुनिक माता-पिता।" }, { text: "हंसो।", score: 3, feedback: "यह 'गोपनीयता' क्या है जिसके बारे में आप बात कर रहे हैं?" }, { text: "कहो 'यह मेरा घर है, मेरी कोई गोपनीयता नहीं है, इसलिए तुम्हारी कोई गोपनीयता नहीं है।'", score: 2, feedback: "क्लासिक तर्क।" } ] },
+                        { id: 10, question: "आपका बच्चा गिर जाता है और एक छोटी सी खरोंच लग जाती है। आप:", answers: [ { text: "इसे चूमो और इसे बेहतर बनाओ।", score: 1, feedback: "प्यार करने वाले माता-पिता।" }, { text: "पहले कहो 'मैंने तुमसे कहा था कि मत दौड़ो!' और फिर खरोंच को देखो।", score: 3, feedback: "'मैंने-तुमसे-कहा-था' विशेषज्ञ।" }, { text: "उस पर हल्दी लगाओ।", score: 2, feedback: "परम एंटीसेप्टिक।" } ] },
+                        { id: 11, question: "एक अतिथि कक्ष सोफा कवर का उद्देश्य है:", answers: [ { text: "सोफे को मेहमानों से बचाने के लिए।", score: 3, feedback: "सोफा 'देखने' के लिए है, 'बैठने' के लिए नहीं।" }, { text: "केवल तभी हटाया जाए जब बहुत खास मेहमान आएं।", score: 2, feedback: "वीवीआईपी उपचार।" }, { text: "कौन सा सोफा कवर?", score: 1, feedback: "आप एक खतरनाक जीवन जीते हैं।" } ] },
+                        { id: 12, question: "आपका बच्चा अपना भोजन समाप्त नहीं करता है। आप:", answers: [ { text: "उन्हें बताओ कि यह ठीक है।", score: 1, feedback: "समझदार माता-पिता।" }, { text: "उन्हें भूखे बच्चों के बारे में एक भावनात्मक व्याख्यान दें।", score: 3, feedback: "अपराध बोध का स्वामी।" }, { text: "उन्हें मेज पर तब तक बैठाएं जब तक वे इसे खत्म न कर लें।", score: 2, feedback: "अनुशासनवादी।" } ] },
+                        { id: 13, question: "जब आप अपने बच्चे को फोन करते हैं और वे नहीं उठाते, तो आप:", answers: [ { text: "मान लें कि वे व्यस्त हैं और वापस बुलाएंगे।", score: 1, feedback: "भरोसेमंद।" }, { text: "उन्हें एक पंक्ति में 17 बार और फोन करें।", score: 3, feedback: "पेशेवर कॉलर।" }, { text: "यह पूछने के लिए कि वे कहाँ हैं, तुरंत उनके दोस्तों को फोन करें।", score: 2, feedback: "जासूस।" } ] },
+                        { id: 14, question: "एक खाली प्लास्टिक कंटेनर है:", answers: [ { text: "कचरा।", score: 1, feedback: "इतना बेकार।" }, { text: "बचे हुए के लिए एक भविष्य का घर।", score: 3, feedback: "जीवन का चक्र।" }, { text: "एक पौधे के लिए एक संभावित बर्तन।", score: 2, feedback: "माली।" } ] },
+                        { id: 15, question: "आपका बच्चा दोस्तों के साथ गोवा की यात्रा पर जाना चाहता है। आप:", answers: [ { text: "'ज़रूर, मुझे तस्वीरें भेजो!'", score: 1, feedback: "सबसे शांत माता-पिता जीवित।" }, { text: "पहले सभी दोस्तों के माता-पिता के साथ एक कॉन्फ्रेंस कॉल की आवश्यकता है।", score: 3, feedback: "सुरक्षा परिषद।" }, { text: "कहो 'हाँ, हम सब एक परिवार के रूप में एक साथ जा सकते हैं!'", score: 2, feedback: "परिवार पैक।" } ] },
+                        { id: 16, question: "आपका बच्चा फटी जींस पहनता है। आप कहते हैं:", answers: [ { text: "'अच्छी जींस!'", score: 1, feedback: "फैशन-फॉरवर्ड माता-पिता।" }, { text: "'क्या तुम्हें नई पैंट खरीदने के लिए पैसे चाहिए? क्या किसी कुत्ते ने तुम पर हमला किया?'", score: 3, feedback: "क्लासिक चिंता।" }, { text: "'कम से कम नीचे कुछ पहनो ताकि तुम्हारी त्वचा न दिखे।'", score: 2, feedback: "समझौता।" } ] },
+                        { id: 17, question: "आपके घर में टीवी का वॉल्यूम आमतौर पर होता है:", answers: [ { text: "एक उचित स्तर पर।", score: 1, feedback: "वह क्या है?" }, { text: "पड़ोसियों को शो का आनंद लेने के लिए पर्याप्त जोर से।", score: 3, feedback: "साझा करना देखभाल है।" }, { text: "निर्भर करता है कि रिमोट किसके पास है।", score: 2, feedback: "रिमोट ही शक्ति है।" } ] },
+                        { id: 18, question: "आपका बच्चा आपको एक नया फोन फीचर सिखाता है। आप:", answers: [ { text: "इसे सीखें और इसका इस्तेमाल करें।", score: 1, feedback: "तकनीक-प्रेमी माता-पिता।" }, { text: "5 मिनट में इसे भूल जाएं और उनसे फिर से पूछें।", score: 2, feedback: "छात्र।" }, { text: "कहो 'मेरा पुराना तरीका बेहतर था।'", score: 3, feedback: "परंपरावादी।" } ] },
+                        { id: 19, question: "आप एक दोस्त के घर पर एक टपरवेयर कंटेनर देखते हैं जो जाना-पहचाना लगता है। आप:", answers: [ { text: "इसे अनदेखा करें।", score: 1, feedback: "जाने दो।" }, { text: "पूछें 'क्या यह 2018 से मेरा डब्बा है?'", score: 3, feedback: "डब्बा जासूस।" }, { text: "मानसिक रूप से ध्यान दें कि उन्हें फिर कभी डब्बा न दें।", score: 2, feedback: "सबक सीखा।" } ] },
+                        { id: 20, question: "आपका बच्चा कहता है 'मैं ऊब गया हूँ'। आप:", answers: [ { text: "एक खेल या एक गतिविधि का सुझाव दें।", score: 1, feedback: "मनोरंजन करने वाला।" }, { text: "उन्हें एक पाठ्यपुस्तक दें।", score: 2, feedback: "अकादमिक।" }, { text: "कहो 'जब मैं तुम्हारी उम्र का था, मेरे पास ऊबने का समय नहीं था!'", score: 3, feedback: "इतिहासकार।" } ] },
+                        { id: 21, question: "सबसे अच्छा निवेश क्या है?", answers: [ { text: "स्टॉक और म्यूचुअल फंड।", score: 1, feedback: "वित्तीय योजनाकार।" }, { text: "जमीन का एक टुकड़ा।", score: 2, feedback: "क्लासिक पसंद।" }, { text: "मेरे बच्चे की इंजीनियरिंग की डिग्री।", score: 3, feedback: "परम ROI।" } ] },
+                        { id: 22, question: "जब आपका बच्चा बीमार होता है, तो रक्षा की पहली पंक्ति है:", answers: [ { text: "एक डॉक्टर को बुलाना।", score: 1, feedback: "आधुनिक दृष्टिकोण।" }, { text: "हल्दी दूध।", score: 3, feedback: "परम इलाज।" }, { text: "उपचार के लिए गूगल से पूछना।", score: 2, feedback: "डॉ. गूगल।" } ] },
+                        { id: 23, question: "आपके पास मेहमान हैं। 'अतिथि' क्रॉकरी है:", answers: [ { text: "जाहिर है, मेहमानों के लिए इस्तेमाल किया जाता है।", score: 2, feedback: "जैसा होना चाहिए।" }, { text: "किसी के द्वारा भी इस्तेमाल किए जाने के लिए बहुत कीमती, यहां तक ​​कि मेहमान भी।", score: 3, feedback: "यह एक संग्रहालय का टुकड़ा है।" }, { text: "कौन सी अतिथि क्रॉकरी? हम सभी के लिए एक ही प्लेट का उपयोग करते हैं।", score: 1, feedback: "न्यूनतमवादी।" } ] },
+                        { id: 24, question: "आपका बच्चा पॉकेट मनी मांगता है। आप:", answers: [ { text: "उन्हें हर महीने एक निश्चित राशि दें।", score: 1, feedback: "संगठित माता-पिता।" }, { text: "पहले पूछें 'किस लिए?' और फिर एक पूर्ण व्यय रिपोर्ट की मांग करें।", score: 2, feedback: "लेखा परीक्षक।" }, { text: "उन्हें पैसे के मूल्य पर 30 मिनट का व्याख्यान दें।", score: 3, feedback: "अर्थशास्त्री।" } ] },
+                        { id: 25, question: "आप एक ट्रैफिक लाइट पर हैं और एक दूसरी कार में अपने बच्चे के दोस्त को देखते हैं। आप:", answers: [ { text: "मुस्कुराओ और हाथ हिलाओ।", score: 1, feedback: "कूल माता-पिता।" }, { text: "उन्हें तब तक घूरें जब तक वे आपको नोटिस न करें और अजीब महसूस न करें।", score: 2, feedback: "पर्यवेक्षक।" }, { text: "खिड़की नीचे करो और चिल्लाओ 'बेटा, आंटी को हाय बोलो!'", score: 3, feedback: "आधिकारिक देसी अभिवादन।" } ] }
+                    ]
+                }
+            };
+            
+            // --- STATE MANAGEMENT & DOM ELEMENTS ---
+            let currentQuestionIndex = 0;
+            let userAnswers = {};
+            let currentLang = 'en';
+            let quizQuestions = [];
+            let userName = '';
+            const QUESTIONS_PER_QUIZ = 15;
+
+            const allLangElements = document.querySelectorAll('[data-lang-key]');
+            const langPlaceholderElements = document.querySelectorAll('[data-lang-placeholder]');
+            const languageToggle = document.getElementById('language-toggle');
+            const startScreen = document.getElementById('start-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const calculatingScreen = document.getElementById('calculating-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const journeyScreen = document.getElementById('journey-screen');
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const goBackBtn = document.getElementById('go-back-btn');
+            const backToMainBtn = document.getElementById('back-to-main-btn');
+            const nameInput = document.getElementById('name-input');
+            const questionContainer = document.getElementById('question-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const finalScoreEl = document.getElementById('final-score');
+            const resultTitleEl = document.getElementById('result-title');
+            const resultDescriptionEl = document.getElementById('result-description');
+            const finalQuoteEl = document.getElementById('final-quote');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const shareButtonsContainer = document.getElementById('share-buttons');
+            const exploreBtn = document.getElementById('explore-btn');
+
+            // --- LANGUAGE LOGIC ---
+            const updateLanguage = (lang) => {
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                document.documentElement.lang = lang;
+                
+                languageToggle.innerHTML = (lang === 'en') 
+                    ? `<i class="fa-solid fa-language mr-2"></i> हिन्दी`
+                    : `<i class="fa-solid fa-language mr-2"></i> English`;
+
+                allLangElements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    const value = getNestedValue(content[lang], key);
+                    if (value) el.innerHTML = value;
+                });
+                
+                langPlaceholderElements.forEach(el => {
+                    const key = el.dataset.langPlaceholder;
+                    const value = getNestedValue(content[lang], key);
+                    if(value) el.placeholder = value;
+                });
+            };
+
+            const getNestedValue = (obj, key) => key.split('.').reduce((acc, part) => acc && acc[part], obj);
+
+            // --- THEME LOGIC ---
+            const applyTheme = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIconDark.classList.remove('hidden');
+                    themeIconLight.classList.add('hidden');
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
+            applyTheme(isDarkMode);
+
+            // --- UI FUNCTIONS ---
+            const renderQuestion = () => {
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const q_id = quizQuestions[currentQuestionIndex];
+                    const q_data_en = content.en.questions.find(item => item.id === q_id);
+                    const q_lang = content[currentLang].questions.find(item => item.id === q_id);
+                    
+                    if(!q_data_en || !q_lang) {
+                        goHome();
+                        return;
+                    }
+
+                    const shuffledAnswers = [...q_lang.answers].sort(() => Math.random() - 0.5);
+
+                    let answersHTML = shuffledAnswers.map(answer => {
+                        return `
+                        <button data-score="${answer.score}" class="choice-btn w-full text-left p-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-red-100 dark:hover:bg-red-500 transition-colors duration-200">
+                            ${answer.text}
+                        </button>
+                    `}).join('');
+                    
+                    const counterText = content[currentLang].question_counter
+                        .replace('{current}', currentQuestionIndex + 1)
+                        .replace('{total}', QUESTIONS_PER_QUIZ);
+
+                    questionContainer.innerHTML = `
+                        <div class="fade-in">
+                            <p class="text-lg font-semibold dark-mode-subtext mb-4">${counterText}</p>
+                            <h2 class="text-2xl md:text-3xl font-bold dark-mode-text mb-8">${q_lang.question.replace(/{name}/g, `<strong>${userName}</strong>`)}</h2>
+                            <div class="flex flex-col items-center space-y-4">${answersHTML}</div>
+                        </div>
+                    `;
+                    feedbackContainer.innerHTML = '';
+                    updateProgressBar();
+                } else {
+                    showCalculatingScreen();
+                }
+            };
+            
+            const updateProgressBar = () => {
+                const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            };
+
+            // --- CORE LOGIC ---
+            const startQuiz = () => {
+                userName = nameInput.value.trim();
+                if (!userName) {
+                    userName = (currentLang === 'en') ? 'Parent' : 'माता-पिता';
+                }
+
+                let allQuestionIds = content.en.questions.map(q => q.id);
+                allQuestionIds.sort(() => Math.random() - 0.5);
+                quizQuestions = allQuestionIds.slice(0, QUESTIONS_PER_QUIZ);
+                currentQuestionIndex = 0;
+                userAnswers = {};
+
+                startScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    startScreen.classList.add('hidden');
+                    startScreen.classList.remove('fade-out');
+                    quizScreen.classList.remove('hidden');
+                    quizScreen.classList.add('fade-in');
+                    progressContainer.classList.remove('hidden');
+                    backToMainBtn.classList.remove('hidden');
+                    renderQuestion();
+                }, 500);
+            };
+
+            const handleAnswer = (e) => {
+                const selectedBtn = e.target.closest('.choice-btn');
+                if (!selectedBtn) return;
+
+                const score = parseInt(selectedBtn.dataset.score);
+                const question_id = quizQuestions[currentQuestionIndex];
+                const question_data_lang = content[currentLang].questions.find(item => item.id === question_id);
+                
+                const answer_data_lang = question_data_lang.answers.find(a => a.score === score);
+                if (answer_data_lang) {
+                    feedbackContainer.innerHTML = `<p class="fade-in font-semibold text-lg text-teal-600 dark:text-teal-400">${answer_data_lang.feedback}</p>`;
+                }
+
+                userAnswers[question_id] = score;
+                
+                questionContainer.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn !== selectedBtn) {
+                        btn.classList.add('opacity-50');
+                    } else {
+                        btn.classList.add('ring-4', 'ring-red-400');
+                    }
+                });
+                
+                setTimeout(() => {
+                    if (questionContainer.firstElementChild) {
+                        questionContainer.firstElementChild.classList.replace('fade-in', 'fade-out');
+                    }
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    }, 500);
+                }, 1800);
+            };
+
+            const showCalculatingScreen = () => {
+                quizScreen.classList.add('fade-out');
+                progressContainer.classList.add('hidden');
+                backToMainBtn.classList.add('hidden');
+                setTimeout(() => {
+                    quizScreen.classList.add('hidden');
+                    quizScreen.classList.remove('fade-out');
+                    calculatingScreen.classList.remove('hidden');
+                    calculatingScreen.classList.add('fade-in');
+                    const calculatingTexts = [
+                        content[currentLang].calculating_text, 
+                        (currentLang === 'en' ? "Comparing you to Sharmaji's kid..." : "शर्माजी के बच्चे से आपकी तुलना हो रही है..."),
+                        (currentLang === 'en' ? "Preparing a lecture on 'sanskaar'..." : "'संस्कार' पर एक व्याख्यान तैयार हो रहा है...")
+                    ];
+                    document.getElementById('calculating-text').innerText = calculatingTexts[Math.floor(Math.random()*calculatingTexts.length)];
+                    setTimeout(showResults, 2500);
+                }, 500);
+            }
+            
+            const showResults = (isThemeOrLangUpdate = false) => {
+                if (!isThemeOrLangUpdate) {
+                     calculatingScreen.classList.add('fade-out');
+                     setTimeout(() => {
+                        calculatingScreen.classList.add('hidden');
+                        calculatingScreen.classList.remove('fade-out');
+                        resultsScreen.classList.remove('hidden');
+                        resultsScreen.classList.add('slide-up');
+                        calculateAndDisplayScores();
+                    }, 500);
+                } else {
+                    calculateAndDisplayScores();
+                }
+            };
+
+            const calculateAndDisplayScores = () => {
+                let totalScore = 0;
+                Object.values(userAnswers).forEach(score => {
+                    totalScore += score;
+                });
+
+                const minPossibleScore = QUESTIONS_PER_QUIZ * 1;
+                const maxPossibleScore = QUESTIONS_PER_QUIZ * 3;
+                const scoreRange = maxPossibleScore - minPossibleScore;
+                const userScoreOffset = totalScore - minPossibleScore;
+
+                let desiPercentage = 0;
+                if (scoreRange > 0) {
+                    desiPercentage = Math.round((userScoreOffset / scoreRange) * 100);
+                }
+                
+                finalScoreEl.classList.remove('score-reveal');
+                void finalScoreEl.offsetWidth; // Trigger reflow
+                finalScoreEl.classList.add('score-reveal');
+
+                let startValue = 0;
+                const duration = 1200;
+                const endValue = desiPercentage;
+                const startTime = performance.now();
+
+                function animateCountUp(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    if (elapsedTime < duration) {
+                        const progress = elapsedTime / duration;
+                        const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+                        const currentValue = Math.round(startValue + (endValue - startValue) * easedProgress);
+                        finalScoreEl.textContent = `${currentValue}%`;
+                        requestAnimationFrame(animateCountUp);
+                    } else {
+                        finalScoreEl.textContent = `${endValue}%`;
+                    }
+                }
+                requestAnimationFrame(animateCountUp);
+
+                let resultKey;
+                if (desiPercentage <= 25) resultKey = 'cool_dost';
+                else if (desiPercentage <= 50) resultKey = 'modern_parent';
+                else if (desiPercentage <= 75) resultKey = 'classic_parent';
+                else resultKey = 'parampara_pro_max';
+                
+                finalQuoteEl.dataset.resultKey = resultKey;
+                document.getElementById('certificate-name').textContent = userName;
+
+                const personalizedLabel = content[currentLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+
+                resultTitleEl.textContent = content[currentLang][`result_${resultKey}_title`];
+                resultDescriptionEl.innerHTML = content[currentLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                finalQuoteEl.textContent = content[currentLang][`final_quote_${resultKey}`];
+                
+                displayFunnyComments(resultKey);
+                updateShareLinks(desiPercentage, content[currentLang][`result_${resultKey}_title`]);
+            };
+
+            const startBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                stopBackgroundAnimations();
+                
+                const emojis = ['👪', '🤣', '😠', '🙏', '🏆', '🏡', ' flying 🥿'];
+                const numEmojis = 25;
+
+                for (let i = 0; i < numEmojis; i++) {
+                    const emoji = document.createElement('span');
+                    emoji.className = 'floating-emoji';
+                    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    emoji.style.left = `${Math.random() * 100}vw`;
+                    emoji.style.fontSize = `${1 + Math.random() * 2}rem`;
+                    const duration = 8 + Math.random() * 10;
+                    const delay = Math.random() * 7;
+                    const translateX = `${(Math.random() - 0.5) * 200}px`;
+                    const rotate = `${(Math.random() - 0.5) * 720}deg`;
+                    
+                    emoji.style.setProperty('--translateX', translateX);
+                    emoji.style.setProperty('--rotate', rotate);
+                    emoji.style.animation = `floatUp ${duration}s ease-in ${delay}s infinite`;
+                    
+                    container.appendChild(emoji);
+                }
+            };
+
+            const stopBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (container) {
+                    container.innerHTML = '';
+                }
+            };
+
+            const typewriter = (element, text, callback) => {
+                let i = 0;
+                const speed = 40; // milliseconds per character
+                const originalHTML = element.innerHTML;
+                element.innerHTML = originalHTML + '<span class="typing-text"></span><span class="typing-cursor border-l-2 border-red-500 h-6 inline-block align-middle">&nbsp;</span>';
+                const textSpan = element.querySelector('.typing-text');
+                const cursorSpan = element.querySelector('.typing-cursor');
+                
+                function type() {
+                    if (i < text.length) {
+                        textSpan.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        if(cursorSpan) {
+                           cursorSpan.style.display = 'none';
+                        }
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+
+            const displayFunnyComments = (resultKey) => {
+                const commentsContainer = document.getElementById('funny-comments-container');
+                if (!commentsContainer) return;
+                commentsContainer.innerHTML = '';
+                const commentsPool = content[currentLang].funny_comments[resultKey] || [];
+                
+                const shuffledComments = [...commentsPool].sort(() => 0.5 - Math.random());
+                const selectedComments = shuffledComments.slice(0, 3);
+
+                let commentIndex = 0;
+
+                function typeNextComment() {
+                    if (commentIndex < selectedComments.length) {
+                        const commentText = selectedComments[commentIndex];
+                        
+                        const card = document.createElement('div');
+                        card.className = 'funny-comment-card bg-red-100 dark:bg-gray-800 p-4 rounded-lg mb-4 text-gray-700 dark:text-red-300 italic shadow-md';
+                        
+                        const p = document.createElement('p');
+                        p.innerHTML = `<i class="fa-solid fa-quote-left mr-2 text-red-500"></i> `;
+                        card.appendChild(p);
+
+                        card.style.animationDelay = `0.2s`;
+                        
+                        commentsContainer.appendChild(card);
+                        
+                        setTimeout(() => {
+                            typewriter(p, commentText, () => {
+                                commentIndex++;
+                                setTimeout(typeNextComment, 800); 
+                            });
+                        }, 600);
+                    }
+                }
+                
+                startBackgroundAnimations();
+                typeNextComment();
+            };
+
+
+            const updateShareLinks = (percentage, title) => {
+                const text = encodeURIComponent(`My Desi Parent Score is ${percentage}%! Turns out I'm a "${title}". Find out your parenting style:`);
+                const url = encodeURIComponent(window.location.href);
+                
+                document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                document.getElementById('telegram-share').href = `https://t.me/share/url?url=${url}&text=${text}`;
+                document.getElementById('instagram-share').href = `https://www.instagram.com/`;
+            };
+            
+            const goHome = () => {
+                stopBackgroundAnimations();
+                [quizScreen, resultsScreen, journeyScreen, progressContainer, backToMainBtn, calculatingScreen].forEach(el => el.classList.add('hidden'));
+                startScreen.classList.remove('hidden', 'fade-out');
+                startScreen.classList.add('fade-in');
+                nameInput.value = '';
+                currentQuestionIndex = 0;
+                userAnswers = {};
+                quizQuestions = [];
+                progressBar.style.width = '0%';
+            };
+
+            const showJourneyScreen = (e) => {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                resultsScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    resultsScreen.classList.add('hidden');
+                    resultsScreen.classList.remove('fade-out');
+                    journeyScreen.classList.remove('hidden');
+                    journeyScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            const showResultsScreenFromJourney = () => {
+                journeyScreen.classList.add('fade-out');
+                 setTimeout(() => {
+                    journeyScreen.classList.add('hidden');
+                    journeyScreen.classList.remove('fade-out');
+                    resultsScreen.classList.remove('hidden');
+                    resultsScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            // --- EVENT LISTENERS ---
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', goHome);
+            backToMainBtn.addEventListener('click', goHome);
+            goBackBtn.addEventListener('click', showResultsScreenFromJourney);
+            quizScreen.addEventListener('click', handleAnswer);
+            shareButtonsContainer.addEventListener('click', (e) => {
+                const shareBtn = e.target.closest('a.share-btn');
+                if (shareBtn && shareBtn.href && shareBtn.href !== '#') {
+                    showJourneyScreen(e);
+                }
+            });
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+                if (!resultsScreen.classList.contains('hidden')) { showResults(true); }
+            });
+            languageToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'hi' : 'en';
+                updateLanguage(newLang);
+                if (!quizScreen.classList.contains('hidden') || !calculatingScreen.classList.contains('hidden')) { 
+                    goHome();
+                } else if (!resultsScreen.classList.contains('hidden')) {
+                    const resultKey = finalQuoteEl.dataset.resultKey;
+                    const personalizedLabel = content[newLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                    document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+                    resultTitleEl.textContent = content[newLang][`result_${resultKey}_title`];
+                    resultDescriptionEl.innerHTML = content[newLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                    finalQuoteEl.textContent = content[newLang][`final_quote_${resultKey}`];
+                    displayFunnyComments(resultKey);
+                }
+            });
+
+            // Initial Load
+            const savedLang = localStorage.getItem('language') || 'en';
+            updateLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>
+

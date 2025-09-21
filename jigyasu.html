@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0DL8SC5JKB');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jigyasu Meter - How Curious Are You?</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS for theme, animations, and additional styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Dark Mode --- */
+        .dark .dark-mode-bg { background-color: #111827; }
+        .dark .dark-mode-text { color: #f9fafb; }
+        .dark .dark-mode-surface { background-color: #1f2937; }
+        .dark .dark-mode-border { border-color: #374151; }
+        .dark .dark-mode-subtext { color: #9ca3af; }
+
+        /* --- Animations --- */
+        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .pulse { animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .9; transform: scale(1.02); }
+        }
+
+        /* --- Button Styles --- */
+        .choice-btn, .share-btn, .control-btn {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .choice-btn:hover, .share-btn:hover, .control-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Social Share Colors --- */
+        .whatsapp-btn { background-color: #25D366; }
+        .twitter-btn { background-color: #1DA1F2; }
+        .facebook-btn { background-color: #1877F2; }
+        .telegram-btn { background-color: #24A1DE; }
+        .instagram-btn {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        }
+
+        /* --- Score Animation --- */
+        .score-reveal {
+            animation: scoreReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 10px rgba(13, 148, 136, 0.5), 0 0 20px rgba(13, 148, 136, 0.3); /* Teal Shadow */
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* --- Funny Comments Styling --- */
+        .funny-comments-container {
+            perspective: 1000px;
+        }
+
+        .funny-comment-card {
+            opacity: 0;
+            transform: rotateX(-90deg) translateY(50px);
+            transform-origin: bottom center;
+            animation: revealComment 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .funny-comment-card p {
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1.75rem; /* leading-7 */
+        }
+
+        @media (min-width: 768px) {
+            .funny-comment-card p {
+                font-size: 1.5rem; /* md:text-2xl */
+                line-height: 2rem; /* md:leading-8 */
+            }
+        }
+
+
+        @keyframes revealComment {
+            from {
+                opacity: 0;
+                transform: rotateX(-90deg) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0deg) translateY(0);
+            }
+        }
+        
+        /* --- Typing Effect --- */
+        .typing-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #0d9488; } /* teal-600 */
+        }
+        
+        /* --- Background Animation --- */
+        #animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: -50px; /* Start from below the screen */
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--translateX)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode-bg text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+    <div id="animation-container"></div>
+    <!-- Header for Toggles -->
+    <header class="absolute top-4 w-full px-4 z-20 flex items-center justify-between">
+        <!-- Back to Main Page Button (Initially hidden) -->
+        <a id="back-to-main-btn" href="index.html" role="button" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </a>
+
+        <div class="flex items-center space-x-2 ml-auto">
+             <!-- Language Toggle -->
+            <button id="language-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 dark:focus:ring-offset-gray-900 w-28 h-10 flex items-center justify-center text-sm">
+                <!-- Text updated by JS -->
+            </button>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+                <svg id="theme-icon-dark" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg id="theme-icon-light" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-2 bg-gray-200 dark:bg-gray-700 z-10 hidden">
+        <div id="progress-bar" class="h-full bg-teal-500 progress-bar-fill" style="width: 0%;"></div>
+    </div>
+    
+    <main class="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-screen relative z-10">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center max-w-2xl fade-in">
+            <h1 class="text-4xl md:text-6xl font-extrabold dark-mode-text tracking-tight mb-4">The <span class="text-teal-500" data-lang-key="title">Jigyasu Meter</span></h1>
+            <p class="text-lg md:text-xl dark-mode-subtext mb-8" data-lang-key="subtitle">
+                Do you open every notification instantly? Do you know what your neighbor had for dinner? Let's find out if you're a secret detective or just minding your own business!
+            </p>
+            <div class="mb-6 w-full max-w-sm mx-auto">
+                <input type="text" id="name-input" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-teal-500 text-gray-900 dark:text-white" data-lang-placeholder="name_placeholder">
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-8 italic" data-lang-key="privacy_disclaimer"></p>
+            <button id="start-btn" data-lang-key="start_button" class="bg-teal-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-teal-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-teal-300 pulse">
+                Start Investigating!
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden w-full max-w-3xl">
+            <div id="question-container" class="text-center pt-16">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <div id="feedback-container" class="mt-6 text-center text-md dark-mode-subtext min-h-[60px]">
+                <!-- Feedback will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Calculating Screen -->
+        <div id="calculating-screen" class="hidden text-center w-full max-w-2xl">
+            <svg class="animate-spin h-16 w-16 text-teal-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h2 id="calculating-text" class="text-2xl font-bold dark-mode-text" data-lang-key="calculating_text">Asking the universe for answers...</h2>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center w-full max-w-4xl pt-16">
+            <h2 class="text-2xl font-bold dark-mode-subtext mb-2" data-lang-key="result_level_label">Your Jigyasu Level</h2>
+            <div id="final-score" class="text-7xl md:text-8xl font-extrabold text-teal-500 mb-4">0%</div>
+            <h3 id="result-title" class="text-3xl md:text-4xl font-extrabold dark-mode-text mb-3"></h3>
+            <p id="result-description" class="text-lg md:text-xl dark-mode-subtext mb-8 max-w-2xl mx-auto"></p>
+            
+            <div id="funny-comments-container" class="funny-comments-container mt-8 mb-8 max-w-2xl mx-auto">
+                <!-- Comments will be injected here -->
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="mb-8">
+                <p class="font-bold dark-mode-text mb-3" data-lang-key="share_results_label">Share Your Curiosity Report & Uncover a Mystery!</p>
+                <div id="share-buttons" class="flex justify-center items-center flex-wrap gap-4">
+                    <a id="whatsapp-share" href="https://ppscore.co.in" target="_blank" class="share-btn whatsapp-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l.217.324-1.125 4.108 4.224-1.103.337.202z" /></svg>
+                    </a>
+                    <a id="twitter-share" href="https://ppscore.co.in" target="_blank" class="share-btn twitter-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.794 4.649-.69.188-1.433.23-2.184.085.617 1.914 2.408 3.258 4.53 3.301-1.724 1.352-3.883 2.093-6.138 1.795 1.815 1.163 3.973 1.84 6.262 1.84 7.218 0 11.168-5.986 11.168-11.168 0-.17-.003-.34-.01-.508.77-.556 1.438-1.248 1.968-2.04z"/></svg>
+                    </a>
+                    <a id="facebook-share" href="https://ppscore.co.in" target="_blank" class="share-btn facebook-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                    </a>                      
+                    <a id="telegram-share" href="https://ppscore.co.in" target="_blank" class="share-btn telegram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-1.39.2-1.62l15.97-5.85c.73-.27 1.36.17 1.15.99L16.4 18.28c-.21.83-1.2.5-1.54-.26L9.78 18.65z"/></svg>
+                    </a>
+                    <a id="instagram-share" href="https://ppscore.co.in" target="_blank" class="share-btn instagram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <p id="final-quote" class="text-lg dark-mode-text max-w-3xl mx-auto mb-8 italic">
+                <!-- Quote inserted by JS -->
+            </p>
+
+            <button id="restart-btn" data-lang-key="restart_button" class="bg-teal-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-teal-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-teal-300">
+                Ask More Questions!
+            </button>
+
+            <!-- Explore More Section -->
+            <div class="mt-16 py-8 border-t-2 border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
+                 <h3 class="text-2xl md:text-3xl font-extrabold dark-mode-text mb-4" data-lang-key="explore_title">Your Analysis Isn't Over Yet!</h3>
+                 <p class="text-lg dark-mode-subtext mb-8" data-lang-key="explore_desc">
+                   You've audited your curiosity, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.
+                 </p>
+                 <a id="explore-btn" href="index.html" class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 inline-block" data-lang-key="explore_button">
+                   Visit PersonalityPaathshala
+                 </a>
+                 <div class="mt-8 mb-6">
+                    <p class="font-semibold mb-2 text-teal-400 dark:text-teal-300" data-lang-key="support_title">Loved this quiz? Help us create more!</p>
+                    <p class="text-base text-gray-700 dark:text-white mb-3" data-lang-key="support_desc">Your small contribution keeps our creative engine running and helps us serve more fun.</p>
+                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QvFHmdPg3T4Pqh" async> </script> </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Screen -->
+        <div id="journey-screen" class="hidden text-center w-full max-w-2xl pt-16">
+            <h2 class="text-4xl font-extrabold text-teal-500 mb-4" data-lang-key="journey_title">Top Secret Document!</h2>
+            <p class="text-lg dark-mode-subtext mb-8" data-lang-key="journey_subtitle">You shared your score, you true Jigyasu! As a reward, here is a classified document revealing a universal truth. Handle with care!</p>
+            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-xl border-4 border-red-500">
+                <div class="text-center p-4">
+                    <h3 class="text-2xl font-bold dark-mode-text text-red-500">CLASSIFIED: EYES ONLY</h3>
+                    <p class="dark-mode-text mt-4 text-lg">The reason the other sock is always missing is because... <br><br>...they are teleported to another dimension where they are used as currency.</p>
+                    <p id="medal-name" class="text-xl font-bold text-teal-500 my-2">[Your Name], you now know the truth.</p>
+                </div>
+            </div>
+             <button id="go-back-btn" data-lang-key="go_back_button" class="mt-8 bg-gray-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Back to My Score
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-xs text-gray-400 dark:text-gray-500">
+        <p data-lang-key="disclaimer">Disclaimer: This quiz is for fun. We are not responsible if you end up in a rabbit hole of conspiracy theories.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- LANGUAGE CONTENT STORE ---
+            const content = {
+                en: {
+                    title: "Jigyasu Meter",
+                    subtitle: "Do you open every notification instantly? Do you know what your neighbor had for dinner? Let's find out if you're a secret detective or just minding your own business!",
+                    name_placeholder: "Enter your curious name...",
+                    privacy_disclaimer: "Your search history is safe with us. We won't tell anyone you spent 3 hours learning about the history of spoons.",
+                    start_button: "Start Investigating!",
+                    calculating_text: "Asking the universe for answers...",
+                    result_level_label: "Your Jigyasu Level",
+                    result_level_label_personalized: "{name}'s Jigyasu Level",
+                    share_results_label: "Share Your Curiosity Report & Uncover a Mystery!",
+                    restart_button: "Ask More Questions!",
+                    disclaimer: "Disclaimer: This quiz is for fun. We are not responsible if you end up in a rabbit hole of conspiracy theories.",
+                    question_counter: "Question {current} of {total}",
+                    
+                    result_content_cow_title: "The Content Cow",
+                    result_content_cow_desc: "{name}, you're happy in your own field, chewing the cud of knowledge you already have. Why ask 'why' when you can just say 'whatever'?",
+                    result_casual_questioner_title: "The Casual Questioner",
+                    result_casual_questioner_desc: "{name}, you have your moments of curiosity. You'll wonder about something, maybe even Google it, but you won't lose sleep over it.",
+                    result_serial_googler_title: "The Serial Googler",
+                    result_serial_googler_desc: "{name}, your brain is a browser with 50 open tabs. You must know everything, from the meaning of life to why cats purr. Your search history is a wild ride.",
+                    result_cbi_agent_title: "Secret CBI Agent",
+                    result_cbi_agent_desc: "{name}, are you undercover? Nothing escapes your notice. You know things about your friends that they don't even know about themselves. We are slightly scared of your skills.",
+                    
+                    final_quote_content_cow: "\"If ignorance is bliss, you must be the happiest person on Earth.\"",
+                    final_quote_casual_questioner: "\"I'm not saying I don't care, but I'm also not saying I'm going to look it up.\"",
+                    final_quote_serial_googler: "\"Just one more link... I promise!\"",
+                    final_quote_cbi_agent: "\"My curiosity is my superpower. And my super-problem.\"",
+                    
+                    funny_comments: {
+                        content_cow: [
+                            "You still think Wikipedia is a type of flower.",
+                            "Your favorite question is 'What's for dinner?' and that's about it.",
+                            "You hear a strange noise and your first thought is 'It's probably nothing'.",
+                            "A notification badge with '99+' on an app doesn't bother you at all."
+                        ],
+                        casual_questioner: [
+                            "You have a 'Things to Google Later' list that you never actually look at.",
+                            "You've started a Wikipedia article but got bored after the first paragraph.",
+                            "You ask 'Why?' but you're satisfied with the first answer you get.",
+                            "You're curious about your neighbor's new car, but not enough to ask them about it."
+                        ],
+                        serial_googler: [
+                            "Your friends use you as a human search engine.",
+                            "You've fallen into a YouTube rabbit hole and emerged 3 days later with a PhD in ancient aliens.",
+                            "You know the entire life story of the actor who had a 5-second role in a movie.",
+                            "You have more tabs open in your brain than a web developer."
+                        ],
+                        cbi_agent: [
+                            "You can tell what your friend ate for lunch by looking at their Instagram story.",
+                            "You've pieced together your neighbor's entire life story from their garbage.",
+                            "You're the admin of 17 different WhatsApp groups just to stay informed.",
+                            "You don't need to ask questions. You already know the answers."
+                        ]
+                    },
+
+                    journey_title: "Top Secret Document!",
+                    journey_subtitle: "You shared your score, you true Jigyasu! As a reward, here is a classified document revealing a universal truth. Handle with care!",
+                    go_back_button: "Back to My Score",
+
+                    explore_title: "Your Analysis Isn't Over Yet!",
+                    explore_desc: "You've audited your curiosity, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.",
+                    explore_button: "Visit PersonalityPaathshala",
+                    support_title: "Loved this quiz? Help us create more!",
+                    support_desc: "Your small contribution keeps our creative engine running and helps us serve more fun.",
+
+                    questions: [
+                        { id: 1, question: "You see a closed door with a 'Do Not Enter' sign. You:", answers: [ { text: "Respect the sign and walk away.", score: 1, feedback: "A rule-follower. Very respectable." }, { text: "Press your ear against it to see if you can hear anything.", score: 2, feedback: "The classic spy move." }, { text: "Wonder what's inside for the rest of the day and Google the building's floor plan.", score: 3, feedback: "A true investigator." } ] },
+                        { id: 2, question: "Your friend says, 'Guess what happened!' You reply:", answers: [ { text: "'What?'", score: 2, feedback: "Standard response. Effective." }, { text: "'Spill the tea! I need every single detail, including what they were wearing.'", score: 3, feedback: "The gossip connoisseur." }, { text: "'I hope it's something good.'", score: 1, feedback: "Polite, but not very curious." } ] },
+                        { id: 3, question: "You're watching a movie and a character uses a word you don't know. You:", answers: [ { text: "Immediately pause the movie to look it up.", score: 3, feedback: "Knowledge is power!" }, { text: "Try to guess its meaning from the context.", score: 2, feedback: "The context clue master." }, { text: "Ignore it and continue watching the movie.", score: 1, feedback: "The plot is more important." } ] },
+                        { id: 4, question: "How many tabs are open on your phone's browser right now?", answers: [ { text: "More than 50. I've lost count.", score: 3, feedback: "Your phone's RAM is crying." }, { text: "Maybe 5-10. I close them sometimes.", score: 2, feedback: "Organized, yet curious." }, { text: "Less than 5. I like to keep it clean.", score: 1, feedback: "A digital minimalist." } ] },
+                        { id: 5, question: "You see two people arguing in public. You:", answers: [ { text: "Mind your own business and walk away.", score: 1, feedback: "The path of peace." }, { text: "Slow down your walking speed to overhear the juicy details.", score: 3, feedback: "The public information officer." }, { text: "Pretend to be on your phone while secretly recording.", score: 2, feedback: "For... research purposes, of course." } ] },
+                        { id: 6, question: "You finish a great TV series. Your next step is:", answers: [ { text: "To feel sad it's over and look for a new show.", score: 1, feedback: "Moving on." }, { text: "To read the entire Wikipedia page, fan theories, and actor biographies.", score: 3, feedback: "The deep diver." }, { text: "To re-watch your favorite episodes.", score: 2, feedback: "Reliving the glory." } ] },
+                        { id: 7, question: "A package arrives for your neighbor but they're not home. You:", answers: [ { text: "Leave it at their door.", score: 1, feedback: "Simple and non-intrusive." }, { text: "Pick it up and feel its weight and shape, trying to guess what's inside.", score: 3, feedback: "The human X-ray machine." }, { text: "Take it for safekeeping and ask them about it later.", score: 2, feedback: "The helpful neighbor." } ] },
+                        { id: 8, question: "You're in a museum. You:", answers: [ { text: "Read every single information plaque for every exhibit.", score: 3, feedback: "The scholar." }, { text: "Just look at the pretty pictures and sculptures.", score: 1, feedback: "The visual artist." }, { text: "Take selfies with the most famous exhibits.", score: 2, feedback: "The historian of 'me'." } ] },
+                        { id: 9, question: "What do you think of conspiracy theories?", answers: [ { text: "They're nonsense.", score: 1, feedback: "The rationalist." }, { text: "They're fascinating to read about, even if they're crazy.", score: 3, feedback: "The open-minded explorer." }, { text: "Some of them have to be true, right?", score: 2, feedback: "The skeptic." } ] },
+                        { id: 10, question: "Your friend gets a new haircut. You:", answers: [ { text: "Say 'Nice haircut!' and move on.", score: 1, feedback: "Simple compliment." }, { text: "Ask 'Where did you get it done? How much did it cost? Did they give you a head massage?'", score: 3, feedback: "The interrogator." }, { text: "Notice it but wait for them to mention it.", score: 2, feedback: "The passive observer." } ] },
+                        { id: 11, question: "The instruction manual for a new gadget is:", answers: [ { text: "The first thing you read, cover to cover.", score: 3, feedback: "The rule-book reader." }, { text: "Something you throw away immediately.", score: 1, feedback: "I'll figure it out myself!" }, { text: "Something you only look for when something goes wrong.", score: 2, feedback: "The troubleshooter." } ] },
+                        { id: 12, question: "You see a long queue outside a new restaurant. You:", answers: [ { text: "Avoid it like the plague.", score: 1, feedback: "Who has the time?" }, { text: "Immediately join the queue to see what the hype is about.", score: 3, feedback: "The trendsetter." }, { text: "Google the restaurant's menu and reviews while standing nearby.", score: 2, feedback: "The strategic investigator." } ] },
+                        { id: 13, question: "When someone says 'Don't tell anyone...', you:", answers: [ { text: "Your ears perk up and you lean in closer.", score: 3, feedback: "The vault of secrets (that might leak)." }, { text: "Say 'Then don't tell me!'", score: 1, feedback: "The burden of knowledge is too great." }, { text: "Listen carefully and actually don't tell anyone.", score: 2, feedback: "A trustworthy friend." } ] },
+                        { id: 14, question: "You hear a siren in the distance. You:", answers: [ { text: "Run to the window or balcony to see what's happening.", score: 3, feedback: "The neighborhood watch." }, { text: "Briefly wonder what happened and then forget about it.", score: 2, feedback: "A fleeting thought." }, { text: "Don't even notice it.", score: 1, feedback: "Living in your own world." } ] },
+                        { id: 15, question: "The term 'rabbit hole' means:", answers: [ { text: "Going down a path of research or discovery that leads to many other topics.", score: 3, feedback: "You've been there many times." }, { text: "A home for a rabbit.", score: 1, feedback: "Well, you're not wrong." }, { text: "A difficult situation.", score: 2, feedback: "It can be, for your productivity." } ] },
+                        { id: 16, question: "You are people-watching at a cafe. You:", answers: [ { text: "Create entire backstories for the people you see.", score: 3, feedback: "The scriptwriter." }, { text: "Are just enjoying your coffee.", score: 1, feedback: "The zen master." }, { text: "Are checking out what everyone ordered.", score: 2, feedback: "The food critic." } ] },
+                        { id: 17, question: "Your food delivery is late. You:", answers: [ { text: "Track the delivery person's every move on the app's map.", score: 3, feedback: "The live-tracker." }, { text: "Wait patiently. It will come when it comes.", score: 1, feedback: "The patient one." }, { text: "Call the restaurant to ask for an update.", score: 2, feedback: "The proactive customer." } ] },
+                        { id: 18, question: "Why is the sky blue?", answers: [ { text: "Because of Rayleigh scattering, obviously.", score: 3, feedback: "The scientist." }, { text: "Because if it was green, we wouldn't know when to stop mowing the lawn.", score: 2, feedback: "The comedian." }, { text: "Who cares? It's pretty.", score: 1, feedback: "The artist." } ] },
+                        { id: 19, question: "You see 'Spoiler Alert'. You:", answers: [ { text: "Immediately stop reading/watching.", score: 2, feedback: "The purist." }, { text: "Read it anyway because you need to know NOW.", score: 3, feedback: "The impatient soul." }, { text: "What's a spoiler?", score: 1, feedback: "Living a life of surprises." } ] },
+                        { id: 20, question: "You receive a new gadget. You:", answers: [ { text: "Press all the buttons to see what they do.", score: 3, feedback: "The explorer." }, { text: "Follow the quick start guide.", score: 2, feedback: "The student." }, { text: "Are too scared to break it, so you use it very carefully.", score: 1, feedback: "The gentle user." } ] },
+                        { id: 21, question: "When you hear a new slang word, you:", answers: [ { text: "Immediately search for its meaning on Urban Dictionary.", score: 3, feedback: "The linguist." }, { text: "Ask the person who said it what it means.", score: 2, feedback: "The direct approach." }, { text: "Just nod and pretend you understand.", score: 1, feedback: "The social chameleon." } ] },
+                        { id: 22, question: "You are in a hotel. You:", answers: [ { text: "Open every drawer and cupboard to see what's inside.", score: 3, feedback: "The inspector." }, { text: "Only use the bed and the bathroom.", score: 1, feedback: "The minimalist." }, { text: "Check if the free toiletries are from a good brand.", score: 2, feedback: "The quality checker." } ] },
+                        { id: 23, question: "Someone's phone screen lights up near you. You:", answers: [ { text: "Try to read the message without moving your head.", score: 3, feedback: "You have skills." }, { text: "Politely look away to give them privacy.", score: 1, feedback: "The respectful citizen." }, { text: "Catch a glimpse by accident and then feel guilty.", score: 2, feedback: "The accidental spy." } ] },
+                        { id: 24, question: "What is behind a 'Staff Only' door?", answers: [ { text: "Probably a boring storage room.", score: 1, feedback: "The realist." }, { text: "A secret portal to another dimension.", score: 2, feedback: "The fantasist." }, { text: "I don't know, but I'm tempted to find out.", score: 3, feedback: "The adventurer." } ] },
+                        { id: 25, question: "The best part of travelling is:", answers: [ { text: "Trying new food and exploring hidden alleys.", score: 3, feedback: "The explorer." }, { text: "Relaxing by the pool with a book.", score: 1, feedback: "The vacationer." }, { text: "Taking amazing photos for social media.", score: 2, feedback: "The content creator." } ] }
+                    ]
+                },
+                hi: {
+                    title: "जिज्ञासु मीटर",
+                    subtitle: "क्या आप हर सूचना को तुरंत खोलते हैं? क्या आपको पता है कि आपके पड़ोसी ने रात के खाने में क्या खाया? आइए जानें कि आप एक गुप्त जासूस हैं या बस अपने काम से काम रखते हैं!",
+                    name_placeholder: "अपना जिज्ञासु नाम दर्ज करें...",
+                    privacy_disclaimer: "आपकी खोज इतिहास हमारे पास सुरक्षित है। हम किसी को नहीं बताएंगे कि आपने चम्मच के इतिहास के बारे में जानने में 3 घंटे बिताए।",
+                    start_button: "जांच शुरू करें!",
+                    calculating_text: "ब्रह्मांड से उत्तर मांग रहे हैं...",
+                    result_level_label: "आपका जिज्ञासु स्तर",
+                    result_level_label_personalized: "{name} का जिज्ञासु स्तर",
+                    share_results_label: "अपनी जिज्ञासा रिपोर्ट साझा करें और एक रहस्य उजागर करें!",
+                    restart_button: "और प्रश्न पूछें!",
+                    disclaimer: "अस्वीकरण: यह क्विज़ केवल मनोरंजन के लिए है। हम जिम्मेदार नहीं हैं यदि आप षड्यंत्र के सिद्धांतों के एक खरगोश के छेद में समाप्त होते हैं।",
+                    question_counter: "प्रश्न {current} / {total}",
+
+                    result_content_cow_title: "संतुष्ट गाय",
+                    result_content_cow_desc: "{name}, आप अपने ही खेत में खुश हैं, जो ज्ञान आपके पास पहले से है, उसे जुगाली कर रहे हैं। 'क्यों' पूछने की क्या जरूरत है जब आप बस 'जो भी हो' कह सकते हैं?",
+                    result_casual_questioner_title: "कभी-कभी पूछने वाला",
+                    result_casual_questioner_desc: "{name}, आप में जिज्ञासा के क्षण हैं। आप किसी चीज़ के बारे में आश्चर्यचकित होंगे, शायद उसे गूगल भी कर लेंगे, लेकिन आप उसके लिए अपनी नींद नहीं खोएंगे।",
+                    result_serial_googler_title: "सीरियल गूगलर",
+                    result_serial_googler_desc: "{name}, आपका दिमाग 50 खुले टैब वाला एक ब्राउज़र है। आपको सब कुछ पता होना चाहिए, जीवन के अर्थ से लेकर बिल्लियाँ क्यों गुरगुराती हैं। आपकी खोज इतिहास एक जंगली सवारी है।",
+                    result_cbi_agent_title: "गुप्त सीबीआई एजेंट",
+                    result_cbi_agent_desc: "{name}, क्या आप गुप्त हैं? कुछ भी आपकी नजर से नहीं बचता। आप अपने दोस्तों के बारे में ऐसी बातें जानते हैं जो वे खुद भी नहीं जानते। हम आपके कौशल से थोड़ा डरे हुए हैं।",
+
+                    final_quote_content_cow: "\"अगर अज्ञानता परमानंद है, तो आप पृथ्वी पर सबसे खुश व्यक्ति होने चाहिए।\"",
+                    final_quote_casual_questioner: "\"मैं यह नहीं कह रहा हूँ कि मुझे परवाह नहीं है, लेकिन मैं यह भी नहीं कह रहा हूँ कि मैं इसे देखने जा रहा हूँ।\"",
+                    final_quote_serial_googler: "\"बस एक और लिंक... मैं वादा करता हूँ!\"",
+                    final_quote_cbi_agent: "\"मेरी जिज्ञासा मेरी महाशक्ति है। और मेरी महा-समस्या।\"",
+                    
+                    funny_comments: {
+                        content_cow: [
+                            "आप अभी भी सोचते हैं कि विकिपीडिया एक प्रकार का फूल है।",
+                            "आपका पसंदीदा सवाल है 'रात के खाने में क्या है?' और बस इतना ही।",
+                            "आप एक अजीब आवाज सुनते हैं और आपका पहला विचार है 'यह शायद कुछ भी नहीं है'।" ,
+                            "एक ऐप पर '99+' वाला एक अधिसूचना बैज आपको बिल्कुल भी परेशान नहीं करता है।"
+                        ],
+                        casual_questioner: [
+                            "आपके पास एक 'बाद में गूगल करने वाली चीजें' की सूची है जिसे आप वास्तव में कभी नहीं देखते हैं।",
+                            "आपने एक विकिपीडिया लेख शुरू किया है लेकिन पहले पैराग्राफ के बाद ऊब गए।",
+                            "आप 'क्यों?' पूछते हैं, लेकिन आपको मिलने वाले पहले उत्तर से आप संतुष्ट हैं।",
+                            "आप अपने पड़ोसी की नई कार के बारे में उत्सुक हैं, लेकिन उनसे इसके बारे में पूछने के लिए पर्याप्त नहीं।"
+                        ],
+                        serial_googler: [
+                            "आपके दोस्त आपको एक मानव खोज इंजन के रूप में उपयोग करते हैं।",
+                            "आप एक यूट्यूब खरगोश के छेद में गिर गए हैं और 3 दिन बाद प्राचीन एलियंस में पीएचडी के साथ उभरे हैं।",
+                            "आपको उस अभिनेता की पूरी जीवन कहानी पता है जिसने एक फिल्म में 5 सेकंड की भूमिका निभाई थी।",
+                            "आपके दिमाग में एक वेब डेवलपर से ज्यादा टैब खुले हैं।"
+                        ],
+                        cbi_agent: [
+                            "आप अपने दोस्त की इंस्टाग्राम कहानी देखकर बता सकते हैं कि उसने दोपहर के भोजन में क्या खाया।",
+                            "आपने अपने पड़ोसी के कचरे से उनकी पूरी जीवन कहानी को एक साथ जोड़ा है।",
+                            "आप सिर्फ सूचित रहने के लिए 17 अलग-अलग व्हाट्सएप समूहों के व्यवस्थापक हैं।",
+                            "आपको सवाल पूछने की जरूरत नहीं है। आपको पहले से ही जवाब पता हैं।"
+                        ]
+                    },
+
+                    journey_title: "शीर्ष गुप्त दस्तावेज़!",
+                    journey_subtitle: "आपने अपना स्कोर साझा किया, आप सच्चे जिज्ञासु हैं! एक पुरस्कार के रूप में, यहाँ एक वर्गीकृत दस्तावेज़ है जो एक सार्वभौमिक सत्य को उजागर करता है। सावधानी से संभालें!",
+                    go_back_button: "मेरे स्कोर पर वापस जाएं",
+
+                    explore_title: "आपका विश्लेषण अभी खत्म नहीं हुआ है!",
+                    explore_desc: "आपने अपनी जिज्ञासा का ऑडिट किया है, लेकिन आपके बाकी प्रफुल्लित करने वाले व्यक्तित्व के बारे में क्या? आपका प्रेम जीवन, आपके गुस्से के मुद्दे... पर्सनैलिटी पाठशाला में आपके लिए मज़ेदार कैलकुलेटर की एक पूरी कक्षा है।",
+                    explore_button: "पर्सनैलिटी पाठशाला पर जाएँ",
+                    support_title: "यह क्विज़ पसंद आया? और बनाने में हमारी मदद करें!",
+                    support_desc: "आपका छोटा सा योगदान हमारी रचनात्मकता को चालू रखता है और हमें और मज़ा परोसने में मदद करता है।",
+                    
+                    questions: [
+                        { id: 1, question: "आप एक बंद दरवाजा देखते हैं जिस पर 'प्रवेश न करें' का चिन्ह है। आप:", answers: [ { text: "चिन्ह का सम्मान करें और चले जाएं।", score: 1, feedback: "एक नियम-पालक। बहुत सम्मानजनक।" }, { text: "यह देखने के लिए कि क्या आप कुछ सुन सकते हैं, अपना कान उस पर दबाएं।", score: 2, feedback: "क्लासिक जासूस चाल।" }, { text: "दिन भर आश्चर्य करें कि अंदर क्या है और इमारत की मंजिल योजना गूगल करें।", score: 3, feedback: "एक सच्चा अन्वेषक।" } ] },
+                        { id: 2, question: "आपका दोस्त कहता है, 'अंदाजा लगाओ क्या हुआ!' आप जवाब देते हैं:", answers: [ { text: "'क्या?'", score: 2, feedback: "मानक प्रतिक्रिया। प्रभावी।" }, { text: "'चाय गिराओ! मुझे हर एक विवरण चाहिए, जिसमें यह भी शामिल है कि उन्होंने क्या पहना था।'", score: 3, feedback: "गपशप का पारखी।" }, { text: "'मुझे उम्मीद है कि यह कुछ अच्छा है।'", score: 1, feedback: "विनम्र, लेकिन बहुत उत्सुक नहीं।" } ] },
+                        { id: 3, question: "आप एक फिल्म देख रहे हैं और एक चरित्र एक ऐसा शब्द इस्तेमाल करता है जिसे आप नहीं जानते। आप:", answers: [ { text: "इसे देखने के लिए तुरंत फिल्म को रोकें।", score: 3, feedback: "ज्ञान ही शक्ति है!" }, { text: "संदर्भ से इसका अर्थ अनुमान लगाने की कोशिश करें।", score: 2, feedback: "संदर्भ सुराग मास्टर।" }, { text: "इसे अनदेखा करें और फिल्म देखना जारी रखें।", score: 1, feedback: "कथानक अधिक महत्वपूर्ण है।" } ] },
+                        { id: 4, question: "आपके फोन के ब्राउज़र पर अभी कितने टैब खुले हैं?", answers: [ { text: "50 से अधिक। मैंने गिनती खो दी है।", score: 3, feedback: "आपके फोन का रैम रो रहा है।" }, { text: "शायद 5-10। मैं उन्हें कभी-कभी बंद कर देता हूँ।", score: 2, feedback: "संगठित, फिर भी उत्सुक।" }, { text: "5 से कम। मुझे इसे साफ रखना पसंद है।", score: 1, feedback: "एक डिजिटल minimalist।" } ] },
+                        { id: 5, question: "आप सार्वजनिक रूप से दो लोगों को बहस करते हुए देखते हैं। आप:", answers: [ { text: "अपने काम से काम रखें और चले जाएं।", score: 1, feedback: "शांति का मार्ग।" }, { text: "रसदार विवरण सुनने के लिए अपनी चलने की गति धीमी करें।", score: 3, feedback: "सार्वजनिक सूचना अधिकारी।" }, { text: "चुपके से रिकॉर्डिंग करते समय अपने फोन पर होने का नाटक करें।", score: 2, feedback: "के लिए... अनुसंधान प्रयोजनों, बिल्कुल।" } ] },
+                        { id: 6, question: "आप एक बेहतरीन टीवी श्रृंखला समाप्त करते हैं। आपका अगला कदम है:", answers: [ { text: "यह खत्म होने पर दुखी महसूस करना और एक नया शो खोजना।", score: 1, feedback: "आगे बढ़ना।" }, { text: "पूरी विकिपीडिया पृष्ठ, प्रशंसक सिद्धांत और अभिनेता की जीवनी पढ़ना।", score: 3, feedback: "गहरा गोताखोर।" }, { text: "अपने पसंदीदा एपिसोड को फिर से देखना।", score: 2, feedback: "महिमा को फिर से जीना।" } ] },
+                        { id: 7, question: "आपके पड़ोसी के लिए एक पैकेज आता है लेकिन वे घर पर नहीं हैं। आप:", answers: [ { text: "इसे उनके दरवाजे पर छोड़ दें।", score: 1, feedback: "सरल और गैर-दखल देने वाला।" }, { text: "इसे उठाएं और इसका वजन और आकार महसूस करें, यह अनुमान लगाने की कोशिश करें कि अंदर क्या है।", score: 3, feedback: "मानव एक्स-रे मशीन।" }, { text: "इसे सुरक्षित रखने के लिए लें और बाद में उनसे इसके बारे में पूछें।", score: 2, feedback: "मददगार पड़ोसी।" } ] },
+                        { id: 8, question: "आप एक संग्रहालय में हैं। आप:", answers: [ { text: "हर प्रदर्शनी के लिए हर एक सूचना पट्टिका पढ़ें।", score: 3, feedback: "विद्वान।" }, { text: "बस सुंदर चित्रों और मूर्तियों को देखें।", score: 1, feedback: "दृश्य कलाकार।" }, { text: "सबसे प्रसिद्ध प्रदर्शनियों के साथ सेल्फी लें।", score: 2, feedback: "'मैं' का इतिहासकार।" } ] },
+                        { id: 9, question: "षड्यंत्र के सिद्धांतों के बारे में आप क्या सोचते हैं?", answers: [ { text: "वे बकवास हैं।", score: 1, feedback: "तर्कवादी।" }, { text: "उनके बारे में पढ़ना आकर्षक है, भले ही वे पागल हों।", score: 3, feedback: "खुले विचारों वाला खोजकर्ता।" }, { text: "उनमें से कुछ तो सच होने ही चाहिए, है ना?", score: 2, feedback: "संदेहवादी।" } ] },
+                        { id: 10, question: "आपका दोस्त एक नया हेयरकट करवाता है। आप:", answers: [ { text: "'अच्छा हेयरकट!' कहें और आगे बढ़ें।", score: 1, feedback: "सरल तारीफ।" }, { text: "पूछें 'तुमने यह कहाँ से करवाया? कितना खर्च हुआ? क्या उन्होंने तुम्हें सिर की मालिश दी?'", score: 3, feedback: "पूछताछ करने वाला।" }, { text: "इसे नोटिस करें लेकिन उनके उल्लेख करने की प्रतीक्षा करें।", score: 2, feedback: "निष्क्रिय पर्यवेक्षक।" } ] },
+                        { id: 11, question: "एक नए गैजेट के लिए निर्देश पुस्तिका है:", answers: [ { text: "पहली चीज जो आप पढ़ते हैं, कवर से कवर तक।", score: 3, feedback: "नियम-पुस्तिका पाठक।" }, { text: "कुछ ऐसा जिसे आप तुरंत फेंक देते हैं।", score: 1, feedback: "मैं इसे खुद ही समझ लूँगा!" }, { text: "कुछ ऐसा जिसे आप तभी ढूंढते हैं जब कुछ गलत हो जाता है।", score: 2, feedback: "समस्या निवारक।" } ] },
+                        { id: 12, question: "आप एक नए रेस्तरां के बाहर एक लंबी कतार देखते हैं। आप:", answers: [ { text: "प्लेग की तरह इससे बचें।", score: 1, feedback: "किसके पास समय है?" }, { text: "यह देखने के लिए कि प्रचार क्या है, तुरंत कतार में शामिल हों।", score: 3, feedback: "ट्रेंडसेटर।" }, { text: "पास में खड़े होकर रेस्तरां के मेनू और समीक्षाओं को गूगल करें।", score: 2, feedback: "रणनीतिक अन्वेषक।" } ] },
+                        { id: 13, question: "जब कोई कहता है 'किसी को मत बताना...', आप:", answers: [ { text: "आपके कान खड़े हो जाते हैं और आप करीब झुक जाते हैं।", score: 3, feedback: "रहस्यों का तिजोरी (जो लीक हो सकता है)।" }, { text: "कहो 'तो मुझे मत बताओ!'", score: 1, feedback: "ज्ञान का बोझ बहुत बड़ा है।" }, { text: "ध्यान से सुनें और वास्तव में किसी को न बताएं।", score: 2, feedback: "एक भरोसेमंद दोस्त।" } ] },
+                        { id: 14, question: "आप दूर एक सायरन सुनते हैं। आप:", answers: [ { text: "यह देखने के लिए कि क्या हो रहा है, खिड़की या बालकनी पर दौड़ें।", score: 3, feedback: "पड़ोस की घड़ी।" }, { text: "संक्षेप में आश्चर्य करें कि क्या हुआ और फिर इसके बारे में भूल जाएं।", score: 2, feedback: "एक क्षणभंगुर विचार।" }, { text: "इसे नोटिस भी न करें।", score: 1, feedback: "अपनी ही दुनिया में रहना।" } ] },
+                        { id: 15, question: "'खरगोश का छेद' शब्द का अर्थ है:", answers: [ { text: "अनुसंधान या खोज के एक ऐसे रास्ते पर जाना जो कई अन्य विषयों की ओर ले जाता है।", score: 3, feedback: "आप वहाँ कई बार गए हैं।" }, { text: "एक खरगोश के लिए एक घर।", score: 1, feedback: "खैर, आप गलत नहीं हैं।" }, { text: "एक कठिन स्थिति।", score: 2, feedback: "यह आपकी उत्पादकता के लिए हो सकता है।" } ] },
+                        { id: 16, question: "आप एक कैफे में लोगों को देख रहे हैं। आप:", answers: [ { text: "आपके द्वारा देखे जाने वाले लोगों के लिए पूरी पृष्ठभूमि कहानियां बनाएं।", score: 3, feedback: "पटकथा लेखक।" }, { text: "बस अपनी कॉफी का आनंद ले रहे हैं।", score: 1, feedback: "ज़ेन मास्टर।" }, { text: "यह देख रहे हैं कि सबने क्या ऑर्डर किया है।", score: 2, feedback: "भोजन समीक्षक।" } ] },
+                        { id: 17, question: "आपकी भोजन डिलीवरी देर से है। आप:", answers: [ { text: "ऐप के नक्शे पर डिलीवरी व्यक्ति के हर कदम को ट्रैक करें।", score: 3, feedback: "लाइव-ट्रैकर।" }, { text: "धैर्य से प्रतीक्षा करें। यह तब आएगा जब यह आएगा।", score: 1, feedback: "धैर्यवान।" }, { text: "अपडेट के लिए रेस्तरां को कॉल करें।", score: 2, feedback: "सक्रिय ग्राहक।" } ] },
+                        { id: 18, question: "आसमान नीला क्यों है?", answers: [ { text: "जाहिर है, रेले स्कैटरिंग के कारण।", score: 3, feedback: "वैज्ञानिक।" }, { text: "क्योंकि अगर यह हरा होता, तो हमें नहीं पता होता कि लॉन की घास काटना कब बंद करना है।", score: 2, feedback: "हास्य अभिनेता।" }, { text: "कौन परवाह करता है? यह सुंदर है।", score: 1, feedback: "कलाकार।" } ] },
+                        { id: 19, question: "आप 'स्पॉइलर अलर्ट' देखते हैं। आप:", answers: [ { text: "तुरंत पढ़ना/देखना बंद कर दें।", score: 2, feedback: "शुद्धतावादी।" }, { text: "इसे वैसे भी पढ़ें क्योंकि आपको अभी जानना है।", score: 3, feedback: "अधीर आत्मा।" }, { text: "स्पॉइलर क्या है?", score: 1, feedback: "आश्चर्य से भरा जीवन जीना।" } ] },
+                        { id: 20, question: "आपको एक नया गैजेट मिलता है। आप:", answers: [ { text: "यह देखने के लिए कि वे क्या करते हैं, सभी बटन दबाएं।", score: 3, feedback: "खोजकर्ता।" }, { text: "त्वरित प्रारंभ गाइड का पालन करें।", score: 2, feedback: "छात्र।" }, { text: "इसे तोड़ने से बहुत डरते हैं, इसलिए आप इसे बहुत सावधानी से उपयोग करते हैं।", score: 1, feedback: "कोमल उपयोगकर्ता।" } ] },
+                        { id: 21, question: "जब आप एक नया स्लैंग शब्द सुनते हैं, तो आप:", answers: [ { text: "तुरंत शहरी शब्दकोश पर इसका अर्थ खोजें।", score: 3, feedback: "भाषाविद्।" }, { text: "जिस व्यक्ति ने यह कहा है उससे पूछें कि इसका क्या मतलब है।", score: 2, feedback: "प्रत्यक्ष दृष्टिकोण।" }, { text: "बस सिर हिलाएं और समझने का नाटक करें।", score: 1, feedback: "सामाजिक गिरगिट।" } ] },
+                        { id: 22, question: "आप एक होटल में हैं। आप:", answers: [ { text: "यह देखने के लिए कि अंदर क्या है, हर दराज और अलमारी खोलें।", score: 3, feedback: "निरीक्षक।" }, { text: "केवल बिस्तर और बाथरूम का उपयोग करें।", score: 1, feedback: "minimalist।" }, { text: "जांचें कि क्या मुफ्त प्रसाधन सामग्री एक अच्छे ब्रांड की है।", score: 2, feedback: "गुणवत्ता जांचकर्ता।" } ] },
+                        { id: 23, question: "आपके पास किसी के फोन की स्क्रीन जलती है। आप:", answers: [ { text: "अपना सिर हिलाए बिना संदेश पढ़ने की कोशिश करें।", score: 3, feedback: "आप में कौशल है।" }, { text: "उन्हें गोपनीयता देने के लिए विनम्रता से दूर देखें।", score: 1, feedback: "सम्मानजनक नागरिक।" }, { text: "गलती से एक झलक पकड़ें और फिर दोषी महसूस करें।", score: 2, feedback: "आकस्मिक जासूस।" } ] },
+                        { id: 24, question: "'केवल कर्मचारी' दरवाजे के पीछे क्या है?", answers: [ { text: "शायद एक उबाऊ भंडारण कक्ष।", score: 1, feedback: "यथार्थवादी।" }, { text: "दूसरे आयाम के लिए एक गुप्त पोर्टल।", score: 2, feedback: "कल्पनावादी।" }, { text: "मुझे नहीं पता, लेकिन मैं पता लगाने के लिए ललचा रहा हूँ।", score: 3, feedback: "साहसी।" } ] },
+                        { id: 25, question: "यात्रा का सबसे अच्छा हिस्सा है:", answers: [ { text: "नया भोजन आज़माना और छिपी हुई गलियों की खोज करना।", score: 3, feedback: "खोजकर्ता।" }, { text: "एक किताब के साथ पूल के किनारे आराम करना।", score: 1, feedback: "छुट्टियां मनाने वाला।" }, { text: "सोशल मीडिया के लिए अद्भुत तस्वीरें लेना।", score: 2, feedback: "सामग्री निर्माता।" } ] }
+                    ]
+                }
+            };
+            
+            // --- STATE MANAGEMENT & DOM ELEMENTS ---
+            let currentQuestionIndex = 0;
+            let userAnswers = {};
+            let currentLang = 'en';
+            let quizQuestions = [];
+            let userName = '';
+            const QUESTIONS_PER_QUIZ = 15;
+
+            const allLangElements = document.querySelectorAll('[data-lang-key]');
+            const langPlaceholderElements = document.querySelectorAll('[data-lang-placeholder]');
+            const languageToggle = document.getElementById('language-toggle');
+            const startScreen = document.getElementById('start-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const calculatingScreen = document.getElementById('calculating-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const journeyScreen = document.getElementById('journey-screen');
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const goBackBtn = document.getElementById('go-back-btn');
+            const backToMainBtn = document.getElementById('back-to-main-btn');
+            const nameInput = document.getElementById('name-input');
+            const questionContainer = document.getElementById('question-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const finalScoreEl = document.getElementById('final-score');
+            const resultTitleEl = document.getElementById('result-title');
+            const resultDescriptionEl = document.getElementById('result-description');
+            const finalQuoteEl = document.getElementById('final-quote');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const shareButtonsContainer = document.getElementById('share-buttons');
+            const exploreBtn = document.getElementById('explore-btn');
+
+            // --- LANGUAGE LOGIC ---
+            const updateLanguage = (lang) => {
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                document.documentElement.lang = lang;
+                
+                languageToggle.innerHTML = (lang === 'en') 
+                    ? `<i class="fa-solid fa-language mr-2"></i> हिन्दी`
+                    : `<i class="fa-solid fa-language mr-2"></i> English`;
+
+                allLangElements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    const value = getNestedValue(content[lang], key);
+                    if (value) el.innerHTML = value;
+                });
+                
+                langPlaceholderElements.forEach(el => {
+                    const key = el.dataset.langPlaceholder;
+                    const value = getNestedValue(content[lang], key);
+                    if(value) el.placeholder = value;
+                });
+            };
+
+            const getNestedValue = (obj, key) => key.split('.').reduce((acc, part) => acc && acc[part], obj);
+
+            // --- THEME LOGIC ---
+            const applyTheme = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIconDark.classList.remove('hidden');
+                    themeIconLight.classList.add('hidden');
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
+            applyTheme(isDarkMode);
+
+            // --- UI FUNCTIONS ---
+            const renderQuestion = () => {
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const q_id = quizQuestions[currentQuestionIndex];
+                    const q_data_en = content.en.questions.find(item => item.id === q_id);
+                    const q_lang = content[currentLang].questions.find(item => item.id === q_id);
+                    
+                    if(!q_data_en || !q_lang) {
+                        goHome();
+                        return;
+                    }
+
+                    const shuffledAnswers = [...q_lang.answers].sort(() => Math.random() - 0.5);
+
+                    let answersHTML = shuffledAnswers.map(answer => {
+                        return `
+                        <button data-score="${answer.score}" class="choice-btn w-full text-left p-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-teal-100 dark:hover:bg-teal-500 transition-colors duration-200">
+                            ${answer.text}
+                        </button>
+                    `}).join('');
+                    
+                    const counterText = content[currentLang].question_counter
+                        .replace('{current}', currentQuestionIndex + 1)
+                        .replace('{total}', QUESTIONS_PER_QUIZ);
+
+                    questionContainer.innerHTML = `
+                        <div class="fade-in">
+                            <p class="text-lg font-semibold dark-mode-subtext mb-4">${counterText}</p>
+                            <h2 class="text-2xl md:text-3xl font-bold dark-mode-text mb-8">${q_lang.question.replace(/{name}/g, `<strong>${userName}</strong>`)}</h2>
+                            <div class="flex flex-col items-center space-y-4">${answersHTML}</div>
+                        </div>
+                    `;
+                    feedbackContainer.innerHTML = '';
+                    updateProgressBar();
+                } else {
+                    showCalculatingScreen();
+                }
+            };
+            
+            const updateProgressBar = () => {
+                const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            };
+
+            // --- CORE LOGIC ---
+            const startQuiz = () => {
+                userName = nameInput.value.trim();
+                if (!userName) {
+                    userName = (currentLang === 'en') ? 'Curious George' : 'जिज्ञासु जॉर्ज';
+                }
+
+                let allQuestionIds = content.en.questions.map(q => q.id);
+                allQuestionIds.sort(() => Math.random() - 0.5);
+                quizQuestions = allQuestionIds.slice(0, QUESTIONS_PER_QUIZ);
+                currentQuestionIndex = 0;
+                userAnswers = {};
+
+                startScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    startScreen.classList.add('hidden');
+                    startScreen.classList.remove('fade-out');
+                    quizScreen.classList.remove('hidden');
+                    quizScreen.classList.add('fade-in');
+                    progressContainer.classList.remove('hidden');
+                    backToMainBtn.classList.remove('hidden');
+                    renderQuestion();
+                }, 500);
+            };
+
+            const handleAnswer = (e) => {
+                const selectedBtn = e.target.closest('.choice-btn');
+                if (!selectedBtn) return;
+
+                const score = parseInt(selectedBtn.dataset.score);
+                const question_id = quizQuestions[currentQuestionIndex];
+                const question_data_lang = content[currentLang].questions.find(item => item.id === question_id);
+                
+                const answer_data_lang = question_data_lang.answers.find(a => a.score === score);
+                if (answer_data_lang) {
+                    feedbackContainer.innerHTML = `<p class="fade-in font-semibold text-lg text-teal-600 dark:text-teal-400">${answer_data_lang.feedback}</p>`;
+                }
+
+                userAnswers[question_id] = score;
+                
+                questionContainer.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn !== selectedBtn) {
+                        btn.classList.add('opacity-50');
+                    } else {
+                        btn.classList.add('ring-4', 'ring-teal-400');
+                    }
+                });
+                
+                setTimeout(() => {
+                    if (questionContainer.firstElementChild) {
+                        questionContainer.firstElementChild.classList.replace('fade-in', 'fade-out');
+                    }
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    }, 500);
+                }, 1800);
+            };
+
+            const showCalculatingScreen = () => {
+                quizScreen.classList.add('fade-out');
+                progressContainer.classList.add('hidden');
+                backToMainBtn.classList.add('hidden');
+                setTimeout(() => {
+                    quizScreen.classList.add('hidden');
+                    quizScreen.classList.remove('fade-out');
+                    calculatingScreen.classList.remove('hidden');
+                    calculatingScreen.classList.add('fade-in');
+                    const calculatingTexts = [
+                        content[currentLang].calculating_text, 
+                        (currentLang === 'en' ? "Consulting Wikipedia..." : "विकिपीडिया से परामर्श..."),
+                        (currentLang === 'en' ? "Falling down a rabbit hole for you..." : "आपके लिए एक खरगोश के छेद में गिरना...")
+                    ];
+                    document.getElementById('calculating-text').innerText = calculatingTexts[Math.floor(Math.random()*calculatingTexts.length)];
+                    setTimeout(showResults, 2500);
+                }, 500);
+            }
+            
+            const showResults = (isThemeOrLangUpdate = false) => {
+                if (!isThemeOrLangUpdate) {
+                     calculatingScreen.classList.add('fade-out');
+                     setTimeout(() => {
+                        calculatingScreen.classList.add('hidden');
+                        calculatingScreen.classList.remove('fade-out');
+                        resultsScreen.classList.remove('hidden');
+                        resultsScreen.classList.add('slide-up');
+                        calculateAndDisplayScores();
+                    }, 500);
+                } else {
+                    calculateAndDisplayScores();
+                }
+            };
+
+            const calculateAndDisplayScores = () => {
+                let totalScore = 0;
+                Object.values(userAnswers).forEach(score => {
+                    totalScore += score;
+                });
+
+                const minPossibleScore = QUESTIONS_PER_QUIZ * 1;
+                const maxPossibleScore = QUESTIONS_PER_QUIZ * 3;
+                const scoreRange = maxPossibleScore - minPossibleScore;
+                const userScoreOffset = totalScore - minPossibleScore;
+
+                let jigyasuPercentage = 0;
+                if (scoreRange > 0) {
+                    jigyasuPercentage = Math.round((userScoreOffset / scoreRange) * 100);
+                }
+                
+                finalScoreEl.classList.remove('score-reveal');
+                void finalScoreEl.offsetWidth; // Trigger reflow
+                finalScoreEl.classList.add('score-reveal');
+
+                let startValue = 0;
+                const duration = 1200;
+                const endValue = jigyasuPercentage;
+                const startTime = performance.now();
+
+                function animateCountUp(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    if (elapsedTime < duration) {
+                        const progress = elapsedTime / duration;
+                        const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+                        const currentValue = Math.round(startValue + (endValue - startValue) * easedProgress);
+                        finalScoreEl.textContent = `${currentValue}%`;
+                        requestAnimationFrame(animateCountUp);
+                    } else {
+                        finalScoreEl.textContent = `${endValue}%`;
+                    }
+                }
+                requestAnimationFrame(animateCountUp);
+
+                let resultKey;
+                if (jigyasuPercentage <= 25) resultKey = 'content_cow';
+                else if (jigyasuPercentage <= 50) resultKey = 'casual_questioner';
+                else if (jigyasuPercentage <= 75) resultKey = 'serial_googler';
+                else resultKey = 'cbi_agent';
+                
+                finalQuoteEl.dataset.resultKey = resultKey;
+
+                const personalizedLabel = content[currentLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+
+                resultTitleEl.textContent = content[currentLang][`result_${resultKey}_title`];
+                resultDescriptionEl.innerHTML = content[currentLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                finalQuoteEl.textContent = content[currentLang][`final_quote_${resultKey}`];
+                
+                displayFunnyComments(resultKey);
+                updateShareLinks(jigyasuPercentage, content[currentLang][`result_${resultKey}_title`]);
+            };
+
+            const startBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                stopBackgroundAnimations();
+                
+                const emojis = ['🤔', '❓', '🧐', '💡', '🔎', '🧠', '🤯'];
+                const numEmojis = 25;
+
+                for (let i = 0; i < numEmojis; i++) {
+                    const emoji = document.createElement('span');
+                    emoji.className = 'floating-emoji';
+                    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    emoji.style.left = `${Math.random() * 100}vw`;
+                    emoji.style.fontSize = `${1 + Math.random() * 2}rem`;
+                    const duration = 8 + Math.random() * 10;
+                    const delay = Math.random() * 7;
+                    const translateX = `${(Math.random() - 0.5) * 200}px`;
+                    const rotate = `${(Math.random() - 0.5) * 720}deg`;
+                    
+                    emoji.style.setProperty('--translateX', translateX);
+                    emoji.style.setProperty('--rotate', rotate);
+                    emoji.style.animation = `floatUp ${duration}s ease-in ${delay}s infinite`;
+                    
+                    container.appendChild(emoji);
+                }
+            };
+
+            const stopBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (container) {
+                    container.innerHTML = '';
+                }
+            };
+
+            const typewriter = (element, text, callback) => {
+                let i = 0;
+                const speed = 40; // milliseconds per character
+                const originalHTML = element.innerHTML;
+                element.innerHTML = originalHTML + '<span class="typing-text"></span><span class="typing-cursor border-l-2 border-teal-500 h-6 inline-block align-middle">&nbsp;</span>';
+                const textSpan = element.querySelector('.typing-text');
+                const cursorSpan = element.querySelector('.typing-cursor');
+                
+                function type() {
+                    if (i < text.length) {
+                        textSpan.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        if(cursorSpan) {
+                           cursorSpan.style.display = 'none';
+                        }
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+
+            const displayFunnyComments = (resultKey) => {
+                const commentsContainer = document.getElementById('funny-comments-container');
+                if (!commentsContainer) return;
+                commentsContainer.innerHTML = '';
+                const commentsPool = content[currentLang].funny_comments[resultKey] || [];
+                
+                const shuffledComments = [...commentsPool].sort(() => 0.5 - Math.random());
+                const selectedComments = shuffledComments.slice(0, 3);
+
+                let commentIndex = 0;
+
+                function typeNextComment() {
+                    if (commentIndex < selectedComments.length) {
+                        const commentText = selectedComments[commentIndex];
+                        
+                        const card = document.createElement('div');
+                        card.className = 'funny-comment-card bg-teal-100 dark:bg-gray-800 p-4 rounded-lg mb-4 text-gray-700 dark:text-teal-300 italic shadow-md';
+                        
+                        const p = document.createElement('p');
+                        p.innerHTML = `<i class="fa-solid fa-quote-left mr-2 text-teal-500"></i> `;
+                        card.appendChild(p);
+
+                        card.style.animationDelay = `0.2s`;
+                        
+                        commentsContainer.appendChild(card);
+                        
+                        setTimeout(() => {
+                            typewriter(p, commentText, () => {
+                                commentIndex++;
+                                setTimeout(typeNextComment, 800); 
+                            });
+                        }, 600);
+                    }
+                }
+                
+                startBackgroundAnimations();
+                typeNextComment();
+            };
+
+
+            const updateShareLinks = (percentage, title) => {
+                const text = encodeURIComponent(`My Jigyasu Score is ${percentage}%! Turns out I'm a "${title}". Find out how curious you are:`);
+                const url = encodeURIComponent(window.location.href);
+                
+                document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                document.getElementById('telegram-share').href = `https://t.me/share/url?url=${url}&text=${text}`;
+                document.getElementById('instagram-share').href = `https://www.instagram.com/`;
+            };
+            
+            const goHome = () => {
+                stopBackgroundAnimations();
+                [quizScreen, resultsScreen, journeyScreen, progressContainer, backToMainBtn, calculatingScreen].forEach(el => el.classList.add('hidden'));
+                startScreen.classList.remove('hidden', 'fade-out');
+                startScreen.classList.add('fade-in');
+                nameInput.value = '';
+                currentQuestionIndex = 0;
+                userAnswers = {};
+                quizQuestions = [];
+                progressBar.style.width = '0%';
+            };
+
+            const showJourneyScreen = (e) => {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                resultsScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    resultsScreen.classList.add('hidden');
+                    resultsScreen.classList.remove('fade-out');
+                    journeyScreen.classList.remove('hidden');
+                    journeyScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            const showResultsScreenFromJourney = () => {
+                journeyScreen.classList.add('fade-out');
+                 setTimeout(() => {
+                    journeyScreen.classList.add('hidden');
+                    journeyScreen.classList.remove('fade-out');
+                    resultsScreen.classList.remove('hidden');
+                    resultsScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            // --- EVENT LISTENERS ---
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', goHome);
+            backToMainBtn.addEventListener('click', goHome);
+            goBackBtn.addEventListener('click', showResultsScreenFromJourney);
+            quizScreen.addEventListener('click', handleAnswer);
+            shareButtonsContainer.addEventListener('click', (e) => {
+                const shareBtn = e.target.closest('a.share-btn');
+                if (shareBtn && shareBtn.href && shareBtn.href !== '#') {
+                    showJourneyScreen(e);
+                }
+            });
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+                if (!resultsScreen.classList.contains('hidden')) { showResults(true); }
+            });
+            languageToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'hi' : 'en';
+                updateLanguage(newLang);
+                if (!quizScreen.classList.contains('hidden') || !calculatingScreen.classList.contains('hidden')) { 
+                    goHome();
+                } else if (!resultsScreen.classList.contains('hidden')) {
+                    const resultKey = finalQuoteEl.dataset.resultKey;
+                    const personalizedLabel = content[newLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                    document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+                    resultTitleEl.textContent = content[newLang][`result_${resultKey}_title`];
+                    resultDescriptionEl.innerHTML = content[newLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                    finalQuoteEl.textContent = content[newLang][`final_quote_${resultKey}`];
+                    displayFunnyComments(resultKey);
+                }
+            });
+
+            // Initial Load
+            const savedLang = localStorage.getItem('language') || 'en';
+            updateLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0DL8SC5JKB');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oversharer Meter - How Much Do You Overshare?</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS for theme, animations, and additional styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Dark Mode --- */
+        .dark .dark-mode-bg { background-color: #111827; }
+        .dark .dark-mode-text { color: #f9fafb; }
+        .dark .dark-mode-surface { background-color: #1f2937; }
+        .dark .dark-mode-border { border-color: #374151; }
+        .dark .dark-mode-subtext { color: #9ca3af; }
+
+        /* --- Animations --- */
+        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .pulse { animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .9; transform: scale(1.02); }
+        }
+
+        /* --- Button Styles --- */
+        .choice-btn, .share-btn, .control-btn {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .choice-btn:hover, .share-btn:hover, .control-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Social Share Colors --- */
+        .whatsapp-btn { background-color: #25D366; }
+        .twitter-btn { background-color: #1DA1F2; }
+        .facebook-btn { background-color: #1877F2; }
+        .telegram-btn { background-color: #24A1DE; }
+        .instagram-btn {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        }
+
+        /* --- Score Animation --- */
+        .score-reveal {
+            animation: scoreReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 10px rgba(236, 72, 153, 0.5), 0 0 20px rgba(236, 72, 153, 0.3); /* Pink Shadow */
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* --- Funny Comments Styling --- */
+        .funny-comments-container {
+            perspective: 1000px;
+        }
+
+        .funny-comment-card {
+            opacity: 0;
+            transform: rotateX(-90deg) translateY(50px);
+            transform-origin: bottom center;
+            animation: revealComment 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .funny-comment-card p {
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1.75rem; /* leading-7 */
+        }
+
+        @media (min-width: 768px) {
+            .funny-comment-card p {
+                font-size: 1.5rem; /* md:text-2xl */
+                line-height: 2rem; /* md:leading-8 */
+            }
+        }
+
+
+        @keyframes revealComment {
+            from {
+                opacity: 0;
+                transform: rotateX(-90deg) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0deg) translateY(0);
+            }
+        }
+        
+        /* --- Typing Effect --- */
+        .typing-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #ec4899; } /* pink-500 */
+        }
+        
+        /* --- Background Animation --- */
+        #animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: -50px; /* Start from below the screen */
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--translateX)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode-bg text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+    <div id="animation-container"></div>
+    <!-- Header for Toggles -->
+    <header class="absolute top-4 w-full px-4 z-20 flex items-center justify-between">
+        <!-- Back to Main Page Button (Initially hidden) -->
+        <a id="back-to-main-btn" href="index.html" role="button" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </a>
+
+        <div class="flex items-center space-x-2 ml-auto">
+             <!-- Language Toggle -->
+            <button id="language-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 dark:focus:ring-offset-gray-900 w-28 h-10 flex items-center justify-center text-sm">
+                <!-- Text updated by JS -->
+            </button>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+                <svg id="theme-icon-dark" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg id="theme-icon-light" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-2 bg-gray-200 dark:bg-gray-700 z-10 hidden">
+        <div id="progress-bar" class="h-full bg-pink-500 progress-bar-fill" style="width: 0%;"></div>
+    </div>
+    
+    <main class="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-screen relative z-10">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center max-w-2xl fade-in">
+            <h1 class="text-4xl md:text-6xl font-extrabold dark-mode-text tracking-tight mb-4">The <span class="text-pink-500" data-lang-key="title">Oversharer Meter</span></h1>
+            <p class="text-lg md:text-xl dark-mode-subtext mb-8" data-lang-key="subtitle">
+                Do you tell your life story to the cashier at the grocery store? Is your personal life an open book? Let's find out if you're a locked diary or a 24/7 news channel!
+            </p>
+            <div class="mb-6 w-full max-w-sm mx-auto">
+                <input type="text" id="name-input" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-pink-500 text-gray-900 dark:text-white" data-lang-placeholder="name_placeholder">
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-8 italic" data-lang-key="privacy_disclaimer"></p>
+            <button id="start-btn" data-lang-key="start_button" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-pink-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300 pulse">
+                Spill the Tea!
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden w-full max-w-3xl">
+            <div id="question-container" class="text-center pt-16">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <div id="feedback-container" class="mt-6 text-center text-md dark-mode-subtext min-h-[60px]">
+                <!-- Feedback will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Calculating Screen -->
+        <div id="calculating-screen" class="hidden text-center w-full max-w-2xl">
+            <svg class="animate-spin h-16 w-16 text-pink-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h2 id="calculating-text" class="text-2xl font-bold dark-mode-text" data-lang-key="calculating_text">Reading your diary...</h2>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center w-full max-w-4xl pt-16">
+            <h2 class="text-2xl font-bold dark-mode-subtext mb-2" data-lang-key="result_level_label">Your Oversharing Level</h2>
+            <div id="final-score" class="text-7xl md:text-8xl font-extrabold text-pink-500 mb-4">0%</div>
+            <h3 id="result-title" class="text-3xl md:text-4xl font-extrabold dark-mode-text mb-3"></h3>
+            <p id="result-description" class="text-lg md:text-xl dark-mode-subtext mb-8 max-w-2xl mx-auto"></p>
+            
+            <div id="funny-comments-container" class="funny-comments-container mt-8 mb-8 max-w-2xl mx-auto">
+                <!-- Comments will be injected here -->
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="mb-8">
+                <p class="font-bold dark-mode-text mb-3" data-lang-key="share_results_label">Share Your Report & Get a "TMI" Certificate!</p>
+                <div id="share-buttons" class="flex justify-center items-center flex-wrap gap-4">
+                    <a id="whatsapp-share" href="https://ppscore.co.in" target="_blank" class="share-btn whatsapp-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l.217.324-1.125 4.108 4.224-1.103.337.202z" /></svg>
+                    </a>
+                    <a id="twitter-share" href="https://ppscore.co.in" target="_blank" class="share-btn twitter-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.794 4.649-.69.188-1.433.23-2.184.085.617 1.914 2.408 3.258 4.53 3.301-1.724 1.352-3.883 2.093-6.138 1.795 1.815 1.163 3.973 1.84 6.262 1.84 7.218 0 11.168-5.986 11.168-11.168 0-.17-.003-.34-.01-.508.77-.556 1.438-1.248 1.968-2.04z"/></svg>
+                    </a>
+                    <a id="facebook-share" href="https://ppscore.co.in" target="_blank" class="share-btn facebook-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                    </a>                      
+                    <a id="telegram-share" href="https://ppscore.co.in" target="_blank" class="share-btn telegram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-1.39.2-1.62l15.97-5.85c.73-.27 1.36.17 1.15.99L16.4 18.28c-.21.83-1.2.5-1.54-.26L9.78 18.65z"/></svg>
+                    </a>
+                    <a id="instagram-share" href="https://ppscore.co.in" target="_blank" class="share-btn instagram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <p id="final-quote" class="text-lg dark-mode-text max-w-3xl mx-auto mb-8 italic">
+                <!-- Quote inserted by JS -->
+            </p>
+
+            <button id="restart-btn" data-lang-key="restart_button" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-pink-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300">
+                Overshare Again!
+            </button>
+
+            <!-- Explore More Section -->
+            <div class="mt-16 py-8 border-t-2 border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
+                 <h3 class="text-2xl md:text-3xl font-extrabold dark-mode-text mb-4" data-lang-key="explore_title">Your Analysis Isn't Over Yet!</h3>
+                 <p class="text-lg dark-mode-subtext mb-8" data-lang-key="explore_desc">
+                   You've audited your sharing habits, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.
+                 </p>
+                 <a id="explore-btn" href="index.html" class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 inline-block" data-lang-key="explore_button">
+                   Visit PersonalityPaathshala
+                 </a>
+                 <div class="mt-8 mb-6">
+                    <p class="font-semibold mb-2 text-pink-400 dark:text-pink-300" data-lang-key="support_title">Loved this quiz? Help us create more!</p>
+                    <p class="text-base text-gray-700 dark:text-white mb-3" data-lang-key="support_desc">Your small contribution keeps our creative engine running and helps us serve more fun.</p>
+                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QvFHmdPg3T4Pqh" async> </script> </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Screen -->
+        <div id="journey-screen" class="hidden text-center w-full max-w-2xl pt-16">
+            <h2 class="text-4xl font-extrabold text-pink-500 mb-4" data-lang-key="journey_title">Your Official TMI Certificate!</h2>
+            <p class="text-lg dark-mode-subtext mb-8" data-lang-key="journey_subtitle">You shared your score! As a reward for your services to over-information, please accept this official certificate.</p>
+            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-xl border-4 border-gray-400">
+                <div class="text-center p-4">
+                    <h3 class="text-2xl font-bold dark-mode-text">Ministry of Too Much Information</h3>
+                    <p class="dark-mode-subtext mt-2 uppercase tracking-widest">Official Certificate</p>
+                    <div class="my-4 text-5xl text-pink-500">
+                        📢
+                    </div>
+                    <p class="dark-mode-subtext">This is to certify that</p>
+                    <p id="certificate-name" class="text-3xl font-bold text-pink-500 my-2">[Your Name]</p>
+                    <p class="dark-mode-text">has permission to share any and all details, no matter how small.</p>
+                </div>
+            </div>
+             <button id="go-back-btn" data-lang-key="go_back_button" class="mt-8 bg-gray-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Back to My Score
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-xs text-gray-400 dark:text-gray-500">
+        <p data-lang-key="disclaimer">Disclaimer: This quiz is for fun. Please don't share your bank details with the cashier after this.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- LANGUAGE CONTENT STORE ---
+            const content = {
+                en: {
+                    title: "Oversharer Meter",
+                    subtitle: "Do you tell your life story to the cashier at the grocery store? Is your personal life an open book? Let's find out if you're a locked diary or a 24/7 news channel!",
+                    name_placeholder: "Enter your chatty name...",
+                    privacy_disclaimer: "Your secrets are safe with us... unlike how they are with you.",
+                    start_button: "Spill the Tea!",
+                    calculating_text: "Reading your diary...",
+                    result_level_label: "Your Oversharing Level",
+                    result_level_label_personalized: "{name}'s Oversharing Level",
+                    share_results_label: "Share Your Report & Get a 'TMI' Certificate!",
+                    restart_button: "Overshare Again!",
+                    disclaimer: "Disclaimer: This quiz is for fun. Please don't share your bank details with the cashier after this.",
+                    question_counter: "Question {current} of {total}",
+                    
+                    result_vault_title: "The Secret Vault",
+                    result_vault_desc: "{name}, you are a locked diary in a world of open books. Your secrets have secrets. The FBI probably knows less about you than your best friend does.",
+                    result_selective_title: "The Selective Sharer",
+                    result_selective_desc: "{name}, you're a private investigator of your own life. You share information on a 'need-to-know' basis. You have a small circle of trust, and the password is very strong.",
+                    result_open_book_title: "The Open Book",
+                    result_open_book_desc: "{name}, your life is a story, and you love to read it out loud. You're friendly, approachable, and what you see is what you get. Your friends probably know what you had for breakfast.",
+                    result_news_channel_title: "24/7 Live News Channel",
+                    result_news_channel_desc: "{name}, you don't have personal thoughts, you have public announcements. Your life story has more episodes than a daily soap opera. 'TMI' is not in your vocabulary.",
+                    
+                    final_quote_vault: "\"My favorite topic of conversation is 'anything but me'.\"",
+                    final_quote_selective: "\"I'll tell you, but then I'll have to... make you sign an NDA.\"",
+                    final_quote_open_book: "\"Ask me anything! Seriously, please do.\"",
+                    final_quote_news_channel: "\"And then, let me tell you what happened next...\"",
+                    
+                    funny_comments: {
+                        vault: [
+                            "You probably have a password for your password manager.",
+                            "Your personal diary has a lock, a key, a fingerprint scanner, and a guard dog.",
+                            "You think 'sharing your location' on WhatsApp is a security risk.",
+                            "You're so mysterious, even you don't know what you're thinking."
+                        ],
+                        selective: [
+                            "You have different levels of friendship clearance, like a government file.",
+                            "You've started a sentence with 'I probably shouldn't be telling you this...' and then didn't.",
+                            "Your stories are heavily edited for content before release.",
+                            "You're not secretive, you're just 'exclusive'."
+                        ],
+                        open_book: [
+                            "The barista at your local coffee shop knows about your childhood trauma.",
+                            "You've live-tweeted a minor inconvenience.",
+                            "Your personal life has more viewers than some TV shows.",
+                            "You think 'privacy settings' are just a suggestion."
+                        ],
+                        news_channel: [
+                            "You've given your life story to a telemarketer.",
+                            "Your auto-rickshaw driver knows about your complicated relationship.",
+                            "You don't need a reality show, you are one.",
+                            "Your motto is 'Why think it if you can't say it?'"
+                        ]
+                    },
+
+                    journey_title: "Your Official TMI Certificate!",
+                    journey_subtitle: "You shared your score! As a reward for your services to over-information, please accept this official certificate.",
+                    go_back_button: "Back to My Score",
+
+                    explore_title: "Your Analysis Isn't Over Yet!",
+                    explore_desc: "You've audited your sharing habits, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.",
+                    explore_button: "Visit PersonalityPaathshala",
+                    support_title: "Loved this quiz? Help us create more!",
+                    support_desc: "Your small contribution keeps our creative engine running and helps us serve more fun.",
+
+                    questions: [
+                        { id: 1, question: "You're in a cab. The driver asks 'How are you?'. You:", answers: [ { text: "Say 'Fine, thank you.' and look out the window.", score: 1, feedback: "A classic conversation ender." }, { text: "Tell them about your day in brief.", score: 2, feedback: "A polite and balanced exchange." }, { text: "Tell them your entire life story, including your childhood dreams.", score: 3, feedback: "The driver is now your therapist." } ] },
+                        { id: 2, question: "Your phone's photo gallery is:", answers: [ { text: "For your eyes only.", score: 1, feedback: "A vault of secrets." }, { text: "Open for close friends to scroll through.", score: 2, feedback: "A trusted circle." }, { text: "Basically a public museum. 'Please, have a look!'", score: 3, feedback: "The curator of your life." } ] },
+                        { id: 3, question: "Someone asks for your Wi-Fi password. You:", answers: [ { text: "Tell them 'It's a secret'.", score: 1, feedback: "The guardian of the gateway." }, { text: "Give it to them, but you'll change it the moment they leave.", score: 2, feedback: "The temporary trust." }, { text: "Announce it loudly for everyone in the room to hear.", score: 3, feedback: "Free Wi-Fi for all!" } ] },
+                        { id: 4, question: "How do you feel about posting your food on social media?", answers: [ { text: "Never. People don't need to know what I'm eating.", score: 1, feedback: "A private diner." }, { text: "Only if it's a really special meal.", score: 2, feedback: "The food connoisseur." }, { text: "My followers know my daily menu better than I do.", score: 3, feedback: "The food blogger." } ] },
+                        { id: 5, question: "A friend tells you a secret. You:", answers: [ { text: "Take it to the grave.", score: 3, feedback: "A true vault." }, { text: "Tell your one 'best' friend, who you tell everything to.", score: 2, feedback: "The secret-sharing loophole." }, { text: "Accidentally let it slip in a group chat.", score: 1, feedback: "The leaky faucet." } ] },
+                        { id: 6, question: "Your social media profile is:", answers: [ { text: "Private, with 20 followers.", score: 1, feedback: "The exclusive club." }, { text: "Public, but you only post occasionally.", score: 2, feedback: "The casual user." }, { text: "Public, and you accept every friend request.", score: 3, feedback: "The social networker." } ] },
+                        { id: 7, question: "When you're sad, you:", answers: [ { text: "Deal with it privately.", score: 1, feedback: "The strong, silent type." }, { text: "Talk to a close friend.", score: 2, feedback: "A healthy outlet." }, { text: "Post a cryptic story on Instagram for everyone to wonder about.", score: 3, feedback: "The mystery-maker." } ] },
+                        { id: 8, question: "The phrase 'Too Much Information' (TMI) makes you think:", answers: [ { text: "'A good rule to live by.'", score: 1, feedback: "The master of discretion." }, { text: "'A challenge.'", score: 3, feedback: "There's no such thing as TMI." }, { text: "'It depends on the situation.'", score: 2, feedback: "The diplomat." } ] },
+                        { id: 9, question: "Your most used emoji is probably:", answers: [ { text: "The smiling face with sunglasses 😎", score: 2, feedback: "Cool and casual." }, { text: "The zipped-mouth face 🤐", score: 1, feedback: "My lips are sealed." }, { text: "The see-no-evil monkey 🙈", score: 3, feedback: "'Oops, did I say that out loud?'" } ] },
+                        { id: 10, question: "You're on a first date. You:", answers: [ { text: "Ask them about their hobbies and interests.", score: 2, feedback: "A normal conversation." }, { text: "Tell them about your complicated relationship with your parents.", score: 3, feedback: "Diving into the deep end." }, { text: "Barely say anything about yourself.", score: 1, feedback: "The mysterious one." } ] },
+                        { id: 11, question: "What is a 'personal question'?", answers: [ { text: "A question that is too intrusive to ask.", score: 1, feedback: "The boundary-setter." }, { text: "A challenge to see how much someone is willing to share.", score: 3, feedback: "The interrogator." }, { text: "I don't believe in them. All questions are valid.", score: 2, feedback: "The open book." } ] },
+                        { id: 12, question: "When you go live on Instagram, it's usually to:", answers: [ { text: "I would never go live. Ever.", score: 1, feedback: "The offline champion." }, { text: "Showcase a specific talent or event.", score: 2, feedback: "The content creator." }, { text: "Give a live update on what you're having for dinner.", score: 3, feedback: "The 24/7 news channel." } ] },
+                        { id: 13, question: "Your thoughts on journaling are:", answers: [ { text: "A great way to process my thoughts privately.", score: 1, feedback: "The introspective one." }, { text: "Why write it in a diary when you can post it as a status?", score: 3, feedback: "The public diary." }, { text: "I've tried it, but I always forget.", score: 2, feedback: "A common struggle." } ] },
+                        { id: 14, question: "How much does your favorite street food vendor know about your life?", answers: [ { text: "Just my usual order.", score: 1, feedback: "A professional relationship." }, { text: "My name and my job.", score: 2, feedback: "The friendly regular." }, { text: "My entire family history and my current relationship problems.", score: 3, feedback: "Free therapy with a side of chaat." } ] },
+                        { id: 15, question: "A 'small talk' with a stranger usually ends with:", answers: [ { text: "A polite goodbye.", score: 2, feedback: "A normal social interaction." }, { text: "Them knowing your deepest fears and dreams.", score: 3, feedback: "The fast-track to friendship." }, { text: "It never starts in the first place.", score: 1, feedback: "The master of avoidance." } ] },
+                        { id: 16, question: "The 'close friends' feature on Instagram is for:", answers: [ { text: "A select few people who get to see your real self.", score: 2, feedback: "The inner circle." }, { text: "Everyone you know, just to make them feel special.", score: 3, feedback: "The people-pleaser." }, { text: "I don't use it. My main story is for everyone.", score: 1, feedback: "The transparent one." } ] },
+                        { id: 17, question: "When you have good news, you first tell:", answers: [ { text: "Your family or a very close friend.", score: 2, feedback: "The inner circle." }, { text: "Your social media followers.", score: 3, feedback: "The public announcer." }, { text: "No one. You keep it to yourself for a while.", score: 1, feedback: "The silent celebrator." } ] },
+                        { id: 18, question: "How do you feel about sharing your salary?", answers: [ { text: "It's private information.", score: 1, feedback: "The traditionalist." }, { text: "I'll share it if someone asks.", score: 2, feedback: "The open book." }, { text: "I've probably already told you in the first 5 minutes of meeting you.", score: 3, feedback: "The financial advisor." } ] },
+                        { id: 19, question: "You're in a group chat. You are the one who:", answers: [ { text: "Reads everything but rarely replies.", score: 1, feedback: "The lurker." }, { text: "Shares every interesting article, meme, and thought you have.", score: 3, feedback: "The content machine." }, { text: "Replies with relevant information when needed.", score: 2, feedback: "The helpful member." } ] },
+                        { id: 20, question: "When you travel, your social media posts are mostly:", answers: [ { text: "Beautiful landscapes and scenery.", score: 1, feedback: "The nature lover." }, { text: "A detailed, hour-by-hour account of your entire trip.", score: 3, feedback: "The travel vlogger." }, { text: "A few highlights with your friends and family.", score: 2, feedback: "The memory keeper." } ] },
+                        { id: 21, question: "The word 'secret' means:", answers: [ { text: "Something to be protected at all costs.", score: 1, feedback: "The vault." }, { text: "A fun story to be told later.", score: 3, feedback: "The storyteller." }, { text: "Something you only tell your one best friend.", score: 2, feedback: "The confidante." } ] },
+                        { id: 22, question: "You meet a friend of a friend. After 10 minutes, they know:", answers: [ { text: "Your name and what you do.", score: 2, feedback: "The basics." }, { text: "Your entire relationship history and your opinion on pineapple on pizza.", score: 3, feedback: "The full biodata." }, { text: "Still just your name.", score: 1, feedback: "The mystery." } ] },
+                        { id: 23, question: "Your favorite type of TV show is:", answers: [ { text: "A documentary.", score: 1, feedback: "The observer." }, { text: "A reality show like Bigg Boss.", score: 3, feedback: "The drama lover." }, { text: "A sitcom.", score: 2, feedback: "The comedy fan." } ] },
+                        { id: 24, question: "You're on a long train journey. You:", answers: [ { text: "Put on headphones and mind your own business.", score: 1, feedback: "The solo traveler." }, { text: "End up sharing your tiffin with the entire compartment.", score: 2, feedback: "The friendly traveler." }, { text: "Know the life story of everyone in your compartment by the end of the trip.", score: 3, feedback: "The sociologist." } ] },
+                        { id: 25, question: "After reading your result, you will:", answers: [ { text: "Keep it to yourself.", score: 1, feedback: "The private one." }, { text: "Share it on your 'close friends' story.", score: 2, feedback: "The selective sharer." }, { text: "Post it everywhere with a long caption about how accurate it is.", score: 3, feedback: "The ultimate oversharer." } ] }
+                    ]
+                },
+                hi: {
+                    title: "ओवरशेयरर मीटर",
+                    subtitle: "क्या आप किराने की दुकान पर कैशियर को अपनी जीवन कहानी बताते हैं? क्या आपका निजी जीवन एक खुली किताब है? आइए जानें कि आप एक बंद डायरी हैं या 24/7 समाचार चैनल!",
+                    name_placeholder: "अपना बातूनी नाम दर्ज करें...",
+                    privacy_disclaimer: "आपकी गुप्त बातें हमारे पास सुरक्षित हैं... आपके साथ के विपरीत।",
+                    start_button: "चाय गिराओ!",
+                    calculating_text: "आपकी डायरी पढ़ रहा है...",
+                    result_level_label: "आपका ओवरशेयरिंग स्तर",
+                    result_level_label_personalized: "{name} का ओवरशेयरिंग स्तर",
+                    share_results_label: "अपनी रिपोर्ट साझा करें और एक 'TMI' प्रमाण पत्र प्राप्त करें!",
+                    restart_button: "फिर से ओवरशेयर करें!",
+                    disclaimer: "अस्वीकरण: यह क्विज़ मनोरंजन के लिए है। कृपया इसके बाद कैशियर के साथ अपने बैंक विवरण साझा न करें।",
+                    question_counter: "प्रश्न {current} / {total}",
+
+                    result_vault_title: "गुप्त तिजोरी",
+                    result_vault_desc: "{name}, आप खुली किताबों की दुनिया में एक बंद डायरी हैं। आपके रहस्यों के भी रहस्य हैं। FBI को शायद आपके बारे में आपके सबसे अच्छे दोस्त से कम पता है।",
+                    result_selective_title: "चयनात्मक शेयरर",
+                    result_selective_desc: "{name}, आप अपने जीवन के एक निजी अन्वेषक हैं। आप 'जानने की आवश्यकता' के आधार पर जानकारी साझा करते हैं। आपके पास विश्वास का एक छोटा सा चक्र है, और पासवर्ड बहुत मजबूत है।",
+                    result_open_book_title: "खुली किताब",
+                    result_open_book_desc: "{name}, आपका जीवन एक कहानी है, और आप इसे जोर से पढ़ना पसंद करते हैं। आप मिलनसार, सुलभ हैं, और जो आप देखते हैं वही आप पाते हैं। आपके दोस्तों को शायद पता है कि आपने नाश्ते में क्या खाया था।",
+                    result_news_channel_title: "24/7 लाइव न्यूज चैनल",
+                    result_news_channel_desc: "{name}, आपके पास व्यक्तिगत विचार नहीं हैं, आपके पास सार्वजनिक घोषणाएं हैं। आपके जीवन की कहानी में एक दैनिक सोप ओपेरा से अधिक एपिसोड हैं। 'TMI' आपके शब्दकोश में नहीं है।",
+
+                    final_quote_vault: "\"मेरी पसंदीदा बातचीत का विषय 'मेरे अलावा कुछ भी' है।\"",
+                    final_quote_selective: "\"मैं तुम्हें बता दूँगा, लेकिन फिर मुझे... तुमसे एक एनडीए पर हस्ताक्षर करवाना होगा।\"",
+                    final_quote_open_book: "\"मुझसे कुछ भी पूछो! सच में, कृपया पूछो।\"",
+                    final_quote_news_channel: "\"और फिर, मुझे तुम्हें बताने दो कि आगे क्या हुआ...\"",
+                    
+                    funny_comments: {
+                        vault: [
+                            "आपके पास शायद आपके पासवर्ड मैनेजर के लिए एक पासवर्ड है।",
+                            "आपकी व्यक्तिगत डायरी में एक ताला, एक चाबी, एक फिंगरप्रिंट स्कैनर और एक गार्ड कुत्ता है।",
+                            "आप सोचते हैं कि व्हाट्सएप पर 'अपना स्थान साझा करना' एक सुरक्षा जोखिम है।",
+                            "आप इतने रहस्यमय हैं, यहां तक ​​कि आप भी नहीं जानते कि आप क्या सोच रहे हैं।"
+                        ],
+                        selective: [
+                            "आपके पास दोस्ती की मंजूरी के विभिन्न स्तर हैं, जैसे एक सरकारी फ़ाइल।",
+                            "आपने 'मुझे शायद यह नहीं बताना चाहिए...' से एक वाक्य शुरू किया है और फिर नहीं बताया।",
+                            "आपकी कहानियों को रिलीज से पहले सामग्री के लिए भारी संपादित किया जाता है।",
+                            "आप गुप्त नहीं हैं, आप बस 'विशेष' हैं।"
+                        ],
+                        open_book: [
+                            "आपके स्थानीय कॉफी शॉप का बरिस्ता आपके बचपन के आघात के बारे में जानता है।",
+                            "आपने एक छोटी सी असुविधा को लाइव-ट्वीट किया है।",
+                            "आपके निजी जीवन में कुछ टीवी शो से ज्यादा दर्शक हैं।",
+                            "आप सोचते हैं 'गोपनीयता सेटिंग्स' सिर्फ एक सुझाव है।"
+                        ],
+                        news_channel: [
+                            "आपने एक टेलीमार्केटर को अपनी जीवन कहानी दी है।",
+                            "आपका ऑटो-रिक्शा चालक आपके जटिल रिश्ते के बारे में जानता है।",
+                            "आपको एक रियलिटी शो की जरूरत नहीं है, आप एक हैं।",
+                            "आपका आदर्श वाक्य है 'अगर आप इसे कह नहीं सकते तो इसे क्यों सोचें?'"
+                        ]
+                    },
+
+                    journey_title: "आपका आधिकारिक TMI प्रमाण पत्र!",
+                    journey_subtitle: "आपने अपना स्कोर साझा किया! अति-सूचना के लिए आपकी सेवाओं के लिए एक पुरस्कार के रूप में, कृपया इस आधिकारिक प्रमाण पत्र को स्वीकार करें।",
+                    go_back_button: "मेरे स्कोर पर वापस जाएं",
+
+                    explore_title: "आपका विश्लेषण अभी खत्म नहीं हुआ है!",
+                    explore_desc: "आपने अपनी साझा करने की आदतों का ऑडिट किया है, लेकिन आपके बाकी प्रफुल्लित करने वाले व्यक्तित्व के बारे में क्या? आपका प्रेम जीवन, आपके गुस्से के मुद्दे... पर्सनैलिटी पाठशाला में आपके लिए मज़ेदार कैलकुलेटर की एक पूरी कक्षा है।",
+                    explore_button: "पर्सनैलिटी पाठशाला पर जाएँ",
+                    support_title: "यह क्विज़ पसंद आया? और बनाने में हमारी मदद करें!",
+                    support_desc: "आपका छोटा सा योगदान हमारी रचनात्मकता को चालू रखता है और हमें और मज़ा परोसने में मदद करता है।",
+                    
+                    questions: [
+                        { id: 1, question: "आप एक टैक्सी में हैं। ड्राइवर पूछता है 'आप कैसे हैं?'। आप:", answers: [ { text: "'ठीक हूँ, धन्यवाद।' कहें और खिड़की से बाहर देखें।", score: 1, feedback: "एक क्लासिक बातचीत समाप्त करने वाला।" }, { text: "उन्हें संक्षेप में अपने दिन के बारे में बताएं।", score: 2, feedback: "एक विनम्र और संतुलित आदान-प्रदान।" }, { text: "उन्हें अपने बचपन के सपनों सहित अपनी पूरी जीवन कहानी बताएं।", score: 3, feedback: "ड्राइवर अब आपका चिकित्सक है।" } ] },
+                        { id: 2, question: "आपके फोन की फोटो गैलरी है:", answers: [ { text: "केवल आपकी आंखों के लिए।", score: 1, feedback: "रहस्यों की एक तिजोरी।" }, { text: "करीबी दोस्तों के स्क्रॉल करने के लिए खुला।", score: 2, feedback: "एक विश्वसनीय मंडली।" }, { text: "मूल रूप से एक सार्वजनिक संग्रहालय। 'कृपया, एक नज़र डालें!'", score: 3, feedback: "अपने जीवन का क्यूरेटर।" } ] },
+                        { id: 3, question: "कोई आपका वाई-फाई पासवर्ड मांगता है। आप:", answers: [ { text: "उन्हें बताएं 'यह एक रहस्य है'।" , score: 1, feedback: "गेटवे का संरक्षक।" }, { text: "उन्हें दें, लेकिन जैसे ही वे चले जाएं आप इसे बदल देंगे।", score: 2, feedback: "अस्थायी विश्वास।" }, { text: "कमरे में सभी को सुनने के लिए इसे जोर से घोषित करें।", score: 3, feedback: "सभी के लिए मुफ्त वाई-फाई!" } ] },
+                        { id: 4, question: "आप सोशल मीडिया पर अपना भोजन पोस्ट करने के बारे में कैसा महसूस करते हैं?", answers: [ { text: "कभी नहीं। लोगों को यह जानने की जरूरत नहीं है कि मैं क्या खा रहा हूँ।", score: 1, feedback: "एक निजी डिनर।" }, { text: "केवल अगर यह एक बहुत ही खास भोजन है।", score: 2, feedback: "भोजन पारखी।" }, { text: "मेरे अनुयायियों को मेरे दैनिक मेनू के बारे में मुझसे बेहतर पता है।", score: 3, feedback: "फूड ब्लॉगर।" } ] },
+                        { id: 5, question: "एक दोस्त आपको एक रहस्य बताता है। आप:", answers: [ { text: "इसे कब्र तक ले जाओ।", score: 3, feedback: "एक सच्ची तिजोरी।" }, { text: "अपने एक 'सबसे अच्छे' दोस्त को बताएं, जिसे आप सब कुछ बताते हैं।", score: 2, feedback: "गुप्त-साझाकरण का बचाव का रास्ता।" }, { text: "गलती से इसे एक समूह चैट में फिसलने दें।", score: 1, feedback: "टपकता हुआ नल।" } ] },
+                        { id: 6, question: "आपकी सोशल मीडिया प्रोफ़ाइल है:", answers: [ { text: "निजी, 20 अनुयायियों के साथ।", score: 1, feedback: "विशेष क्लब।" }, { text: "सार्वजनिक, लेकिन आप केवल कभी-कभी पोस्ट करते हैं।", score: 2, feedback: "आकस्मिक उपयोगकर्ता।" }, { text: "सार्वजनिक, और आप हर फ्रेंड रिक्वेस्ट स्वीकार करते हैं।", score: 3, feedback: "सोशल नेटवर्कर।" } ] },
+                        { id: 7, question: "जब आप दुखी होते हैं, तो आप:", answers: [ { text: "निजी तौर पर इससे निपटें।", score: 1, feedback: "मजबूत, चुप प्रकार।" }, { text: "एक करीबी दोस्त से बात करें।", score: 2, feedback: "एक स्वस्थ आउटलेट।" }, { text: "इंस्टाग्राम पर एक गुप्त कहानी पोस्ट करें ताकि हर कोई आश्चर्यचकित हो।", score: 3, feedback: "रहस्य-निर्माता।" } ] },
+                        { id: 8, question: "वाक्यांश 'बहुत ज्यादा जानकारी' (TMI) आपको सोचने पर मजबूर करता है:", answers: [ { text: "'जीने के लिए एक अच्छा नियम।'", score: 1, feedback: "विवेक का स्वामी।" }, { text: "'एक चुनौती।'", score: 3, feedback: "TMI जैसी कोई चीज नहीं है।" }, { text: "'यह स्थिति पर निर्भर करता है।'", score: 2, feedback: "राजनयिक।" } ] },
+                        { id: 9, question: "आपका सबसे अधिक इस्तेमाल किया जाने वाला इमोजी शायद है:", answers: [ { text: "धूप के चश्मे वाला मुस्कुराता हुआ चेहरा 😎", score: 2, feedback: "कूल और कैजुअल।" }, { text: "ज़िप-मुंह वाला चेहरा 🤐", score: 1, feedback: "मेरे होंठ सिले हुए हैं।" }, { text: "बुराई न देखने वाला बंदर 🙈", score: 3, feedback: "'उफ़, क्या मैंने वह जोर से कहा?'" } ] },
+                        { id: 10, question: "आप पहली डेट पर हैं। आप:", answers: [ { text: "उनसे उनके शौक और रुचियों के बारे में पूछें।", score: 2, feedback: "एक सामान्य बातचीत।" }, { text: "उन्हें अपने माता-पिता के साथ अपने जटिल रिश्ते के बारे में बताएं।", score: 3, feedback: "गहरे अंत में गोता लगाना।" }, { text: "अपने बारे में मुश्किल से कुछ कहें।", score: 1, feedback: "रहस्यमय।" } ] },
+                        { id: 11, question: "'व्यक्तिगत प्रश्न' क्या है?", answers: [ { text: "एक ऐसा प्रश्न जो पूछने के लिए बहुत दखल देने वाला है।", score: 1, feedback: "सीमा-निर्धारक।" }, { text: "यह देखने के लिए एक चुनौती कि कोई कितना साझा करने को तैयार है।", score: 3, feedback: "पूछताछ करने वाला।" }, { text: "मैं उनमें विश्वास नहीं करता। सभी प्रश्न मान्य हैं।", score: 2, feedback: "खुली किताब।" } ] },
+                        { id: 12, question: "जब आप इंस्टाग्राम पर लाइव होते हैं, तो यह आमतौर पर होता है:", answers: [ { text: "मैं कभी भी लाइव नहीं जाऊंगा। कभी नहीं।", score: 1, feedback: "ऑफलाइन चैंपियन।" }, { text: "एक विशिष्ट प्रतिभा या घटना का प्रदर्शन करने के लिए।", score: 2, feedback: "सामग्री निर्माता।" }, { text: "आप रात के खाने में क्या खा रहे हैं, इस पर एक लाइव अपडेट देने के लिए।", score: 3, feedback: "24/7 समाचार चैनल।" } ] },
+                        { id: 13, question: "जर्नलिंग पर आपके क्या विचार हैं:", answers: [ { text: "मेरे विचारों को निजी तौर पर संसाधित करने का एक शानदार तरीका।", score: 1, feedback: "आत्मनिरीक्षण।" }, { text: "इसे एक डायरी में क्यों लिखें जब आप इसे एक स्थिति के रूप में पोस्ट कर सकते हैं?", score: 3, feedback: "सार्वजनिक डायरी।" }, { text: "मैंने कोशिश की है, लेकिन मैं हमेशा भूल जाता हूँ।", score: 2, feedback: "एक आम संघर्ष।" } ] },
+                        { id: 14, question: "आपका पसंदीदा स्ट्रीट फूड विक्रेता आपके जीवन के बारे में कितना जानता है?", answers: [ { text: "बस मेरा सामान्य ऑर्डर।", score: 1, feedback: "एक पेशेवर संबंध।" }, { text: "मेरा नाम और मेरी नौकरी।", score: 2, feedback: "दोस्ताना नियमित।" }, { text: "मेरा पूरा पारिवारिक इतिहास और मेरी वर्तमान संबंध समस्याएं।", score: 3, feedback: "चाट के साथ मुफ्त चिकित्सा।" } ] },
+                        { id: 15, question: "एक अजनबी के साथ एक 'छोटी सी बात' आमतौर पर समाप्त होती है:", answers: [ { text: "एक विनम्र अलविदा के साथ।", score: 2, feedback: "एक सामान्य सामाजिक संपर्क।" }, { text: "उन्हें आपके गहरे डर और सपनों को जानने के साथ।", score: 3, feedback: "दोस्ती के लिए फास्ट-ट्रैक।" }, { text: "यह पहली जगह में कभी शुरू नहीं होता है।", score: 1, feedback: "परिहार का स्वामी।" } ] },
+                        { id: 16, question: "इंस्टाग्राम पर 'करीबी दोस्त' सुविधा है:", answers: [ { text: "कुछ चुनिंदा लोगों के लिए जो आपका असली रूप देख पाते हैं।", score: 2, feedback: "भीतरी घेरा।" }, { text: "हर कोई जिसे आप जानते हैं, बस उन्हें विशेष महसूस कराने के लिए।", score: 3, feedback: "लोगों को खुश करने वाला।" }, { text: "मैं इसका उपयोग नहीं करता। मेरी मुख्य कहानी सभी के लिए है।", score: 1, feedback: "पारदर्शी।" } ] },
+                        { id: 17, question: "जब आपके पास अच्छी खबर होती है, तो आप सबसे पहले बताते हैं:", answers: [ { text: "आपके परिवार या एक बहुत करीबी दोस्त को।", score: 2, feedback: "भीतरी घेरा।" }, { text: "आपके सोशल मीडिया अनुयायियों को।", score: 3, feedback: "सार्वजनिक उद्घोषक।" }, { text: "किसी को नहीं। आप इसे थोड़ी देर के लिए अपने तक ही रखते हैं।", score: 1, feedback: "चुप उत्सव मनाने वाला।" } ] },
+                        { id: 18, question: "आप अपना वेतन साझा करने के बारे में कैसा महसूस करते हैं?", answers: [ { text: "यह निजी जानकारी है।", score: 1, feedback: "परंपरावादी।" }, { text: "अगर कोई पूछेगा तो मैं साझा करूँगा।", score: 2, feedback: "खुली किताब।" }, { text: "मैंने शायद आपको मिलने के पहले 5 मिनट में ही बता दिया है।", score: 3, feedback: "वित्तीय सलाहकार।" } ] },
+                        { id: 19, question: "आप एक समूह चैट में हैं। आप वह हैं जो:", answers: [ { text: "सब कुछ पढ़ता है लेकिन शायद ही कभी जवाब देता है।", score: 1, feedback: "छिपा हुआ।" }, { text: "हर दिलचस्प लेख, मीम और विचार साझा करता है जो आपके पास है।", score: 3, feedback: "सामग्री मशीन।" }, { text: "आवश्यकता पड़ने पर प्रासंगिक जानकारी के साथ उत्तर देता है।", score: 2, feedback: "मददगार सदस्य।" } ] },
+                        { id: 20, question: "जब आप यात्रा करते हैं, तो आपके सोशल मीडिया पोस्ट ज्यादातर होते हैं:", answers: [ { text: "सुंदर परिदृश्य और दृश्य।", score: 1, feedback: "प्रकृति प्रेमी।" }, { text: "आपकी पूरी यात्रा का एक विस्तृत, घंटे-दर-घंटे का लेखा-जोखा।", score: 3, feedback: "यात्रा व्लॉगर।" }, { text: "आपके दोस्तों और परिवार के साथ कुछ हाइलाइट्स।", score: 2, feedback: "स्मृति रक्षक।" } ] },
+                        { id: 21, question: "'रहस्य' शब्द का अर्थ है:", answers: [ { text: "कुछ ऐसा जिसे हर कीमत पर संरक्षित किया जाना चाहिए।", score: 1, feedback: "तिजोरी।" }, { text: "बाद में बताई जाने वाली एक मजेदार कहानी।", score: 3, feedback: "कहानीकार।" }, { text: "कुछ ऐसा जो आप केवल अपने एक सबसे अच्छे दोस्त को बताते हैं।", score: 2, feedback: "विश्वासपात्र।" } ] },
+                        { id: 22, question: "आप एक दोस्त के दोस्त से मिलते हैं। 10 मिनट के बाद, वे जानते हैं:", answers: [ { text: "आपका नाम और आप क्या करते हैं।", score: 2, feedback: "मूल बातें।" }, { text: "आपका पूरा संबंध इतिहास और पिज्जा पर अनानास पर आपकी राय।", score: 3, feedback: "पूरा बायोडाटा।" }, { text: "अभी भी सिर्फ आपका नाम।", score: 1, feedback: "रहस्य।" } ] },
+                        { id: 23, question: "आपकी पसंदीदा प्रकार की टीवी शो है:", answers: [ { text: "एक वृत्तचित्र।", score: 1, feedback: "पर्यवेक्षक।" }, { text: "बिग बॉस जैसा एक रियलिटी शो।", score: 3, feedback: "नाटक प्रेमी।" }, { text: "एक सिटकॉम।", score: 2, feedback: "कॉमेडी प्रशंसक।" } ] },
+                        { id: 24, question: "आप एक लंबी ट्रेन यात्रा पर हैं। आप:", answers: [ { text: "हेडफ़ोन लगाएं और अपने काम से काम रखें।", score: 1, feedback: "एकल यात्री।" }, { text: "पूरे डिब्बे के साथ अपना टिफिन साझा करें।", score: 2, feedback: "दोस्ताना यात्री।" }, { text: "यात्रा के अंत तक अपने डिब्बे में सभी की जीवन कहानी जानें।", score: 3, feedback: "समाजशास्त्री।" } ] },
+                        { id: 25, question: "इस क्विज़ को पढ़ने के बाद, आप:", answers: [ { text: "इसे अपने तक ही रखें।", score: 1, feedback: "निजी।" }, { text: "इसे अपनी 'करीबी दोस्तों' की कहानी पर साझा करें।", score: 2, feedback: "चयनात्मक साझा करने वाला।" }, { text: "इसे हर जगह एक लंबे कैप्शन के साथ पोस्ट करें कि यह कितना सटीक है।", score: 3, feedback: "परम ओवरशेयरर।" } ] }
+                    ]
+                }
+            };
+            
+            // --- STATE MANAGEMENT & DOM ELEMENTS ---
+            let currentQuestionIndex = 0;
+            let userAnswers = {};
+            let currentLang = 'en';
+            let quizQuestions = [];
+            let userName = '';
+            const QUESTIONS_PER_QUIZ = 15;
+
+            const allLangElements = document.querySelectorAll('[data-lang-key]');
+            const langPlaceholderElements = document.querySelectorAll('[data-lang-placeholder]');
+            const languageToggle = document.getElementById('language-toggle');
+            const startScreen = document.getElementById('start-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const calculatingScreen = document.getElementById('calculating-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const journeyScreen = document.getElementById('journey-screen');
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const goBackBtn = document.getElementById('go-back-btn');
+            const backToMainBtn = document.getElementById('back-to-main-btn');
+            const nameInput = document.getElementById('name-input');
+            const questionContainer = document.getElementById('question-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const finalScoreEl = document.getElementById('final-score');
+            const resultTitleEl = document.getElementById('result-title');
+            const resultDescriptionEl = document.getElementById('result-description');
+            const finalQuoteEl = document.getElementById('final-quote');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const shareButtonsContainer = document.getElementById('share-buttons');
+            const exploreBtn = document.getElementById('explore-btn');
+
+            // --- LANGUAGE LOGIC ---
+            const updateLanguage = (lang) => {
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                document.documentElement.lang = lang;
+                
+                languageToggle.innerHTML = (lang === 'en') 
+                    ? `<i class="fa-solid fa-language mr-2"></i> हिन्दी`
+                    : `<i class="fa-solid fa-language mr-2"></i> English`;
+
+                allLangElements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    const value = getNestedValue(content[lang], key);
+                    if (value) el.innerHTML = value;
+                });
+                
+                langPlaceholderElements.forEach(el => {
+                    const key = el.dataset.langPlaceholder;
+                    const value = getNestedValue(content[lang], key);
+                    if(value) el.placeholder = value;
+                });
+            };
+
+            const getNestedValue = (obj, key) => key.split('.').reduce((acc, part) => acc && acc[part], obj);
+
+            // --- THEME LOGIC ---
+            const applyTheme = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIconDark.classList.remove('hidden');
+                    themeIconLight.classList.add('hidden');
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
+            applyTheme(isDarkMode);
+
+            // --- UI FUNCTIONS ---
+            const renderQuestion = () => {
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const q_id = quizQuestions[currentQuestionIndex];
+                    const q_data_en = content.en.questions.find(item => item.id === q_id);
+                    const q_lang = content[currentLang].questions.find(item => item.id === q_id);
+                    
+                    if(!q_data_en || !q_lang) {
+                        goHome();
+                        return;
+                    }
+
+                    const shuffledAnswers = [...q_lang.answers].sort(() => Math.random() - 0.5);
+
+                    let answersHTML = shuffledAnswers.map(answer => {
+                        return `
+                        <button data-score="${answer.score}" class="choice-btn w-full text-left p-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-pink-100 dark:hover:bg-pink-500 transition-colors duration-200">
+                            ${answer.text}
+                        </button>
+                    `}).join('');
+                    
+                    const counterText = content[currentLang].question_counter.replace('{current}', currentQuestionIndex + 1).replace('{total}', QUESTIONS_PER_QUIZ);
+
+                    questionContainer.innerHTML = `
+                        <div class="fade-in">
+                            <p class="text-lg font-semibold dark-mode-subtext mb-4">${counterText}</p>
+                            <h2 class="text-2xl md:text-3xl font-bold dark-mode-text mb-8">${q_lang.question.replace(/{name}/g, `<strong>${userName}</strong>`)}</h2>
+                            <div class="flex flex-col items-center space-y-4">${answersHTML}</div>
+                        </div>
+                    `;
+                    feedbackContainer.innerHTML = '';
+                    updateProgressBar();
+                } else {
+                    showCalculatingScreen();
+                }
+            };
+            
+            const updateProgressBar = () => {
+                const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            };
+
+            // --- CORE LOGIC ---
+            const startQuiz = () => {
+                userName = nameInput.value.trim();
+                if (!userName) {
+                    userName = (currentLang === 'en') ? 'Chatterbox' : 'बातूनी';
+                }
+
+                let allQuestionIds = content.en.questions.map(q => q.id);
+                allQuestionIds.sort(() => Math.random() - 0.5);
+                quizQuestions = allQuestionIds.slice(0, QUESTIONS_PER_QUIZ);
+                currentQuestionIndex = 0;
+                userAnswers = {};
+
+                startScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    startScreen.classList.add('hidden');
+                    startScreen.classList.remove('fade-out');
+                    quizScreen.classList.remove('hidden');
+                    quizScreen.classList.add('fade-in');
+                    progressContainer.classList.remove('hidden');
+                    backToMainBtn.classList.remove('hidden');
+                    renderQuestion();
+                }, 500);
+            };
+
+            const handleAnswer = (e) => {
+                const selectedBtn = e.target.closest('.choice-btn');
+                if (!selectedBtn) return;
+
+                const score = parseInt(selectedBtn.dataset.score);
+                const question_id = quizQuestions[currentQuestionIndex];
+                const question_data_lang = content[currentLang].questions.find(item => item.id === question_id);
+                
+                const answer_data_lang = question_data_lang.answers.find(a => a.score === score);
+                if (answer_data_lang) {
+                    feedbackContainer.innerHTML = `<p class="fade-in font-semibold text-lg text-teal-600 dark:text-teal-400">${answer_data_lang.feedback}</p>`;
+                }
+
+                userAnswers[question_id] = score;
+                
+                questionContainer.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn !== selectedBtn) {
+                        btn.classList.add('opacity-50');
+                    } else {
+                        btn.classList.add('ring-4', 'ring-pink-400');
+                    }
+                });
+                
+                setTimeout(() => {
+                    if (questionContainer.firstElementChild) {
+                        questionContainer.firstElementChild.classList.replace('fade-in', 'fade-out');
+                    }
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    }, 500);
+                }, 1800);
+            };
+
+            const showCalculatingScreen = () => {
+                quizScreen.classList.add('fade-out');
+                progressContainer.classList.add('hidden');
+                backToMainBtn.classList.add('hidden');
+                setTimeout(() => {
+                    quizScreen.classList.add('hidden');
+                    quizScreen.classList.remove('fade-out');
+                    calculatingScreen.classList.remove('hidden');
+                    calculatingScreen.classList.add('fade-in');
+                    const calculatingTexts = [
+                        content[currentLang].calculating_text, 
+                        (currentLang === 'en' ? "Broadcasting your secrets..." : "आपके रहस्यों का प्रसारण..."),
+                        (currentLang === 'en' ? "Calling a press conference..." : "एक प्रेस कॉन्फ्रेंस बुला रहा है...")
+                    ];
+                    document.getElementById('calculating-text').innerText = calculatingTexts[Math.floor(Math.random()*calculatingTexts.length)];
+                    setTimeout(showResults, 2500);
+                }, 500);
+            }
+            
+            const showResults = (isThemeOrLangUpdate = false) => {
+                if (!isThemeOrLangUpdate) {
+                     calculatingScreen.classList.add('fade-out');
+                     setTimeout(() => {
+                        calculatingScreen.classList.add('hidden');
+                        calculatingScreen.classList.remove('fade-out');
+                        resultsScreen.classList.remove('hidden');
+                        resultsScreen.classList.add('slide-up');
+                        calculateAndDisplayScores();
+                    }, 500);
+                } else {
+                    calculateAndDisplayScores();
+                }
+            };
+
+            const calculateAndDisplayScores = () => {
+                let totalScore = 0;
+                Object.values(userAnswers).forEach(score => {
+                    totalScore += score;
+                });
+
+                const minPossibleScore = QUESTIONS_PER_QUIZ * 1;
+                const maxPossibleScore = QUESTIONS_PER_QUIZ * 3;
+                const scoreRange = maxPossibleScore - minPossibleScore;
+                const userScoreOffset = totalScore - minPossibleScore;
+
+                let oversharingPercentage = 0;
+                if (scoreRange > 0) {
+                    oversharingPercentage = Math.round((userScoreOffset / scoreRange) * 100);
+                }
+                
+                finalScoreEl.classList.remove('score-reveal');
+                void finalScoreEl.offsetWidth; // Trigger reflow
+                finalScoreEl.classList.add('score-reveal');
+
+                let startValue = 0;
+                const duration = 1200;
+                const endValue = oversharingPercentage;
+                const startTime = performance.now();
+
+                function animateCountUp(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    if (elapsedTime < duration) {
+                        const progress = elapsedTime / duration;
+                        const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+                        const currentValue = Math.round(startValue + (endValue - startValue) * easedProgress);
+                        finalScoreEl.textContent = `${currentValue}%`;
+                        requestAnimationFrame(animateCountUp);
+                    } else {
+                        finalScoreEl.textContent = `${endValue}%`;
+                    }
+                }
+                requestAnimationFrame(animateCountUp);
+
+                let resultKey;
+                if (oversharingPercentage <= 25) resultKey = 'vault';
+                else if (oversharingPercentage <= 50) resultKey = 'selective';
+                else if (oversharingPercentage <= 75) resultKey = 'open_book';
+                else resultKey = 'news_channel';
+                
+                finalQuoteEl.dataset.resultKey = resultKey;
+                document.getElementById('certificate-name').textContent = userName;
+
+                const personalizedLabel = content[currentLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+
+                resultTitleEl.textContent = content[currentLang][`result_${resultKey}_title`];
+                resultDescriptionEl.innerHTML = content[currentLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                finalQuoteEl.textContent = content[currentLang][`final_quote_${resultKey}`];
+                
+                displayFunnyComments(resultKey);
+                updateShareLinks(oversharingPercentage, content[currentLang][`result_${resultKey}_title`]);
+            };
+
+            const startBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                stopBackgroundAnimations();
+                
+                const emojis = ['😂', '🗣️', '📢', '🤫', '🤐', '📰', '👀'];
+                const numEmojis = 25;
+
+                for (let i = 0; i < numEmojis; i++) {
+                    const emoji = document.createElement('span');
+                    emoji.className = 'floating-emoji';
+                    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    emoji.style.left = `${Math.random() * 100}vw`;
+                    emoji.style.fontSize = `${1 + Math.random() * 2}rem`;
+                    const duration = 8 + Math.random() * 10;
+                    const delay = Math.random() * 7;
+                    const translateX = `${(Math.random() - 0.5) * 200}px`;
+                    const rotate = `${(Math.random() - 0.5) * 720}deg`;
+                    
+                    emoji.style.setProperty('--translateX', translateX);
+                    emoji.style.setProperty('--rotate', rotate);
+                    emoji.style.animation = `floatUp ${duration}s ease-in ${delay}s infinite`;
+                    
+                    container.appendChild(emoji);
+                }
+            };
+
+            const stopBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (container) {
+                    container.innerHTML = '';
+                }
+            };
+
+            const typewriter = (element, text, callback) => {
+                let i = 0;
+                const speed = 40; // milliseconds per character
+                const originalHTML = element.innerHTML;
+                element.innerHTML = originalHTML + '<span class="typing-text"></span><span class="typing-cursor border-l-2 border-pink-500 h-6 inline-block align-middle">&nbsp;</span>';
+                const textSpan = element.querySelector('.typing-text');
+                const cursorSpan = element.querySelector('.typing-cursor');
+                
+                function type() {
+                    if (i < text.length) {
+                        textSpan.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        if(cursorSpan) {
+                           cursorSpan.style.display = 'none';
+                        }
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+
+            const displayFunnyComments = (resultKey) => {
+                const commentsContainer = document.getElementById('funny-comments-container');
+                if (!commentsContainer) return;
+                commentsContainer.innerHTML = '';
+                const commentsPool = content[currentLang].funny_comments[resultKey] || [];
+                
+                const shuffledComments = [...commentsPool].sort(() => 0.5 - Math.random());
+                const selectedComments = shuffledComments.slice(0, 3);
+
+                let commentIndex = 0;
+
+                function typeNextComment() {
+                    if (commentIndex < selectedComments.length) {
+                        const commentText = selectedComments[commentIndex];
+                        
+                        const card = document.createElement('div');
+                        card.className = 'funny-comment-card bg-pink-100 dark:bg-gray-800 p-4 rounded-lg mb-4 text-gray-700 dark:text-pink-300 italic shadow-md';
+                        
+                        const p = document.createElement('p');
+                        p.innerHTML = `<i class="fa-solid fa-quote-left mr-2 text-pink-500"></i> `;
+                        card.appendChild(p);
+
+                        card.style.animationDelay = `0.2s`;
+                        
+                        commentsContainer.appendChild(card);
+                        
+                        setTimeout(() => {
+                            typewriter(p, commentText, () => {
+                                commentIndex++;
+                                setTimeout(typeNextComment, 800); 
+                            });
+                        }, 600);
+                    }
+                }
+                
+                startBackgroundAnimations();
+                typeNextComment();
+            };
+
+
+            const updateShareLinks = (percentage, title) => {
+                const text = encodeURIComponent(`My Oversharing Score is ${percentage}%! Turns out I'm a "${title}". Find out your sharing style:`);
+                const url = encodeURIComponent(window.location.href);
+                
+                document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                document.getElementById('telegram-share').href = `https://t.me/share/url?url=${url}&text=${text}`;
+                document.getElementById('instagram-share').href = `https://www.instagram.com/`;
+            };
+            
+            const goHome = () => {
+                stopBackgroundAnimations();
+                [quizScreen, resultsScreen, journeyScreen, progressContainer, backToMainBtn, calculatingScreen].forEach(el => el.classList.add('hidden'));
+                startScreen.classList.remove('hidden', 'fade-out');
+                startScreen.classList.add('fade-in');
+                nameInput.value = '';
+                currentQuestionIndex = 0;
+                userAnswers = {};
+                quizQuestions = [];
+                progressBar.style.width = '0%';
+            };
+
+            const showJourneyScreen = (e) => {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                resultsScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    resultsScreen.classList.add('hidden');
+                    resultsScreen.classList.remove('fade-out');
+                    journeyScreen.classList.remove('hidden');
+                    journeyScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            const showResultsScreenFromJourney = () => {
+                journeyScreen.classList.add('fade-out');
+                 setTimeout(() => {
+                    journeyScreen.classList.add('hidden');
+                    journeyScreen.classList.remove('fade-out');
+                    resultsScreen.classList.remove('hidden');
+                    resultsScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            // --- EVENT LISTENERS ---
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', goHome);
+            backToMainBtn.addEventListener('click', goHome);
+            goBackBtn.addEventListener('click', showResultsScreenFromJourney);
+            quizScreen.addEventListener('click', handleAnswer);
+            shareButtonsContainer.addEventListener('click', (e) => {
+                const shareBtn = e.target.closest('a.share-btn');
+                if (shareBtn && shareBtn.href && shareBtn.href !== '#') {
+                    showJourneyScreen(e);
+                }
+            });
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+                if (!resultsScreen.classList.contains('hidden')) { showResults(true); }
+            });
+            languageToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'hi' : 'en';
+                updateLanguage(newLang);
+                if (!quizScreen.classList.contains('hidden') || !calculatingScreen.classList.contains('hidden')) { 
+                    goHome();
+                } else if (!resultsScreen.classList.contains('hidden')) {
+                    const resultKey = finalQuoteEl.dataset.resultKey;
+                    const personalizedLabel = content[newLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                    document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+                    resultTitleEl.textContent = content[newLang][`result_${resultKey}_title`];
+                    resultDescriptionEl.innerHTML = content[newLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                    finalQuoteEl.textContent = content[newLang][`final_quote_${resultKey}`];
+                    displayFunnyComments(resultKey);
+                }
+            });
+
+            // Initial Load
+            const savedLang = localStorage.getItem('language') || 'en';
+            updateLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>

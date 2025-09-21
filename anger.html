@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0DL8SC5JKB');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anger-o-Meter - How Angry Are You?</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS for theme, animations, and additional styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Dark Mode --- */
+        .dark .dark-mode-bg { background-color: #111827; }
+        .dark .dark-mode-text { color: #f9fafb; }
+        .dark .dark-mode-surface { background-color: #1f2937; }
+        .dark .dark-mode-border { border-color: #374151; }
+        .dark .dark-mode-subtext { color: #9ca3af; }
+
+        /* --- Animations --- */
+        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .pulse { animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .9; transform: scale(1.02); }
+        }
+
+        /* --- Button Styles --- */
+        .choice-btn, .share-btn, .control-btn {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .choice-btn:hover, .share-btn:hover, .control-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Social Share Colors --- */
+        .whatsapp-btn { background-color: #25D366; }
+        .twitter-btn { background-color: #1DA1F2; }
+        .facebook-btn { background-color: #1877F2; }
+        .telegram-btn { background-color: #24A1DE; }
+        .instagram-btn {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        }
+
+        /* --- Score Animation --- */
+        .score-reveal {
+            animation: scoreReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 10px rgba(239, 68, 68, 0.5), 0 0 20px rgba(239, 68, 68, 0.3); /* Red Shadow */
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* --- Funny Comments Styling --- */
+        .funny-comments-container {
+            perspective: 1000px;
+        }
+
+        .funny-comment-card {
+            opacity: 0;
+            transform: rotateX(-90deg) translateY(50px);
+            transform-origin: bottom center;
+            animation: revealComment 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .funny-comment-card p {
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1.75rem; /* leading-7 */
+        }
+
+        @media (min-width: 768px) {
+            .funny-comment-card p {
+                font-size: 1.5rem; /* md:text-2xl */
+                line-height: 2rem; /* md:leading-8 */
+            }
+        }
+
+
+        @keyframes revealComment {
+            from {
+                opacity: 0;
+                transform: rotateX(-90deg) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0deg) translateY(0);
+            }
+        }
+        
+        /* --- Typing Effect --- */
+        .typing-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #ef4444; } /* red-500 */
+        }
+        
+        /* --- Background Animation --- */
+        #animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: -50px; /* Start from below the screen */
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--translateX)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode-bg text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+    <div id="animation-container"></div>
+    <!-- Header for Toggles -->
+    <header class="absolute top-4 w-full px-4 z-20 flex items-center justify-between">
+        <!-- Back to Main Page Button (Initially hidden) -->
+        <a id="back-to-main-btn" href="index.html" role="button" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </a>
+
+        <div class="flex items-center space-x-2 ml-auto">
+             <!-- Language Toggle -->
+            <button id="language-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-900 w-28 h-10 flex items-center justify-center text-sm">
+                <!-- Text updated by JS -->
+            </button>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+                <svg id="theme-icon-dark" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg id="theme-icon-light" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-2 bg-gray-200 dark:bg-gray-700 z-10 hidden">
+        <div id="progress-bar" class="h-full bg-red-500 progress-bar-fill" style="width: 0%;"></div>
+    </div>
+    
+    <main class="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-screen relative z-10">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center max-w-2xl fade-in">
+            <h1 class="text-4xl md:text-6xl font-extrabold dark-mode-text tracking-tight mb-4">The <span class="text-red-500" data-lang-key="title">Anger-o-Meter</span></h1>
+            <p class="text-lg md:text-xl dark-mode-subtext mb-8" data-lang-key="subtitle">
+                Does slow Wi-Fi make you want to scream? Do you go from zero to Hulk in 3 seconds? Let's see if you're a calm saint or a raging volcano!
+            </p>
+            <div class="mb-6 w-full max-w-sm mx-auto">
+                <input type="text" id="name-input" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-900 dark:text-white" data-lang-placeholder="name_placeholder">
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-8 italic" data-lang-key="privacy_disclaimer"></p>
+            <button id="start-btn" data-lang-key="start_button" class="bg-red-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-red-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300 pulse">
+                Test My Temper!
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden w-full max-w-3xl">
+            <div id="question-container" class="text-center pt-16">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <div id="feedback-container" class="mt-6 text-center text-md dark-mode-subtext min-h-[60px]">
+                <!-- Feedback will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Calculating Screen -->
+        <div id="calculating-screen" class="hidden text-center w-full max-w-2xl">
+            <svg class="animate-spin h-16 w-16 text-red-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h2 id="calculating-text" class="text-2xl font-bold dark-mode-text" data-lang-key="calculating_text">Trying not to lose our temper...</h2>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center w-full max-w-4xl pt-16">
+            <h2 class="text-2xl font-bold dark-mode-subtext mb-2" data-lang-key="result_level_label">Your Anger Level</h2>
+            <div id="final-score" class="text-7xl md:text-8xl font-extrabold text-red-500 mb-4">0%</div>
+            <h3 id="result-title" class="text-3xl md:text-4xl font-extrabold dark-mode-text mb-3"></h3>
+            <p id="result-description" class="text-lg md:text-xl dark-mode-subtext mb-8 max-w-2xl mx-auto"></p>
+            
+            <div id="funny-comments-container" class="funny-comments-container mt-8 mb-8 max-w-2xl mx-auto">
+                <!-- Comments will be injected here -->
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="mb-8">
+                <p class="font-bold dark-mode-text mb-3" data-lang-key="share_results_label">Share Your Anger Report & Get a Punching Bag!</p>
+                <div id="share-buttons" class="flex justify-center items-center flex-wrap gap-4">
+                    <a id="whatsapp-share" href="https://ppscore.co.in" target="_blank" class="share-btn whatsapp-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l.217.324-1.125 4.108 4.224-1.103.337.202z" /></svg>
+                    </a>
+                    <a id="twitter-share" href="https://ppscore.co.in" target="_blank" class="share-btn twitter-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.794 4.649-.69.188-1.433.23-2.184.085.617 1.914 2.408 3.258 4.53 3.301-1.724 1.352-3.883 2.093-6.138 1.795 1.815 1.163 3.973 1.84 6.262 1.84 7.218 0 11.168-5.986 11.168-11.168 0-.17-.003-.34-.01-.508.77-.556 1.438-1.248 1.968-2.04z"/></svg>
+                    </a>
+                    <a id="facebook-share" href="https://ppscore.co.in" target="_blank" class="share-btn facebook-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                    </a>                      
+                    <a id="telegram-share" href="https://ppscore.co.in" target="_blank" class="share-btn telegram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-1.39.2-1.62l15.97-5.85c.73-.27 1.36.17 1.15.99L16.4 18.28c-.21.83-1.2.5-1.54-.26L9.78 18.65z"/></svg>
+                    </a>
+                    <a id="instagram-share" href="https://ppscore.co.in" target="_blank" class="share-btn instagram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <p id="final-quote" class="text-lg dark-mode-text max-w-3xl mx-auto mb-8 italic">
+                <!-- Quote inserted by JS -->
+            </p>
+
+            <button id="restart-btn" data-lang-key="restart_button" class="bg-red-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-red-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300">
+                Calm Down & Retry!
+            </button>
+
+            <!-- Explore More Section -->
+            <div class="mt-16 py-8 border-t-2 border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
+                 <h3 class="text-2xl md:text-3xl font-extrabold dark-mode-text mb-4" data-lang-key="explore_title">Your Analysis Isn't Over Yet!</h3>
+                 <p class="text-lg dark-mode-subtext mb-8" data-lang-key="explore_desc">
+                   You've audited your anger, but what about the rest of your hilarious personality? Your love life, your shopping habits... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.
+                 </p>
+                 <a id="explore-btn" href="index.html" class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 inline-block" data-lang-key="explore_button">
+                   Visit PersonalityPaathshala
+                 </a>
+                 <div class="mt-8 mb-6">
+                    <p class="font-semibold mb-2 text-red-400 dark:text-red-300" data-lang-key="support_title">Loved this quiz? Help us create more!</p>
+                    <p class="text-base text-gray-700 dark:text-white mb-3" data-lang-key="support_desc">Your small contribution keeps our creative engine running and helps us serve more fun.</p>
+                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QvFHmdPg3T4Pqh" async> </script> </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Screen -->
+        <div id="journey-screen" class="hidden text-center w-full max-w-2xl pt-16">
+            <h2 class="text-4xl font-extrabold text-red-500 mb-4" data-lang-key="journey_title">Your Official Punching Bag!</h2>
+            <p class="text-lg dark-mode-subtext mb-8" data-lang-key="journey_subtitle">You shared your score! As a reward, here is a virtual punching bag. Use it next time you feel the urge to argue with a stranger online.</p>
+            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-xl">
+                <div class="text-center p-4">
+                    <div class="text-8xl mb-4 animate-bounce">🥊</div>
+                    <h3 class="text-2xl font-bold dark-mode-text">For: <span id="bag-name" class="text-red-500">[Your Name]</span></h3>
+                    <p class="dark-mode-subtext mt-2">Instructions: Punch screen gently.</p>
+                </div>
+            </div>
+             <button id="go-back-btn" data-lang-key="go_back_button" class="mt-8 bg-gray-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Back to My Score
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-xs text-gray-400 dark:text-gray-500">
+        <p data-lang-key="disclaimer">Disclaimer: This quiz is for fun. If you have serious anger issues, please consider meditation, not just this meter.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- LANGUAGE CONTENT STORE ---
+            const content = {
+                en: {
+                    title: "Anger-o-Meter",
+                    subtitle: "Does slow Wi-Fi make you want to scream? Do you go from zero to Hulk in 3 seconds? Let's see if you're a calm saint or a raging volcano!",
+                    name_placeholder: "Enter your 'cool' name...",
+                    privacy_disclaimer: "Your angry rants are safe with us. We won't tell anyone you argued with a pigeon.",
+                    start_button: "Test My Temper!",
+                    calculating_text: "Trying not to lose our temper...",
+                    result_level_label: "Your Anger Level",
+                    result_level_label_personalized: "{name}'s Anger Level",
+                    share_results_label: "Share Your Anger Report & Get a Punching Bag!",
+                    restart_button: "Calm Down & Retry!",
+                    disclaimer: "Disclaimer: This quiz is for fun. If you have serious anger issues, please consider meditation, not just this meter.",
+                    question_counter: "Question {current} of {total}",
+                    
+                    result_saint_title: "The Saint",
+                    result_saint_desc: "{name}, are you a monk in disguise? Your patience is legendary. You probably apologize to the table when you bump into it.",
+                    result_simmering_title: "The Simmering Pot",
+                    result_simmering_desc: "{name}, you keep it cool on the outside, but inside, there's a pot of chai about to boil over. You don't always explode, but everyone knows when the gas is on high.",
+                    result_short_fuse_title: "The Short Fuse",
+                    result_short_fuse_desc: "{name}, your temper is like a firecracker with a 1-inch fuse. Small things can set you off, but you usually cool down just as quickly. It's a wild ride.",
+                    result_hulk_title: "The Incredible Hulk",
+                    result_hulk_desc: "{name}, you don't get angry, you go into beast mode. Your friends know the warning signs. We suggest deep breathing... from a safe distance.",
+                    
+                    final_quote_saint: "\"It's okay. No problem.\"",
+                    final_quote_simmering: "\"I'm not angry, I'm just... passionately expressing my disappointment.\"",
+                    final_quote_short_fuse: "\"Everything was fine, and then... it wasn't.\"",
+                    final_quote_hulk: "\"Don't make me angry. You wouldn't like me when I'm angry.\"",
+                    
+                    funny_comments: {
+                        saint: [
+                            "You probably thank the ATM when it gives you cash.",
+                            "If patience was a sport, you'd be an Olympic champion.",
+                            "You've never used the caps lock key in anger.",
+                            "A traffic jam for you is just an opportunity to listen to more music."
+                        ],
+                        simmering: [
+                            "You have a PhD in passive-aggressive sighs.",
+                            "Your face says 'it's fine', but your clenched fist tells a different story.",
+                            "You've won entire arguments in your head, hours after they happened.",
+                            "You're not angry, you're just 'observing' loudly."
+                        ],
+                        short_fuse: [
+                            "You've honked at a car that was already moving.",
+                            "You argue with the microwave for taking too long.",
+                            "Your temper has a 'pop-up ad' problem.",
+                            "You go from 0 to 100 and back to 0 before anyone can react."
+                        ],
+                        hulk: [
+                            "You've scared a dog by yelling at a slow computer.",
+                            "Your keyboard is missing a few letters from... passionate typing.",
+                            "People around you start walking on eggshells when your Wi-Fi is slow.",
+                            "You don't just get angry, you declare a war."
+                        ]
+                    },
+
+                    journey_title: "Your Official Punching Bag!",
+                    journey_subtitle: "You shared your score! As a reward, here is a virtual punching bag. Use it next time you feel the urge to argue with a stranger online.",
+                    go_back_button: "Back to My Score",
+
+                    explore_title: "Your Analysis Isn't Over Yet!",
+                    explore_desc: "You've audited your anger, but what about the rest of your hilarious personality? Your love life, your shopping habits... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.",
+                    explore_button: "Visit PersonalityPaathshala",
+                    support_title: "Loved this quiz? Help us create more!",
+                    support_desc: "Your small contribution keeps our creative engine running and helps us serve more fun.",
+
+                    questions: [
+                        { id: 1, question: "Someone cuts you off in traffic. You:", answers: [ { text: "Take a deep breath and let it go. Life is too short.", score: 1, feedback: "A true master of zen." }, { text: "Mutter under your breath and give them a dirty look.", score: 2, feedback: "A silent but deadly protest." }, { text: "Honk, flash your lights, and follow them for a few blocks.", score: 3, feedback: "The road warrior." } ] },
+                        { id: 2, question: "The Wi-Fi is slow. You:", answers: [ { text: "Restart the router and wait patiently.", score: 1, feedback: "The patient problem-solver." }, { text: "Start complaining loudly to anyone who will listen.", score: 2, feedback: "The public announcer." }, { text: "Threaten the router with a one-star review.", score: 3, feedback: "That'll teach it a lesson." } ] },
+                        { id: 3, question: "You're explaining something for the third time and the person still doesn't get it. You:", answers: [ { text: "Try explaining it in a different way.", score: 1, feedback: "The patient teacher." }, { text: "Say 'Never mind' and sigh dramatically.", score: 2, feedback: "The silent surrender." }, { text: "Say 'Are you even listening?!' a little too loudly.", score: 3, feedback: "The frustrated professor." } ] },
+                        { id: 4, question: "Someone eats the food you were saving in the fridge. You:", answers: [ { text: "Assume they needed it more than you.", score: 1, feedback: "A true saint." }, { text: "Start a full-blown CBI investigation to find the culprit.", score: 3, feedback: "The food detective." }, { text: "Send a passive-aggressive message in the family group chat.", score: 2, feedback: "The modern warrior." } ] },
+                        { id: 5, question: "You stub your toe on a piece of furniture. You:", answers: [ { text: "Wince in pain quietly.", score: 1, feedback: "The silent sufferer." }, { text: "Blame the furniture for being in your way.", score: 3, feedback: "It was the table's fault, obviously." }, { text: "Let out a string of words your mother wouldn't approve of.", score: 2, feedback: "A colorful vocabulary." } ] },
+                        { id: 6, question: "Your favorite team loses an important match. You:", answers: [ { text: "Say 'It's just a game'.", score: 1, feedback: "A balanced perspective." }, { text: "Analyze every mistake they made for the next three days.", score: 2, feedback: "The armchair critic." }, { text: "Blame the referee, the weather, and a cosmic conspiracy.", score: 3, feedback: "The passionate fan." } ] },
+                        { id: 7, question: "Someone is typing very slowly in front of you at the ATM. You:", answers: [ { text: "Wait patiently, it's not a race.", score: 1, feedback: "The master of patience." }, { text: "Start sighing loudly and checking your watch.", score: 2, feedback: "The subtle hint." }, { text: "Consider pushing them aside and doing it for them.", score: 3, feedback: "The efficiency expert." } ] },
+                        { id: 8, question: "You're in a group chat and someone is typing... and typing... and typing. You:", answers: [ { text: "Wait for their epic message.", score: 1, feedback: "The curious one." }, { text: "Feel a growing sense of irritation.", score: 2, feedback: "Just send the text already!" }, { text: "Type 'HURRY UP!'", score: 3, feedback: "The direct approach." } ] },
+                        { id: 9, question: "A telemarketer calls you during dinner. You:", answers: [ { text: "Politely say 'I'm not interested' and hang up.", score: 1, feedback: "Graceful and efficient." }, { text: "Keep them on the line and waste their time for fun.", score: 2, feedback: "The prankster." }, { text: "Yell 'DO I LOOK LIKE I WANT A CREDIT CARD?!' and hang up.", score: 3, feedback: "Short, and not so sweet." } ] },
+                        { id: 10, question: "You're trying to open a jar and it won't budge. You:", answers: [ { text: "Run it under hot water or tap the lid.", score: 1, feedback: "The scientific method." }, { text: "Use all your strength until your face turns red.", score: 2, feedback: "The muscle." }, { text: "Declare the jar your mortal enemy and throw it against a wall.", score: 3, feedback: "The nuclear option." } ] },
+                        { id: 11, question: "The word 'calm' is:", answers: [ { text: "A state of being I often enjoy.", score: 1, feedback: "The zen master." }, { text: "What I tell myself to be right before I explode.", score: 2, feedback: "The calm before the storm." }, { text: "A word other people use.", score: 3, feedback: "A foreign concept." } ] },
+                        { id: 12, question: "Someone wakes you up from a nap. You:", answers: [ { text: "Wake up and ask what they need.", score: 1, feedback: "So accommodating." }, { text: "Give them a death stare that could melt steel.", score: 2, feedback: "A silent warning." }, { text: "Roar 'WHO DARES DISTURB MY SLUMBER?'", score: 3, feedback: "The sleeping dragon." } ] },
+                        { id: 13, question: "You get into an argument. Your goal is to:", answers: [ { text: "Find a solution.", score: 1, feedback: "The problem-solver." }, { text: "Prove that you are right, no matter what.", score: 3, feedback: "The debater." }, { text: "Just win.", score: 2, feedback: "The competitor." } ] },
+                        { id: 14, question: "When you lose a board game, you:", answers: [ { text: "Congratulate the winner.", score: 1, feedback: "A good sport." }, { text: "Demand a rematch immediately.", score: 2, feedback: "The comeback kid." }, { text: "Flip the board and blame the dice.", score: 3, feedback: "The sore loser." } ] },
+                        { id: 15, question: "A 'minor inconvenience' is:", answers: [ { text: "A small problem that is easily solved.", score: 1, feedback: "The dictionary definition." }, { text: "A test from the universe to challenge your patience.", score: 2, feedback: "The philosopher." }, { text: "A personal attack on your happiness.", score: 3, feedback: "The drama queen." } ] },
+                        { id: 16, question: "Someone is chewing loudly next to you. You:", answers: [ { text: "Ignore it.", score: 1, feedback: "The tolerant one." }, { text: "Start chewing your own food even louder to send a message.", score: 3, feedback: "The passive-aggressive maestro." }, { text: "Politely ask them to chew quietly.", score: 2, feedback: "The diplomat." } ] },
+                        { id: 17, question: "Your phone autocorrects a word to something embarrassing. You:", answers: [ { text: "Laugh it off and send a correction.", score: 1, feedback: "The good-humored one." }, { text: "Feel a deep sense of shame for the rest of the day.", score: 2, feedback: "The perfectionist." }, { text: "Blame the phone and consider throwing it away.", score: 3, feedback: "It's the technology's fault!" } ] },
+                        { id: 18, question: "You're waiting for a friend who is 15 minutes late. You:", answers: [ { text: "Are chilling and scrolling through your phone.", score: 1, feedback: "The patient friend." }, { text: "Have already sent them 5 'Where are you?' texts.", score: 2, feedback: "The concerned friend." }, { text: "Have already planned your angry speech for when they arrive.", score: 3, feedback: "The punctual one." } ] },
+                        { id: 19, question: "Someone tells you to 'relax'. You:", answers: [ { text: "Actually relax.", score: 1, feedback: "Is that even possible?" }, { text: "Get even more angry.", score: 3, feedback: "The forbidden words." }, { text: "Say 'I AM RELAXED' through gritted teeth.", score: 2, feedback: "The classic response." } ] },
+                        { id: 20, question: "You assemble a piece of furniture and there's one screw left over. You:", answers: [ { text: "Assume it's an extra and move on.", score: 2, feedback: "The optimist." }, { text: "Take the entire thing apart to find where it goes.", score: 1, feedback: "The perfectionist." }, { text: "Throw the screw across the room in frustration.", score: 3, feedback: "The engineer." } ] },
+                        { id: 21, question: "Your favorite way to relieve stress is:", answers: [ { text: "Meditation or a walk.", score: 1, feedback: "The calm one." }, { text: "Ranting to a friend.", score: 2, feedback: "The talker." }, { text: "Arguing with strangers on the internet.", score: 3, feedback: "The keyboard warrior." } ] },
+                        { id: 22, question: "You see a spoiler for a movie you wanted to watch. You:", answers: [ { text: "Are a little disappointed but watch it anyway.", score: 1, feedback: "The resilient one." }, { text: "Refuse to watch the movie ever again.", score: 2, feedback: "The purist." }, { text: "Find the person who spoiled it and spoil their favorite show.", score: 3, feedback: "An eye for an eye." } ] },
+                        { id: 23, question: "When someone says 'no offense', you:", answers: [ { text: "Know they're about to say something offensive.", score: 2, feedback: "The realist." }, { text: "Prepare for battle.", score: 3, feedback: "The warrior." }, { text: "Assume they mean well.", score: 1, feedback: "The trusting soul." } ] },
+                        { id: 24, question: "Your computer freezes. You:", answers: [ { text: "Wait patiently for it to respond.", score: 1, feedback: "The patient user." }, { text: "Click the mouse 100 times.", score: 2, feedback: "The classic 'maybe this will work' move." }, { text: "Start shouting at the screen as if it can hear you.", score: 3, feedback: "The computer whisperer." } ] },
+                        { id: 25, question: "You've finished this quiz. You feel:", answers: [ { text: "Calm and enlightened.", score: 1, feedback: "The zen master." }, { text: "Slightly attacked.", score: 2, feedback: "We're just asking questions." }, { text: "Angry that it's over.", score: 3, feedback: "The ultimate fan." } ] }
+                    ]
+                },
+                hi: {
+                    title: "गुस्सा-ओ-मीटर",
+                    subtitle: "क्या धीमा वाई-फाई आपको चीखने पर मजबूर करता है? क्या आप 3 सेकंड में शून्य से हल्क बन जाते हैं? आइए जानें कि आप एक शांत संत हैं या एक उग्र ज्वालामुखी!",
+                    name_placeholder: "अपना 'शांत' नाम दर्ज करें...",
+                    privacy_disclaimer: "आपकी गुस्से वाली बातें हमारे पास सुरक्षित हैं। हम किसी को नहीं बताएंगे कि आपने एक कबूतर से बहस की।",
+                    start_button: "मेरे गुस्से का परीक्षण करें!",
+                    calculating_text: "हम अपना आपा खोने की कोशिश नहीं कर रहे हैं...",
+                    result_level_label: "आपका गुस्सा स्तर",
+                    result_level_label_personalized: "{name} का गुस्सा स्तर",
+                    share_results_label: "अपनी गुस्सा रिपोर्ट साझा करें और एक पंचिंग बैग प्राप्त करें!",
+                    restart_button: "शांत हो जाओ और फिर से प्रयास करें!",
+                    disclaimer: "अस्वीकरण: यह क्विज़ मनोरंजन के लिए है। यदि आपको गंभीर क्रोध की समस्या है, तो कृपया ध्यान पर विचार करें, न कि केवल इस मीटर पर।",
+                    question_counter: "प्रश्न {current} / {total}",
+
+                    result_saint_title: "संत",
+                    result_saint_desc: "{name}, क्या आप भेष में एक साधु हैं? आपका धैर्य पौराणिक है। आप शायद मेज से टकराने पर उससे माफी मांगते हैं।",
+                    result_simmering_title: "उबलता हुआ बर्तन",
+                    result_simmering_desc: "{name}, आप बाहर से शांत रहते हैं, लेकिन अंदर, चाय का एक बर्तन उबलने वाला है। आप हमेशा विस्फोट नहीं करते, लेकिन हर कोई जानता है कि गैस कब तेज है।",
+                    result_short_fuse_title: "छोटा फ्यूज",
+                    result_short_fuse_desc: "{name}, आपका गुस्सा 1 इंच के फ्यूज वाले पटाखे की तरह है। छोटी चीजें आपको भड़का सकती हैं, लेकिन आप आमतौर पर उतनी ही जल्दी शांत हो जाते हैं। यह एक जंगली सवारी है।",
+                    result_hulk_title: "अविश्वसनीय हल्क",
+                    result_hulk_desc: "{name}, आप गुस्सा नहीं होते, आप जानवर मोड में चले जाते हैं। आपके दोस्त चेतावनी के संकेतों को जानते हैं। हम गहरी सांस लेने का सुझाव देते हैं... एक सुरक्षित दूरी से।",
+
+                    final_quote_saint: "\"कोई बात नहीं। कोई समस्या नहीं।\"",
+                    final_quote_simmering: "\"मैं गुस्सा नहीं हूँ, मैं बस... अपनी निराशा को पूरी लगन से व्यक्त कर रहा हूँ।\"",
+                    final_quote_short_fuse: "\"सब कुछ ठीक था, और फिर... यह नहीं था।\"",
+                    final_quote_hulk: "\"मुझे गुस्सा मत दिलाओ। जब मैं गुस्सा होता हूँ तो तुम मुझे पसंद नहीं करोगे।\"",
+                    
+                    funny_comments: {
+                        saint: [
+                            "आप शायद एटीएम से नकदी मिलने पर उसे धन्यवाद देते हैं।",
+                            "अगर धैर्य एक खेल होता, तो आप एक ओलंपिक चैंपियन होते।",
+                            "आपने गुस्से में कभी भी कैप्स लॉक कुंजी का उपयोग नहीं किया है।",
+                            "आपके लिए एक ट्रैफिक जाम सिर्फ और संगीत सुनने का एक अवसर है।"
+                        ],
+                        simmering: [
+                            "आपके पास निष्क्रिय-आक्रामक आहों में पीएचडी है।",
+                            "आपका चेहरा कहता है 'यह ठीक है', लेकिन आपकी भींची हुई मुट्ठी एक अलग कहानी बताती है।",
+                            "आपने अपने दिमाग में पूरी बहस जीत ली है, घंटों बाद।",
+                            "आप गुस्सा नहीं हैं, आप सिर्फ जोर से 'देख' रहे हैं।"
+                        ],
+                        short_fuse: [
+                            "आपने एक ऐसी कार पर हॉर्न बजाया है जो पहले से ही चल रही थी।",
+                            "आप माइक्रोवेव से बहुत लंबा समय लेने के लिए बहस करते हैं।",
+                            "आपके गुस्से में 'पॉप-अप विज्ञापन' की समस्या है।",
+                            "आप 0 से 100 और वापस 0 पर जाते हैं इससे पहले कि कोई प्रतिक्रिया दे सके।"
+                        ],
+                        hulk: [
+                            "आपने एक धीमे कंप्यूटर पर चिल्लाकर एक कुत्ते को डरा दिया है।",
+                            "आपके कीबोर्ड से कुछ अक्षर गायब हैं... भावुक टाइपिंग से।",
+                            "जब आपका वाई-फाई धीमा होता है तो आपके आसपास के लोग अंडे के छिलकों पर चलने लगते हैं।",
+                            "आप सिर्फ गुस्सा नहीं होते, आप एक युद्ध की घोषणा करते हैं।"
+                        ]
+                    },
+
+                    journey_title: "आपका आधिकारिक पंचिंग बैग!",
+                    journey_subtitle: "आपने अपना स्कोर साझा किया! एक पुरस्कार के रूप में, यहाँ एक आभासी पंचिंग बैग है। अगली बार जब आप एक अजनबी के साथ ऑनलाइन बहस करने की इच्छा महसूस करें तो इसका उपयोग करें।",
+                    go_back_button: "मेरे स्कोर पर वापस जाएं",
+
+                    explore_title: "आपका विश्लेषण अभी खत्म नहीं हुआ है!",
+                    explore_desc: "आपने अपने गुस्से का ऑडिट किया है, लेकिन आपके बाकी प्रफुल्लित करने वाले व्यक्तित्व के बारे में क्या? आपका प्रेम जीवन, आपकी खरीदारी की आदतें... पर्सनैलिटी पाठशाला में आपके लिए मज़ेदार कैलकुलेटर की एक पूरी कक्षा है।",
+                    explore_button: "पर्सनैलिटी पाठशाला पर जाएँ",
+                    support_title: "यह क्विज़ पसंद आया? और बनाने में हमारी मदद करें!",
+                    support_desc: "आपका छोटा सा योगदान हमारी रचनात्मकता को चालू रखता है और हमें और मज़ा परोसने में मदद करता है।",
+                    
+                    questions: [
+                        { id: 1, question: "कोई आपको ट्रैफिक में काटता है। आप:", answers: [ { text: "एक गहरी सांस लें और इसे जाने दें। जीवन बहुत छोटा है।", score: 1, feedback: "ज़ेन का एक सच्चा गुरु।" }, { text: "अपनी सांस के नीचे बड़बड़ाएं और उन्हें एक गंदी नज़र दें।", score: 2, feedback: "एक चुप लेकिन घातक विरोध।" }, { text: "हॉर्न बजाएं, अपनी लाइटें फ्लैश करें, और कुछ ब्लॉकों के लिए उनका पीछा करें।", score: 3, feedback: "सड़क योद्धा।" } ] },
+                        { id: 2, question: "वाई-फाई धीमा है। आप:", answers: [ { text: "राउटर को पुनरारंभ करें और धैर्यपूर्वक प्रतीक्षा करें।", score: 1, feedback: "धैर्यवान समस्या-समाधानकर्ता।" }, { text: "जो कोई भी सुनेगा उसे जोर-जोर से शिकायत करना शुरू करें।", score: 2, feedback: "सार्वजनिक उद्घोषक।" }, { text: "राउटर को एक-सितारा समीक्षा के साथ धमकी दें।", score: 3, feedback: "यह उसे एक सबक सिखाएगा।" } ] },
+                        { id: 3, question: "आप तीसरी बार कुछ समझा रहे हैं और व्यक्ति अभी भी इसे नहीं समझता है। आप:", answers: [ { text: "इसे एक अलग तरीके से समझाने की कोशिश करें।", score: 1, feedback: "धैर्यवान शिक्षक।" }, { text: "'कोई बात नहीं' कहें और नाटकीय रूप से आह भरें।", score: 2, feedback: "चुप आत्मसमर्पण।" }, { text: "'क्या तुम सुन भी रहे हो?!' थोड़ा बहुत जोर से कहें।", score: 3, feedback: "निराश प्रोफेसर।" } ] },
+                        { id: 4, question: "कोई वह भोजन खा लेता है जिसे आप फ्रिज में बचा रहे थे। आप:", answers: [ { text: "मान लें कि उन्हें आपसे ज्यादा इसकी जरूरत थी।", score: 1, feedback: "एक सच्चा संत।" }, { text: "अपराधी को खोजने के लिए एक पूर्ण-विकसित सीबीआई जांच शुरू करें।", score: 3, feedback: "भोजन जासूस।" }, { text: "परिवार समूह चैट में एक निष्क्रिय-आक्रामक संदेश भेजें।", score: 2, feedback: "आधुनिक योद्धा।" } ] },
+                        { id: 5, question: "आप एक फर्नीचर के टुकड़े पर अपनी पैर की अंगुली मारते हैं। आप:", answers: [ { text: "चुपचाप दर्द में कराहें।", score: 1, feedback: "चुप पीड़ित।" }, { text: "फर्नीचर को अपने रास्ते में होने के लिए दोष दें।", score: 3, feedback: "यह मेज की गलती थी, जाहिर है।" }, { text: "शब्दों की एक लड़ी छोड़ें जिसे आपकी माँ मंजूरी नहीं देगी।", score: 2, feedback: "एक रंगीन शब्दावली।" } ] },
+                        { id: 6, question: "आपकी पसंदीदा टीम एक महत्वपूर्ण मैच हार जाती है। आप:", answers: [ { text: "कहें 'यह सिर्फ एक खेल है'।" , score: 1, feedback: "एक संतुलित दृष्टिकोण।" }, { text: "अगले तीन दिनों के लिए उन्होंने की हर गलती का विश्लेषण करें।", score: 2, feedback: "आर्मचेयर आलोचक।" }, { text: "रेफरी, मौसम और एक ब्रह्मांडीय साजिश को दोष दें।", score: 3, feedback: "भावुक प्रशंसक।" } ] },
+                        { id: 7, question: "कोई आपके सामने एटीएम में बहुत धीरे-धीरे टाइप कर रहा है। आप:", answers: [ { text: "धैर्यपूर्वक प्रतीक्षा करें, यह कोई दौड़ नहीं है।", score: 1, feedback: "धैर्य का स्वामी।" }, { text: "जोर-जोर से आहें भरना और अपनी घड़ी देखना शुरू करें।", score: 2, feedback: "सूक्ष्म संकेत।" }, { text: "उन्हें अलग धकेलने और उनके लिए यह करने पर विचार करें।", score: 3, feedback: "दक्षता विशेषज्ञ।" } ] },
+                        { id: 8, question: "आप एक समूह चैट में हैं और कोई टाइप कर रहा है... और टाइप कर रहा है... और टाइप कर रहा है। आप:", answers: [ { text: "उनके महाकाव्य संदेश की प्रतीक्षा करें।", score: 1, feedback: "जिज्ञासु।" }, { text: "चिढ़ की बढ़ती भावना महसूस करें।", score: 2, feedback: "बस टेक्स्ट भेज दो!" }, { text: "'जल्दी करो!' टाइप करें", score: 3, feedback: "प्रत्यक्ष दृष्टिकोण।" } ] },
+                        { id: 9, question: "एक टेलीमार्केटर आपको रात के खाने के दौरान फोन करता है। आप:", answers: [ { text: "विनम्रता से कहें 'मैं इच्छुक नहीं हूँ' और फोन काट दें।", score: 1, feedback: "सुंदर और कुशल।" }, { text: "उन्हें लाइन पर रखें और मनोरंजन के लिए उनका समय बर्बाद करें।", score: 2, feedback: "शरारती।" }, { text: "'क्या मैं क्रेडिट कार्ड चाहता हूँ?!' चिल्लाएं और फोन काट दें।", score: 3, feedback: "संक्षिप्त, और इतना मीठा नहीं।" } ] },
+                        { id: 10, question: "आप एक जार खोलने की कोशिश कर रहे हैं और यह नहीं हिल रहा है। आप:", answers: [ { text: "इसे गर्म पानी के नीचे चलाएं या ढक्कन पर टैप करें।", score: 1, feedback: "वैज्ञानिक विधि।" }, { text: "अपनी पूरी ताकत का उपयोग करें जब तक कि आपका चेहरा लाल न हो जाए।", score: 2, feedback: "मांसपेशी।" }, { text: "जार को अपना नश्वर दुश्मन घोषित करें और इसे एक दीवार के खिलाफ फेंक दें।", score: 3, feedback: "परमाणु विकल्प।" } ] },
+                        { id: 11, question: "'शांत' शब्द है:", answers: [ { text: "एक ऐसी अवस्था जिसका मैं अक्सर आनंद लेता हूँ।", score: 1, feedback: "ज़ेन मास्टर।" }, { text: "जो मैं खुद से कहता हूँ ठीक पहले जब मैं विस्फोट करता हूँ।", score: 2, feedback: "तूफान से पहले की शांति।" }, { text: "एक शब्द जो दूसरे लोग इस्तेमाल करते हैं।", score: 3, feedback: "एक विदेशी अवधारणा।" } ] },
+                        { id: 12, question: "कोई आपको एक झपकी से जगाता है। आप:", answers: [ { text: "उठो और पूछो कि उन्हें क्या चाहिए।", score: 1, feedback: "इतना मिलनसार।" }, { text: "उन्हें एक मौत की घूर दें जो स्टील को पिघला सकती है।", score: 2, feedback: "एक चुप चेतावनी।" }, { text: "'मेरी नींद में खलल डालने की हिम्मत कौन करता है?' दहाड़ें", score: 3, feedback: "सोता हुआ अजगर।" } ] },
+                        { id: 13, question: "आप एक बहस में पड़ जाते हैं। आपका लक्ष्य है:", answers: [ { text: "एक समाधान खोजना।", score: 1, feedback: "समस्या-समाधानकर्ता।" }, { text: "यह साबित करना कि आप सही हैं, चाहे कुछ भी हो।", score: 3, feedback: "बहस करने वाला।" }, { text: "बस जीतना।", score: 2, feedback: "प्रतियोगी।" } ] },
+                        { id: 14, question: "जब आप एक बोर्ड गेम हार जाते हैं, तो आप:", answers: [ { text: "विजेता को बधाई दें।", score: 1, feedback: "एक अच्छा खिलाड़ी।" }, { text: "तुरंत एक रीमैच की मांग करें।", score: 2, feedback: "वापसी करने वाला बच्चा।" }, { text: "बोर्ड को पलटें और पासे को दोष दें।", score: 3, feedback: "एक बुरा हारने वाला।" } ] },
+                        { id: 15, question: "एक 'छोटी सी असुविधा' है:", answers: [ { text: "एक छोटी सी समस्या जो आसानी से हल हो जाती है।", score: 1, feedback: "शब्दकोश की परिभाषा।" }, { text: "आपके धैर्य को चुनौती देने के लिए ब्रह्मांड से एक परीक्षा।", score: 2, feedback: "दार्शनिक।" }, { text: "आपकी खुशी पर एक व्यक्तिगत हमला।", score: 3, feedback: "ड्रामा क्वीन।" } ] },
+                        { id: 16, question: "कोई आपके बगल में जोर-जोर से चबा रहा है। आप:", answers: [ { text: "इसे अनदेखा करें।", score: 1, feedback: "सहनशील।" }, { text: "एक संदेश भेजने के लिए अपने खुद के भोजन को और भी जोर से चबाना शुरू करें।", score: 3, feedback: "निष्क्रिय-आक्रामक उस्ताद।" }, { text: "विनम्रता से उन्हें चुपचाप चबाने के लिए कहें।", score: 2, feedback: "राजनयिक।" } ] },
+                        { id: 17, question: "आपका फोन एक शब्द को कुछ शर्मनाक में स्वतः सही करता है। आप:", answers: [ { text: "इस पर हंसें और एक सुधार भेजें।", score: 1, feedback: "अच्छा-विनोदी।" }, { text: "बाकी दिन के लिए शर्म की गहरी भावना महसूस करें।", score: 2, feedback: "पूर्णतावादी।" }, { text: "फोन को दोष दें और इसे फेंकने पर विचार करें।", score: 3, feedback: "यह प्रौद्योगिकी की गलती है!" } ] },
+                        { id: 18, question: "आप एक दोस्त की प्रतीक्षा कर रहे हैं जो 15 मिनट देर से है। आप:", answers: [ { text: "चिल कर रहे हैं और अपने फोन पर स्क्रॉल कर रहे हैं।", score: 1, feedback: "धैर्यवान दोस्त।" }, { text: "उन्हें पहले ही 5 'तुम कहाँ हो?' टेक्स्ट भेज चुके हैं।", score: 2, feedback: "चिंतित दोस्त।" }, { text: "जब वे पहुंचेंगे तो उनके लिए अपना गुस्सा भाषण पहले ही योजना बना चुके हैं।", score: 3, feedback: "समय का पाबंद।" } ] },
+                        { id: 19, question: "कोई आपसे 'आराम करो' कहता है। आप:", answers: [ { text: "वास्तव में आराम करें।", score: 1, feedback: "क्या यह भी संभव है?" }, { text: "और भी गुस्सा हो जाओ।", score: 3, feedback: "निषिद्ध शब्द।" }, { text: "दांत पीसकर 'मैं आराम से हूँ' कहें।", score: 2, feedback: "क्लासिक प्रतिक्रिया।" } ] },
+                        { id: 20, question: "आप एक फर्नीचर का एक टुकड़ा इकट्ठा करते हैं और एक पेंच बचा है। आप:", answers: [ { text: "मान लें कि यह एक अतिरिक्त है और आगे बढ़ें।", score: 2, feedback: "आशावादी।" }, { text: "यह खोजने के लिए कि यह कहाँ जाता है, पूरी चीज को अलग करें।", score: 1, feedback: "पूर्णतावादी।" }, { text: "निराशा में पेंच को कमरे के पार फेंक दें।", score: 3, feedback: "इंजीनियर।" } ] },
+                        { id: 21, question: "तनाव दूर करने का आपका पसंदीदा तरीका है:", answers: [ { text: "ध्यान या टहलना।", score: 1, feedback: "शांत।" }, { text: "एक दोस्त से बड़बड़ाना।", score: 2, feedback: "बात करने वाला।" }, { text: "इंटरनेट पर अजनबियों से बहस करना।", score: 3, feedback: "कीबोर्ड योद्धा।" } ] },
+                        { id: 22, question: "आप एक ऐसी फिल्म के लिए एक स्पॉइलर देखते हैं जिसे आप देखना चाहते थे। आप:", answers: [ { text: "थोड़ा निराश हैं लेकिन फिर भी इसे देखें।", score: 1, feedback: "लचीला।" }, { text: "फिल्म को फिर कभी देखने से इनकार करें।", score: 2, feedback: "शुद्धतावादी।" }, { text: "जिस व्यक्ति ने इसे खराब किया है उसे ढूंढें और उनके पसंदीदा शो को खराब करें।", score: 3, feedback: "आंख के बदले आंख।" } ] },
+                        { id: 23, question: "जब कोई कहता है 'कोई अपराध नहीं', आप:", answers: [ { text: "जानते हैं कि वे कुछ अपमानजनक कहने वाले हैं।", score: 2, feedback: "यथार्थवादी।" }, { text: "लड़ाई के लिए तैयार हो जाओ।", score: 3, feedback: "योद्धा।" }, { text: "मान लें कि उनका मतलब अच्छा है।", score: 1, feedback: "भरोसेमंद आत्मा।" } ] },
+                        { id: 24, question: "आपका कंप्यूटर जम जाता है। आप:", answers: [ { text: "धैर्यपूर्वक इसके जवाब देने की प्रतीक्षा करें।", score: 1, feedback: "धैर्यवान उपयोगकर्ता।" }, { text: "माउस को 100 बार क्लिक करें।", score: 2, feedback: "क्लासिक 'शायद यह काम करेगा' चाल।" }, { text: "स्क्रीन पर चिल्लाना शुरू करें जैसे कि यह आपको सुन सकता है।", score: 3, feedback: "कंप्यूटर फुसफुसाने वाला।" } ] },
+                        { id: 25, question: "आपने इस क्विज़ को समाप्त कर लिया है। आप महसूस करते हैं:", answers: [ { text: "शांत और प्रबुद्ध।", score: 1, feedback: "ज़ेन मास्टर।" }, { text: "थोड़ा हमला किया गया।", score: 2, feedback: "हम सिर्फ सवाल पूछ रहे हैं।" }, { text: "गुस्सा है कि यह खत्म हो गया है।", score: 3, feedback: "परम प्रशंसक।" } ] }
+                    ]
+                }
+            };
+            
+            // --- STATE MANAGEMENT & DOM ELEMENTS ---
+            let currentQuestionIndex = 0;
+            let userAnswers = {};
+            let currentLang = 'en';
+            let quizQuestions = [];
+            let userName = '';
+            const QUESTIONS_PER_QUIZ = 15;
+
+            const allLangElements = document.querySelectorAll('[data-lang-key]');
+            const langPlaceholderElements = document.querySelectorAll('[data-lang-placeholder]');
+            const languageToggle = document.getElementById('language-toggle');
+            const startScreen = document.getElementById('start-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const calculatingScreen = document.getElementById('calculating-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const journeyScreen = document.getElementById('journey-screen');
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const goBackBtn = document.getElementById('go-back-btn');
+            const backToMainBtn = document.getElementById('back-to-main-btn');
+            const nameInput = document.getElementById('name-input');
+            const questionContainer = document.getElementById('question-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const finalScoreEl = document.getElementById('final-score');
+            const resultTitleEl = document.getElementById('result-title');
+            const resultDescriptionEl = document.getElementById('result-description');
+            const finalQuoteEl = document.getElementById('final-quote');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const shareButtonsContainer = document.getElementById('share-buttons');
+            const exploreBtn = document.getElementById('explore-btn');
+
+            // --- LANGUAGE LOGIC ---
+            const updateLanguage = (lang) => {
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                document.documentElement.lang = lang;
+                
+                languageToggle.innerHTML = (lang === 'en') 
+                    ? `<i class="fa-solid fa-language mr-2"></i> हिन्दी`
+                    : `<i class="fa-solid fa-language mr-2"></i> English`;
+
+                allLangElements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    const value = getNestedValue(content[lang], key);
+                    if (value) el.innerHTML = value;
+                });
+                
+                langPlaceholderElements.forEach(el => {
+                    const key = el.dataset.langPlaceholder;
+                    const value = getNestedValue(content[lang], key);
+                    if(value) el.placeholder = value;
+                });
+            };
+
+            const getNestedValue = (obj, key) => key.split('.').reduce((acc, part) => acc && acc[part], obj);
+
+            // --- THEME LOGIC ---
+            const applyTheme = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIconDark.classList.remove('hidden');
+                    themeIconLight.classList.add('hidden');
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
+            applyTheme(isDarkMode);
+
+            // --- UI FUNCTIONS ---
+            const renderQuestion = () => {
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const q_id = quizQuestions[currentQuestionIndex];
+                    const q_data_en = content.en.questions.find(item => item.id === q_id);
+                    const q_lang = content[currentLang].questions.find(item => item.id === q_id);
+                    
+                    if(!q_data_en || !q_lang) {
+                        goHome();
+                        return;
+                    }
+
+                    const shuffledAnswers = [...q_lang.answers].sort(() => Math.random() - 0.5);
+
+                    let answersHTML = shuffledAnswers.map(answer => {
+                        return `
+                        <button data-score="${answer.score}" class="choice-btn w-full text-left p-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-red-100 dark:hover:bg-red-500 transition-colors duration-200">
+                            ${answer.text}
+                        </button>
+                    `}).join('');
+                    
+                    const counterText = content[currentLang].question_counter
+                        .replace('{current}', currentQuestionIndex + 1)
+                        .replace('{total}', QUESTIONS_PER_QUIZ);
+
+                    questionContainer.innerHTML = `
+                        <div class="fade-in">
+                            <p class="text-lg font-semibold dark-mode-subtext mb-4">${counterText}</p>
+                            <h2 class="text-2xl md:text-3xl font-bold dark-mode-text mb-8">${q_lang.question.replace(/{name}/g, `<strong>${userName}</strong>`)}</h2>
+                            <div class="flex flex-col items-center space-y-4">${answersHTML}</div>
+                        </div>
+                    `;
+                    feedbackContainer.innerHTML = '';
+                    updateProgressBar();
+                } else {
+                    showCalculatingScreen();
+                }
+            };
+            
+            const updateProgressBar = () => {
+                const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            };
+
+            // --- CORE LOGIC ---
+            const startQuiz = () => {
+                userName = nameInput.value.trim();
+                if (!userName) {
+                    userName = (currentLang === 'en') ? 'Hothead' : 'गुस्सैल';
+                }
+
+                let allQuestionIds = content.en.questions.map(q => q.id);
+                allQuestionIds.sort(() => Math.random() - 0.5);
+                quizQuestions = allQuestionIds.slice(0, QUESTIONS_PER_QUIZ);
+                currentQuestionIndex = 0;
+                userAnswers = {};
+
+                startScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    startScreen.classList.add('hidden');
+                    startScreen.classList.remove('fade-out');
+                    quizScreen.classList.remove('hidden');
+                    quizScreen.classList.add('fade-in');
+                    progressContainer.classList.remove('hidden');
+                    backToMainBtn.classList.remove('hidden');
+                    renderQuestion();
+                }, 500);
+            };
+
+            const handleAnswer = (e) => {
+                const selectedBtn = e.target.closest('.choice-btn');
+                if (!selectedBtn) return;
+
+                const score = parseInt(selectedBtn.dataset.score);
+                const question_id = quizQuestions[currentQuestionIndex];
+                const question_data_lang = content[currentLang].questions.find(item => item.id === question_id);
+                
+                const answer_data_lang = question_data_lang.answers.find(a => a.score === score);
+                if (answer_data_lang) {
+                    feedbackContainer.innerHTML = `<p class="fade-in font-semibold text-lg text-teal-600 dark:text-teal-400">${answer_data_lang.feedback}</p>`;
+                }
+
+                userAnswers[question_id] = score;
+                
+                questionContainer.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn !== selectedBtn) {
+                        btn.classList.add('opacity-50');
+                    } else {
+                        btn.classList.add('ring-4', 'ring-red-400');
+                    }
+                });
+                
+                setTimeout(() => {
+                    if (questionContainer.firstElementChild) {
+                        questionContainer.firstElementChild.classList.replace('fade-in', 'fade-out');
+                    }
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    }, 500);
+                }, 1800);
+            };
+
+            const showCalculatingScreen = () => {
+                quizScreen.classList.add('fade-out');
+                progressContainer.classList.add('hidden');
+                backToMainBtn.classList.add('hidden');
+                setTimeout(() => {
+                    quizScreen.classList.add('hidden');
+                    quizScreen.classList.remove('fade-out');
+                    calculatingScreen.classList.remove('hidden');
+                    calculatingScreen.classList.add('fade-in');
+                    const calculatingTexts = [
+                        content[currentLang].calculating_text, 
+                        (currentLang === 'en' ? "Trying to stay calm..." : "शांत रहने की कोशिश कर रहा हूँ..."),
+                        (currentLang === 'en' ? "Counting to 10..." : "10 तक गिनती...")
+                    ];
+                    document.getElementById('calculating-text').innerText = calculatingTexts[Math.floor(Math.random()*calculatingTexts.length)];
+                    setTimeout(showResults, 2500);
+                }, 500);
+            }
+            
+            const showResults = (isThemeOrLangUpdate = false) => {
+                if (!isThemeOrLangUpdate) {
+                     calculatingScreen.classList.add('fade-out');
+                     setTimeout(() => {
+                        calculatingScreen.classList.add('hidden');
+                        calculatingScreen.classList.remove('fade-out');
+                        resultsScreen.classList.remove('hidden');
+                        resultsScreen.classList.add('slide-up');
+                        calculateAndDisplayScores();
+                    }, 500);
+                } else {
+                    calculateAndDisplayScores();
+                }
+            };
+
+            const calculateAndDisplayScores = () => {
+                let totalScore = 0;
+                Object.values(userAnswers).forEach(score => {
+                    totalScore += score;
+                });
+
+                const minPossibleScore = QUESTIONS_PER_QUIZ * 1;
+                const maxPossibleScore = QUESTIONS_PER_QUIZ * 3;
+                const scoreRange = maxPossibleScore - minPossibleScore;
+                const userScoreOffset = totalScore - minPossibleScore;
+
+                let angerPercentage = 0;
+                if (scoreRange > 0) {
+                    angerPercentage = Math.round((userScoreOffset / scoreRange) * 100);
+                }
+                
+                finalScoreEl.classList.remove('score-reveal');
+                void finalScoreEl.offsetWidth; // Trigger reflow
+                finalScoreEl.classList.add('score-reveal');
+
+                let startValue = 0;
+                const duration = 1200;
+                const endValue = angerPercentage;
+                const startTime = performance.now();
+
+                function animateCountUp(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    if (elapsedTime < duration) {
+                        const progress = elapsedTime / duration;
+                        const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+                        const currentValue = Math.round(startValue + (endValue - startValue) * easedProgress);
+                        finalScoreEl.textContent = `${currentValue}%`;
+                        requestAnimationFrame(animateCountUp);
+                    } else {
+                        finalScoreEl.textContent = `${endValue}%`;
+                    }
+                }
+                requestAnimationFrame(animateCountUp);
+
+                let resultKey;
+                if (angerPercentage <= 25) resultKey = 'saint';
+                else if (angerPercentage <= 50) resultKey = 'simmering';
+                else if (angerPercentage <= 75) resultKey = 'short_fuse';
+                else resultKey = 'hulk';
+                
+                finalQuoteEl.dataset.resultKey = resultKey;
+                document.getElementById('bag-name').textContent = userName;
+
+                const personalizedLabel = content[currentLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+
+                resultTitleEl.textContent = content[currentLang][`result_${resultKey}_title`];
+                resultDescriptionEl.innerHTML = content[currentLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                finalQuoteEl.textContent = content[currentLang][`final_quote_${resultKey}`];
+                
+                displayFunnyComments(resultKey);
+                updateShareLinks(angerPercentage, content[currentLang][`result_${resultKey}_title`]);
+            };
+
+            const startBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                stopBackgroundAnimations();
+                
+                const emojis = ['😠', '😡', '🤬', '🔥', '💥', '😤', '😂'];
+                const numEmojis = 25;
+
+                for (let i = 0; i < numEmojis; i++) {
+                    const emoji = document.createElement('span');
+                    emoji.className = 'floating-emoji';
+                    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    emoji.style.left = `${Math.random() * 100}vw`;
+                    emoji.style.fontSize = `${1 + Math.random() * 2}rem`;
+                    const duration = 8 + Math.random() * 10;
+                    const delay = Math.random() * 7;
+                    const translateX = `${(Math.random() - 0.5) * 200}px`;
+                    const rotate = `${(Math.random() - 0.5) * 720}deg`;
+                    
+                    emoji.style.setProperty('--translateX', translateX);
+                    emoji.style.setProperty('--rotate', rotate);
+                    emoji.style.animation = `floatUp ${duration}s ease-in ${delay}s infinite`;
+                    
+                    container.appendChild(emoji);
+                }
+            };
+
+            const stopBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (container) {
+                    container.innerHTML = '';
+                }
+            };
+
+            const typewriter = (element, text, callback) => {
+                let i = 0;
+                const speed = 40; // milliseconds per character
+                const originalHTML = element.innerHTML;
+                element.innerHTML = originalHTML + '<span class="typing-text"></span><span class="typing-cursor border-l-2 border-red-500 h-6 inline-block align-middle">&nbsp;</span>';
+                const textSpan = element.querySelector('.typing-text');
+                const cursorSpan = element.querySelector('.typing-cursor');
+                
+                function type() {
+                    if (i < text.length) {
+                        textSpan.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        if(cursorSpan) {
+                           cursorSpan.style.display = 'none';
+                        }
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+
+            const displayFunnyComments = (resultKey) => {
+                const commentsContainer = document.getElementById('funny-comments-container');
+                if (!commentsContainer) return;
+                commentsContainer.innerHTML = '';
+                const commentsPool = content[currentLang].funny_comments[resultKey] || [];
+                
+                const shuffledComments = [...commentsPool].sort(() => 0.5 - Math.random());
+                const selectedComments = shuffledComments.slice(0, 3);
+
+                let commentIndex = 0;
+
+                function typeNextComment() {
+                    if (commentIndex < selectedComments.length) {
+                        const commentText = selectedComments[commentIndex];
+                        
+                        const card = document.createElement('div');
+                        card.className = 'funny-comment-card bg-red-100 dark:bg-gray-800 p-4 rounded-lg mb-4 text-gray-700 dark:text-red-300 italic shadow-md';
+                        
+                        const p = document.createElement('p');
+                        p.innerHTML = `<i class="fa-solid fa-quote-left mr-2 text-red-500"></i> `;
+                        card.appendChild(p);
+
+                        card.style.animationDelay = `0.2s`;
+                        
+                        commentsContainer.appendChild(card);
+                        
+                        setTimeout(() => {
+                            typewriter(p, commentText, () => {
+                                commentIndex++;
+                                setTimeout(typeNextComment, 800); 
+                            });
+                        }, 600);
+                    }
+                }
+                
+                startBackgroundAnimations();
+                typeNextComment();
+            };
+
+
+            const updateShareLinks = (percentage, title) => {
+                const text = encodeURIComponent(`My Anger Score is ${percentage}%! Turns out I'm a "${title}". Find out your anger level:`);
+                const url = encodeURIComponent(window.location.href);
+                
+                document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                document.getElementById('telegram-share').href = `https://t.me/share/url?url=${url}&text=${text}`;
+                document.getElementById('instagram-share').href = `https://www.instagram.com/`;
+            };
+            
+            const goHome = () => {
+                stopBackgroundAnimations();
+                [quizScreen, resultsScreen, journeyScreen, progressContainer, backToMainBtn, calculatingScreen].forEach(el => el.classList.add('hidden'));
+                startScreen.classList.remove('hidden', 'fade-out');
+                startScreen.classList.add('fade-in');
+                nameInput.value = '';
+                currentQuestionIndex = 0;
+                userAnswers = {};
+                quizQuestions = [];
+                progressBar.style.width = '0%';
+            };
+
+            const showJourneyScreen = (e) => {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                resultsScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    resultsScreen.classList.add('hidden');
+                    resultsScreen.classList.remove('fade-out');
+                    journeyScreen.classList.remove('hidden');
+                    journeyScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            const showResultsScreenFromJourney = () => {
+                journeyScreen.classList.add('fade-out');
+                 setTimeout(() => {
+                    journeyScreen.classList.add('hidden');
+                    journeyScreen.classList.remove('fade-out');
+                    resultsScreen.classList.remove('hidden');
+                    resultsScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            // --- EVENT LISTENERS ---
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', goHome);
+            backToMainBtn.addEventListener('click', goHome);
+            goBackBtn.addEventListener('click', showResultsScreenFromJourney);
+            quizScreen.addEventListener('click', handleAnswer);
+            shareButtonsContainer.addEventListener('click', (e) => {
+                const shareBtn = e.target.closest('a.share-btn');
+                if (shareBtn && shareBtn.href && shareBtn.href !== '#') {
+                    showJourneyScreen(e);
+                }
+            });
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+                if (!resultsScreen.classList.contains('hidden')) { showResults(true); }
+            });
+            languageToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'hi' : 'en';
+                updateLanguage(newLang);
+                if (!quizScreen.classList.contains('hidden') || !calculatingScreen.classList.contains('hidden')) { 
+                    goHome();
+                } else if (!resultsScreen.classList.contains('hidden')) {
+                    const resultKey = finalQuoteEl.dataset.resultKey;
+                    const personalizedLabel = content[newLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                    document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+                    resultTitleEl.textContent = content[newLang][`result_${resultKey}_title`];
+                    resultDescriptionEl.innerHTML = content[newLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                    finalQuoteEl.textContent = content[newLang][`final_quote_${resultKey}`];
+                    displayFunnyComments(resultKey);
+                }
+            });
+
+            // Initial Load
+            const savedLang = localStorage.getItem('language') || 'en';
+            updateLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>
+

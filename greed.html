@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0DL8SC5JKB');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greedy Meter - How Lalchi Are You?</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS for theme, animations, and additional styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Dark Mode --- */
+        .dark .dark-mode-bg { background-color: #111827; }
+        .dark .dark-mode-text { color: #f9fafb; }
+        .dark .dark-mode-surface { background-color: #1f2937; }
+        .dark .dark-mode-border { border-color: #374151; }
+        .dark .dark-mode-subtext { color: #9ca3af; }
+
+        /* --- Animations --- */
+        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .pulse { animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .9; transform: scale(1.02); }
+        }
+
+        /* --- Button Styles --- */
+        .choice-btn, .share-btn, .control-btn {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .choice-btn:hover, .share-btn:hover, .control-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Social Share Colors --- */
+        .whatsapp-btn { background-color: #25D366; }
+        .twitter-btn { background-color: #1DA1F2; }
+        .facebook-btn { background-color: #1877F2; }
+        .telegram-btn { background-color: #24A1DE; }
+        .instagram-btn {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        }
+
+        /* --- Score Animation --- */
+        .score-reveal {
+            animation: scoreReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.5), 0 0 20px rgba(245, 158, 11, 0.3); /* Amber Shadow */
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* --- Funny Comments Styling --- */
+        .funny-comments-container {
+            perspective: 1000px;
+        }
+
+        .funny-comment-card {
+            opacity: 0;
+            transform: rotateX(-90deg) translateY(50px);
+            transform-origin: bottom center;
+            animation: revealComment 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .funny-comment-card p {
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1.75rem; /* leading-7 */
+        }
+
+        @media (min-width: 768px) {
+            .funny-comment-card p {
+                font-size: 1.5rem; /* md:text-2xl */
+                line-height: 2rem; /* md:leading-8 */
+            }
+        }
+
+
+        @keyframes revealComment {
+            from {
+                opacity: 0;
+                transform: rotateX(-90deg) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0deg) translateY(0);
+            }
+        }
+        
+        /* --- Typing Effect --- */
+        .typing-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #f59e0b; } /* amber-500 */
+        }
+        
+        /* --- Background Animation --- */
+        #animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: -50px; /* Start from below the screen */
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--translateX)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode-bg text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+    <div id="animation-container"></div>
+    <!-- Header for Toggles -->
+    <header class="absolute top-4 w-full px-4 z-20 flex items-center justify-between">
+        <!-- Back to Main Page Button (Initially hidden) -->
+        <a id="back-to-main-btn" href="index.html" role="button" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </a>
+
+        <div class="flex items-center space-x-2 ml-auto">
+             <!-- Language Toggle -->
+            <button id="language-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 dark:focus:ring-offset-gray-900 w-28 h-10 flex items-center justify-center text-sm">
+                <!-- Text updated by JS -->
+            </button>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+                <svg id="theme-icon-dark" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg id="theme-icon-light" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-2 bg-gray-200 dark:bg-gray-700 z-10 hidden">
+        <div id="progress-bar" class="h-full bg-amber-500 progress-bar-fill" style="width: 0%;"></div>
+    </div>
+    
+    <main class="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-screen relative z-10">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center max-w-2xl fade-in">
+            <h1 class="text-4xl md:text-6xl font-extrabold dark-mode-text tracking-tight mb-4">The <span class="text-amber-500" data-lang-key="title">Greedy Meter</span></h1>
+            <p class="text-lg md:text-xl dark-mode-subtext mb-8" data-lang-key="subtitle">
+                Do you count the pani puris in your friend's plate? Is 'what's in it for me?' your life's motto? Let's find out if you're a generous soul or if your pockets have a black hole!
+            </p>
+            <div class="mb-6 w-full max-w-sm mx-auto">
+                <input type="text" id="name-input" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-900 dark:text-white" data-lang-placeholder="name_placeholder">
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-8 italic" data-lang-key="privacy_disclaimer"></p>
+            <button id="start-btn" data-lang-key="start_button" class="bg-amber-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-amber-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-amber-300 pulse">
+                Check My Greed!
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden w-full max-w-3xl">
+            <div id="question-container" class="text-center pt-16">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <div id="feedback-container" class="mt-6 text-center text-md dark-mode-subtext min-h-[60px]">
+                <!-- Feedback will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Calculating Screen -->
+        <div id="calculating-screen" class="hidden text-center w-full max-w-2xl">
+            <svg class="animate-spin h-16 w-16 text-amber-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h2 id="calculating-text" class="text-2xl font-bold dark-mode-text" data-lang-key="calculating_text">Counting your assets...</h2>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center w-full max-w-4xl pt-16">
+            <h2 class="text-2xl font-bold dark-mode-subtext mb-2" data-lang-key="result_level_label">Your Greed Level</h2>
+            <div id="final-score" class="text-7xl md:text-8xl font-extrabold text-amber-500 mb-4">0%</div>
+            <h3 id="result-title" class="text-3xl md:text-4xl font-extrabold dark-mode-text mb-3"></h3>
+            <p id="result-description" class="text-lg md:text-xl dark-mode-subtext mb-8 max-w-2xl mx-auto"></p>
+            
+            <div id="funny-comments-container" class="funny-comments-container mt-8 mb-8 max-w-2xl mx-auto">
+                <!-- Comments will be injected here -->
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="mb-8">
+                <p class="font-bold dark-mode-text mb-3" data-lang-key="share_results_label">Share Your Greed Report & Get a Swiss Bank Account!</p>
+                <div id="share-buttons" class="flex justify-center items-center flex-wrap gap-4">
+                    <a id="whatsapp-share" href="https://ppscore.co.in" target="_blank" class="share-btn whatsapp-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l.217.324-1.125 4.108 4.224-1.103.337.202z" /></svg>
+                    </a>
+                    <a id="twitter-share" href="https://ppscore.co.in" target="_blank" class="share-btn twitter-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.794 4.649-.69.188-1.433.23-2.184.085.617 1.914 2.408 3.258 4.53 3.301-1.724 1.352-3.883 2.093-6.138 1.795 1.815 1.163 3.973 1.84 6.262 1.84 7.218 0 11.168-5.986 11.168-11.168 0-.17-.003-.34-.01-.508.77-.556 1.438-1.248 1.968-2.04z"/></svg>
+                    </a>
+                    <a id="facebook-share" href="https://ppscore.co.in" target="_blank" class="share-btn facebook-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                    </a>                      
+                    <a id="telegram-share" href="https://ppscore.co.in" target="_blank" class="share-btn telegram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-1.39.2-1.62l15.97-5.85c.73-.27 1.36.17 1.15.99L16.4 18.28c-.21.83-1.2.5-1.54-.26L9.78 18.65z"/></svg>
+                    </a>
+                    <a id="instagram-share" href="https://ppscore.co.in" target="_blank" class="share-btn instagram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <p id="final-quote" class="text-lg dark-mode-text max-w-3xl mx-auto mb-8 italic">
+                <!-- Quote inserted by JS -->
+            </p>
+
+            <button id="restart-btn" data-lang-key="restart_button" class="bg-amber-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-amber-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-amber-300">
+                Count My Money Again!
+            </button>
+
+            <!-- Explore More Section -->
+            <div class="mt-16 py-8 border-t-2 border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
+                 <h3 class="text-2xl md:text-3xl font-extrabold dark-mode-text mb-4" data-lang-key="explore_title">Your Analysis Isn't Over Yet!</h3>
+                 <p class="text-lg dark-mode-subtext mb-8" data-lang-key="explore_desc">
+                   You've audited your greed, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.
+                 </p>
+                 <a id="explore-btn" href="index.html" class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 inline-block" data-lang-key="explore_button">
+                   Visit PersonalityPaathshala
+                 </a>
+                 <div class="mt-8 mb-6">
+                    <p class="font-semibold mb-2 text-amber-400 dark:text-amber-300" data-lang-key="support_title">Loved this quiz? Help us create more!</p>
+                    <p class="text-base text-gray-700 dark:text-white mb-3" data-lang-key="support_desc">Your small contribution keeps our creative engine running and helps us serve more fun.</p>
+                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QvFHmdPg3T4Pqh" async> </script> </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Screen -->
+        <div id="journey-screen" class="hidden text-center w-full max-w-2xl pt-16">
+            <h2 class="text-4xl font-extrabold text-amber-500 mb-4" data-lang-key="journey_title">Your Swiss Bank Account!</h2>
+            <p class="text-lg dark-mode-subtext mb-8" data-lang-key="journey_subtitle">You shared your score! As a reward for your... financial ambition, here is your very own (totally not fake) Swiss bank account statement.</p>
+            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-xl border-2 border-gray-400">
+                <div class="text-center p-4">
+                    <h3 class="text-2xl font-bold dark-mode-text">Banque de Suisse</h3>
+                    <p class="dark-mode-subtext mt-2 uppercase tracking-widest">Private Account Statement</p>
+                    <div class="my-4 text-5xl text-amber-500">
+                        💰
+                    </div>
+                    <p class="dark-mode-subtext">Account Holder:</p>
+                    <p id="account-name" class="text-3xl font-bold text-amber-500 my-2">[Your Name]</p>
+                    <p class="dark-mode-text">Balance: <span class="font-mono">₹ 99,99,99,999</span></p>
+                </div>
+            </div>
+             <button id="go-back-btn" data-lang-key="go_back_button" class="mt-8 bg-gray-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Back to My Score
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-xs text-gray-400 dark:text-gray-500">
+        <p data-lang-key="disclaimer">Disclaimer: This quiz is for fun. Sharing is caring, unless it's the last slice of pizza.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- LANGUAGE CONTENT STORE ---
+            const content = {
+                en: {
+                    title: "Greedy Meter",
+                    subtitle: "Do you count the pani puris in your friend's plate? Is 'what's in it for me?' your life's motto? Let's find out if you're a generous soul or if your pockets have a black hole!",
+                    name_placeholder: "Enter your rich name...",
+                    privacy_disclaimer: "Your secret desire to own everything is safe with us. We won't tell anyone you kept the extra change from the sabziwala.",
+                    start_button: "Check My Greed!",
+                    calculating_text: "Counting your assets...",
+                    result_level_label: "Your Greed Level",
+                    result_level_label_personalized: "{name}'s Greed Level",
+                    share_results_label: "Share Your Greed Report & Get a Swiss Bank Account!",
+                    restart_button: "Count My Money Again!",
+                    disclaimer: "Disclaimer: This quiz is for fun. Sharing is caring, unless it's the last slice of pizza.",
+                    question_counter: "Question {current} of {total}",
+                    
+                    result_saint_title: "The Saint (Danveer Karan)",
+                    result_saint_desc: "{name}, you are the epitome of generosity. You probably offer the delivery person a glass of water and a snack. Your motto is 'sharing is caring'.",
+                    result_investor_title: "The Smart Investor (Chaalak Lomdi)",
+                    result_investor_desc: "{name}, you're not greedy, you're just strategic. You'll share, but you're definitely keeping a count. Every relationship is a balance sheet.",
+                    result_dragon_title: "The Treasure Dragon (Dhan Kuber)",
+                    result_dragon_desc: "{name}, you love your possessions. What's yours is yours, and what's theirs is negotiable. You guard your plate of fries like a dragon guards its gold.",
+                    result_blackhole_title: "The Human Blackhole (Sab Mera Hai!)",
+                    result_blackhole_desc: "{name}, you have a gravitational pull for free things. The word 'share' does not exist in your vocabulary. You probably ask for extra ketchup packets to take home.",
+                    
+                    final_quote_saint: "\"Take it, I have more!\"",
+                    final_quote_investor: "\"I'll pay this time, you get the next one. I have the receipts.\"",
+                    final_quote_dragon: "\"My precious... fries.\"",
+                    final_quote_blackhole: "\"If it's free, it's for me.\"",
+                    
+                    funny_comments: {
+                        saint: [
+                            "You probably feel bad for the ATM when it runs out of money.",
+                            "You're the person who actually leaves a 'take one' candy.",
+                            "You've offered to pay for a stranger's coffee.",
+                            "You believe the best thing in life is giving... away your food."
+                        ],
+                        investor: [
+                            "You know the exact monetary value of every favor you've ever done.",
+                            "You've created a spreadsheet to track who paid for what on a group trip.",
+                            "You'll share your Netflix password, but you'll ask for a contribution to the 'entertainment fund'.",
+                            "You're not greedy, you're just 'optimizing your resources'."
+                        ],
+                        dragon: [
+                            "You've fought a sibling over the last piece of chocolate.",
+                            "You've hidden your favorite snacks so no one else can find them.",
+                            "You believe 'sharing size' is a personal challenge, not a suggestion.",
+                            "You have a special look for when someone asks 'Can I have a bite?'"
+                        ],
+                        blackhole: [
+                            "Your pockets are a black hole for free pens and sugar packets.",
+                            "You've asked for 'extra pani' at a golgappa stall until the vendor gives up.",
+                            "You know the location of every free water dispenser in the city.",
+                            "You're the reason buffets have a 'no wastage' policy."
+                        ]
+                    },
+
+                    journey_title: "Your Swiss Bank Account!",
+                    journey_subtitle: "You shared your score! As a reward for your... financial ambition, here is your very own (totally not fake) Swiss bank account statement.",
+                    go_back_button: "Back to My Score",
+
+                    explore_title: "Your Analysis Isn't Over Yet!",
+                    explore_desc: "You've audited your greed, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.",
+                    explore_button: "Visit PersonalityPaathshala",
+                    support_title: "Loved this quiz? Help us create more!",
+                    support_desc: "Your small contribution keeps our creative engine running and helps us serve more fun.",
+
+                    questions: [
+                        { id: 1, question: "The last slice of pizza is on the table. You:", answers: [ { text: "Offer it to someone else.", score: 1, feedback: "A truly generous soul." }, { text: "Cut it into two perfectly equal halves.", score: 2, feedback: "The fair diplomat." }, { text: "Stare at it until everyone else gives up.", score: 3, feedback: "Survival of the hungriest." } ] },
+                        { id: 2, question: "You're at an all-you-can-eat buffet. Your strategy is:", answers: [ { text: "To eat a normal-sized meal.", score: 1, feedback: "Such self-control!" }, { text: "To try a little bit of everything.", score: 2, feedback: "The food explorer." }, { text: "To eat more than the price of the buffet to make it 'paisa vasool'.", score: 3, feedback: "The value-for-money champion." } ] },
+                        { id: 3, question: "A friend asks to borrow a pen. You:", answers: [ { text: "Give them a nice one and forget about it.", score: 1, feedback: "A kind and trusting friend." }, { text: "Give them the cheap one that barely works.", score: 2, feedback: "The strategic lender." }, { text: "Give it, but ask for it back the moment they're done.", score: 3, feedback: "The pen protector." } ] },
+                        { id: 4, question: "How do you feel about sharing food?", answers: [ { text: "I love it! Sharing is caring.", score: 1, feedback: "The communal eater." }, { text: "I'll share, but I'm counting every bite.", score: 3, feedback: "The food accountant." }, { text: "Joey doesn't share food!", score: 2, feedback: "A classic philosophy." } ] },
+                        { id: 5, question: "You get extra change from a shopkeeper. You:", answers: [ { text: "Return it immediately.", score: 1, feedback: "An honest soul." }, { text: "Walk away quickly before they notice.", score: 3, feedback: "A small bonus from the universe." }, { text: "Stand there for a minute, debating what to do.", score: 2, feedback: "The moral dilemma." } ] },
+                        { id: 6, question: "The best part about a wedding is:", answers: [ { text: "Celebrating the couple's love.", score: 1, feedback: "The romantic." }, { text: "The free, unlimited food.", score: 3, feedback: "The food critic." }, { text: "Meeting new people.", score: 2, feedback: "The socialite." } ] },
+                        { id: 7, question: "You see 'Buy One Get One Free'. You think:", answers: [ { text: "I don't need two, so I'll just buy one.", score: 1, feedback: "The minimalist." }, { text: "It's a great deal, even if I don't need it.", score: 2, feedback: "The deal hunter." }, { text: "I'm not buying one, I'm getting one for free!", score: 3, feedback: "The master of justification." } ] },
+                        { id: 8, question: "You find a 10 rupee note on the ground. You:", answers: [ { text: "Look around for who might have dropped it.", score: 1, feedback: "The good samaritan." }, { text: "Quickly put it in your pocket.", score: 2, feedback: "Finders keepers." }, { text: "Put it in your pocket and feel like the richest person in the world.", score: 3, feedback: "Every rupee counts." } ] },
+                        { id: 9, question: "Your friend gets a big promotion. You:", answers: [ { text: "Are genuinely happy for them and celebrate.", score: 1, feedback: "The true friend." }, { text: "Are happy, but also immediately ask 'So, party kab hai?'", score: 2, feedback: "The party planner." }, { text: "Feel a little sad that it wasn't you.", score: 3, feedback: "The silent competitor." } ] },
+                        { id: 10, question: "You go out for a group dinner. The bill arrives. You:", answers: [ { text: "Offer to pay for everyone.", score: 1, feedback: "The generous king." }, { text: "Get your calculator out to split the bill to the exact paisa.", score: 3, feedback: "The human calculator." }, { text: "Suggest an equal split, even if you ate more.", score: 2, feedback: "The diplomat." } ] },
+                        { id: 11, question: "How many ketchup packets do you take from a restaurant?", answers: [ { text: "Just enough for my meal.", score: 1, feedback: "The reasonable one." }, { text: "A few extra for later.", score: 2, feedback: "The planner." }, { text: "As many as I can fit in my pockets.", score: 3, feedback: "The ketchup collector." } ] },
+                        { id: 12, question: "Your favorite word is:", answers: [ { text: "'Love'.", score: 1, feedback: "The romantic." }, { text: "'Discount'.", score: 2, feedback: "The smart shopper." }, { text: "'Free'.", score: 3, feedback: "The magic word." } ] },
+                        { id: 13, question: "You're sharing a plate of pani puri with a friend. You are:", answers: [ { text: "Making sure you both get an equal number.", score: 2, feedback: "The fair player." }, { text: "Secretly counting how many they've had.", score: 3, feedback: "The auditor." }, { text: "Just enjoying the food and the company.", score: 1, feedback: "The chill one." } ] },
+                        { id: 14, question: "When you get a gift, the first thing you do is:", answers: [ { text: "Thank the person who gave it to you.", score: 1, feedback: "The grateful one." }, { text: "Gently remove the price tag.", score: 2, feedback: "The practical one." }, { text: "Wonder if you can re-gift it to someone else.", score: 3, feedback: "The master of recycling." } ] },
+                        { id: 15, question: "The best things in life are:", answers: [ { text: "Free.", score: 3, feedback: "The ultimate truth." }, { text: "Experiences, not things.", score: 1, feedback: "The philosopher." }, { text: "On sale.", score: 2, feedback: "The bargain hunter." } ] },
+                        { id: 16, question: "You see a 'Wet Paint' sign on a bench. You:", answers: [ { text: "Avoid the bench.", score: 1, feedback: "The rule-follower." }, { text: "Lightly touch it to see if it's really wet.", score: 2, feedback: "The skeptic." }, { text: "Think 'Free paint!' and touch it with your handkerchief.", score: 3, feedback: "The opportunist." } ] },
+                        { id: 17, question: "A friend offers to pay for your coffee. You:", answers: [ { text: "Accept graciously.", score: 1, feedback: "The good friend." }, { text: "Insist on paying your own share.", score: 2, feedback: "The independent one." }, { text: "Let them pay, and also 'casually' mention you want a croissant.", score: 3, feedback: "The master of upselling." } ] },
+                        { id: 18, question: "You're at a hotel breakfast buffet. You:", answers: [ { text: "Eat a normal breakfast.", score: 1, feedback: "The balanced one." }, { text: "Eat enough to last you until dinner.", score: 2, feedback: "The value-for-money expert." }, { text: "Subtly make a sandwich to take with you for later.", score: 3, feedback: "The strategic planner." } ] },
+                        { id: 19, question: "When someone says 'my treat', you:", answers: [ { text: "Order something reasonably priced.", score: 1, feedback: "The considerate one." }, { text: "Order what you normally would.", score: 2, feedback: "The consistent one." }, { text: "Order the most expensive item on the menu.", score: 3, feedback: "The gourmet." } ] },
+                        { id: 20, question: "You get a free sample of a product. You:", answers: [ { text: "Feel happy about the small treat.", score: 2, feedback: "The appreciator." }, { text: "Go back in a disguise to get another one.", score: 3, feedback: "The master of disguise." }, { text: "Feel a bit shy to take it.", score: 1, feedback: "The modest one." } ] },
+                        { id: 21, question: "You have a coupon that expires today. You:", answers: [ { text: "Will probably forget to use it.", score: 1, feedback: "The forgetful one." }, { text: "Will buy something you don't need, just to use the coupon.", score: 3, feedback: "The coupon slave." }, { text: "Will use it if you were already planning to buy something.", score: 2, feedback: "The smart shopper." } ] },
+                        { id: 22, question: "Someone gives you a box of chocolates to share. You:", answers: [ { text: "Offer it to everyone first.", score: 1, feedback: "The generous soul." }, { text: "Eat your favorite ones before anyone else can.", score: 3, feedback: "The cherry-picker." }, { text: "Take one and pass it on.", score: 2, feedback: "The fair one." } ] },
+                        { id: 23, question: "You see 'extra cheese for Rs. 50'. You think:", answers: [ { text: "'Yes, please!'", score: 1, feedback: "The cheese lover." }, { text: "'I can buy a whole block of cheese for that price.'", score: 3, feedback: "The economist." }, { text: "'Is it really worth it?'", score: 2, feedback: "The analyst." } ] },
+                        { id: 24, question: "Your friend is throwing away a half-used bottle of shampoo. You:", answers: [ { text: "Think nothing of it.", score: 1, feedback: "The normal person." }, { text: "Ask if you can have it.", score: 3, feedback: "Waste not, want not." }, { text: "Silently judge them for being wasteful.", score: 2, feedback: "The eco-warrior." } ] },
+                        { id: 25, question: "You go to a wedding. Your main goal is:", answers: [ { text: "To bless the happy couple.", score: 1, feedback: "The well-wisher." }, { text: "To make sure your gift money is recovered from the food.", score: 3, feedback: "The ROI expert." }, { text: "To enjoy the party.", score: 2, feedback: "The party animal." } ] }
+                    ]
+                },
+                hi: {
+                    title: "लालची मीटर",
+                    subtitle: "क्या आप अपने दोस्त की प्लेट में पानी पूरी गिनते हैं? क्या 'इसमें मेरे लिए क्या है?' आपका जीवन का आदर्श वाक्य है? आइए जानें कि आप एक उदार आत्मा हैं या आपके जेब में एक ब्लैक होल है!",
+                    name_placeholder: "अपना अमीर नाम दर्ज करें...",
+                    privacy_disclaimer: "सब कुछ अपना बनाने की आपकी गुप्त इच्छा हमारे पास सुरक्षित है। हम किसी को नहीं बताएंगे कि आपने सब्जीवाले से अतिरिक्त चेंज रखा।",
+                    start_button: "मेरी लालच की जाँच करें!",
+                    calculating_text: "आपकी संपत्ति की गिनती हो रही है...",
+                    result_level_label: "आपका लालच स्तर",
+                    result_level_label_personalized: "{name} का लालच स्तर",
+                    share_results_label: "अपनी लालच रिपोर्ट साझा करें और एक स्विस बैंक खाता प्राप्त करें!",
+                    restart_button: "मेरे पैसे फिर से गिनो!",
+                    disclaimer: "अस्वीकरण: यह क्विज़ मनोरंजन के लिए है। साझा करना देखभाल करना है, जब तक कि यह पिज्जा का आखिरी टुकड़ा न हो।",
+                    question_counter: "प्रश्न {current} / {total}",
+
+                    result_saint_title: "संत (दानवीर कर्ण)",
+                    result_saint_desc: "{name}, आप उदारता की प्रतिमूर्ति हैं। आप शायद डिलीवरी वाले को एक गिलास पानी और एक नाश्ता प्रदान करते हैं। आपका आदर्श वाक्य 'साझा करना देखभाल करना है' है।",
+                    result_investor_title: "स्मार्ट निवेशक (चालाक लोमड़ी)",
+                    result_investor_desc: "{name}, आप लालची नहीं हैं, आप बस रणनीतिक हैं। आप साझा करेंगे, लेकिन आप निश्चित रूप से एक गिनती रख रहे हैं। हर रिश्ता एक बैलेंस शीट है।",
+                    result_dragon_title: "खजाना ड्रैगन (धन कुबेर)",
+                    result_dragon_desc: "{name}, आप अपनी संपत्ति से प्यार करते हैं। जो आपका है वह आपका है, और जो उनका है वह परक्राम्य है। आप अपनी फ्राइज़ की प्लेट की रक्षा करते हैं जैसे एक ड्रैगन अपने सोने की रक्षा करता है।",
+                    result_blackhole_title: "मानव ब्लैकहोल (सब मेरा है!)",
+                    result_blackhole_desc: "{name}, आपके पास मुफ्त चीजों के लिए एक गुरुत्वाकर्षण खिंचाव है। 'साझा करें' शब्द आपके शब्दकोश में मौजूद नहीं है। आप शायद घर ले जाने के लिए अतिरिक्त केचप पैकेट मांगते हैं।",
+
+                    final_quote_saint: "\"इसे ले लो, मेरे पास और है!\"",
+                    final_quote_investor: "\"मैं इस बार भुगतान करूँगा, तुम अगली बार करना। मेरे पास रसीदें हैं।\"",
+                    final_quote_dragon: "\"मेरा कीमती... फ्राइज़।\"",
+                    final_quote_blackhole: "\"अगर यह मुफ्त है, तो यह मेरे लिए है।\"",
+                    
+                    funny_comments: {
+                        saint: [
+                            "आप शायद एटीएम से नकदी मिलने पर उसे धन्यवाद देते हैं।",
+                            "आप वह व्यक्ति हैं जो वास्तव में 'एक लें' कैंडी छोड़ते हैं।",
+                            "आपने एक अजनबी की कॉफी के लिए भुगतान करने की पेशकश की है।",
+                            "आप मानते हैं कि जीवन में सबसे अच्छी चीज देना है... अपना भोजन।"
+                        ],
+                        investor: [
+                            "आपको आपके द्वारा किए गए हर एहसान का सही मौद्रिक मूल्य पता है।",
+                            "आपने एक समूह यात्रा पर किसने क्या भुगतान किया, यह ट्रैक करने के लिए एक स्प्रेडशीट बनाई है।",
+                            "आप अपना नेटफ्लिक्स पासवर्ड साझा करेंगे, लेकिन आप 'मनोरंजन निधि' में योगदान के लिए कहेंगे।",
+                            "आप लालची नहीं हैं, आप बस 'अपने संसाधनों का अनुकूलन' कर रहे हैं।"
+                        ],
+                        dragon: [
+                            "आपने चॉकलेट के आखिरी टुकड़े पर एक भाई-बहन से लड़ाई की है।",
+                            "आपने अपने पसंदीदा स्नैक्स छिपाए हैं ताकि कोई और उन्हें न ढूंढ सके।",
+                            "आप मानते हैं कि 'शेयरिंग साइज' एक व्यक्तिगत चुनौती है, सुझाव नहीं।",
+                            "जब कोई पूछता है 'क्या मैं एक टुकड़ा ले सकता हूँ?' तो आपके पास एक विशेष रूप है।"
+                        ],
+                        blackhole: [
+                            "आपकी जेबें मुफ्त पेन और चीनी के पैकेट के लिए एक ब्लैक होल हैं।",
+                            "आपने एक गोलगप्पे वाले से 'अतिरिक्त पानी' मांगा है जब तक कि विक्रेता हार न मान ले।",
+                            "आपको शहर में हर मुफ्त पानी के डिस्पेंसर का स्थान पता है।",
+                            "आप ही कारण हैं कि बुफे में 'कोई बर्बादी नहीं' नीति है।"
+                        ]
+                    },
+
+                    journey_title: "आपका स्विस बैंक खाता!",
+                    journey_subtitle: "आपने अपना स्कोर साझा किया! आपकी... वित्तीय महत्वाकांक्षा के लिए एक पुरस्कार के रूप में, यहाँ आपका अपना (पूरी तरह से नकली नहीं) स्विस बैंक खाता विवरण है।",
+                    go_back_button: "मेरे स्कोर पर वापस जाएं",
+
+                    explore_title: "आपका विश्लेषण अभी खत्म नहीं हुआ है!",
+                    explore_desc: "आपने अपनी लालच का ऑडिट किया है, लेकिन आपके बाकी प्रफुल्लित करने वाले व्यक्तित्व के बारे में क्या? आपका प्रेम जीवन, आपके गुस्से के मुद्दे... पर्सनैलिटी पाठशाला में आपके लिए मज़ेदार कैलकुलेटर की एक पूरी कक्षा है।",
+                    explore_button: "पर्सनैलिटी पाठशाला पर जाएँ",
+                    support_title: "यह क्विज़ पसंद आया? और बनाने में हमारी मदद करें!",
+                    support_desc: "आपका छोटा सा योगदान हमारी रचनात्मकता को चालू रखता है और हमें और मज़ा परोसने में मदद करता है।",
+                    
+                    questions: [
+                        { id: 1, question: "पिज्जा का आखिरी टुकड़ा मेज पर है। आप:", answers: [ { text: "इसे किसी और को दें।", score: 1, feedback: "एक सच्ची उदार आत्मा।" }, { text: "इसे दो पूरी तरह से बराबर हिस्सों में काटें।", score: 2, feedback: "निष्पक्ष राजनयिक।" }, { text: "इसे तब तक घूरें जब तक कि बाकी सब हार न मान लें।", score: 3, feedback: "सबसे भूखे का अस्तित्व।" } ] },
+                        { id: 2, question: "आप एक ऑल-यू-कैन-ईट बुफे में हैं। आपकी रणनीति है:", answers: [ { text: "एक सामान्य आकार का भोजन करना।", score: 1, feedback: "इतना आत्म-नियंत्रण!" }, { text: "हर चीज का थोड़ा सा प्रयास करना।", score: 2, feedback: "भोजन खोजकर्ता।" }, { text: "इसे 'पैसा वसूल' बनाने के लिए बुफे की कीमत से अधिक खाना।", score: 3, feedback: "पैसे का मूल्य चैंपियन।" } ] },
+                        { id: 3, question: "एक दोस्त एक पेन उधार मांगता है। आप:", answers: [ { text: "उन्हें एक अच्छा दें और इसके बारे में भूल जाएं।", score: 1, feedback: "एक दयालु और भरोसेमंद दोस्त।" }, { text: "उन्हें वह सस्ता दें जो मुश्किल से काम करता है।", score: 2, feedback: "रणनीतिक ऋणदाता।" }, { text: "इसे दें, लेकिन जैसे ही वे कर लें, इसे वापस मांगें।", score: 3, feedback: "पेन रक्षक।" } ] },
+                        { id: 4, question: "आप भोजन साझा करने के बारे में कैसा महसूस करते हैं?", answers: [ { text: "मुझे यह पसंद है! साझा करना देखभाल करना है।", score: 1, feedback: "सांप्रदायिक खाने वाला।" }, { text: "मैं साझा करूँगा, लेकिन मैं हर निवाला गिन रहा हूँ।", score: 3, feedback: "भोजन लेखाकार।" }, { text: "जोई खाना साझा नहीं करता!", score: 2, feedback: "एक क्लासिक दर्शन।" } ] },
+                        { id: 5, question: "आपको एक दुकानदार से अतिरिक्त चेंज मिलता है। आप:", answers: [ { text: "इसे तुरंत वापस करें।", score: 1, feedback: "एक ईमानदार आत्मा।" }, { text: "वे नोटिस करने से पहले जल्दी से चले जाएं।", score: 3, feedback: "ब्रह्मांड से एक छोटा सा बोनस।" }, { text: "एक मिनट के लिए वहां खड़े रहें, यह बहस करते हुए कि क्या करना है।", score: 2, feedback: "नैतिक दुविधा।" } ] },
+                        { id: 6, question: "एक शादी का सबसे अच्छा हिस्सा है:", answers: [ { text: "जोड़े के प्यार का जश्न मनाना।", score: 1, feedback: "रोमांटिक।" }, { text: "मुफ्त, असीमित भोजन।", score: 3, feedback: "भोजन समीक्षक।" }, { text: "नए लोगों से मिलना।", score: 2, feedback: "सोशलाइट।" } ] },
+                        { id: 7, question: "आप 'एक खरीदें एक मुफ्त पाएं' देखते हैं। आप सोचते हैं:", answers: [ { text: "मुझे दो की जरूरत नहीं है, इसलिए मैं सिर्फ एक खरीदूंगा।", score: 1, feedback: "न्यूनतमवादी।" }, { text: "यह एक बढ़िया सौदा है, भले ही मुझे इसकी आवश्यकता न हो।", score: 2, feedback: "डील शिकारी।" }, { text: "मैं एक नहीं खरीद रहा हूँ, मुझे एक मुफ्त में मिल रहा है!", score: 3, feedback: "औचित्य का मास्टर।" } ] },
+                        { id: 8, question: "आपको जमीन पर 10 रुपये का नोट मिलता है। आप:", answers: [ { text: "यह देखने के लिए चारों ओर देखें कि इसे किसने गिराया होगा।", score: 1, feedback: "अच्छा सामरी।" }, { text: "जल्दी से इसे अपनी जेब में रख लें।", score: 2, feedback: "खोजने वालों का।" }, { text: "इसे अपनी जेब में रखें और दुनिया का सबसे अमीर व्यक्ति महसूस करें।", score: 3, feedback: "हर रुपया मायने रखता है।" } ] },
+                        { id: 9, question: "आपके दोस्त को एक बड़ी पदोन्नति मिलती है। आप:", answers: [ { text: "उनके लिए वास्तव में खुश हैं और जश्न मनाते हैं।", score: 1, feedback: "सच्चा दोस्त।" }, { text: "खुश हैं, लेकिन तुरंत पूछें 'तो, पार्टी कब है?'", score: 2, feedback: "पार्टी योजनाकार।" }, { text: "थोड़ा दुखी महसूस करें कि यह आप नहीं थे।", score: 3, feedback: "चुप प्रतियोगी।" } ] },
+                        { id: 10, question: "आप एक समूह रात्रिभोज के लिए बाहर जाते हैं। बिल आता है। आप:", answers: [ { text: "सभी के लिए भुगतान करने की पेशकश करें।", score: 1, feedback: "उदार राजा।" }, { text: "बिल को सटीक पैसे तक विभाजित करने के लिए अपना कैलकुलेटर निकालें।", score: 3, feedback: "मानव कैलकुलेटर।" }, { text: "एक समान विभाजन का सुझाव दें, भले ही आपने अधिक खाया हो।", score: 2, feedback: "राजनयिक।" } ] },
+                        { id: 11, question: "आप एक रेस्तरां से कितने केचप पैकेट लेते हैं?", answers: [ { text: "बस मेरे भोजन के लिए पर्याप्त।", score: 1, feedback: "उचित।" }, { text: "बाद के लिए कुछ अतिरिक्त।", score: 2, feedback: "योजनाकार।" }, { text: "जितने मैं अपनी जेब में फिट कर सकता हूँ।", score: 3, feedback: "केचप संग्रहकर्ता।" } ] },
+                        { id: 12, question: "आपका पसंदीदा शब्द है:", answers: [ { text: "'प्यार'।" , score: 1, feedback: "रोमांटिक।" }, { text: "'छूट'।" , score: 2, feedback: "स्मार्ट दुकानदार।" }, { text: "'मुफ्त'।" , score: 3, feedback: "जादुई शब्द।" } ] },
+                        { id: 13, question: "आप एक दोस्त के साथ पानी पुरी की एक प्लेट साझा कर रहे हैं। आप हैं:", answers: [ { text: "यह सुनिश्चित करना कि आप दोनों को एक समान संख्या मिले।", score: 2, feedback: "निष्पक्ष खिलाड़ी।" }, { text: "चुपके से गिनना कि उन्होंने कितने खाए हैं।", score: 3, feedback: "लेखा परीक्षक।" }, { text: "बस भोजन और कंपनी का आनंद ले रहे हैं।", score: 1, feedback: "शांत।" } ] },
+                        { id: 14, question: "जब आपको कोई उपहार मिलता है, तो पहली चीज जो आप करते हैं वह है:", answers: [ { text: "जिस व्यक्ति ने इसे दिया है उसे धन्यवाद दें।", score: 1, feedback: "आभारी।" }, { text: "धीरे से मूल्य टैग हटा दें।", score: 2, feedback: "व्यावहारिक।" }, { text: "आश्चर्य है कि क्या आप इसे किसी और को फिर से उपहार में दे सकते हैं।", score: 3, feedback: "पुनर्चक्रण का मास्टर।" } ] },
+                        { id: 15, question: "जीवन में सबसे अच्छी चीजें हैं:", answers: [ { text: "मुफ्त।", score: 3, feedback: "परम सत्य।" }, { text: "अनुभव, चीजें नहीं।", score: 1, feedback: "दार्शनिक।" }, { text: "बिक्री पर।", score: 2, feedback: "सौदा शिकारी।" } ] },
+                        { id: 16, question: "आप एक बेंच पर 'गीला पेंट' का चिन्ह देखते हैं। आप:", answers: [ { text: "बेंच से बचें।", score: 1, feedback: "नियम-पालक।" }, { text: "यह देखने के लिए कि क्या यह वास्तव में गीला है, इसे हल्के से स्पर्श करें।", score: 2, feedback: "संदेहवादी।" }, { text: "सोचें 'मुफ्त पेंट!' और इसे अपने रूमाल से स्पर्श करें।", score: 3, feedback: "अवसरवादी।" } ] },
+                        { id: 17, question: "एक दोस्त आपकी कॉफी के लिए भुगतान करने की पेशकश करता है। आप:", answers: [ { text: "शिष्टता से स्वीकार करें।", score: 1, feedback: "अच्छा दोस्त।" }, { text: "अपना हिस्सा देने पर जोर दें।", score: 2, feedback: "स्वतंत्र।" }, { text: "उन्हें भुगतान करने दें, और 'आकस्मिक रूप से' उल्लेख करें कि आप एक क्रोइसैन चाहते हैं।", score: 3, feedback: "अपसेलिंग का मास्टर।" } ] },
+                        { id: 18, question: "आप एक होटल के नाश्ते के बुफे में हैं। आप:", answers: [ { text: "एक सामान्य नाश्ता करें।", score: 1, feedback: "संतुलित।" }, { text: "रात के खाने तक चलने के लिए पर्याप्त खाएं।", score: 2, feedback: "पैसे का मूल्य विशेषज्ञ।" }, { text: "बाद के लिए अपने साथ ले जाने के लिए चुपके से एक सैंडविच बनाएं।", score: 3, feedback: "रणनीतिक योजनाकार।" } ] },
+                        { id: 19, question: "जब कोई कहता है 'मेरी दावत', आप:", answers: [ { text: "उचित मूल्य वाली कोई चीज़ ऑर्डर करें।", score: 1, feedback: "विचारशील।" }, { text: "आप सामान्य रूप से जो ऑर्डर करते हैं वह ऑर्डर करें।", score: 2, feedback: "संगत।" }, { text: "मेनू पर सबसे महंगी वस्तु का ऑर्डर करें।", score: 3, feedback: "पेटू।" } ] },
+                        { id: 20, question: "आपको एक उत्पाद का एक मुफ्त नमूना मिलता है। आप:", answers: [ { text: "छोटे से इलाज के बारे में खुश महसूस करें।", score: 2, feedback: "प्रशंसक।" }, { text: "एक और पाने के लिए भेष बदलकर वापस जाएं।", score: 3, feedback: "भेष का स्वामी।" }, { text: "इसे लेने में थोड़ा शर्माएं।", score: 1, feedback: "विनम्र।" } ] },
+                        { id: 21, question: "आपके पास एक कूपन है जो आज समाप्त हो रहा है। आप:", answers: [ { text: "शायद इसका उपयोग करना भूल जाएंगे।", score: 1, feedback: "भुलक्कड़।" }, { text: "कुछ ऐसा खरीदेंगे जिसकी आपको जरूरत नहीं है, सिर्फ कूपन का उपयोग करने के लिए।", score: 3, feedback: "कूपन गुलाम।" }, { text: "यदि आप पहले से ही कुछ खरीदने की योजना बना रहे थे तो इसका उपयोग करेंगे।", score: 2, feedback: "स्मार्ट दुकानदार।" } ] },
+                        { id: 22, question: "कोई आपको साझा करने के लिए चॉकलेट का एक डिब्बा देता है। आप:", answers: [ { text: "इसे पहले सभी को पेश करें।", score: 1, feedback: "उदार आत्मा।" }, { text: "किसी और के करने से पहले अपने पसंदीदा खाएं।", score: 3, feedback: "चेरी-पिकर।" }, { text: "एक लें और इसे पास करें।", score: 2, feedback: "निष्पक्ष।" } ] },
+                        { id: 23, question: "आप '50 रुपये में अतिरिक्त पनीर' देखते हैं। आप सोचते हैं:", answers: [ { text: "'हाँ, कृपया!'", score: 1, feedback: "पनीर प्रेमी।" }, { text: "'मैं उस कीमत पर एक पूरा पनीर ब्लॉक खरीद सकता हूँ।'", score: 3, feedback: "अर्थशास्त्री।" }, { text: "'क्या यह वास्तव में इसके लायक है?'", score: 2, feedback: "विश्लेषक।" } ] },
+                        { id: 24, question: "आपका दोस्त शैम्पू की आधी-अधूरी बोतल फेंक रहा है। आप:", answers: [ { text: "इसके बारे में कुछ नहीं सोचें।", score: 1, feedback: "सामान्य व्यक्ति।" }, { text: "पूछें कि क्या आप इसे ले सकते हैं।", score: 3, feedback: "बर्बाद मत करो, चाहो मत।" }, { text: "उन्हें बेकार होने के लिए चुपचाप जज करें।", score: 2, feedback: "पर्यावरण-योद्धा।" } ] },
+                        { id: 25, question: "आप एक शादी में जाते हैं। आपका मुख्य लक्ष्य है:", answers: [ { text: "खुश जोड़े को आशीर्वाद देना।", score: 1, feedback: "शुभचिंतक।" }, { text: "यह सुनिश्चित करना कि आपके उपहार के पैसे भोजन से वसूल हो जाएं।", score: 3, feedback: "ROI विशेषज्ञ।" }, { text: "पार्टी का आनंद लेना।", score: 2, feedback: "पार्टी एनिमल।" } ] }
+                    ]
+                }
+            };
+            
+            // --- STATE MANAGEMENT & DOM ELEMENTS ---
+            let currentQuestionIndex = 0;
+            let userAnswers = {};
+            let currentLang = 'en';
+            let quizQuestions = [];
+            let userName = '';
+            const QUESTIONS_PER_QUIZ = 15;
+
+            const allLangElements = document.querySelectorAll('[data-lang-key]');
+            const langPlaceholderElements = document.querySelectorAll('[data-lang-placeholder]');
+            const languageToggle = document.getElementById('language-toggle');
+            const startScreen = document.getElementById('start-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const calculatingScreen = document.getElementById('calculating-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const journeyScreen = document.getElementById('journey-screen');
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const goBackBtn = document.getElementById('go-back-btn');
+            const backToMainBtn = document.getElementById('back-to-main-btn');
+            const nameInput = document.getElementById('name-input');
+            const questionContainer = document.getElementById('question-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const finalScoreEl = document.getElementById('final-score');
+            const resultTitleEl = document.getElementById('result-title');
+            const resultDescriptionEl = document.getElementById('result-description');
+            const finalQuoteEl = document.getElementById('final-quote');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const shareButtonsContainer = document.getElementById('share-buttons');
+            const exploreBtn = document.getElementById('explore-btn');
+
+            // --- LANGUAGE LOGIC ---
+            const updateLanguage = (lang) => {
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                document.documentElement.lang = lang;
+                
+                languageToggle.innerHTML = (lang === 'en') 
+                    ? `<i class="fa-solid fa-language mr-2"></i> हिन्दी`
+                    : `<i class="fa-solid fa-language mr-2"></i> English`;
+
+                allLangElements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    const value = getNestedValue(content[lang], key);
+                    if (value) el.innerHTML = value;
+                });
+                
+                langPlaceholderElements.forEach(el => {
+                    const key = el.dataset.langPlaceholder;
+                    const value = getNestedValue(content[lang], key);
+                    if(value) el.placeholder = value;
+                });
+            };
+
+            const getNestedValue = (obj, key) => key.split('.').reduce((acc, part) => acc && acc[part], obj);
+
+            // --- THEME LOGIC ---
+            const applyTheme = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIconDark.classList.remove('hidden');
+                    themeIconLight.classList.add('hidden');
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
+            applyTheme(isDarkMode);
+
+            // --- UI FUNCTIONS ---
+            const renderQuestion = () => {
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const q_id = quizQuestions[currentQuestionIndex];
+                    const q_data_en = content.en.questions.find(item => item.id === q_id);
+                    const q_lang = content[currentLang].questions.find(item => item.id === q_id);
+                    
+                    if(!q_data_en || !q_lang) {
+                        goHome();
+                        return;
+                    }
+
+                    const shuffledAnswers = [...q_lang.answers].sort(() => Math.random() - 0.5);
+
+                    let answersHTML = shuffledAnswers.map(answer => {
+                        return `
+                        <button data-score="${answer.score}" class="choice-btn w-full text-left p-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-amber-100 dark:hover:bg-amber-500 transition-colors duration-200">
+                            ${answer.text}
+                        </button>
+                    `}).join('');
+                    
+                    const counterText = content[currentLang].question_counter
+                        .replace('{current}', currentQuestionIndex + 1)
+                        .replace('{total}', QUESTIONS_PER_QUIZ);
+
+                    questionContainer.innerHTML = `
+                        <div class="fade-in">
+                            <p class="text-lg font-semibold dark-mode-subtext mb-4">${counterText}</p>
+                            <h2 class="text-2xl md:text-3xl font-bold dark-mode-text mb-8">${q_lang.question.replace(/{name}/g, `<strong>${userName}</strong>`)}</h2>
+                            <div class="flex flex-col items-center space-y-4">${answersHTML}</div>
+                        </div>
+                    `;
+                    feedbackContainer.innerHTML = '';
+                    updateProgressBar();
+                } else {
+                    showCalculatingScreen();
+                }
+            };
+            
+            const updateProgressBar = () => {
+                const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            };
+
+            // --- CORE LOGIC ---
+            const startQuiz = () => {
+                userName = nameInput.value.trim();
+                if (!userName) {
+                    userName = (currentLang === 'en') ? 'Richie Rich' : 'रिची रिच';
+                }
+
+                let allQuestionIds = content.en.questions.map(q => q.id);
+                allQuestionIds.sort(() => Math.random() - 0.5);
+                quizQuestions = allQuestionIds.slice(0, QUESTIONS_PER_QUIZ);
+                currentQuestionIndex = 0;
+                userAnswers = {};
+
+                startScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    startScreen.classList.add('hidden');
+                    startScreen.classList.remove('fade-out');
+                    quizScreen.classList.remove('hidden');
+                    quizScreen.classList.add('fade-in');
+                    progressContainer.classList.remove('hidden');
+                    backToMainBtn.classList.remove('hidden');
+                    renderQuestion();
+                }, 500);
+            };
+
+            const handleAnswer = (e) => {
+                const selectedBtn = e.target.closest('.choice-btn');
+                if (!selectedBtn) return;
+
+                const score = parseInt(selectedBtn.dataset.score);
+                const question_id = quizQuestions[currentQuestionIndex];
+                const question_data_lang = content[currentLang].questions.find(item => item.id === question_id);
+                
+                const answer_data_lang = question_data_lang.answers.find(a => a.score === score);
+                if (answer_data_lang) {
+                    feedbackContainer.innerHTML = `<p class="fade-in font-semibold text-lg text-teal-600 dark:text-teal-400">${answer_data_lang.feedback}</p>`;
+                }
+
+                userAnswers[question_id] = score;
+                
+                questionContainer.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn !== selectedBtn) {
+                        btn.classList.add('opacity-50');
+                    } else {
+                        btn.classList.add('ring-4', 'ring-amber-400');
+                    }
+                });
+                
+                setTimeout(() => {
+                    if (questionContainer.firstElementChild) {
+                        questionContainer.firstElementChild.classList.replace('fade-in', 'fade-out');
+                    }
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    }, 500);
+                }, 1800);
+            };
+
+            const showCalculatingScreen = () => {
+                quizScreen.classList.add('fade-out');
+                progressContainer.classList.add('hidden');
+                backToMainBtn.classList.add('hidden');
+                setTimeout(() => {
+                    quizScreen.classList.add('hidden');
+                    quizScreen.classList.remove('fade-out');
+                    calculatingScreen.classList.remove('hidden');
+                    calculatingScreen.classList.add('fade-in');
+                    const calculatingTexts = [
+                        content[currentLang].calculating_text, 
+                        (currentLang === 'en' ? "Checking for loose change..." : "खुले पैसे की जाँच हो रही है..."),
+                        (currentLang === 'en' ? "Auditing your soul..." : "आपकी आत्मा का ऑडिट हो रहा है...")
+                    ];
+                    document.getElementById('calculating-text').innerText = calculatingTexts[Math.floor(Math.random()*calculatingTexts.length)];
+                    setTimeout(showResults, 2500);
+                }, 500);
+            }
+            
+            const showResults = (isThemeOrLangUpdate = false) => {
+                if (!isThemeOrLangUpdate) {
+                     calculatingScreen.classList.add('fade-out');
+                     setTimeout(() => {
+                        calculatingScreen.classList.add('hidden');
+                        calculatingScreen.classList.remove('fade-out');
+                        resultsScreen.classList.remove('hidden');
+                        resultsScreen.classList.add('slide-up');
+                        calculateAndDisplayScores();
+                    }, 500);
+                } else {
+                    calculateAndDisplayScores();
+                }
+            };
+
+            const calculateAndDisplayScores = () => {
+                let totalScore = 0;
+                Object.values(userAnswers).forEach(score => {
+                    totalScore += score;
+                });
+
+                const minPossibleScore = QUESTIONS_PER_QUIZ * 1;
+                const maxPossibleScore = QUESTIONS_PER_QUIZ * 3;
+                const scoreRange = maxPossibleScore - minPossibleScore;
+                const userScoreOffset = totalScore - minPossibleScore;
+
+                let greedyPercentage = 0;
+                if (scoreRange > 0) {
+                    greedyPercentage = Math.round((userScoreOffset / scoreRange) * 100);
+                }
+                
+                finalScoreEl.classList.remove('score-reveal');
+                void finalScoreEl.offsetWidth; // Trigger reflow
+                finalScoreEl.classList.add('score-reveal');
+
+                let startValue = 0;
+                const duration = 1200;
+                const endValue = greedyPercentage;
+                const startTime = performance.now();
+
+                function animateCountUp(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    if (elapsedTime < duration) {
+                        const progress = elapsedTime / duration;
+                        const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+                        const currentValue = Math.round(startValue + (endValue - startValue) * easedProgress);
+                        finalScoreEl.textContent = `${currentValue}%`;
+                        requestAnimationFrame(animateCountUp);
+                    } else {
+                        finalScoreEl.textContent = `${endValue}%`;
+                    }
+                }
+                requestAnimationFrame(animateCountUp);
+
+                let resultKey;
+                if (greedyPercentage <= 25) resultKey = 'saint';
+                else if (greedyPercentage <= 50) resultKey = 'investor';
+                else if (greedyPercentage <= 75) resultKey = 'dragon';
+                else resultKey = 'blackhole';
+                
+                finalQuoteEl.dataset.resultKey = resultKey;
+                document.getElementById('account-name').textContent = userName;
+
+                const personalizedLabel = content[currentLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+
+                resultTitleEl.textContent = content[currentLang][`result_${resultKey}_title`];
+                resultDescriptionEl.innerHTML = content[currentLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                finalQuoteEl.textContent = content[currentLang][`final_quote_${resultKey}`];
+                
+                displayFunnyComments(resultKey);
+                updateShareLinks(greedyPercentage, content[currentLang][`result_${resultKey}_title`]);
+            };
+
+            const startBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                stopBackgroundAnimations();
+                
+                const emojis = ['🤑', '💰', '🪙', '💸', '💎', '👑', '😂'];
+                const numEmojis = 25;
+
+                for (let i = 0; i < numEmojis; i++) {
+                    const emoji = document.createElement('span');
+                    emoji.className = 'floating-emoji';
+                    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    emoji.style.left = `${Math.random() * 100}vw`;
+                    emoji.style.fontSize = `${1 + Math.random() * 2}rem`;
+                    const duration = 8 + Math.random() * 10;
+                    const delay = Math.random() * 7;
+                    const translateX = `${(Math.random() - 0.5) * 200}px`;
+                    const rotate = `${(Math.random() - 0.5) * 720}deg`;
+                    
+                    emoji.style.setProperty('--translateX', translateX);
+                    emoji.style.setProperty('--rotate', rotate);
+                    emoji.style.animation = `floatUp ${duration}s ease-in ${delay}s infinite`;
+                    
+                    container.appendChild(emoji);
+                }
+            };
+
+            const stopBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (container) {
+                    container.innerHTML = '';
+                }
+            };
+
+            const typewriter = (element, text, callback) => {
+                let i = 0;
+                const speed = 40; // milliseconds per character
+                const originalHTML = element.innerHTML;
+                element.innerHTML = originalHTML + '<span class="typing-text"></span><span class="typing-cursor border-l-2 border-amber-500 h-6 inline-block align-middle">&nbsp;</span>';
+                const textSpan = element.querySelector('.typing-text');
+                const cursorSpan = element.querySelector('.typing-cursor');
+                
+                function type() {
+                    if (i < text.length) {
+                        textSpan.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        if(cursorSpan) {
+                           cursorSpan.style.display = 'none';
+                        }
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+
+            const displayFunnyComments = (resultKey) => {
+                const commentsContainer = document.getElementById('funny-comments-container');
+                if (!commentsContainer) return;
+                commentsContainer.innerHTML = '';
+                const commentsPool = content[currentLang].funny_comments[resultKey] || [];
+                
+                const shuffledComments = [...commentsPool].sort(() => 0.5 - Math.random());
+                const selectedComments = shuffledComments.slice(0, 3);
+
+                let commentIndex = 0;
+
+                function typeNextComment() {
+                    if (commentIndex < selectedComments.length) {
+                        const commentText = selectedComments[commentIndex];
+                        
+                        const card = document.createElement('div');
+                        card.className = 'funny-comment-card bg-amber-100 dark:bg-gray-800 p-4 rounded-lg mb-4 text-gray-700 dark:text-amber-300 italic shadow-md';
+                        
+                        const p = document.createElement('p');
+                        p.innerHTML = `<i class="fa-solid fa-quote-left mr-2 text-amber-500"></i> `;
+                        card.appendChild(p);
+
+                        card.style.animationDelay = `0.2s`;
+                        
+                        commentsContainer.appendChild(card);
+                        
+                        setTimeout(() => {
+                            typewriter(p, commentText, () => {
+                                commentIndex++;
+                                setTimeout(typeNextComment, 800); 
+                            });
+                        }, 600);
+                    }
+                }
+                
+                startBackgroundAnimations();
+                typeNextComment();
+            };
+
+
+            const updateShareLinks = (percentage, title) => {
+                const text = encodeURIComponent(`My Greed Score is ${percentage}%! Turns out I'm a "${title}". Find out how greedy you are:`);
+                const url = encodeURIComponent(window.location.href);
+                
+                document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                document.getElementById('telegram-share').href = `https://t.me/share/url?url=${url}&text=${text}`;
+                document.getElementById('instagram-share').href = `https://www.instagram.com/`;
+            };
+            
+            const goHome = () => {
+                stopBackgroundAnimations();
+                [quizScreen, resultsScreen, journeyScreen, progressContainer, backToMainBtn, calculatingScreen].forEach(el => el.classList.add('hidden'));
+                startScreen.classList.remove('hidden', 'fade-out');
+                startScreen.classList.add('fade-in');
+                nameInput.value = '';
+                currentQuestionIndex = 0;
+                userAnswers = {};
+                quizQuestions = [];
+                progressBar.style.width = '0%';
+            };
+
+            const showJourneyScreen = (e) => {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                resultsScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    resultsScreen.classList.add('hidden');
+                    resultsScreen.classList.remove('fade-out');
+                    journeyScreen.classList.remove('hidden');
+                    journeyScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            const showResultsScreenFromJourney = () => {
+                journeyScreen.classList.add('fade-out');
+                 setTimeout(() => {
+                    journeyScreen.classList.add('hidden');
+                    journeyScreen.classList.remove('fade-out');
+                    resultsScreen.classList.remove('hidden');
+                    resultsScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            // --- EVENT LISTENERS ---
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', goHome);
+            backToMainBtn.addEventListener('click', goHome);
+            goBackBtn.addEventListener('click', showResultsScreenFromJourney);
+            quizScreen.addEventListener('click', handleAnswer);
+            shareButtonsContainer.addEventListener('click', (e) => {
+                const shareBtn = e.target.closest('a.share-btn');
+                if (shareBtn && shareBtn.href && shareBtn.href !== '#') {
+                    showJourneyScreen(e);
+                }
+            });
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+                if (!resultsScreen.classList.contains('hidden')) { showResults(true); }
+            });
+            languageToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'hi' : 'en';
+                updateLanguage(newLang);
+                if (!quizScreen.classList.contains('hidden') || !calculatingScreen.classList.contains('hidden')) { 
+                    goHome();
+                } else if (!resultsScreen.classList.contains('hidden')) {
+                    const resultKey = finalQuoteEl.dataset.resultKey;
+                    const personalizedLabel = content[newLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                    document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+                    resultTitleEl.textContent = content[newLang][`result_${resultKey}_title`];
+                    resultDescriptionEl.innerHTML = content[newLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                    finalQuoteEl.textContent = content[newLang][`final_quote_${resultKey}`];
+                    displayFunnyComments(resultKey);
+                }
+            });
+
+            // Initial Load
+            const savedLang = localStorage.getItem('language') || 'en';
+            updateLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>

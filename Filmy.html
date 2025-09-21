@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0DL8SC5JKB');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filmy-Meter - How Dramatic Are You?</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS for theme, animations, and additional styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Dark Mode --- */
+        .dark .dark-mode-bg { background-color: #111827; }
+        .dark .dark-mode-text { color: #f9fafb; }
+        .dark .dark-mode-surface { background-color: #1f2937; }
+        .dark .dark-mode-border { border-color: #374151; }
+        .dark .dark-mode-subtext { color: #9ca3af; }
+
+        /* --- Animations --- */
+        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .pulse { animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .9; transform: scale(1.02); }
+        }
+
+        /* --- Button Styles --- */
+        .choice-btn, .share-btn, .control-btn {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .choice-btn:hover, .share-btn:hover, .control-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Social Share Colors --- */
+        .whatsapp-btn { background-color: #25D366; }
+        .twitter-btn { background-color: #1DA1F2; }
+        .facebook-btn { background-color: #1877F2; }
+        .telegram-btn { background-color: #24A1DE; }
+        .instagram-btn {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        }
+
+        /* --- Score Animation --- */
+        .score-reveal {
+            animation: scoreReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 10px rgba(236, 72, 153, 0.5), 0 0 20px rgba(236, 72, 153, 0.3); /* Pink Shadow */
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* --- Funny Comments Styling --- */
+        .funny-comments-container {
+            perspective: 1000px;
+        }
+
+        .funny-comment-card {
+            opacity: 0;
+            transform: rotateX(-90deg) translateY(50px);
+            transform-origin: bottom center;
+            animation: revealComment 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .funny-comment-card p {
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1.75rem; /* leading-7 */
+        }
+
+        @media (min-width: 768px) {
+            .funny-comment-card p {
+                font-size: 1.5rem; /* md:text-2xl */
+                line-height: 2rem; /* md:leading-8 */
+            }
+        }
+
+
+        @keyframes revealComment {
+            from {
+                opacity: 0;
+                transform: rotateX(-90deg) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0deg) translateY(0);
+            }
+        }
+        
+        /* --- Typing Effect --- */
+        .typing-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #ec4899; } /* pink-500 */
+        }
+        
+        /* --- Background Animation --- */
+        #animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: -50px; /* Start from below the screen */
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--translateX)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode-bg text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+    <div id="animation-container"></div>
+    <!-- Header for Toggles -->
+    <header class="absolute top-4 w-full px-4 z-20 flex items-center justify-between">
+        <!-- Back to Main Page Button (Initially hidden) -->
+        <a id="back-to-main-btn" href="index.html" role="button" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </a>
+
+        <div class="flex items-center space-x-2 ml-auto">
+             <!-- Language Toggle -->
+            <button id="language-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 dark:focus:ring-offset-gray-900 w-28 h-10 flex items-center justify-center text-sm">
+                <!-- Text updated by JS -->
+            </button>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+                <svg id="theme-icon-dark" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg id="theme-icon-light" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-2 bg-gray-200 dark:bg-gray-700 z-10 hidden">
+        <div id="progress-bar" class="h-full bg-pink-500 progress-bar-fill" style="width: 0%;"></div>
+    </div>
+    
+    <main class="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-screen relative z-10">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center max-w-2xl fade-in">
+            <h1 class="text-4xl md:text-6xl font-extrabold dark-mode-text tracking-tight mb-4">The <span class="text-pink-500" data-lang-key="title">Filmy-Meter</span></h1>
+            <p class="text-lg md:text-xl dark-mode-subtext mb-8" data-lang-key="subtitle">
+                Is your life a realistic documentary or a Karan Johar blockbuster? Does every small problem need a background score? Let's find out!
+            </p>
+            <div class="mb-6 w-full max-w-sm mx-auto">
+                <input type="text" id="name-input" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-pink-500 text-gray-900 dark:text-white" data-lang-placeholder="name_placeholder">
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-8 italic" data-lang-key="privacy_disclaimer"></p>
+            <button id="start-btn" data-lang-key="start_button" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-pink-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300 pulse">
+                Action!
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden w-full max-w-3xl">
+            <div id="question-container" class="text-center pt-16">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <div id="feedback-container" class="mt-6 text-center text-md dark-mode-subtext min-h-[60px]">
+                <!-- Feedback will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Calculating Screen -->
+        <div id="calculating-screen" class="hidden text-center w-full max-w-2xl">
+            <svg class="animate-spin h-16 w-16 text-pink-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h2 id="calculating-text" class="text-2xl font-bold dark-mode-text" data-lang-key="calculating_text">Rolling the camera...</h2>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center w-full max-w-4xl pt-16">
+            <h2 class="text-2xl font-bold dark-mode-subtext mb-2" data-lang-key="result_level_label">Your Filmy Level</h2>
+            <div id="final-score" class="text-7xl md:text-8xl font-extrabold text-pink-500 mb-4">0%</div>
+            <h3 id="result-title" class="text-3xl md:text-4xl font-extrabold dark-mode-text mb-3"></h3>
+            <p id="result-description" class="text-lg md:text-xl dark-mode-subtext mb-8 max-w-2xl mx-auto"></p>
+            
+            <div id="funny-comments-container" class="funny-comments-container mt-8 mb-8 max-w-2xl mx-auto">
+                <!-- Comments will be injected here -->
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="mb-8">
+                <p class="font-bold dark-mode-text mb-3" data-lang-key="share_results_label">Share Your Filmy Report & Get Your Movie Poster!</p>
+                <div id="share-buttons" class="flex justify-center items-center flex-wrap gap-4">
+                    <a id="whatsapp-share" href="https://ppscore.co.in" target="_blank" class="share-btn whatsapp-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l.217.324-1.125 4.108 4.224-1.103.337.202z" /></svg>
+                    </a>
+                    <a id="twitter-share" href="https://ppscore.co.in" target="_blank" class="share-btn twitter-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.794 4.649-.69.188-1.433.23-2.184.085.617 1.914 2.408 3.258 4.53 3.301-1.724 1.352-3.883 2.093-6.138 1.795 1.815 1.163 3.973 1.84 6.262 1.84 7.218 0 11.168-5.986 11.168-11.168 0-.17-.003-.34-.01-.508.77-.556 1.438-1.248 1.968-2.04z"/></svg>
+                    </a>
+                    <a id="facebook-share" href="https://ppscore.co.in" target="_blank" class="share-btn facebook-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                    </a>                      
+                    <a id="telegram-share" href="https://ppscore.co.in" target="_blank" class="share-btn telegram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-1.39.2-1.62l15.97-5.85c.73-.27 1.36.17 1.15.99L16.4 18.28c-.21.83-1.2.5-1.54-.26L9.78 18.65z"/></svg>
+                    </a>
+                    <a id="instagram-share" href="https://ppscore.co.in" target="_blank" class="share-btn instagram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <p id="final-quote" class="text-lg dark-mode-text max-w-3xl mx-auto mb-8 italic">
+                <!-- Quote inserted by JS -->
+            </p>
+
+            <button id="restart-btn" data-lang-key="restart_button" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-pink-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300">
+                Pack Up!
+            </button>
+
+            <!-- Explore More Section -->
+            <div class="mt-16 py-8 border-t-2 border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
+                 <h3 class="text-2xl md:text-3xl font-extrabold dark-mode-text mb-4" data-lang-key="explore_title">Your Analysis Isn't Over Yet!</h3>
+                 <p class="text-lg dark-mode-subtext mb-8" data-lang-key="explore_desc">
+                   You've audited your filmy side, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.
+                 </p>
+                 <a id="explore-btn" href="index.html" class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 inline-block" data-lang-key="explore_button">
+                   Visit PersonalityPaathshala
+                 </a>
+                 <div class="mt-8 mb-6">
+                    <p class="font-semibold mb-2 text-pink-400 dark:text-pink-300" data-lang-key="support_title">Loved this quiz? Help us create more!</p>
+                    <p class="text-base text-gray-700 dark:text-white mb-3" data-lang-key="support_desc">Your small contribution keeps our creative engine running and helps us serve more fun.</p>
+                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QvFHmdPg3T4Pqh" async> </script> </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Screen -->
+        <div id="journey-screen" class="hidden text-center w-full max-w-2xl pt-16">
+            <h2 class="text-4xl font-extrabold text-pink-500 mb-4" data-lang-key="journey_title">Your Official Movie Poster!</h2>
+            <p class="text-lg dark-mode-subtext mb-8" data-lang-key="journey_subtitle">You shared your score, superstar! As promised, here is the poster for your life's blockbuster movie. Coming soon to a theatre near you!</p>
+            <div class="bg-gray-900 p-4 rounded-lg shadow-xl border-4 border-yellow-400 text-white">
+                <div class="text-center p-4 border-2 border-dashed border-gray-500">
+                    <p class="text-sm font-bold tracking-widest">DHARMA PRODUCTIONS PRESENTS</p>
+                    <h3 id="movie-title" class="text-4xl md:text-5xl font-extrabold my-4 text-pink-400" style="font-family: 'serif';">[Movie Title]</h3>
+                    <p class="text-lg">A film by KARAN JOHAR</p>
+                    <p class="text-2xl font-bold my-4">STARRING</p>
+                    <p id="poster-name" class="text-4xl font-bold text-yellow-300">[Your Name]</p>
+                    <p class="text-sm mt-4 tracking-widest">IN CINEMAS THIS DIWALI</p>
+                </div>
+            </div>
+             <button id="go-back-btn" data-lang-key="go_back_button" class="mt-8 bg-gray-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Back to My Score
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-xs text-gray-400 dark:text-gray-500">
+        <p data-lang-key="disclaimer">Disclaimer: This quiz is for fun. Please don't start running in slow motion at the airport after this.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- LANGUAGE CONTENT STORE ---
+            const content = {
+                en: {
+                    title: "Filmy-Meter",
+                    subtitle: "Is your life a realistic documentary or a Karan Johar blockbuster? Does every small problem need a background score? Let's find out!",
+                    name_placeholder: "Enter your dramatic name...",
+                    privacy_disclaimer: "Your dramatic moments are safe with us. We won't tell anyone you practiced crying in the mirror.",
+                    start_button: "Action!",
+                    calculating_text: "Rolling the camera...",
+                    result_level_label: "Your Filmy Level",
+                    result_level_label_personalized: "{name}'s Filmy Level",
+                    share_results_label: "Share Your Filmy Report & Get Your Movie Poster!",
+                    restart_button: "Pack Up!",
+                    disclaimer: "Disclaimer: This quiz is for fun. Please don't start running in slow motion at the airport after this.",
+                    question_counter: "Question {current} of {total}",
+                    
+                    result_docu_title: "The Documentary Subject",
+                    result_docu_desc: "{name}, your life is so real, it could be on the Discovery Channel. Drama is something that happens to other people, on TV. You're the sensible one.",
+                    result_sidekick_title: "The Side Character",
+                    result_sidekick_desc: "{name}, you're not the main source of drama, but you're always there with the popcorn when it happens. You have your moments of 'oh no!' and 'haww!'",
+                    result_hero_title: "The Main Character",
+                    result_hero_desc: "{name}, your life has a background score. Small inconveniences are plot twists and a good day is a blockbuster hit. The spotlight loves you.",
+                    result_kjo_title: "A Karan Johar Movie",
+                    result_kjo_desc: "{name}, welcome to the Dharma Productions set that is your life. Every entry is in slow-motion, every tear is a glycerine-fueled masterpiece. Where is your Poo?",
+                    
+                    final_quote_docu: "\"My life is simple. I wake up, I work, I sleep. Where's the drama in that?\"",
+                    final_quote_sidekick: "\"I'm just here for the story.\"",
+                    final_quote_hero: "\"It's not my fault I'm so popular!\"",
+                    final_quote_kjo: "\"Keh diya na... bas keh diya!\"",
+                    
+                    funny_comments: {
+                        docu: [
+                            "You probably think 'K3G' is a new 5G network.",
+                            "Your most dramatic moment was when you got the wrong pizza topping.",
+                            "You've never had an imaginary argument in the shower.",
+                            "If your life was a movie, it would be a 2-hour documentary on paint drying."
+                        ],
+                        sidekick: [
+                            "You're the friend who says 'Don't create a scene' while handing them the mic.",
+                            "Your life has drama, but it's on a low budget.",
+                            "You are the 'Rahul, anjaali...' in someone else's love story.",
+                            "You provide the comic relief in your friend group."
+                        ],
+                        hero: [
+                            "You've practiced your crying face in the mirror. For... acting.",
+                            "You narrate your own life in your head.",
+                            "You expect a sad song to play every time it rains.",
+                            "Your entry into a room is never quiet."
+                        ],
+                        kjo: [
+                            "Your tears have their own entry music.",
+                            "You probably say goodbye to your family at the airport like you're going off to war.",
+                            "You expect your true love to just show up at the train station.",
+                            "You have a different outfit for every emotion."
+                        ]
+                    },
+
+                    journey_title: "Your Official Movie Poster!",
+                    journey_subtitle: "You shared your score, superstar! As promised, here is the poster for your life's blockbuster movie. Coming soon to a theatre near you!",
+                    go_back_button: "Back to My Score",
+
+                    explore_title: "Your Analysis Isn't Over Yet!",
+                    explore_desc: "You've audited your filmy side, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.",
+                    explore_button: "Visit PersonalityPaathshala",
+                    support_title: "Loved this quiz? Help us create more!",
+                    support_desc: "Your small contribution keeps our creative engine running and helps us serve more fun.",
+
+                    questions: [
+                        { id: 1, question: "A friend cancels plans at the last minute. You:", answers: [ { text: "Say 'No problem, let's reschedule!'", score: 1, feedback: "So reasonable. Are you sure you're not a robot?" }, { text: "Send a single, sad emoji to express your disappointment.", score: 2, feedback: "A picture is worth a thousand words." }, { text: "Declare 'This friendship is over!' and then call them an hour later.", score: 3, feedback: "The plot twist nobody saw coming." } ] },
+                        { id: 2, question: "It starts raining. Your first instinct is to:", answers: [ { text: "Open an umbrella.", score: 1, feedback: "Practical and boring." }, { text: "Look up at the sky sadly, letting the rain wash away your 'pain'.", score: 2, feedback: "A classic music video move." }, { text: "Run into the middle of the street, arms wide open, and lip-sync a sad song.", score: 3, feedback: "Somebody get this person a director!" } ] },
+                        { id: 3, question: "You get a small paper cut. You:", answers: [ { text: "Put on a band-aid and forget about it.", score: 1, feedback: "Wait, that's it?" }, { text: "Announce to the room, 'I am wounded!'", score: 2, feedback: "A minor inconvenience, a major announcement." }, { text: "Update your status: 'In the hospital. Don't know if I'll make it.'", score: 3, feedback: "The Academy Award for drama goes to you." } ] },
+                        { id: 4, question: "Your favorite song comes on at a party. You:", answers: [ { text: "Tap your foot and nod your head.", score: 1, feedback: "Subtle. Too subtle." }, { text: "Imagine you're the star of a music video, complete with wind in your hair.", score: 3, feedback: "The camera loves you, baby!" }, { text: "Grab your friends and create a synchronized dance routine on the spot.", score: 2, feedback: "Flash mob ready!" } ] },
+                        { id: 5, question: "Someone disagrees with your movie opinion. You:", answers: [ { text: "Say 'Okay, we have different tastes.'", score: 1, feedback: "A peaceful resolution? How dull." }, { text: "Debate with them for an hour, complete with quotes and IMDb ratings.", score: 2, feedback: "The film critic." }, { text: "Gasp dramatically and say, 'You just don't understand CINEMA!'", score: 3, feedback: "The artist has spoken." } ] },
+                        { id: 6, question: "When you tell a story, it usually involves:", answers: [ { text: "Just the facts.", score: 1, feedback: "A human encyclopedia." }, { text: "A little exaggeration for effect.", score: 2, feedback: "The storyteller." }, { text: "Sound effects, multiple character voices, and a re-enactment.", score: 3, feedback: "A one-person show." } ] },
+                        { id: 7, question: "Your entry into a room is best described as:", answers: [ { text: "Quiet and unnoticed.", score: 1, feedback: "The ninja." }, { text: "A normal 'hello'.", score: 2, feedback: "The friendly neighbor." }, { text: "The doors burst open and a theme song starts playing.", score: 3, feedback: "The superstar has arrived." } ] },
+                        { id: 8, question: "What is your relationship with background music?", answers: [ { text: "I don't really notice it.", score: 1, feedback: "Life on mute." }, { text: "I have a playlist for every mood: happy, sad, angry, studying...", score: 2, feedback: "The DJ of your own life." }, { text: "I hear it in my head. There's a constant soundtrack playing.", score: 3, feedback: "Your life is a musical." } ] },
+                        { id: 9, question: "A minor inconvenience happens (e.g., spilling coffee). You:", answers: [ { text: "Clean it up and move on.", score: 1, feedback: "Efficient, but where's the spice?" }, { text: "Sigh loudly and say, 'Why does this always happen to me?'", score: 2, feedback: "The victim of minor tragedies." }, { text: "Fall to your knees and scream 'NAHIIII!' at the ceiling.", score: 3, feedback: "The soap opera star." } ] },
+                        { id: 10, question: "Your life's motto is:", answers: [ { text: "'Keep calm and carry on.'", score: 1, feedback: "The stoic philosopher." }, { text: "'All the world's a stage.'", score: 2, feedback: "And you're the lead actor." }, { text: "'It's all about loving your family.'", score: 3, feedback: "We see you, K-Jo." } ] },
+                        { id: 11, question: "When you cry, it's usually:", answers: [ { text: "Quietly, in private.", score: 1, feedback: "The silent sufferer." }, { text: "With a few dramatic tears, ensuring someone sees.", score: 2, feedback: "The performer." }, { text: "A full-blown, ugly-crying scene that could win an award.", score: 3, feedback: "And... scene!" } ] },
+                        { id: 12, question: "Your go-to outfit for a big event is:", answers: [ { text: "Something comfortable and simple.", score: 1, feedback: "Practical and sensible." }, { text: "Something stylish and trendy.", score: 2, feedback: "The fashionista." }, { text: "Something that makes a statement and ensures all eyes are on you.", score: 3, feedback: "The showstopper." } ] },
+                        { id: 13, question: "How do you say goodbye?", answers: [ { text: "A simple 'bye'.", score: 1, feedback: "Short and sweet." }, { text: "A long, heartfelt hug.", score: 2, feedback: "The emotional one." }, { text: "Like you're leaving for a 10-year journey, even if you'll see them tomorrow.", score: 3, feedback: "The airport scene expert." } ] },
+                        { id: 14, question: "When someone shares a secret, you:", answers: [ { text: "Listen and keep it to yourself.", score: 1, feedback: "The vault." }, { text: "Get very invested and ask for all the details.", score: 2, feedback: "The investigator." }, { text: "React with a series of dramatic gasps and 'OMG's.", score: 3, feedback: "The audience." } ] },
+                        { id: 15, question: "Your laugh can be described as:", answers: [ { text: "A quiet chuckle.", score: 1, feedback: "The gentle soul." }, { text: "A loud, happy laugh.", score: 2, feedback: "The joyous one." }, { text: "A villainous, dramatic laugh that echoes through the halls.", score: 3, feedback: "The main antagonist." } ] },
+                        { id: 16, question: "You see a cute dog on the street. You:", answers: [ { text: "Smile and walk on.", score: 1, feedback: "A quiet admirer." }, { text: "Go 'Awww' and ask the owner if you can pet it.", score: 2, feedback: "The dog lover." }, { text: "Run to it in slow motion with a background song playing in your head.", score: 3, feedback: "A cinematic masterpiece." } ] },
+                        { id: 17, question: "When you're angry, you:", answers: [ { text: "Take a few deep breaths and calm down.", score: 1, feedback: "The zen master." }, { text: "Slam a door and listen to angry music.", score: 2, feedback: "The moody teenager." }, { text: "Deliver a 10-minute monologue about your feelings.", score: 3, feedback: "The public speaker." } ] },
+                        { id: 18, question: "Your reaction to a plot twist in a movie is:", answers: [ { text: "A quiet 'I knew it'.", score: 2, feedback: "The detective." }, { text: "A loud gasp that makes everyone else in the theater jump.", score: 3, feedback: "The immersive viewer." }, { text: "A silent nod of appreciation for the good writing.", score: 1, feedback: "The critic." } ] },
+                        { id: 19, question: "How do you make a major life decision?", answers: [ { text: "With a pros and cons list.", score: 1, feedback: "The analyst." }, { text: "By asking all your friends for their opinions.", score: 2, feedback: "The committee." }, { text: "By staring into the distance and waiting for a sign from the universe.", score: 3, feedback: "The mystic." } ] },
+                        { id: 20, question: "The phrase 'pyaar dosti hai' (love is friendship) is:", answers: [ { text: "A movie dialogue.", score: 2, feedback: "Correct." }, { text: "The ultimate truth of life.", score: 3, feedback: "Rahul is that you?" }, { text: "A bit cheesy, to be honest.", score: 1, feedback: "The realist." } ] },
+                        { id: 21, question: "Your WhatsApp status is usually:", answers: [ { text: "Empty or just 'Available'.", score: 1, feedback: "The minimalist." }, { text: "A photo of your latest adventure.", score: 2, feedback: "The memory keeper." }, { text: "A cryptic song lyric that reflects your current mood.", score: 3, feedback: "The poet." } ] },
+                        { id: 22, question: "When you receive a gift, you:", answers: [ { text: "Say 'Thank you' and open it later.", score: 1, feedback: "The patient one." }, { text: "Open it immediately with excitement.", score: 2, feedback: "The enthusiast." }, { text: "Give a tearful speech about how much it means to you.", score: 3, feedback: "The award winner." } ] },
+                        { id: 23, question: "You're telling a joke and nobody laughs. You:", answers: [ { text: "Move on awkwardly.", score: 1, feedback: "The survivor." }, { text: "Explain the joke in detail until they're forced to laugh.", score: 3, feedback: "The comedy teacher." }, { text: "Say 'Tough crowd' and laugh at your own joke.", score: 2, feedback: "The solo performer." } ] },
+                        { id: 24, question: "Your ideal wedding would be:", answers: [ { text: "A simple, quiet ceremony with close family.", score: 1, feedback: "The intimate affair." }, { text: "A big, fun party with lots of dancing.", score: 2, feedback: "The celebration." }, { text: "A seven-day extravaganza with a choreographed dance number.", score: 3, feedback: "The blockbuster." } ] },
+                        { id: 25, question: "How do you feel about this quiz?", answers: [ { text: "It's a fun way to pass the time.", score: 1, feedback: "We'll take it." }, { text: "This is the most important self-discovery tool of my life.", score: 3, feedback: "We're honored." }, { text: "I'm already thinking about my dramatic entrance at the results screen.", score: 2, feedback: "We're ready for you." } ] }
+                    ]
+                },
+                hi: {
+                    title: "फिल्मी मीटर",
+                    subtitle: "क्या आपका जीवन एक यथार्थवादी वृत्तचित्र है या एक करण जौहर की ब्लॉकबस्टर? क्या हर छोटी समस्या को एक पृष्ठभूमि स्कोर की आवश्यकता है? आइए जानें!",
+                    name_placeholder: "अपना नाटकीय नाम दर्ज करें...",
+                    privacy_disclaimer: "आपके नाटकीय क्षण हमारे पास सुरक्षित हैं। हम किसी को नहीं बताएंगे कि आपने आईने में रोने का अभ्यास किया।",
+                    start_button: "एक्शन!",
+                    calculating_text: "कैमरा रोलिंग...",
+                    result_level_label: "आपका फिल्मी स्तर",
+                    result_level_label_personalized: "{name} का फिल्मी स्तर",
+                    share_results_label: "अपनी फिल्मी रिपोर्ट साझा करें और अपना मूवी पोस्टर प्राप्त करें!",
+                    restart_button: "पैक अप!",
+                    disclaimer: "अस्वीकरण: यह क्विज़ मनोरंजन के लिए है। कृपया इसके बाद हवाई अड्डे पर धीमी गति में दौड़ना शुरू न करें।",
+                    question_counter: "प्रश्न {current} / {total}",
+
+                    result_docu_title: "वृत्तचित्र का विषय",
+                    result_docu_desc: "{name}, आपका जीवन इतना वास्तविक है, यह डिस्कवरी चैनल पर हो सकता है। नाटक कुछ ऐसा है जो दूसरे लोगों के साथ होता है, टीवी पर। आप समझदार हैं।",
+                    result_sidekick_title: "साइड कैरेक्टर",
+                    result_sidekick_desc: "{name}, आप नाटक का मुख्य स्रोत नहीं हैं, लेकिन जब यह होता है तो आप हमेशा पॉपकॉर्न के साथ होते हैं। आपके पास 'ओह नो!' और 'हाव!' के क्षण हैं।",
+                    result_hero_title: "मुख्य पात्र",
+                    result_hero_desc: "{name}, आपके जीवन में एक पृष्ठभूमि स्कोर है। छोटी-मोटी असुविधाएँ कथानक के मोड़ हैं और एक अच्छा दिन एक ब्लॉकबस्टर हिट है। स्पॉटलाइट आपको प्यार करती है।",
+                    result_kjo_title: "एक करण जौहर की फिल्म",
+                    result_kjo_desc: "{name}, आपके जीवन के धर्मा प्रोडक्शंस सेट में आपका स्वागत है। हर प्रविष्टि धीमी गति में है, हर आंसू ग्लिसरीन से भरा एक उत्कृष्ट कृति है। आपकी पू कहाँ है?",
+
+                    final_quote_docu: "\"मेरा जीवन सरल है। मैं उठता हूँ, मैं काम करता हूँ, मैं सोता हूँ। इसमें नाटक कहाँ है?\"",
+                    final_quote_sidekick: "\"मैं सिर्फ कहानी के लिए यहाँ हूँ।\"",
+                    final_quote_hero: "\"यह मेरी गलती नहीं है कि मैं इतना लोकप्रिय हूँ!\"",
+                    final_quote_kjo: "\"कह दिया ना... बस कह दिया!\"",
+                    
+                    funny_comments: {
+                        docu: [
+                            "आप शायद सोचते हैं कि 'K3G' एक नया 5G नेटवर्क है।",
+                            "आपका सबसे नाटकीय क्षण तब था जब आपको गलत पिज्जा टॉपिंग मिली।",
+                            "आपने कभी भी शॉवर में एक काल्पनिक तर्क नहीं किया है।",
+                            "अगर आपका जीवन एक फिल्म होती, तो यह पेंट सूखने पर 2 घंटे का वृत्तचित्र होता।"
+                        ],
+                        sidekick: [
+                            "आप वह दोस्त हैं जो 'एक दृश्य मत बनाओ' कहते हुए उन्हें माइक सौंपते हैं।",
+                            "आपके जीवन में नाटक है, लेकिन यह कम बजट पर है।",
+                            "आप किसी और की प्रेम कहानी में 'राहुल, अंजली...' हैं।",
+                            "आप अपने मित्र समूह में कॉमिक राहत प्रदान करते हैं।"
+                        ],
+                        hero: [
+                            "आपने आईने में अपने रोने वाले चेहरे का अभ्यास किया है। के लिए... अभिनय।",
+                            "आप अपने ही जीवन को अपने दिमाग में सुनाते हैं।",
+                            "आप हर बार बारिश होने पर एक दुखद गीत बजने की उम्मीद करते हैं।",
+                            "एक कमरे में आपकी प्रविष्टि कभी भी शांत नहीं होती है।"
+                        ],
+                        kjo: [
+                            "आपके आँसुओं का अपना प्रवेश संगीत है।",
+                            "आप शायद हवाई अड्डे पर अपने परिवार को इस तरह अलविदा कहते हैं जैसे आप युद्ध में जा रहे हों।",
+                            "आप उम्मीद करते हैं कि आपका सच्चा प्यार बस ट्रेन स्टेशन पर दिखाई देगा।",
+                            "आपके पास हर भावना के लिए एक अलग पोशाक है।"
+                        ]
+                    },
+
+                    journey_title: "आपका आधिकारिक मूवी पोस्टर!",
+                    journey_subtitle: "आपने अपना स्कोर साझा किया, सुपरस्टार! वादे के अनुसार, यहाँ आपके जीवन की ब्लॉकबस्टर फिल्म का पोस्टर है। जल्द ही आपके नजदीकी थिएटर में आ रहा है!",
+                    go_back_button: "मेरे स्कोर पर वापस जाएं",
+
+                    explore_title: "आपका विश्लेषण अभी खत्म नहीं हुआ है!",
+                    explore_desc: "आपने अपने फिल्मी पक्ष का ऑडिट किया है, लेकिन आपके बाकी प्रफुल्लित करने वाले व्यक्तित्व के बारे में क्या? आपका प्रेम जीवन, आपके गुस्से के मुद्दे... पर्सनैलिटी पाठशाला में आपके लिए मज़ेदार कैलकुलेटर की एक पूरी कक्षा है।",
+                    explore_button: "पर्सनैलिटी पाठशाला पर जाएँ",
+                    support_title: "यह क्विज़ पसंद आया? और बनाने में हमारी मदद करें!",
+                    support_desc: "आपका छोटा सा योगदान हमारी रचनात्मकता को चालू रखता है और हमें और मज़ा परोसने में मदद करता है।",
+                    
+                    questions: [
+                        { id: 1, question: "एक दोस्त आखिरी मिनट में योजना रद्द कर देता है। आप:", answers: [ { text: "'कोई बात नहीं, फिर से योजना बनाते हैं!' कहें", score: 1, feedback: "इतना उचित। क्या आप निश्चित हैं कि आप एक रोबोट नहीं हैं?" }, { text: "अपनी निराशा व्यक्त करने के लिए एक अकेला, दुखद इमोजी भेजें।", score: 2, feedback: "एक तस्वीर हजार शब्दों के बराबर होती है।" }, { text: "घोषणा करें 'यह दोस्ती खत्म हो गई!' और फिर एक घंटे बाद उन्हें फोन करें।", score: 3, feedback: "कहानी में वह मोड़ जिसकी किसी ने उम्मीद नहीं की थी।" } ] },
+                        { id: 2, question: "बारिश होने लगती है। आपकी पहली वृत्ति है:", answers: [ { text: "एक छाता खोलो।", score: 1, feedback: "व्यावहारिक और उबाऊ।" }, { text: "दुख से आकाश की ओर देखो, बारिश को अपने 'दर्द' को धोने दो।", score: 2, feedback: "एक क्लासिक संगीत वीडियो चाल।" }, { text: "खुले हाथों से सड़क के बीच में दौड़ो, और एक दुखद गीत को लिप-सिंक करो।", score: 3, feedback: "कोई इस व्यक्ति को एक निर्देशक दिलाओ!" } ] },
+                        { id: 3, question: "आपको एक छोटा पेपर कट मिलता है। आप:", answers: [ { text: "एक बैंड-एड लगाओ और इसके बारे में भूल जाओ।", score: 1, feedback: "रुको, बस इतना ही?" }, { text: "कमरे में घोषणा करो, 'मैं घायल हूँ!'", score: 2, feedback: "एक छोटी सी असुविधा, एक बड़ी घोषणा।" }, { text: "अपनी स्थिति अपडेट करें: 'अस्पताल में। पता नहीं मैं बचूँगा या नहीं।'", score: 3, feedback: "नाटक के लिए अकादमी पुरस्कार आपको जाता है।" } ] },
+                        { id: 4, question: "एक पार्टी में आपका पसंदीदा गाना बजता है। आप:", answers: [ { text: "अपना पैर थपथपाओ और अपना सिर हिलाओ।", score: 1, feedback: "सूक्ष्म। बहुत सूक्ष्म।" }, { text: "कल्पना कीजिए कि आप एक संगीत वीडियो के स्टार हैं, जिसमें आपके बालों में हवा है।", score: 3, feedback: "कैमरा आपको प्यार करता है, बेबी!" }, { text: "अपने दोस्तों को पकड़ो और मौके पर एक सिंक्रनाइज़ डांस रूटीन बनाएं।", score: 2, feedback: "फ्लैश मॉब तैयार!" } ] },
+                        { id: 5, question: "कोई आपकी फिल्म की राय से असहमत है। आप:", answers: [ { text: "'ठीक है, हमारी अलग-अलग पसंद हैं।' कहो", score: 1, feedback: "एक शांतिपूर्ण समाधान? कितना नीरस।" }, { text: "उनके साथ एक घंटे तक बहस करें, उद्धरणों और IMDb रेटिंग के साथ।", score: 2, feedback: "फिल्म समीक्षक।" }, { text: "नाटकीय रूप से हांफें और कहें, 'तुम बस सिनेमा नहीं समझते!'", score: 3, feedback: "कलाकार ने बात की है।" } ] },
+                        { id: 6, question: "जब आप एक कहानी सुनाते हैं, तो इसमें आमतौर पर शामिल होता है:", answers: [ { text: "सिर्फ तथ्य।", score: 1, feedback: "एक मानव विश्वकोश।" }, { text: "प्रभाव के लिए थोड़ा अतिशयोक्ति।", score: 2, feedback: "कहानीकार।" }, { text: "ध्वनि प्रभाव, कई चरित्र आवाजें, और एक पुन: अधिनियमन।", score: 3, feedback: "एक-व्यक्ति शो।" } ] },
+                        { id: 7, question: "एक कमरे में आपकी प्रविष्टि का सबसे अच्छा वर्णन है:", answers: [ { text: "शांत और किसी का ध्यान नहीं गया।", score: 1, feedback: "निंजा।" }, { text: "एक सामान्य 'नमस्ते'।", score: 2, feedback: "दोस्ताना पड़ोसी।" }, { text: "दरवाजे फट जाते हैं और एक थीम सॉन्ग बजने लगता है।", score: 3, feedback: "सुपरस्टार आ गया है।" } ] },
+                        { id: 8, question: "पृष्ठभूमि संगीत के साथ आपका क्या संबंध है?", answers: [ { text: "मैं वास्तव में इस पर ध्यान नहीं देता।", score: 1, feedback: "म्यूट पर जीवन।" }, { text: "मेरे पास हर मूड के लिए एक प्लेलिस्ट है: खुश, दुखी, गुस्सा, पढ़ाई...", score: 2, feedback: "अपने जीवन का डीजे।" }, { text: "मैं इसे अपने दिमाग में सुनता हूँ। एक निरंतर साउंडट्रैक बज रहा है।", score: 3, feedback: "आपका जीवन एक संगीत है।" } ] },
+                        { id: 9, question: "एक छोटी सी असुविधा होती है (जैसे, कॉफी गिराना)। आप:", answers: [ { text: "इसे साफ करें और आगे बढ़ें।", score: 1, feedback: "कुशल, लेकिन मसाला कहाँ है?" }, { text: "जोर से आह भरें और कहें, 'यह हमेशा मेरे साथ ही क्यों होता है?'", score: 2, feedback: "छोटी त्रासदियों का शिकार।" }, { text: "अपने घुटनों पर गिरें और छत पर 'नहीं!' चिल्लाएं।", score: 3, feedback: "सोप ओपेरा स्टार।" } ] },
+                        { id: 10, question: "आपके जीवन का आदर्श वाक्य है:", answers: [ { text: "'शांत रहें और आगे बढ़ें।'", score: 1, feedback: "तपस्वी दार्शनिक।" }, { text: "'सारी दुनिया एक मंच है।'", score: 2, feedback: "और आप मुख्य अभिनेता हैं।" }, { text: "'यह सब अपने परिवार से प्यार करने के बारे में है।'", score: 3, feedback: "हम आपको देखते हैं, के-जो।" } ] },
+                        { id: 11, question: "जब आप रोते हैं, तो यह आमतौर पर होता है:", answers: [ { text: "चुपचाप, निजी तौर पर।", score: 1, feedback: "चुप पीड़ित।" }, { text: "कुछ नाटकीय आँसुओं के साथ, यह सुनिश्चित करते हुए कि कोई देखता है।", score: 2, feedback: "कलाकार।" }, { text: "एक पूर्ण विकसित, बदसूरत-रोने वाला दृश्य जो एक पुरस्कार जीत सकता है।", score: 3, feedback: "और... दृश्य!" } ] },
+                        { id: 12, question: "एक बड़े कार्यक्रम के लिए आपका पसंदीदा पहनावा है:", answers: [ { text: "कुछ आरामदायक और सरल।", score: 1, feedback: "व्यावहारिक और समझदार।" }, { text: "कुछ स्टाइलिश और फैशनेबल।", score: 2, feedback: "फैशनिस्टा।" }, { text: "कुछ ऐसा जो एक बयान देता है और यह सुनिश्चित करता है कि सभी की निगाहें आप पर हों।", score: 3, feedback: "शोस्टॉपर।" } ] },
+                        { id: 13, question: "आप अलविदा कैसे कहते हैं?", answers: [ { text: "एक साधारण 'अलविदा'।", score: 1, feedback: "संक्षिप्त और मधुर।" }, { text: "एक लंबा, हार्दिक आलिंगन।", score: 2, feedback: "भावुक।" }, { text: "जैसे कि आप 10 साल की यात्रा के लिए जा रहे हों, भले ही आप उन्हें कल देखेंगे।", score: 3, feedback: "हवाई अड्डे के दृश्य विशेषज्ञ।" } ] },
+                        { id: 14, question: "जब कोई एक रहस्य साझा करता है, तो आप:", answers: [ { text: "सुनें और इसे अपने तक ही रखें।", score: 1, feedback: "तिजोरी।" }, { text: "बहुत निवेशित हो जाएं और सभी विवरण मांगें।", score: 2, feedback: "अन्वेषक।" }, { text: "नाटकीय हांफने और 'ओएमजी' की एक श्रृंखला के साथ प्रतिक्रिया करें।", score: 3, feedback: "दर्शक।" } ] },
+                        { id: 15, question: "आपकी हंसी का वर्णन इस प्रकार किया जा सकता है:", answers: [ { text: "एक शांत हंसी।", score: 1, feedback: "कोमल आत्मा।" }, { text: "एक ज़ोरदार, खुशहाल हंसी।", score: 2, feedback: "हर्षित।" }, { text: "एक खलनायक, नाटकीय हंसी जो हॉल में गूंजती है।", score: 3, feedback: "मुख्य प्रतिपक्षी।" } ] },
+                        { id: 16, question: "आप सड़क पर एक प्यारा कुत्ता देखते हैं। आप:", answers: [ { text: "मुस्कुराएं और आगे बढ़ें।", score: 1, feedback: "एक शांत प्रशंसक।" }, { text: "'Awww' जाओ और मालिक से पूछो कि क्या तुम उसे पालतू बना सकते हो।", score: 2, feedback: "कुत्ता प्रेमी।" }, { text: "अपने दिमाग में एक पृष्ठभूमि गीत बजने के साथ धीमी गति में उसकी ओर दौड़ें।", score: 3, feedback: "एक सिनेमाई उत्कृष्ट कृति।" } ] },
+                        { id: 17, question: "जब आप गुस्से में होते हैं, तो आप:", answers: [ { text: "कुछ गहरी साँसें लें और शांत हो जाएँ।", score: 1, feedback: "ज़ेन मास्टर।" }, { text: "एक दरवाजा पटकें और गुस्से वाला संगीत सुनें।", score: 2, feedback: "मूडी किशोर।" }, { text: "अपनी भावनाओं के बारे में 10 मिनट का एकालाप दें।", score: 3, feedback: "सार्वजनिक वक्ता।" } ] },
+                        { id: 18, question: "एक फिल्म में एक कथानक मोड़ पर आपकी प्रतिक्रिया है:", answers: [ { text: "एक शांत 'मुझे पता था'।" , score: 2, feedback: "जासूस।" }, { text: "एक ज़ोरदार हांफ जो थिएटर में बाकी सभी को कूदने पर मजबूर कर देती है।", score: 3, feedback: "इमर्सिव दर्शक।" }, { text: "अच्छी लेखन के लिए प्रशंसा का एक चुप सिर हिलाना।", score: 1, feedback: "आलोचक।" } ] },
+                        { id: 19, question: "आप एक बड़ा जीवन निर्णय कैसे लेते हैं?", answers: [ { text: "एक पेशेवरों और विपक्षों की सूची के साथ।", score: 1, feedback: "विश्लेषक।" }, { text: "अपने सभी दोस्तों से उनकी राय पूछकर।", score: 2, feedback: "समिति।" }, { text: "दूरी में घूरकर और ब्रह्मांड से एक संकेत की प्रतीक्षा करके।", score: 3, feedback: "रहस्यवादी।" } ] },
+                        { id: 20, question: "वाक्यांश 'प्यार दोस्ती है' है:", answers: [ { text: "एक फिल्म संवाद।", score: 2, feedback: "सही।" }, { text: "जीवन का परम सत्य।", score: 3, feedback: "राहुल क्या तुम हो?" }, { text: "ईमानदारी से कहूं तो थोड़ा घटिया।", score: 1, feedback: "यथार्थवादी।" } ] },
+                        { id: 21, question: "आपकी व्हाट्सएप स्थिति आमतौर पर होती है:", answers: [ { text: "खाली या बस 'उपलब्ध'।", score: 1, feedback: "न्यूनतमवादी।" }, { text: "आपके नवीनतम साहसिक कार्य की एक तस्वीर।", score: 2, feedback: "स्मृति रक्षक।" }, { text: "एक गुप्त गीत गीत जो आपके वर्तमान मूड को दर्शाता है।", score: 3, feedback: "कवि।" } ] },
+                        { id: 22, question: "जब आपको कोई उपहार मिलता है, तो आप:", answers: [ { text: "'धन्यवाद' कहें और इसे बाद में खोलें।", score: 1, feedback: "धैर्यवान।" }, { text: "इसे उत्साह के साथ तुरंत खोलें।", score: 2, feedback: "उत्साही।" }, { text: "यह आपके लिए कितना मायने रखता है, इस पर एक आंसू भरा भाषण दें।", score: 3, feedback: "पुरस्कार विजेता।" } ] },
+                        { id: 23, question: "आप एक मजाक सुना रहे हैं और कोई नहीं हंसता। आप:", answers: [ { text: "अजीब तरह से आगे बढ़ें।", score: 1, feedback: "उत्तरजीवी।" }, { text: "मजाक को विस्तार से समझाएं जब तक कि वे हंसने के लिए मजबूर न हों।", score: 3, feedback: "कॉमेडी शिक्षक।" }, { text: "'कठिन भीड़' कहें और अपने ही मजाक पर हंसें।", score: 2, feedback: "एकल कलाकार।" } ] },
+                        { id: 24, question: "आपकी आदर्श शादी होगी:", answers: [ { text: "करीबी परिवार के साथ एक सरल, शांत समारोह।", score: 1, feedback: "अंतरंग मामला।" }, { text: "बहुत सारे नृत्य के साथ एक बड़ी, मजेदार पार्टी।", score: 2, feedback: "उत्सव।" }, { text: "एक कोरियोग्राफ किए गए नृत्य संख्या के साथ एक सात-दिवसीय असाधारण।", score: 3, feedback: "ब्लॉकबस्टर।" } ] },
+                        { id: 25, question: "आप इस क्विज़ के बारे में कैसा महसूस करते हैं?", answers: [ { text: "यह समय बिताने का एक मजेदार तरीका है।", score: 1, feedback: "हम इसे लेंगे।" }, { text: "यह मेरे जीवन का सबसे महत्वपूर्ण आत्म-खोज उपकरण है।", score: 3, feedback: "हम सम्मानित हैं।" }, { text: "मैं पहले से ही परिणाम स्क्रीन पर अपनी नाटकीय प्रविष्टि के बारे में सोच रहा हूँ।", score: 2, feedback: "हम आपके लिए तैयार हैं।" } ] }
+                    ]
+                }
+            };
+            
+            // --- STATE MANAGEMENT & DOM ELEMENTS ---
+            let currentQuestionIndex = 0;
+            let userAnswers = {};
+            let currentLang = 'en';
+            let quizQuestions = [];
+            let userName = '';
+            const QUESTIONS_PER_QUIZ = 15;
+
+            const allLangElements = document.querySelectorAll('[data-lang-key]');
+            const langPlaceholderElements = document.querySelectorAll('[data-lang-placeholder]');
+            const languageToggle = document.getElementById('language-toggle');
+            const startScreen = document.getElementById('start-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const calculatingScreen = document.getElementById('calculating-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const journeyScreen = document.getElementById('journey-screen');
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const goBackBtn = document.getElementById('go-back-btn');
+            const backToMainBtn = document.getElementById('back-to-main-btn');
+            const nameInput = document.getElementById('name-input');
+            const questionContainer = document.getElementById('question-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const finalScoreEl = document.getElementById('final-score');
+            const resultTitleEl = document.getElementById('result-title');
+            const resultDescriptionEl = document.getElementById('result-description');
+            const finalQuoteEl = document.getElementById('final-quote');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const shareButtonsContainer = document.getElementById('share-buttons');
+            const exploreBtn = document.getElementById('explore-btn');
+
+            // --- LANGUAGE LOGIC ---
+            const updateLanguage = (lang) => {
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                document.documentElement.lang = lang;
+                
+                languageToggle.innerHTML = (lang === 'en') 
+                    ? `<i class="fa-solid fa-language mr-2"></i> हिन्दी`
+                    : `<i class="fa-solid fa-language mr-2"></i> English`;
+
+                allLangElements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    const value = getNestedValue(content[lang], key);
+                    if (value) el.innerHTML = value;
+                });
+                
+                langPlaceholderElements.forEach(el => {
+                    const key = el.dataset.langPlaceholder;
+                    const value = getNestedValue(content[lang], key);
+                    if(value) el.placeholder = value;
+                });
+            };
+
+            const getNestedValue = (obj, key) => key.split('.').reduce((acc, part) => acc && acc[part], obj);
+
+            // --- THEME LOGIC ---
+            const applyTheme = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIconDark.classList.remove('hidden');
+                    themeIconLight.classList.add('hidden');
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
+            applyTheme(isDarkMode);
+
+            // --- UI FUNCTIONS ---
+            const renderQuestion = () => {
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const q_id = quizQuestions[currentQuestionIndex];
+                    const q_data_en = content.en.questions.find(item => item.id === q_id);
+                    const q_lang = content[currentLang].questions.find(item => item.id === q_id);
+                    
+                    if(!q_data_en || !q_lang) {
+                        goHome();
+                        return;
+                    }
+
+                    const shuffledAnswers = [...q_lang.answers].sort(() => Math.random() - 0.5);
+
+                    let answersHTML = shuffledAnswers.map(answer => {
+                        return `
+                        <button data-score="${answer.score}" class="choice-btn w-full text-left p-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-pink-100 dark:hover:bg-pink-500 transition-colors duration-200">
+                            ${answer.text}
+                        </button>
+                    `}).join('');
+                    
+                    const counterText = content[currentLang].question_counter
+                        .replace('{current}', currentQuestionIndex + 1)
+                        .replace('{total}', QUESTIONS_PER_QUIZ);
+
+                    questionContainer.innerHTML = `
+                        <div class="fade-in">
+                            <p class="text-lg font-semibold dark-mode-subtext mb-4">${counterText}</p>
+                            <h2 class="text-2xl md:text-3xl font-bold dark-mode-text mb-8">${q_lang.question.replace(/{name}/g, `<strong>${userName}</strong>`)}</h2>
+                            <div class="flex flex-col items-center space-y-4">${answersHTML}</div>
+                        </div>
+                    `;
+                    feedbackContainer.innerHTML = '';
+                    updateProgressBar();
+                } else {
+                    showCalculatingScreen();
+                }
+            };
+            
+            const updateProgressBar = () => {
+                const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            };
+
+            // --- CORE LOGIC ---
+            const startQuiz = () => {
+                userName = nameInput.value.trim();
+                if (!userName) {
+                    userName = (currentLang === 'en') ? 'Superstar' : 'सुपरस्टार';
+                }
+
+                let allQuestionIds = content.en.questions.map(q => q.id);
+                allQuestionIds.sort(() => Math.random() - 0.5);
+                quizQuestions = allQuestionIds.slice(0, QUESTIONS_PER_QUIZ);
+                currentQuestionIndex = 0;
+                userAnswers = {};
+
+                startScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    startScreen.classList.add('hidden');
+                    startScreen.classList.remove('fade-out');
+                    quizScreen.classList.remove('hidden');
+                    quizScreen.classList.add('fade-in');
+                    progressContainer.classList.remove('hidden');
+                    backToMainBtn.classList.remove('hidden');
+                    renderQuestion();
+                }, 500);
+            };
+
+            const handleAnswer = (e) => {
+                const selectedBtn = e.target.closest('.choice-btn');
+                if (!selectedBtn) return;
+
+                const score = parseInt(selectedBtn.dataset.score);
+                const question_id = quizQuestions[currentQuestionIndex];
+                const question_data_lang = content[currentLang].questions.find(item => item.id === question_id);
+                
+                const answer_data_lang = question_data_lang.answers.find(a => a.score === score);
+                if (answer_data_lang) {
+                    feedbackContainer.innerHTML = `<p class="fade-in font-semibold text-lg text-teal-600 dark:text-teal-400">${answer_data_lang.feedback}</p>`;
+                }
+
+                userAnswers[question_id] = score;
+                
+                questionContainer.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn !== selectedBtn) {
+                        btn.classList.add('opacity-50');
+                    } else {
+                        btn.classList.add('ring-4', 'ring-pink-400');
+                    }
+                });
+                
+                setTimeout(() => {
+                    if (questionContainer.firstElementChild) {
+                        questionContainer.firstElementChild.classList.replace('fade-in', 'fade-out');
+                    }
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    }, 500);
+                }, 1800);
+            };
+
+            const showCalculatingScreen = () => {
+                quizScreen.classList.add('fade-out');
+                progressContainer.classList.add('hidden');
+                backToMainBtn.classList.add('hidden');
+                setTimeout(() => {
+                    quizScreen.classList.add('hidden');
+                    quizScreen.classList.remove('fade-out');
+                    calculatingScreen.classList.remove('hidden');
+                    calculatingScreen.classList.add('fade-in');
+                    const calculatingTexts = [
+                        content[currentLang].calculating_text, 
+                        (currentLang === 'en' ? "Cue the sad music..." : "दुखद संगीत बजाओ..."),
+                        (currentLang === 'en' ? "Preparing your slow-motion entry..." : "आपकी धीमी गति की प्रविष्टि तैयार हो रही है...")
+                    ];
+                    document.getElementById('calculating-text').innerText = calculatingTexts[Math.floor(Math.random()*calculatingTexts.length)];
+                    setTimeout(showResults, 2500);
+                }, 500);
+            }
+            
+            const showResults = (isThemeOrLangUpdate = false) => {
+                if (!isThemeOrLangUpdate) {
+                     calculatingScreen.classList.add('fade-out');
+                     setTimeout(() => {
+                        calculatingScreen.classList.add('hidden');
+                        calculatingScreen.classList.remove('fade-out');
+                        resultsScreen.classList.remove('hidden');
+                        resultsScreen.classList.add('slide-up');
+                        calculateAndDisplayScores();
+                    }, 500);
+                } else {
+                    calculateAndDisplayScores();
+                }
+            };
+
+            const calculateAndDisplayScores = () => {
+                let totalScore = 0;
+                Object.values(userAnswers).forEach(score => {
+                    totalScore += score;
+                });
+
+                const minPossibleScore = QUESTIONS_PER_QUIZ * 1;
+                const maxPossibleScore = QUESTIONS_PER_QUIZ * 3;
+                const scoreRange = maxPossibleScore - minPossibleScore;
+                const userScoreOffset = totalScore - minPossibleScore;
+
+                let filmyPercentage = 0;
+                if (scoreRange > 0) {
+                    filmyPercentage = Math.round((userScoreOffset / scoreRange) * 100);
+                }
+                
+                finalScoreEl.classList.remove('score-reveal');
+                void finalScoreEl.offsetWidth; // Trigger reflow
+                finalScoreEl.classList.add('score-reveal');
+
+                let startValue = 0;
+                const duration = 1200;
+                const endValue = filmyPercentage;
+                const startTime = performance.now();
+
+                function animateCountUp(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    if (elapsedTime < duration) {
+                        const progress = elapsedTime / duration;
+                        const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+                        const currentValue = Math.round(startValue + (endValue - startValue) * easedProgress);
+                        finalScoreEl.textContent = `${currentValue}%`;
+                        requestAnimationFrame(animateCountUp);
+                    } else {
+                        finalScoreEl.textContent = `${endValue}%`;
+                    }
+                }
+                requestAnimationFrame(animateCountUp);
+
+                let resultKey;
+                if (filmyPercentage <= 25) resultKey = 'docu';
+                else if (filmyPercentage <= 50) resultKey = 'sidekick';
+                else if (filmyPercentage <= 75) resultKey = 'hero';
+                else resultKey = 'kjo';
+                
+                finalQuoteEl.dataset.resultKey = resultKey;
+                document.getElementById('poster-name').textContent = userName;
+
+                const personalizedLabel = content[currentLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+
+                resultTitleEl.textContent = content[currentLang][`result_${resultKey}_title`];
+                resultDescriptionEl.innerHTML = content[currentLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                finalQuoteEl.textContent = content[currentLang][`final_quote_${resultKey}`];
+
+                const movieTitles = {
+                    docu: "The Story of a Regular Person",
+                    sidekick: "My Friend's Crazy Life",
+                    hero: "The Main Character",
+                    kjo: "Kabhi Overacting, Kabhie Gham"
+                }
+                document.getElementById('movie-title').textContent = movieTitles[resultKey];
+                
+                displayFunnyComments(resultKey);
+                updateShareLinks(filmyPercentage, content[currentLang][`result_${resultKey}_title`]);
+            };
+
+            const startBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                stopBackgroundAnimations();
+                
+                const emojis = ['🎬', '🍿', '😭', '💃', '🌟', '✨', '💔'];
+                const numEmojis = 25;
+
+                for (let i = 0; i < numEmojis; i++) {
+                    const emoji = document.createElement('span');
+                    emoji.className = 'floating-emoji';
+                    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    emoji.style.left = `${Math.random() * 100}vw`;
+                    emoji.style.fontSize = `${1 + Math.random() * 2}rem`;
+                    const duration = 8 + Math.random() * 10;
+                    const delay = Math.random() * 7;
+                    const translateX = `${(Math.random() - 0.5) * 200}px`;
+                    const rotate = `${(Math.random() - 0.5) * 720}deg`;
+                    
+                    emoji.style.setProperty('--translateX', translateX);
+                    emoji.style.setProperty('--rotate', rotate);
+                    emoji.style.animation = `floatUp ${duration}s ease-in ${delay}s infinite`;
+                    
+                    container.appendChild(emoji);
+                }
+            };
+
+            const stopBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (container) {
+                    container.innerHTML = '';
+                }
+            };
+
+            const typewriter = (element, text, callback) => {
+                let i = 0;
+                const speed = 40; // milliseconds per character
+                const originalHTML = element.innerHTML;
+                element.innerHTML = originalHTML + '<span class="typing-text"></span><span class="typing-cursor border-l-2 border-pink-500 h-6 inline-block align-middle">&nbsp;</span>';
+                const textSpan = element.querySelector('.typing-text');
+                const cursorSpan = element.querySelector('.typing-cursor');
+                
+                function type() {
+                    if (i < text.length) {
+                        textSpan.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        if(cursorSpan) {
+                           cursorSpan.style.display = 'none';
+                        }
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+
+            const displayFunnyComments = (resultKey) => {
+                const commentsContainer = document.getElementById('funny-comments-container');
+                if (!commentsContainer) return;
+                commentsContainer.innerHTML = '';
+                const commentsPool = content[currentLang].funny_comments[resultKey] || [];
+                
+                const shuffledComments = [...commentsPool].sort(() => 0.5 - Math.random());
+                const selectedComments = shuffledComments.slice(0, 3);
+
+                let commentIndex = 0;
+
+                function typeNextComment() {
+                    if (commentIndex < selectedComments.length) {
+                        const commentText = selectedComments[commentIndex];
+                        
+                        const card = document.createElement('div');
+                        card.className = 'funny-comment-card bg-pink-100 dark:bg-gray-800 p-4 rounded-lg mb-4 text-gray-700 dark:text-pink-300 italic shadow-md';
+                        
+                        const p = document.createElement('p');
+                        p.innerHTML = `<i class="fa-solid fa-quote-left mr-2 text-pink-500"></i> `;
+                        card.appendChild(p);
+
+                        card.style.animationDelay = `0.2s`;
+                        
+                        commentsContainer.appendChild(card);
+                        
+                        setTimeout(() => {
+                            typewriter(p, commentText, () => {
+                                commentIndex++;
+                                setTimeout(typeNextComment, 800); 
+                            });
+                        }, 600);
+                    }
+                }
+                
+                startBackgroundAnimations();
+                typeNextComment();
+            };
+
+
+            const updateShareLinks = (percentage, title) => {
+                const text = encodeURIComponent(`My Filmy Score is ${percentage}%! Turns out my life is a "${title}". Find out how filmy you are:`);
+                const url = encodeURIComponent(window.location.href);
+                
+                document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                document.getElementById('telegram-share').href = `https://t.me/share/url?url=${url}&text=${text}`;
+                document.getElementById('instagram-share').href = `https://www.instagram.com/`;
+            };
+            
+            const goHome = () => {
+                stopBackgroundAnimations();
+                [quizScreen, resultsScreen, journeyScreen, progressContainer, backToMainBtn, calculatingScreen].forEach(el => el.classList.add('hidden'));
+                startScreen.classList.remove('hidden', 'fade-out');
+                startScreen.classList.add('fade-in');
+                nameInput.value = '';
+                currentQuestionIndex = 0;
+                userAnswers = {};
+                quizQuestions = [];
+                progressBar.style.width = '0%';
+            };
+
+            const showJourneyScreen = (e) => {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                resultsScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    resultsScreen.classList.add('hidden');
+                    resultsScreen.classList.remove('fade-out');
+                    journeyScreen.classList.remove('hidden');
+                    journeyScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            const showResultsScreenFromJourney = () => {
+                journeyScreen.classList.add('fade-out');
+                 setTimeout(() => {
+                    journeyScreen.classList.add('hidden');
+                    journeyScreen.classList.remove('fade-out');
+                    resultsScreen.classList.remove('hidden');
+                    resultsScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            // --- EVENT LISTENERS ---
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', goHome);
+            backToMainBtn.addEventListener('click', goHome);
+            goBackBtn.addEventListener('click', showResultsScreenFromJourney);
+            quizScreen.addEventListener('click', handleAnswer);
+            shareButtonsContainer.addEventListener('click', (e) => {
+                const shareBtn = e.target.closest('a.share-btn');
+                if (shareBtn && shareBtn.href && shareBtn.href !== '#') {
+                    showJourneyScreen(e);
+                }
+            });
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+                if (!resultsScreen.classList.contains('hidden')) { showResults(true); }
+            });
+            languageToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'hi' : 'en';
+                updateLanguage(newLang);
+                if (!quizScreen.classList.contains('hidden') || !calculatingScreen.classList.contains('hidden')) { 
+                    goHome();
+                } else if (!resultsScreen.classList.contains('hidden')) {
+                    const resultKey = finalQuoteEl.dataset.resultKey;
+                    const personalizedLabel = content[newLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                    document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+                    resultTitleEl.textContent = content[newLang][`result_${resultKey}_title`];
+                    resultDescriptionEl.innerHTML = content[newLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                    finalQuoteEl.textContent = content[newLang][`final_quote_${resultKey}`];
+                    displayFunnyComments(resultKey);
+                }
+            });
+
+            // Initial Load
+            const savedLang = localStorage.getItem('language') || 'en';
+            updateLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>

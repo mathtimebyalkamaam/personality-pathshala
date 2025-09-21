@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0DL8SC5JKB');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Personality Meter - What's Your Pizza Persona?</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS for theme, animations, and additional styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Dark Mode --- */
+        .dark .dark-mode-bg { background-color: #111827; }
+        .dark .dark-mode-text { color: #f9fafb; }
+        .dark .dark-mode-surface { background-color: #1f2937; }
+        .dark .dark-mode-border { border-color: #374151; }
+        .dark .dark-mode-subtext { color: #9ca3af; }
+
+        /* --- Animations --- */
+        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .pulse { animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .9; transform: scale(1.02); }
+        }
+
+        /* --- Button Styles --- */
+        .choice-btn, .share-btn, .control-btn {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .choice-btn:hover, .share-btn:hover, .control-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Social Share Colors --- */
+        .whatsapp-btn { background-color: #25D366; }
+        .twitter-btn { background-color: #1DA1F2; }
+        .facebook-btn { background-color: #1877F2; }
+        .telegram-btn { background-color: #24A1DE; }
+        .instagram-btn {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        }
+
+        /* --- Score Animation --- */
+        .score-reveal {
+            animation: scoreReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 10px rgba(239, 68, 68, 0.5), 0 0 20px rgba(239, 68, 68, 0.3); /* Red Shadow */
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* --- Funny Comments Styling --- */
+        .funny-comments-container {
+            perspective: 1000px;
+        }
+
+        .funny-comment-card {
+            opacity: 0;
+            transform: rotateX(-90deg) translateY(50px);
+            transform-origin: bottom center;
+            animation: revealComment 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .funny-comment-card p {
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1.75rem; /* leading-7 */
+        }
+
+        @media (min-width: 768px) {
+            .funny-comment-card p {
+                font-size: 1.5rem; /* md:text-2xl */
+                line-height: 2rem; /* md:leading-8 */
+            }
+        }
+
+
+        @keyframes revealComment {
+            from {
+                opacity: 0;
+                transform: rotateX(-90deg) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0deg) translateY(0);
+            }
+        }
+        
+        /* --- Typing Effect --- */
+        .typing-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #ef4444; } /* red-500 */
+        }
+        
+        /* --- Background Animation --- */
+        #animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: -50px; /* Start from below the screen */
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--translateX)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode-bg text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+    <div id="animation-container"></div>
+    <!-- Header for Toggles -->
+    <header class="absolute top-4 w-full px-4 z-20 flex items-center justify-between">
+        <!-- Back to Main Page Button (Initially hidden) -->
+        <a id="back-to-main-btn" href="index.html" role="button" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </a>
+
+        <div class="flex items-center space-x-2 ml-auto">
+             <!-- Language Toggle -->
+            <button id="language-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-900 w-28 h-10 flex items-center justify-center text-sm">
+                <!-- Text updated by JS -->
+            </button>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+                <svg id="theme-icon-dark" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg id="theme-icon-light" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-2 bg-gray-200 dark:bg-gray-700 z-10 hidden">
+        <div id="progress-bar" class="h-full bg-red-500 progress-bar-fill" style="width: 0%;"></div>
+    </div>
+    
+    <main class="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-screen relative z-10">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center max-w-2xl fade-in">
+            <h1 class="text-4xl md:text-6xl font-extrabold dark-mode-text tracking-tight mb-4">The <span class="text-red-500" data-lang-key="title">Pizza Personality Meter</span></h1>
+            <p class="text-lg md:text-xl dark-mode-subtext mb-8" data-lang-key="subtitle">
+                Are you a simple Margherita or a chaotic Pineapple on Pizza? Let's find out if your personality is cheesy, spicy, or just plain weird!
+            </p>
+            <div class="mb-6 w-full max-w-sm mx-auto">
+                <input type="text" id="name-input" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-900 dark:text-white" data-lang-placeholder="name_placeholder">
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-8 italic" data-lang-key="privacy_disclaimer"></p>
+            <button id="start-btn" data-lang-key="start_button" class="bg-red-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-red-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300 pulse">
+                Analyze My Toppings!
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden w-full max-w-3xl">
+            <div id="question-container" class="text-center pt-16">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <div id="feedback-container" class="mt-6 text-center text-md dark-mode-subtext min-h-[60px]">
+                <!-- Feedback will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Calculating Screen -->
+        <div id="calculating-screen" class="hidden text-center w-full max-w-2xl">
+            <svg class="animate-spin h-16 w-16 text-red-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h2 id="calculating-text" class="text-2xl font-bold dark-mode-text" data-lang-key="calculating_text">Pre-heating the oven...</h2>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center w-full max-w-4xl pt-16">
+            <h2 class="text-2xl font-bold dark-mode-subtext mb-2" data-lang-key="result_level_label">Your Pizza Personality</h2>
+            <div id="final-score" class="text-7xl md:text-8xl font-extrabold text-red-500 mb-4">0%</div>
+            <h3 id="result-title" class="text-3xl md:text-4xl font-extrabold dark-mode-text mb-3"></h3>
+            <p id="result-description" class="text-lg md:text-xl dark-mode-subtext mb-8 max-w-2xl mx-auto"></p>
+            
+            <div id="funny-comments-container" class="funny-comments-container mt-8 mb-8 max-w-2xl mx-auto">
+                <!-- Comments will be injected here -->
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="mb-8">
+                <p class="font-bold dark-mode-text mb-3" data-lang-key="share_results_label">Share Your Report & Get Your Pizza Crown!</p>
+                <div id="share-buttons" class="flex justify-center items-center flex-wrap gap-4">
+                    <a id="whatsapp-share" href="https://ppscore.co.in" target="_blank" class="share-btn whatsapp-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l.217.324-1.125 4.108 4.224-1.103.337.202z" /></svg>
+                    </a>
+                    <a id="twitter-share" href="https://ppscore.co.in" target="_blank" class="share-btn twitter-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.794 4.649-.69.188-1.433.23-2.184.085.617 1.914 2.408 3.258 4.53 3.301-1.724 1.352-3.883 2.093-6.138 1.795 1.815 1.163 3.973 1.84 6.262 1.84 7.218 0 11.168-5.986 11.168-11.168 0-.17-.003-.34-.01-.508.77-.556 1.438-1.248 1.968-2.04z"/></svg>
+                    </a>
+                    <a id="facebook-share" href="https://ppscore.co.in" target="_blank" class="share-btn facebook-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                    </a>                      
+                    <a id="telegram-share" href="https://ppscore.co.in" target="_blank" class="share-btn telegram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-1.39.2-1.62l15.97-5.85c.73-.27 1.36.17 1.15.99L16.4 18.28c-.21.83-1.2.5-1.54-.26L9.78 18.65z"/></svg>
+                    </a>
+                    <a id="instagram-share" href="https://ppscore.co.in" target="_blank" class="share-btn instagram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <p id="final-quote" class="text-lg dark-mode-text max-w-3xl mx-auto mb-8 italic">
+                <!-- Quote inserted by JS -->
+            </p>
+
+            <button id="restart-btn" data-lang-key="restart_button" class="bg-red-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-red-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300">
+                Order Again!
+            </button>
+
+            <!-- Explore More Section -->
+            <div class="mt-16 py-8 border-t-2 border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
+                 <h3 class="text-2xl md:text-3xl font-extrabold dark-mode-text mb-4" data-lang-key="explore_title">Your Analysis Isn't Over Yet!</h3>
+                 <p class="text-lg dark-mode-subtext mb-8" data-lang-key="explore_desc">
+                   You've audited your pizza personality, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.
+                 </p>
+                 <a id="explore-btn" href="index.html" class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 inline-block" data-lang-key="explore_button">
+                   Visit PersonalityPaathshala
+                 </a>
+                 <div class="mt-8 mb-6">
+                    <p class="font-semibold mb-2 text-red-400 dark:text-red-300" data-lang-key="support_title">Loved this quiz? Help us create more!</p>
+                    <p class="text-base text-gray-700 dark:text-white mb-3" data-lang-key="support_desc">Your small contribution keeps our creative engine running and helps us serve more fun.</p>
+                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QvFHmdPg3T4Pqh" async> </script> </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Screen -->
+        <div id="journey-screen" class="hidden text-center w-full max-w-2xl pt-16">
+            <h2 class="text-4xl font-extrabold text-red-500 mb-4" data-lang-key="journey_title">Your Pizza Royalty Crown!</h2>
+            <p class="text-lg dark-mode-subtext mb-8" data-lang-key="journey_subtitle">You shared your score! The Pizza Gods are pleased. Please accept this crown as a token of your royal status in the world of pizza.</p>
+            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-xl">
+                <div class="text-center p-4">
+                    <div class="text-8xl mb-4">👑</div>
+                    <h3 class="text-2xl font-bold dark-mode-text">The Royal Order of the Slice</h3>
+                    <p class="dark-mode-subtext mt-2">Hereby declares</p>
+                    <p id="crown-name" class="text-3xl font-bold text-red-500 my-2">[Your Name]</p>
+                    <p class="dark-mode-text">as a certified Pizza Connoisseur.</p>
+                </div>
+            </div>
+             <button id="go-back-btn" data-lang-key="go_back_button" class="mt-8 bg-gray-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Back to My Score
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-xs text-gray-400 dark:text-gray-500">
+        <p data-lang-key="disclaimer">Disclaimer: This quiz is for fun. No pizzas were harmed in the making of this meter.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- LANGUAGE CONTENT STORE ---
+            const content = {
+                en: {
+                    title: "Pizza Personality Meter",
+                    subtitle: "Are you a simple Margherita or a chaotic Pineapple on Pizza? Let's find out if your personality is cheesy, spicy, or just plain weird!",
+                    name_placeholder: "Enter your pizza-loving name...",
+                    privacy_disclaimer: "Your secret love for extra cheese is safe with us.",
+                    start_button: "Analyze My Toppings!",
+                    calculating_text: "Pre-heating the oven...",
+                    result_level_label: "Your Pizza Personality",
+                    result_level_label_personalized: "{name}'s Pizza Personality",
+                    share_results_label: "Share Your Report & Get Your Pizza Crown!",
+                    restart_button: "Order Again!",
+                    disclaimer: "Disclaimer: This quiz is for fun. No pizzas were harmed in the making of this meter.",
+                    question_counter: "Question {current} of {total}",
+                    
+                    result_margherita_title: "Classic Margherita",
+                    result_margherita_desc: "{name}, you're a simple, reliable, and classic soul. You find comfort in the familiar and don't need fancy toppings to be happy. You're the loyal friend everyone can count on.",
+                    result_paneer_title: "Spicy Paneer Tikka",
+                    result_paneer_desc: "{name}, you've got a bit of a kick! You're fun, adventurous, and not afraid to spice things up. You like tradition, but with a modern, zesty twist.",
+                    result_veggie_title: "Veggie Supreme",
+                    result_veggie_desc: "{name}, you're a balanced and wholesome individual who likes a bit of everything. You're the diplomat in your friend group, trying to make sure everyone is happy.",
+                    result_pineapple_title: "Pineapple on Pizza",
+                    result_pineapple_desc: "{name}, you are an agent of chaos and you love it. You march to the beat of your own drum and don't care what others think. Some love you, some don't get you, but no one can ignore you.",
+                    
+                    final_quote_margherita: "\"Why complicate things when simple is so good?\"",
+                    final_quote_paneer: "\"A little bit of spice makes everything nice.\"",
+                    final_quote_veggie: "\"There's room for everyone at my table... and on my pizza.\"",
+                    final_quote_pineapple: "\"I'm not weird, I'm a limited edition.\"",
+                    
+                    funny_comments: {
+                        margherita: [
+                            "You probably think black pepper is 'too exotic'.",
+                            "Your favorite movie is probably Sholay. A classic.",
+                            "You are the human equivalent of a warm, comforting hug.",
+                            "You've never had to Google a topping to know what it is."
+                        ],
+                        paneer: [
+                            "Your personality has a 'Warning: Spicy' label.",
+                            "You're not arguing, you're just 'passionately discussing'.",
+                            "You believe chilli flakes are a food group.",
+                            "You add a little 'tadka' to everything in life."
+                        ],
+                        veggie: [
+                            "You try to find the good in everything, even in people who eat the crust first.",
+                            "You're the friend who makes sure everyone in the group is included.",
+                            "Your playlist is a mix of Arijit Singh and AP Dhillon.",
+                            "You believe in balance, both in life and on your pizza."
+                        ],
+                        pineapple: [
+                            "You are the reason for half the debates on the internet.",
+                            "You'd probably put ice cubes in your chai just to see what happens.",
+                            "You don't think outside the box; you live there.",
+                            "You enjoy chaos, don't you?"
+                        ]
+                    },
+
+                    journey_title: "Your Pizza Royalty Crown!",
+                    journey_subtitle: "You shared your score! The Pizza Gods are pleased. Please accept this crown as a token of your royal status in the world of pizza.",
+                    go_back_button: "Back to My Score",
+
+                    explore_title: "Your Analysis Isn't Over Yet!",
+                    explore_desc: "You've audited your pizza personality, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.",
+                    explore_button: "Visit PersonalityPaathshala",
+                    support_title: "Loved this quiz? Help us create more!",
+                    support_desc: "Your small contribution keeps our creative engine running and helps us serve more fun.",
+
+                    questions: [
+                        { id: 1, question: "The last slice of pizza is on the table. You:", answers: [ { text: "Offer it to your friend.", score: 1, feedback: "A true friend. So pure." }, { text: "Challenge your friend to rock-paper-scissors for it.", score: 2, feedback: "A fair and strategic move." }, { text: "Eat it so fast no one even realizes it's gone.", score: 3, feedback: "The pizza ninja." } ] },
+                        { id: 2, question: "Your friend puts ketchup on their pizza. You:", answers: [ { text: "Silently judge their life choices.", score: 2, feedback: "The silent observer." }, { text: "Give them a 10-minute lecture on Italian culinary heritage.", score: 3, feedback: "The pizza purist." }, { text: "Ask for some ketchup too. Why not?", score: 1, feedback: "A true agent of chaos." } ] },
+                        { id: 3, question: "What are your thoughts on pineapple as a pizza topping?", answers: [ { text: "It's a crime against humanity.", score: 2, feedback: "A strong, but popular opinion." }, { text: "I don't mind it. Live and let live.", score: 1, feedback: "The peaceful one." }, { text: "It's delicious. You're all just haters.", score: 3, feedback: "Brave. Very brave." } ] },
+                        { id: 4, question: "The perfect crust is:", answers: [ { text: "Thin and crispy.", score: 2, feedback: "The classic choice." }, { text: "Thick and doughy.", score: 1, feedback: "More bread for your buck." }, { text: "Stuffed with cheese, of course.", score: 3, feedback: "There's no such thing as too much cheese." } ] },
+                        { id: 5, question: "Someone offers you the corner piece of a square pizza. You:", answers: [ { text: "Accept it politely. It's still pizza.", score: 1, feedback: "The grateful guest." }, { text: "Ask if you can have a middle piece instead.", score: 2, feedback: "You know what you want." }, { text: "Declare that square pizza is not real pizza.", score: 3, feedback: "The pizza gatekeeper." } ] },
+                        { id: 6, question: "How do you eat your pizza crust?", answers: [ { text: "I eat it. It's part of the pizza.", score: 1, feedback: "The no-waste warrior." }, { text: "I leave it on the plate.", score: 3, feedback: "You monster." }, { text: "I dip it in sauce.", score: 2, feedback: "The innovator." } ] },
+                        { id: 7, question: "The ideal number of toppings on a pizza is:", answers: [ { text: "1-2. Keep it simple.", score: 1, feedback: "A purist at heart." }, { text: "3-4. A good balance of flavors.", score: 2, feedback: "The balanced individual." }, { text: "As many as can fit. The more the merrier!", score: 3, feedback: "The maximalist." } ] },
+                        { id: 8, question: "You're ordering pizza for a group. You:", answers: [ { text: "Suggest a simple, safe option like Margherita.", score: 1, feedback: "The crowd-pleaser." }, { text: "Order half-and-half to satisfy everyone.", score: 2, feedback: "The diplomat." }, { text: "Order your weird favorite and hope everyone likes it.", score: 3, feedback: "A bold move." } ] },
+                        { id: 9, question: "Chilli flakes and oregano are:", answers: [ { text: "Essential for every slice.", score: 3, feedback: "The flavor enhancer." }, { text: "Nice to have, but not necessary.", score: 2, feedback: "The moderate." }, { text: "They ruin the original taste of the pizza.", score: 1, feedback: "The purist." } ] },
+                        { id: 10, question: "Cold pizza for breakfast is:", answers: [ { text: "The breakfast of champions.", score: 3, feedback: "A true delicacy." }, { text: "An act of desperation.", score: 2, feedback: "We've all been there." }, { text: "A crime. Pizza should always be hot.", score: 1, feedback: "The traditionalist." } ] },
+                        { id: 11, question: "How long does it take you to choose a pizza?", answers: [ { text: "Under 2 minutes. I know what I want.", score: 1, feedback: "Decisive and efficient." }, { text: "A good 15 minutes of intense menu analysis.", score: 3, feedback: "This is a serious decision." }, { text: "I just ask my friends to choose for me.", score: 2, feedback: "The delegator." } ] },
+                        { id: 12, question: "You're sharing pizza and notice there's an odd number of slices. You:", answers: [ { text: "Don't care, it will sort itself out.", score: 1, feedback: "The chill one." }, { text: "Immediately start calculating who deserves the last slice based on who paid more.", score: 3, feedback: "The pizza accountant." }, { text: "Suggest cutting the last slice in half.", score: 2, feedback: "The problem-solver." } ] },
+                        { id: 13, question: "Your favorite part of the pizza is:", answers: [ { text: "The cheesy, saucy middle.", score: 2, feedback: "The heart of the matter." }, { text: "The crispy, chewy crust.", score: 1, feedback: "The foundation." }, { text: "The one topping you specifically asked for.", score: 3, feedback: "The specialist." } ] },
+                        { id: 14, question: "When you see someone folding their pizza slice in half, you think:", answers: [ { text: "That's a smart way to eat it.", score: 2, feedback: "The practical one." }, { text: "What kind of monster does that?", score: 3, feedback: "The traditionalist." }, { text: "I've never thought about it.", score: 1, feedback: "The easy-going one." } ] },
+                        { id: 15, question: "A 'pizza night' is:", answers: [ { text: "A sacred weekly ritual.", score: 3, feedback: "The devotee." }, { text: "A good option when you're too lazy to cook.", score: 2, feedback: "The pragmatist." }, { text: "Just another meal.", score: 1, feedback: "The casual diner." } ] },
+                        { id: 16, question: "How do you feel about a dessert pizza?", answers: [ { text: "It's an abomination.", score: 2, feedback: "The purist." }, { text: "I'm intrigued and would try it.", score: 3, feedback: "The adventurer." }, { text: "Pizza is pizza.", score: 1, feedback: "The open-minded one." } ] },
+                        { id: 17, question: "You're at a fancy Italian restaurant. You:", answers: [ { text: "Order the most authentic Neapolitan pizza.", score: 2, feedback: "The connoisseur." }, { text: "Still ask if they have a Paneer Tikka pizza.", score: 3, feedback: "The desi at heart." }, { text: "Order pasta instead.", score: 1, feedback: "The safe player." } ] },
+                        { id: 18, question: "The ideal drink to have with pizza is:", answers: [ { text: "A classic Coke.", score: 2, feedback: "The perfect pairing." }, { text: "Something fancy like wine.", score: 1, feedback: "The sophisticated one." }, { text: "Anything, as long as it's free.", score: 3, feedback: "The value seeker." } ] },
+                        { id: 19, question: "You've just finished a large pizza by yourself. You feel:", answers: [ { text: "A little bit of shame.", score: 1, feedback: "The guilty one." }, { text: "A sense of pride and accomplishment.", score: 3, feedback: "The champion." }, { text: "Ready for dessert.", score: 2, feedback: "The warrior." } ] },
+                        { id: 20, question: "You see someone eating pizza with a fork and knife. You:", answers: [ { text: "Take a picture and post it online.", score: 3, feedback: "The content creator." }, { text: "Politely ignore them.", score: 1, feedback: "Live and let live." }, { text: "Give them a silent, judgmental stare.", score: 2, feedback: "The guardian of pizza culture." } ] },
+                        { id: 21, question: "What is your opinion on a 'healthy' pizza with a cauliflower crust?", answers: [ { text: "That's not pizza, that's a science experiment.", score: 3, feedback: "The traditionalist." }, { text: "A great option for a guilt-free meal.", score: 1, feedback: "The health enthusiast." }, { text: "I'd try it, but I'd also order a real pizza as a backup.", score: 2, feedback: "The cautious optimist." } ] },
+                        { id: 22, question: "You're at a friend's place and they offer you the last slice. You:", answers: [ { text: "Politely refuse, even if you want it.", score: 1, feedback: "The polite guest." }, { text: "Say 'Are you sure?' three times before finally taking it.", score: 2, feedback: "The classic Indian goodbye." }, { text: "Take it before they can change their mind.", score: 3, feedback: "The opportunist." } ] },
+                        { id: 23, question: "When is it okay to eat pizza?", answers: [ { text: "Only on weekends.", score: 1, feedback: "The disciplined one." }, { text: "For dinner, mostly.", score: 2, feedback: "The traditionalist." }, { text: "Anytime. Breakfast, lunch, dinner, midnight snack...", score: 3, feedback: "The true believer." } ] },
+                        { id: 24, question: "How do you feel when the pizza arrives?", answers: [ { text: "A feeling of pure, unadulterated joy.", score: 3, feedback: "The true love story." }, { text: "Happy that you don't have to cook.", score: 2, feedback: "The pragmatist." }, { text: "Normal. It's just food.", score: 1, feedback: "The calm one." } ] },
+                        { id: 25, question: "You see this quiz. You think:", answers: [ { text: "This is the most important quiz of my life.", score: 3, feedback: "You have your priorities straight." }, { text: "It's a fun way to kill some time.", score: 2, feedback: "A casual fan." }, { text: "I should probably be working right now.", score: 1, feedback: "The responsible one." } ] }
+                    ]
+                },
+                hi: {
+                    title: "पिज़्ज़ा पर्सनैलिटी मीटर",
+                    subtitle: "क्या आप एक साधारण मार्गेरिटा हैं या एक अराजक पाइनएप्पल पिज्जा? आइए जानें कि आपका व्यक्तित्व चीज़ी है, मसालेदार है, या बस अजीब है!",
+                    name_placeholder: "अपना पिज्जा-प्रेमी नाम दर्ज करें...",
+                    privacy_disclaimer: "अतिरिक्त पनीर के लिए आपका गुप्त प्रेम हमारे पास सुरक्षित है।",
+                    start_button: "मेरी टॉपिंग का विश्लेषण करें!",
+                    calculating_text: "ओवन को पहले से गरम किया जा रहा है...",
+                    result_level_label: "आपका पिज्जा व्यक्तित्व",
+                    result_level_label_personalized: "{name} का पिज्जा व्यक्तित्व",
+                    share_results_label: "अपनी रिपोर्ट साझा करें और अपना पिज्जा क्राउन प्राप्त करें!",
+                    restart_button: "फिर से ऑर्डर करें!",
+                    disclaimer: "अस्वीकरण: यह क्विज़ मनोरंजन के लिए है। इस मीटर के निर्माण में किसी भी पिज्जा को नुकसान नहीं पहुंचाया गया।",
+                    question_counter: "प्रश्न {current} / {total}",
+
+                    result_margherita_title: "क्लासिक मार्गेरिटा",
+                    result_margherita_desc: "{name}, आप एक सरल, भरोसेमंद और क्लासिक आत्मा हैं। आप परिचित में आराम पाते हैं और खुश रहने के लिए फैंसी टॉपिंग की जरूरत नहीं है। आप वह वफादार दोस्त हैं जिस पर हर कोई भरोसा कर सकता है।",
+                    result_paneer_title: "मसालेदार पनीर टिक्का",
+                    result_paneer_desc: "{name}, आप में थोड़ा सा किक है! आप मजेदार, साहसी हैं, और चीजों को मसालेदार बनाने से नहीं डरते। आपको परंपरा पसंद है, लेकिन एक आधुनिक, तीखे मोड़ के साथ।",
+                    result_veggie_title: "वेजी सुप्रीम",
+                    result_veggie_desc: "{name}, आप एक संतुलित और पौष्टिक व्यक्ति हैं जिन्हें हर चीज का थोड़ा सा पसंद है। आप अपने मित्र समूह में राजनयिक हैं, यह सुनिश्चित करने की कोशिश कर रहे हैं कि हर कोई खुश है।",
+                    result_pineapple_title: "पिज्जा पर अनानास",
+                    result_pineapple_desc: "{name}, आप अराजकता के एक एजेंट हैं और आप इसे प्यार करते हैं। आप अपनी धुन पर चलते हैं और परवाह नहीं करते कि दूसरे क्या सोचते हैं। कुछ लोग आपसे प्यार करते हैं, कुछ आपको नहीं समझते, लेकिन कोई भी आपको नजरअंदाज नहीं कर सकता।",
+
+                    final_quote_margherita: "\"चीजों को क्यों जटिल करें जब सरल इतना अच्छा है?\"",
+                    final_quote_paneer: "\"थोड़ा सा मसाला सब कुछ अच्छा बना देता है।\"",
+                    final_quote_veggie: "\"मेरी मेज पर... और मेरे पिज्जा पर सबके लिए जगह है।\"",
+                    final_quote_pineapple: "\"मैं अजीब नहीं हूँ, मैं एक सीमित संस्करण हूँ।\"",
+                    
+                    funny_comments: {
+                        margherita: [
+                            "आपका पसंदीदा रंग शायद बेज है।",
+                            "आप सोचते हैं कि काली मिर्च 'बहुत मसालेदार' है।",
+                            "आप एक गर्म, आरामदायक गले के मानव समकक्ष हैं।",
+                            "आपको यह जानने के लिए कभी भी एक टॉपिंग गूगल नहीं करना पड़ा कि यह क्या है।"
+                        ],
+                        paneer: [
+                            "आपके व्यक्तित्व पर 'चेतावनी: मसालेदार' का लेबल है।",
+                            "आप बहस नहीं कर रहे हैं, आप बस 'उत्साह से चर्चा' कर रहे हैं।",
+                            "आप मानते हैं कि मिर्च के गुच्छे एक खाद्य समूह हैं।",
+                            "आप जीवन में हर चीज में थोड़ा 'तड़का' लगाते हैं।"
+                        ],
+                        veggie: [
+                            "आप हर चीज में अच्छा खोजने की कोशिश करते हैं, यहां तक ​​कि उन लोगों में भी जो पहले क्रस्ट खाते हैं।",
+                            "आप वह दोस्त हैं जो यह सुनिश्चित करता है कि समूह में हर कोई शामिल हो।",
+                            "आपकी प्लेलिस्ट अरिजीत सिंह और एपी ढिल्लों का मिश्रण है।",
+                            "आप संतुलन में विश्वास करते हैं, जीवन में और अपने पिज्जा पर दोनों।"
+                        ],
+                        pineapple: [
+                            "आप इंटरनेट पर आधी बहसों का कारण हैं।",
+                            "आप शायद अपनी चाय में बर्फ के टुकड़े डालेंगे बस यह देखने के लिए कि क्या होता है।",
+                            "आप बॉक्स के बाहर नहीं सोचते; आप वहां रहते हैं।",
+                            "आप अराजकता का आनंद लेते हैं, है ना?"
+                        ]
+                    },
+
+                    journey_title: "आपका पिज्जा रॉयल्टी क्राउन!",
+                    journey_subtitle: "आपने अपना स्कोर साझा किया! पिज्जा देवता प्रसन्न हैं। कृपया पिज्जा की दुनिया में अपनी शाही स्थिति के प्रतीक के रूप में इस ताज को स्वीकार करें।",
+                    go_back_button: "मेरे स्कोर पर वापस जाएं",
+
+                    explore_title: "आपका विश्लेषण अभी खत्म नहीं हुआ है!",
+                    explore_desc: "आपने अपने पिज्जा व्यक्तित्व का ऑडिट किया है, लेकिन आपके बाकी प्रफुल्लित करने वाले व्यक्तित्व के बारे में क्या? आपका प्रेम जीवन, आपके गुस्से के मुद्दे... पर्सनैलिटी पाठशाला में आपके लिए मज़ेदार कैलकुलेटर की एक पूरी कक्षा है।",
+                    explore_button: "पर्सनैलिटी पाठशाला पर जाएँ",
+                    support_title: "यह क्विज़ पसंद आया? और बनाने में हमारी मदद करें!",
+                    support_desc: "आपका छोटा सा योगदान हमारी रचनात्मकता को चालू रखता है और हमें और मज़ा परोसने में मदद करता है।",
+                    
+                    questions: [
+                        { id: 1, question: "पिज्जा का आखिरी टुकड़ा मेज पर है। आप:", answers: [ { text: "अपने दोस्त को दें।", score: 1, feedback: "एक सच्चा दोस्त। इतना शुद्ध।" }, { text: "इसके लिए अपने दोस्त को रॉक-पेपर-सिजर की चुनौती दें।", score: 2, feedback: "एक निष्पक्ष और रणनीतिक कदम।" }, { text: "इसे इतनी तेजी से खाएं कि किसी को पता ही न चले कि यह चला गया है।", score: 3, feedback: "पिज्जा निंजा।" } ] },
+                        { id: 2, question: "आपका दोस्त अपने पिज्जा पर केचप डालता है। आप:", answers: [ { text: "चुपचाप उनके जीवन विकल्पों का न्याय करें।", score: 2, feedback: "चुप पर्यवेक्षक।" }, { text: "उन्हें इतालवी पाक विरासत पर 10 मिनट का व्याख्यान दें।", score: 3, feedback: "पिज्जा शुद्धतावादी।" }, { text: "कुछ केचप भी मांगें। क्यों नहीं?", score: 1, feedback: "अराजकता का एक सच्चा एजेंट।" } ] },
+                        { id: 3, question: "पिज्जा टॉपिंग के रूप में अनानास पर आपके क्या विचार हैं?", answers: [ { text: "यह मानवता के खिलाफ एक अपराध है।", score: 2, feedback: "एक मजबूत, लेकिन लोकप्रिय राय।" }, { text: "मुझे कोई आपत्ति नहीं है। जियो और जीने दो।", score: 1, feedback: "शांतिपूर्ण।" }, { text: "यह स्वादिष्ट है। तुम सब सिर्फ नफरत करने वाले हो।", score: 3, feedback: "बहादुर। बहुत बहादुर।" } ] },
+                        { id: 4, question: "एकदम सही क्रस्ट है:", answers: [ { text: "पतला और कुरकुरा।", score: 2, feedback: "क्लासिक पसंद।" }, { text: "मोटा और गूंधा हुआ।", score: 1, feedback: "आपके पैसे के लिए अधिक रोटी।" }, { text: "पनीर से भरा हुआ, बिल्कुल।", score: 3, feedback: "बहुत ज्यादा पनीर जैसी कोई चीज नहीं होती।" } ] },
+                        { id: 5, question: "कोई आपको एक चौकोर पिज्जा का कोना टुकड़ा प्रदान करता है। आप:", answers: [ { text: "इसे विनम्रता से स्वीकार करें। यह अभी भी पिज्जा है।", score: 1, feedback: "आभारी अतिथि।" }, { text: "पूछें कि क्या आप इसके बजाय एक मध्य टुकड़ा ले सकते हैं।", score: 2, feedback: "आप जानते हैं कि आप क्या चाहते हैं।" }, { text: "घोषणा करें कि चौकोर पिज्जा असली पिज्जा नहीं है।", score: 3, feedback: "पिज्जा गेटकीपर।" } ] },
+                        { id: 6, question: "आप अपना पिज्जा क्रस्ट कैसे खाते हैं?", answers: [ { text: "मैं इसे खाता हूँ। यह पिज्जा का हिस्सा है।", score: 1, feedback: "कोई बर्बादी नहीं योद्धा।" }, { text: "मैं इसे प्लेट पर छोड़ देता हूँ।", score: 3, feedback: "तुम राक्षस हो।" }, { text: "मैं इसे सॉस में डुबोता हूँ।", score: 2, feedback: "आविष्कारक।" } ] },
+                        { id: 7, question: "एक पिज्जा पर टॉपिंग की आदर्श संख्या है:", answers: [ { text: "1-2। इसे सरल रखें।", score: 1, feedback: "दिल से एक शुद्धतावादी।" }, { text: "3-4। स्वादों का एक अच्छा संतुलन।", score: 2, feedback: "संतुलित व्यक्ति।" }, { text: "जितने फिट हो सकें। जितने अधिक, उतना अच्छा!", score: 3, feedback: "अधिकतमवादी।" } ] },
+                        { id: 8, question: "आप एक समूह के लिए पिज्जा ऑर्डर कर रहे हैं। आप:", answers: [ { text: "मार्गेरिटा जैसे एक सरल, सुरक्षित विकल्प का सुझाव दें।", score: 1, feedback: "भीड़-प्रसन्न करने वाला।" }, { text: "सभी को संतुष्ट करने के लिए आधा-आधा ऑर्डर करें।", score: 2, feedback: "राजनयिक।" }, { text: "अपना अजीब पसंदीदा ऑर्डर करें और उम्मीद करें कि हर कोई इसे पसंद करेगा।", score: 3, feedback: "एक साहसिक कदम।" } ] },
+                        { id: 9, question: "मिर्च के गुच्छे और अजवायन:", answers: [ { text: "हर स्लाइस के लिए आवश्यक हैं।", score: 3, feedback: "स्वाद बढ़ाने वाला।" }, { text: "होना अच्छा है, लेकिन आवश्यक नहीं है।", score: 2, feedback: "उदारवादी।" }, { text: "वे पिज्जा का मूल स्वाद खराब कर देते हैं।", score: 1, feedback: "शुद्धतावादी।" } ] },
+                        { id: 10, question: "नाश्ते के लिए ठंडा पिज्जा है:", answers: [ { text: "चैंपियंस का नाश्ता।", score: 3, feedback: "एक सच्चा व्यंजन।" }, { text: "निराशा का एक कार्य।", score: 2, feedback: "हम सब वहाँ रहे हैं।" }, { text: "एक अपराध। पिज्जा हमेशा गर्म होना चाहिए।", score: 1, feedback: "परंपरावादी।" } ] },
+                        { id: 11, question: "आपको एक पिज्जा चुनने में कितना समय लगता है?", answers: [ { text: "2 मिनट से कम। मुझे पता है कि मुझे क्या चाहिए।", score: 1, feedback: "निर्णायक और कुशल।" }, { text: "एक अच्छा 15 मिनट का गहन मेनू विश्लेषण।", score: 3, feedback: "यह एक गंभीर निर्णय है।" }, { text: "मैं बस अपने दोस्तों से मेरे लिए चुनने के लिए कहता हूँ।", score: 2, feedback: "प्रतिनिधि।" } ] },
+                        { id: 12, question: "आप पिज्जा साझा कर रहे हैं और ध्यान दें कि स्लाइस की एक विषम संख्या है। आप:", answers: [ { text: "कोई बात नहीं, यह अपने आप सुलझ जाएगा।", score: 1, feedback: "शांत।" }, { text: "तुरंत गणना करना शुरू करें कि आखिरी स्लाइस का हकदार कौन है, इस आधार पर कि किसने अधिक भुगतान किया।", score: 3, feedback: "पिज्जा मुनीम।" }, { text: "आखिरी स्लाइस को आधा काटने का सुझाव दें।", score: 2, feedback: "समस्या-समाधानकर्ता।" } ] },
+                        { id: 13, question: "पिज्जा का आपका पसंदीदा हिस्सा है:", answers: [ { text: "चीज़ी, सॉसी मध्य।", score: 2, feedback: "मामले का दिल।" }, { text: "कुरकुरा, चबाने वाला क्रस्ट।", score: 1, feedback: "नींव।" }, { text: "वह एक टॉपिंग जिसके लिए आपने विशेष रूप से कहा था।", score: 3, feedback: "विशेषज्ञ।" } ] },
+                        { id: 14, question: "जब आप किसी को अपना पिज्जा स्लाइस आधा मोड़ते हुए देखते हैं, तो आप सोचते हैं:", answers: [ { text: "यह इसे खाने का एक स्मार्ट तरीका है।", score: 2, feedback: "व्यावहारिक।" }, { text: "किस तरह का राक्षस ऐसा करता है?", score: 3, feedback: "परंपरावादी।" }, { text: "मैंने इसके बारे में कभी नहीं सोचा।", score: 1, feedback: "आसान-मिजाज।" } ] },
+                        { id: 15, question: "एक 'पिज्जा रात' है:", answers: [ { text: "एक पवित्र साप्ताहिक अनुष्ठान।", score: 3, feedback: "भक्त।" }, { text: "एक अच्छा विकल्प जब आप खाना पकाने के लिए बहुत आलसी हों।", score: 2, feedback: "व्यावहारिक।" }, { text: "बस एक और भोजन।", score: 1, feedback: "आकस्मिक डिनर।" } ] },
+                        { id: 16, question: "आप एक मिठाई पिज्जा के बारे में कैसा महसूस करते हैं?", answers: [ { text: "यह एक घृणा है।", score: 2, feedback: "शुद्धतावादी।" }, { text: "मैं उत्सुक हूँ और इसे आज़माऊँगा।", score: 3, feedback: "साहसी।" }, { text: "पिज्जा पिज्जा है।", score: 1, feedback: "खुले विचारों वाला।" } ] },
+                        { id: 17, question: "आप एक फैंसी इतालवी रेस्तरां में हैं। आप:", answers: [ { text: "सबसे प्रामाणिक नियति पिज्जा का ऑर्डर करें।", score: 2, feedback: "पारखी।" }, { text: "फिर भी पूछें कि क्या उनके पास पनीर टिक्का पिज्जा है।", score: 3, feedback: "दिल से देसी।" }, { text: "इसके बजाय पास्ता ऑर्डर करें।", score: 1, feedback: "सुरक्षित खिलाड़ी।" } ] },
+                        { id: 18, question: "पिज्जा के साथ पीने के लिए आदर्श पेय है:", answers: [ { text: "एक क्लासिक कोक।", score: 2, feedback: "एकदम सही जोड़ी।" }, { text: "वाइन जैसी कोई फैंसी चीज।", score: 1, feedback: "परिष्कृत।" }, { text: "कुछ भी, जब तक यह मुफ्त है।", score: 3, feedback: "मूल्य साधक।" } ] },
+                        { id: 19, question: "आपने अभी-अभी अकेले एक बड़ा पिज्जा खत्म किया है। आप महसूस करते हैं:", answers: [ { text: "थोड़ी सी शर्म।", score: 1, feedback: "दोषी।" }, { text: "गर्व और उपलब्धि की भावना।", score: 3, feedback: "चैंपियन।" }, { text: "मिठाई के लिए तैयार।", score: 2, feedback: "योद्धा।" } ] },
+                        { id: 20, question: "आप किसी को कांटे और चाकू से पिज्जा खाते हुए देखते हैं। आप:", answers: [ { text: "एक तस्वीर लें और इसे ऑनलाइन पोस्ट करें।", score: 3, feedback: "सामग्री निर्माता।" }, { text: "विनम्रता से उन्हें अनदेखा करें।", score: 1, feedback: "जीयो और जीने दो।" }, { text: "उन्हें एक चुप, निर्णयात्मक घूर दें।", score: 2, feedback: "पिज्जा संस्कृति का संरक्षक।" } ] },
+                        { id: 21, question: "फूलगोभी क्रस्ट के साथ एक 'स्वस्थ' पिज्जा पर आपकी क्या राय है?", answers: [ { text: "वह पिज्जा नहीं है, वह एक विज्ञान प्रयोग है।", score: 3, feedback: "परंपरावादी।" }, { text: "एक अपराध-मुक्त भोजन के लिए एक बढ़िया विकल्प।", score: 1, feedback: "स्वास्थ्य उत्साही।" }, { text: "मैं इसे आज़माऊँगा, लेकिन मैं एक असली पिज्जा भी बैकअप के रूप में ऑर्डर करूँगा।", score: 2, feedback: "सतर्क आशावादी।" } ] },
+                        { id: 22, question: "आप एक दोस्त के घर पर हैं और वे आपको आखिरी स्लाइस प्रदान करते हैं। आप:", answers: [ { text: "विनम्रता से मना करें, भले ही आप इसे चाहते हों।", score: 1, feedback: "विनम्र अतिथि।" }, { text: "अंत में इसे लेने से पहले तीन बार 'क्या आप निश्चित हैं?' कहें।", score: 2, feedback: "क्लासिक भारतीय अलविदा।" }, { text: "इससे पहले कि वे अपना मन बदल सकें, इसे ले लो।", score: 3, feedback: "अवसरवादी।" } ] },
+                        { id: 23, question: "पिज्जा खाना कब ठीक है?", answers: [ { text: "केवल सप्ताहांत पर।", score: 1, feedback: "अनुशासित।" }, { text: "ज्यादातर रात के खाने के लिए।", score: 2, feedback: "परंपरावादी।" }, { text: "कभी भी। नाश्ता, दोपहर का भोजन, रात का खाना, आधी रात का नाश्ता...", score: 3, feedback: "सच्चा विश्वासी।" } ] },
+                        { id: 24, question: "जब पिज्जा आता है तो आप कैसा महसूस करते हैं?", answers: [ { text: "शुद्ध, अविमिश्रित आनंद की भावना।", score: 3, feedback: "सच्ची प्रेम कहानी।" }, { text: "खुश कि आपको खाना नहीं बनाना है।", score: 2, feedback: "व्यावहारिक।" }, { text: "सामान्य। यह सिर्फ भोजन है।", score: 1, feedback: "शांत।" } ] },
+                        { id: 25, question: "आप इस क्विज़ को देखते हैं। आप सोचते हैं:", answers: [ { text: "यह मेरे जीवन का सबसे महत्वपूर्ण क्विज़ है।", score: 3, feedback: "आपकी प्राथमिकताएँ सीधी हैं।" }, { text: "यह कुछ समय बिताने का एक मजेदार तरीका है।", score: 2, feedback: "एक आकस्मिक प्रशंसक।" }, { text: "मुझे शायद अभी काम करना चाहिए।", score: 1, feedback: "जिम्मेदार।" } ] }
+                    ]
+                }
+            };
+            
+            // --- STATE MANAGEMENT & DOM ELEMENTS ---
+            let currentQuestionIndex = 0;
+            let userAnswers = {};
+            let currentLang = 'en';
+            let quizQuestions = [];
+            let userName = '';
+            const QUESTIONS_PER_QUIZ = 15;
+
+            const allLangElements = document.querySelectorAll('[data-lang-key]');
+            const langPlaceholderElements = document.querySelectorAll('[data-lang-placeholder]');
+            const languageToggle = document.getElementById('language-toggle');
+            const startScreen = document.getElementById('start-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const calculatingScreen = document.getElementById('calculating-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const journeyScreen = document.getElementById('journey-screen');
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const goBackBtn = document.getElementById('go-back-btn');
+            const backToMainBtn = document.getElementById('back-to-main-btn');
+            const nameInput = document.getElementById('name-input');
+            const questionContainer = document.getElementById('question-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const finalScoreEl = document.getElementById('final-score');
+            const resultTitleEl = document.getElementById('result-title');
+            const resultDescriptionEl = document.getElementById('result-description');
+            const finalQuoteEl = document.getElementById('final-quote');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const shareButtonsContainer = document.getElementById('share-buttons');
+            const exploreBtn = document.getElementById('explore-btn');
+
+            // --- LANGUAGE LOGIC ---
+            const updateLanguage = (lang) => {
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                document.documentElement.lang = lang;
+                
+                languageToggle.innerHTML = (lang === 'en') 
+                    ? `<i class="fa-solid fa-language mr-2"></i> हिन्दी`
+                    : `<i class="fa-solid fa-language mr-2"></i> English`;
+
+                allLangElements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    const value = getNestedValue(content[lang], key);
+                    if (value) el.innerHTML = value;
+                });
+                
+                langPlaceholderElements.forEach(el => {
+                    const key = el.dataset.langPlaceholder;
+                    const value = getNestedValue(content[lang], key);
+                    if(value) el.placeholder = value;
+                });
+            };
+
+            const getNestedValue = (obj, key) => key.split('.').reduce((acc, part) => acc && acc[part], obj);
+
+            // --- THEME LOGIC ---
+            const applyTheme = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIconDark.classList.remove('hidden');
+                    themeIconLight.classList.add('hidden');
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
+            applyTheme(isDarkMode);
+
+            // --- UI FUNCTIONS ---
+            const renderQuestion = () => {
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const q_id = quizQuestions[currentQuestionIndex];
+                    const q_data_en = content.en.questions.find(item => item.id === q_id);
+                    const q_lang = content[currentLang].questions.find(item => item.id === q_id);
+                    
+                    if(!q_data_en || !q_lang) {
+                        goHome();
+                        return;
+                    }
+
+                    const shuffledAnswers = [...q_lang.answers].sort(() => Math.random() - 0.5);
+
+                    let answersHTML = shuffledAnswers.map(answer => {
+                        return `
+                        <button data-score="${answer.score}" class="choice-btn w-full text-left p-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-red-100 dark:hover:bg-red-500 transition-colors duration-200">
+                            ${answer.text}
+                        </button>
+                    `}).join('');
+                    
+                    const counterText = content[currentLang].question_counter
+                        .replace('{current}', currentQuestionIndex + 1)
+                        .replace('{total}', QUESTIONS_PER_QUIZ);
+
+                    questionContainer.innerHTML = `
+                        <div class="fade-in">
+                            <p class="text-lg font-semibold dark-mode-subtext mb-4">${counterText}</p>
+                            <h2 class="text-2xl md:text-3xl font-bold dark-mode-text mb-8">${q_lang.question.replace(/{name}/g, `<strong>${userName}</strong>`)}</h2>
+                            <div class="flex flex-col items-center space-y-4">${answersHTML}</div>
+                        </div>
+                    `;
+                    feedbackContainer.innerHTML = '';
+                    updateProgressBar();
+                } else {
+                    showCalculatingScreen();
+                }
+            };
+            
+            const updateProgressBar = () => {
+                const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            };
+
+            // --- CORE LOGIC ---
+            const startQuiz = () => {
+                userName = nameInput.value.trim();
+                if (!userName) {
+                    userName = (currentLang === 'en') ? 'Pizza Lover' : 'पिज़्ज़ा प्रेमी';
+                }
+
+                let allQuestionIds = content.en.questions.map(q => q.id);
+                allQuestionIds.sort(() => Math.random() - 0.5);
+                quizQuestions = allQuestionIds.slice(0, QUESTIONS_PER_QUIZ);
+                currentQuestionIndex = 0;
+                userAnswers = {};
+
+                startScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    startScreen.classList.add('hidden');
+                    startScreen.classList.remove('fade-out');
+                    quizScreen.classList.remove('hidden');
+                    quizScreen.classList.add('fade-in');
+                    progressContainer.classList.remove('hidden');
+                    backToMainBtn.classList.remove('hidden');
+                    renderQuestion();
+                }, 500);
+            };
+
+            const handleAnswer = (e) => {
+                const selectedBtn = e.target.closest('.choice-btn');
+                if (!selectedBtn) return;
+
+                const score = parseInt(selectedBtn.dataset.score);
+                const question_id = quizQuestions[currentQuestionIndex];
+                const question_data_lang = content[currentLang].questions.find(item => item.id === question_id);
+                
+                const answer_data_lang = question_data_lang.answers.find(a => a.score === score);
+                if (answer_data_lang) {
+                    feedbackContainer.innerHTML = `<p class="fade-in font-semibold text-lg text-teal-600 dark:text-teal-400">${answer_data_lang.feedback}</p>`;
+                }
+
+                userAnswers[question_id] = score;
+                
+                questionContainer.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn !== selectedBtn) {
+                        btn.classList.add('opacity-50');
+                    } else {
+                        btn.classList.add('ring-4', 'ring-red-400');
+                    }
+                });
+                
+                setTimeout(() => {
+                    if (questionContainer.firstElementChild) {
+                        questionContainer.firstElementChild.classList.replace('fade-in', 'fade-out');
+                    }
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    }, 500);
+                }, 1800);
+            };
+
+            const showCalculatingScreen = () => {
+                quizScreen.classList.add('fade-out');
+                progressContainer.classList.add('hidden');
+                backToMainBtn.classList.add('hidden');
+                setTimeout(() => {
+                    quizScreen.classList.add('hidden');
+                    quizScreen.classList.remove('fade-out');
+                    calculatingScreen.classList.remove('hidden');
+                    calculatingScreen.classList.add('fade-in');
+                    const calculatingTexts = [
+                        content[currentLang].calculating_text, 
+                        (currentLang === 'en' ? "Adding extra cheese to the results..." : "परिणामों में अतिरिक्त पनीर जोड़ा जा रहा है..."),
+                        (currentLang === 'en' ? "Debating about pineapple toppings..." : "अनानास टॉपिंग के बारे में बहस हो रही है...")
+                    ];
+                    document.getElementById('calculating-text').innerText = calculatingTexts[Math.floor(Math.random()*calculatingTexts.length)];
+                    setTimeout(showResults, 2500);
+                }, 500);
+            }
+            
+            const showResults = (isThemeOrLangUpdate = false) => {
+                if (!isThemeOrLangUpdate) {
+                     calculatingScreen.classList.add('fade-out');
+                     setTimeout(() => {
+                        calculatingScreen.classList.add('hidden');
+                        calculatingScreen.classList.remove('fade-out');
+                        resultsScreen.classList.remove('hidden');
+                        resultsScreen.classList.add('slide-up');
+                        calculateAndDisplayScores();
+                    }, 500);
+                } else {
+                    calculateAndDisplayScores();
+                }
+            };
+
+            const calculateAndDisplayScores = () => {
+                let totalScore = 0;
+                Object.values(userAnswers).forEach(score => {
+                    totalScore += score;
+                });
+
+                const minPossibleScore = QUESTIONS_PER_QUIZ * 1;
+                const maxPossibleScore = QUESTIONS_PER_QUIZ * 3;
+                const scoreRange = maxPossibleScore - minPossibleScore;
+                const userScoreOffset = totalScore - minPossibleScore;
+
+                let pizzaPercentage = 0;
+                if (scoreRange > 0) {
+                    pizzaPercentage = Math.round((userScoreOffset / scoreRange) * 100);
+                }
+                
+                finalScoreEl.classList.remove('score-reveal');
+                void finalScoreEl.offsetWidth; // Trigger reflow
+                finalScoreEl.classList.add('score-reveal');
+
+                let startValue = 0;
+                const duration = 1200;
+                const endValue = pizzaPercentage;
+                const startTime = performance.now();
+
+                function animateCountUp(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    if (elapsedTime < duration) {
+                        const progress = elapsedTime / duration;
+                        const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+                        const currentValue = Math.round(startValue + (endValue - startValue) * easedProgress);
+                        finalScoreEl.textContent = `${currentValue}%`;
+                        requestAnimationFrame(animateCountUp);
+                    } else {
+                        finalScoreEl.textContent = `${endValue}%`;
+                    }
+                }
+                requestAnimationFrame(animateCountUp);
+
+                let resultKey;
+                if (pizzaPercentage <= 25) resultKey = 'margherita';
+                else if (pizzaPercentage <= 50) resultKey = 'paneer';
+                else if (pizzaPercentage <= 75) resultKey = 'veggie';
+                else resultKey = 'pineapple';
+                
+                finalQuoteEl.dataset.resultKey = resultKey;
+                document.getElementById('crown-name').textContent = userName;
+
+                const personalizedLabel = content[currentLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+
+                resultTitleEl.textContent = content[currentLang][`result_${resultKey}_title`];
+                resultDescriptionEl.innerHTML = content[currentLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                finalQuoteEl.textContent = content[currentLang][`final_quote_${resultKey}`];
+                
+                displayFunnyComments(resultKey);
+                updateShareLinks(pizzaPercentage, content[currentLang][`result_${resultKey}_title`]);
+            };
+
+            const startBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                stopBackgroundAnimations();
+                
+                const emojis = ['🍕', '🧀', '🌶️', '🍍', '😂', '🥳', '😋'];
+                const numEmojis = 25;
+
+                for (let i = 0; i < numEmojis; i++) {
+                    const emoji = document.createElement('span');
+                    emoji.className = 'floating-emoji';
+                    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    emoji.style.left = `${Math.random() * 100}vw`;
+                    emoji.style.fontSize = `${1 + Math.random() * 2}rem`;
+                    const duration = 8 + Math.random() * 10;
+                    const delay = Math.random() * 7;
+                    const translateX = `${(Math.random() - 0.5) * 200}px`;
+                    const rotate = `${(Math.random() - 0.5) * 720}deg`;
+                    
+                    emoji.style.setProperty('--translateX', translateX);
+                    emoji.style.setProperty('--rotate', rotate);
+                    emoji.style.animation = `floatUp ${duration}s ease-in ${delay}s infinite`;
+                    
+                    container.appendChild(emoji);
+                }
+            };
+
+            const stopBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (container) {
+                    container.innerHTML = '';
+                }
+            };
+
+            const typewriter = (element, text, callback) => {
+                let i = 0;
+                const speed = 40; // milliseconds per character
+                const originalHTML = element.innerHTML;
+                element.innerHTML = originalHTML + '<span class="typing-text"></span><span class="typing-cursor border-l-2 border-red-500 h-6 inline-block align-middle">&nbsp;</span>';
+                const textSpan = element.querySelector('.typing-text');
+                const cursorSpan = element.querySelector('.typing-cursor');
+                
+                function type() {
+                    if (i < text.length) {
+                        textSpan.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        if(cursorSpan) {
+                           cursorSpan.style.display = 'none';
+                        }
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+
+            const displayFunnyComments = (resultKey) => {
+                const commentsContainer = document.getElementById('funny-comments-container');
+                if (!commentsContainer) return;
+                commentsContainer.innerHTML = '';
+                const commentsPool = content[currentLang].funny_comments[resultKey] || [];
+                
+                const shuffledComments = [...commentsPool].sort(() => 0.5 - Math.random());
+                const selectedComments = shuffledComments.slice(0, 3);
+
+                let commentIndex = 0;
+
+                function typeNextComment() {
+                    if (commentIndex < selectedComments.length) {
+                        const commentText = selectedComments[commentIndex];
+                        
+                        const card = document.createElement('div');
+                        card.className = 'funny-comment-card bg-red-100 dark:bg-gray-800 p-4 rounded-lg mb-4 text-gray-700 dark:text-red-300 italic shadow-md';
+                        
+                        const p = document.createElement('p');
+                        p.innerHTML = `<i class="fa-solid fa-quote-left mr-2 text-red-500"></i> `;
+                        card.appendChild(p);
+
+                        card.style.animationDelay = `0.2s`;
+                        
+                        commentsContainer.appendChild(card);
+                        
+                        setTimeout(() => {
+                            typewriter(p, commentText, () => {
+                                commentIndex++;
+                                setTimeout(typeNextComment, 800); 
+                            });
+                        }, 600);
+                    }
+                }
+                
+                startBackgroundAnimations();
+                typeNextComment();
+            };
+
+
+            const updateShareLinks = (percentage, title) => {
+                const text = encodeURIComponent(`My Pizza Personality is "${title}" with a score of ${percentage}%! Find out your pizza persona:`);
+                const url = encodeURIComponent(window.location.href);
+                
+                document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                document.getElementById('telegram-share').href = `https://t.me/share/url?url=${url}&text=${text}`;
+                document.getElementById('instagram-share').href = `https://www.instagram.com/`;
+            };
+            
+            const goHome = () => {
+                stopBackgroundAnimations();
+                [quizScreen, resultsScreen, journeyScreen, progressContainer, backToMainBtn, calculatingScreen].forEach(el => el.classList.add('hidden'));
+                startScreen.classList.remove('hidden', 'fade-out');
+                startScreen.classList.add('fade-in');
+                nameInput.value = '';
+                currentQuestionIndex = 0;
+                userAnswers = {};
+                quizQuestions = [];
+                progressBar.style.width = '0%';
+            };
+
+            const showJourneyScreen = (e) => {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                resultsScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    resultsScreen.classList.add('hidden');
+                    resultsScreen.classList.remove('fade-out');
+                    journeyScreen.classList.remove('hidden');
+                    journeyScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            const showResultsScreenFromJourney = () => {
+                journeyScreen.classList.add('fade-out');
+                 setTimeout(() => {
+                    journeyScreen.classList.add('hidden');
+                    journeyScreen.classList.remove('fade-out');
+                    resultsScreen.classList.remove('hidden');
+                    resultsScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            // --- EVENT LISTENERS ---
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', goHome);
+            backToMainBtn.addEventListener('click', goHome);
+            goBackBtn.addEventListener('click', showResultsScreenFromJourney);
+            quizScreen.addEventListener('click', handleAnswer);
+            shareButtonsContainer.addEventListener('click', (e) => {
+                const shareBtn = e.target.closest('a.share-btn');
+                if (shareBtn && shareBtn.href && shareBtn.href !== '#') {
+                    showJourneyScreen(e);
+                }
+            
+            });
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+                if (!resultsScreen.classList.contains('hidden')) { showResults(true); }
+            });
+            languageToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'hi' : 'en';
+                updateLanguage(newLang);
+                if (!quizScreen.classList.contains('hidden') || !calculatingScreen.classList.contains('hidden')) { 
+                    goHome();
+                } else if (!resultsScreen.classList.contains('hidden')) {
+                    const resultKey = finalQuoteEl.dataset.resultKey;
+                    const personalizedLabel = content[newLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                    document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+                    resultTitleEl.textContent = content[newLang][`result_${resultKey}_title`];
+                    resultDescriptionEl.innerHTML = content[newLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                    finalQuoteEl.textContent = content[newLang][`final_quote_${resultKey}`];
+                    displayFunnyComments(resultKey);
+                }
+            });
+
+            // Initial Load
+            const savedLang = localStorage.getItem('language') || 'en';
+            updateLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>
+

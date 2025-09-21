@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0DL8SC5JKB');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fattu Meter - How Scared Are You?</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS for theme, animations, and additional styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Dark Mode --- */
+        .dark .dark-mode-bg { background-color: #111827; }
+        .dark .dark-mode-text { color: #f9fafb; }
+        .dark .dark-mode-surface { background-color: #1f2937; }
+        .dark .dark-mode-border { border-color: #374151; }
+        .dark .dark-mode-subtext { color: #9ca3af; }
+
+        /* --- Animations --- */
+        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .pulse { animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .9; transform: scale(1.02); }
+        }
+
+        /* --- Button Styles --- */
+        .choice-btn, .share-btn, .control-btn {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .choice-btn:hover, .share-btn:hover, .control-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Social Share Colors --- */
+        .whatsapp-btn { background-color: #25D366; }
+        .twitter-btn { background-color: #1DA1F2; }
+        .facebook-btn { background-color: #1877F2; }
+        .telegram-btn { background-color: #24A1DE; }
+        .instagram-btn {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        }
+
+        /* --- Score Animation --- */
+        .score-reveal {
+            animation: scoreReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.5), 0 0 20px rgba(168, 85, 247, 0.3); /* Purple Shadow */
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* --- Funny Comments Styling --- */
+        .funny-comments-container {
+            perspective: 1000px;
+        }
+
+        .funny-comment-card {
+            opacity: 0;
+            transform: rotateX(-90deg) translateY(50px);
+            transform-origin: bottom center;
+            animation: revealComment 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .funny-comment-card p {
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1.75rem; /* leading-7 */
+        }
+
+        @media (min-width: 768px) {
+            .funny-comment-card p {
+                font-size: 1.5rem; /* md:text-2xl */
+                line-height: 2rem; /* md:leading-8 */
+            }
+        }
+
+
+        @keyframes revealComment {
+            from {
+                opacity: 0;
+                transform: rotateX(-90deg) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0deg) translateY(0);
+            }
+        }
+        
+        /* --- Typing Effect --- */
+        .typing-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #a855f7; } /* purple-500 */
+        }
+        
+        /* --- Background Animation --- */
+        #animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: -50px; /* Start from below the screen */
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--translateX)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode-bg text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+    <div id="animation-container"></div>
+    <!-- Header for Toggles -->
+    <header class="absolute top-4 w-full px-4 z-20 flex items-center justify-between">
+        <!-- Back to Main Page Button (Initially hidden) -->
+        <a id="back-to-main-btn" href="index.html" role="button" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </a>
+
+        <div class="flex items-center space-x-2 ml-auto">
+             <!-- Language Toggle -->
+            <button id="language-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 dark:focus:ring-offset-gray-900 w-28 h-10 flex items-center justify-center text-sm">
+                <!-- Text updated by JS -->
+            </button>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+                <svg id="theme-icon-dark" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg id="theme-icon-light" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-2 bg-gray-200 dark:bg-gray-700 z-10 hidden">
+        <div id="progress-bar" class="h-full bg-purple-500 progress-bar-fill" style="width: 0%;"></div>
+    </div>
+    
+    <main class="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-screen relative z-10">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center max-w-2xl fade-in">
+            <h1 class="text-4xl md:text-6xl font-extrabold dark-mode-text tracking-tight mb-4">The <span class="text-purple-500" data-lang-key="title">Fattu Meter</span></h1>
+            <p class="text-lg md:text-xl dark-mode-subtext mb-8" data-lang-key="subtitle">
+                Does a lizard on the wall make you change rooms? Do you check under the bed for monsters? Let's find out if you're a lion or a scaredy-cat!
+            </p>
+            <div class="mb-6 w-full max-w-sm mx-auto">
+                <input type="text" id="name-input" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-900 dark:text-white" data-lang-placeholder="name_placeholder">
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-8 italic" data-lang-key="privacy_disclaimer"></p>
+            <button id="start-btn" data-lang-key="start_button" class="bg-purple-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-purple-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-300 pulse">
+                Test My Guts!
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden w-full max-w-3xl">
+            <div id="question-container" class="text-center pt-16">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <div id="feedback-container" class="mt-6 text-center text-md dark-mode-subtext min-h-[60px]">
+                <!-- Feedback will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Calculating Screen -->
+        <div id="calculating-screen" class="hidden text-center w-full max-w-2xl">
+            <svg class="animate-spin h-16 w-16 text-purple-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h2 id="calculating-text" class="text-2xl font-bold dark-mode-text" data-lang-key="calculating_text">Measuring your heartbeats...</h2>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center w-full max-w-4xl pt-16">
+            <h2 class="text-2xl font-bold dark-mode-subtext mb-2" data-lang-key="result_level_label">Your Fattu Level</h2>
+            <div id="final-score" class="text-7xl md:text-8xl font-extrabold text-purple-500 mb-4">0%</div>
+            <h3 id="result-title" class="text-3xl md:text-4xl font-extrabold dark-mode-text mb-3"></h3>
+            <p id="result-description" class="text-lg md:text-xl dark-mode-subtext mb-8 max-w-2xl mx-auto"></p>
+            
+            <div id="funny-comments-container" class="funny-comments-container mt-8 mb-8 max-w-2xl mx-auto">
+                <!-- Comments will be injected here -->
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="mb-8">
+                <p class="font-bold dark-mode-text mb-3" data-lang-key="share_results_label">Share Your Fattu Report Card & Get a Medal!</p>
+                <div id="share-buttons" class="flex justify-center items-center flex-wrap gap-4">
+                    <a id="whatsapp-share" href="https://ppscore.co.in" target="_blank" class="share-btn whatsapp-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l.217.324-1.125 4.108 4.224-1.103.337.202z" /></svg>
+                    </a>
+                    <a id="twitter-share" href="https://ppscore.co.in" target="_blank" class="share-btn twitter-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.794 4.649-.69.188-1.433.23-2.184.085.617 1.914 2.408 3.258 4.53 3.301-1.724 1.352-3.883 2.093-6.138 1.795 1.815 1.163 3.973 1.84 6.262 1.84 7.218 0 11.168-5.986 11.168-11.168 0-.17-.003-.34-.01-.508.77-.556 1.438-1.248 1.968-2.04z"/></svg>
+                    </a>
+                    <a id="facebook-share" href="https://ppscore.co.in" target="_blank" class="share-btn facebook-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                    </a>                      
+                    <a id="telegram-share" href="https://ppscore.co.in" target="_blank" class="share-btn telegram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-1.39.2-1.62l15.97-5.85c.73-.27 1.36.17 1.15.99L16.4 18.28c-.21.83-1.2.5-1.54-.26L9.78 18.65z"/></svg>
+                    </a>
+                    <a id="instagram-share" href="https://ppscore.co.in" target="_blank" class="share-btn instagram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <p id="final-quote" class="text-lg dark-mode-text max-w-3xl mx-auto mb-8 italic">
+                <!-- Quote inserted by JS -->
+            </p>
+
+            <button id="restart-btn" data-lang-key="restart_button" class="bg-purple-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-purple-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-300">
+                Re-test My Guts!
+            </button>
+
+            <!-- Explore More Section -->
+            <div class="mt-16 py-8 border-t-2 border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
+                 <h3 class="text-2xl md:text-3xl font-extrabold dark-mode-text mb-4" data-lang-key="explore_title">Your Analysis Isn't Over Yet!</h3>
+                 <p class="text-lg dark-mode-subtext mb-8" data-lang-key="explore_desc">
+                   You've audited your guts, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.
+                 </p>
+                 <a id="explore-btn" href="index.html" class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 inline-block" data-lang-key="explore_button">
+                   Visit PersonalityPaathshala
+                 </a>
+                 <div class="mt-8 mb-6">
+                    <p class="font-semibold mb-2 text-purple-400 dark:text-purple-300" data-lang-key="support_title">Loved this quiz? Help us create more!</p>
+                    <p class="text-base text-gray-700 dark:text-white mb-3" data-lang-key="support_desc">Your small contribution keeps our creative engine running and helps us serve more fun.</p>
+                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QvFHmdPg3T4Pqh" async> </script> </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Screen -->
+        <div id="journey-screen" class="hidden text-center w-full max-w-2xl pt-16">
+            <h2 class="text-4xl font-extrabold text-purple-500 mb-4" data-lang-key="journey_title">Your Medal of Bravery!</h2>
+            <p class="text-lg dark-mode-subtext mb-8" data-lang-key="journey_subtitle">You shared your score! As a reward, here is your official, digitally-certified Medal of Bravery (or Participation). Print it and hang it on your wall!</p>
+            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-xl border-4 border-yellow-400">
+                <div class="text-center p-4">
+                    <div class="text-5xl mb-4">🏅</div>
+                    <h3 class="text-2xl font-bold dark-mode-text">Certificate of Guts</h3>
+                    <p class="dark-mode-subtext mt-2">This is to certify that</p>
+                    <p id="medal-name" class="text-3xl font-bold text-purple-500 my-2">[Your Name]</p>
+                    <p class="dark-mode-subtext">has bravely faced the Fattu Meter and survived to tell the tale.</p>
+                </div>
+            </div>
+             <button id="go-back-btn" data-lang-key="go_back_button" class="mt-8 bg-gray-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Back to My Score
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-xs text-gray-400 dark:text-gray-500">
+        <p data-lang-key="disclaimer">Disclaimer: This quiz is for entertainment purposes only. Do not attempt to fight a real lion after scoring high.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- LANGUAGE CONTENT STORE ---
+            const content = {
+                en: {
+                    title: "Fattu Meter",
+                    subtitle: "Does a lizard on the wall make you change rooms? Do you check under the bed for monsters? Let's find out if you're a lion or a scaredy-cat!",
+                    name_placeholder: "Enter your brave name...",
+                    privacy_disclaimer: "Your fears are safe with us. We won't tell anyone you screamed during a horror movie.",
+                    start_button: "Test My Guts!",
+                    calculating_text: "Measuring your heartbeats...",
+                    result_level_label: "Your Fattu Level",
+                    result_level_label_personalized: "{name}'s Fattu Level",
+                    share_results_label: "Share Your Fattu Report Card & Get a Medal!",
+                    restart_button: "Re-test My Guts!",
+                    disclaimer: "Disclaimer: This quiz is for entertainment purposes only. Do not attempt to fight a real lion after scoring high.",
+                    question_counter: "Question {current} of {total}",
+                    
+                    result_darpok_title: "Param Darpok",
+                    result_darpok_desc: "Oh, {name}. Your shadow is probably your biggest enemy. You see a cockroach and you're ready to sell the house. It's okay, we'll hold your hand.",
+                    result_sambhal_ke_title: "Sambhal Ke!",
+                    result_sambhal_ke_desc: "{name}, you're cautious. You look both ways before crossing a one-way street. You're not scared, you're just... strategically assessing risk. All the time.",
+                    result_bahadur_title: "Thoda Bahadur",
+                    result_bahadur_desc: "Hey {name}, not bad! You'll kill the spider, but you'll scream while doing it. You have moments of bravery, usually when someone is watching.",
+                    result_khiladi_title: "Khatron ka Khiladi",
+                    result_khiladi_desc: "{name}, are you even human? You probably use horror movies to fall asleep. Fear is a concept you read about in books. We're not sure if we should be impressed or scared of you.",
+                    
+                    final_quote_darpok: "\"I'm not scared, I'm just conserving my energy for a real emergency... like a loud noise.\"",
+                    final_quote_sambhal_ke: "\"It's called being careful. Look it up.\"",
+                    final_quote_bahadur: "\"I am brave. Just... from a safe distance.\"",
+                    final_quote_khiladi: "\"My only fear is running out of things to not be afraid of.\"",
+                    
+                    funny_comments: {
+                        darpok: [
+                            "You probably use a GPS to find your own kitchen in the dark.",
+                            "If fear was an Olympic sport, you'd have more gold medals than Michael Phelps.",
+                            "You check for monsters under your bed, and then check again for their friends.",
+                            "A butterfly once flew too close and you considered calling the police."
+                        ],
+                        sambhal_ke: [
+                            "You read the terms and conditions. All of them.",
+                            "You're the person who brings a first-aid kit to a movie.",
+                            "You think bungee jumping is just a fancy way to test gravity. You're not falling for it.",
+                            "Your favorite phrase is 'Let's not get ahead of ourselves'."
+                        ],
+                        bahadur: [
+                            "You'll volunteer to go into the dark room first, but you'll make someone else hold the door open.",
+                            "You once killed a mosquito with your bare hands and talked about it for a week.",
+                            "You're brave enough to watch a horror movie... through the gaps in your fingers.",
+                            "You'll try street food, but only after asking for a detailed ingredient list."
+                        ],
+                        khiladi: [
+                            "You think roller coasters are a mild form of meditation.",
+                            "You hear a strange noise at night and your first thought is 'Ooh, a new friend!'",
+                            "You probably see a 'Wet Floor' sign as a challenge.",
+                            "You're the reason they have to write 'Do Not Attempt' on stunt shows."
+                        ]
+                    },
+
+                    journey_title: "Your Medal of Bravery!",
+                    journey_subtitle: "You shared your score! As a reward, here is your official, digitally-certified Medal of Bravery (or Participation). Print it and hang it on your wall!",
+                    go_back_button: "Back to My Score",
+
+                    explore_title: "Your Analysis Isn't Over Yet!",
+                    explore_desc: "You've audited your guts, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.",
+                    explore_button: "Visit PersonalityPaathshala",
+                    support_title: "Loved this quiz? Help us create more!",
+                    support_desc: "Your small contribution keeps our creative engine running and helps us serve more fun.",
+
+                    questions: [
+                        { id: 1, question: "You see a lizard on the wall. You:", answers: [ { text: "Leave the room and never return.", score: 3, feedback: "The lizard now owns your room." }, { text: "Call for backup (mom/dad/sibling).", score: 2, feedback: "A wise delegation of duty." }, { text: "Casually trap it and release it outside.", score: 1, feedback: "The Lizard Whisperer." } ] },
+                        { id: 2, question: "The lights go out suddenly at night. You:", answers: [ { text: "Freeze in place and stop breathing until they're back.", score: 3, feedback: "Maybe the ghost won't see you if you don't move." }, { text: "Whip out your phone's flashlight immediately.", score: 2, feedback: "Modern problems, modern solutions." }, { text: "Calmly go and find the fuse box or a candle.", score: 1, feedback: "Are you a retired electrician?" } ] },
+                        { id: 3, question: "Your friend suggests bungee jumping. You say:", answers: [ { text: "'Are you insane? I'm not a rubber ball!'", score: 3, feedback: "A very logical response." }, { text: "'Hmm, let me see a video of it first.'", score: 2, feedback: "The researcher." }, { text: "'Let's go! The last one down is a rotten egg!'", score: 1, feedback: "We'll pray for you." } ] },
+                        { id: 4, question: "You have to give a presentation to 100 people. You:", answers: [ { text: "Fake a sudden illness and go home.", score: 3, feedback: "The classic escape." }, { text: "Practice 50 times and have sweaty palms the whole time.", score: 2, feedback: "The nervous professional." }, { text: "Walk up there and wing it with confidence.", score: 1, feedback: "Either brave or overconfident. Maybe both." } ] },
+                        { id: 5, question: "A street dog starts barking at you. You:", answers: [ { text: "Cross the street and take a 2km detour.", score: 3, feedback: "Safety first, and second, and third." }, { text: "Stand still and avoid eye contact.", score: 2, feedback: "The textbook answer." }, { text: "Bark back to assert dominance.", score: 1, feedback: "A bold, if questionable, strategy." } ] },
+                        { id: 6, question: "Your mom asks, 'Who broke this expensive vase?' You:", answers: [ { text: "Blame it on your younger sibling, even if they're not home.", score: 3, feedback: "A classic fattu move." }, { text: "Say 'It must have been the wind.'", score: 2, feedback: "Ah yes, the indoor hurricane." }, { text: "'It was me. I'm sorry.'", score: 1, feedback: "The truth-teller! So brave." } ] },
+                        { id: 7, question: "You're home alone and hear a strange noise downstairs. You:", answers: [ { text: "Hide under the blanket and text your friends goodbye.", score: 3, feedback: "It was nice knowing you." }, { text: "Grab the heaviest object near you and slowly investigate.", score: 2, feedback: "The reluctant hero." }, { text: "Shout, 'I have a black belt and I'm not afraid to use it!'", score: 1, feedback: "Confidence is key, even if it's a lie." } ] },
+                        { id: 8, question: "You see the 'Exam Results Are Out' notification. You:", answers: [ { text: "Turn off your phone and pretend you never saw it.", score: 3, feedback: "Ignorance is bliss." }, { text: "Ask a friend to check for you first.", score: 2, feedback: "The buffer system." }, { text: "Open it immediately to face your destiny.", score: 1, feedback: "Facing the music like a champ." } ] },
+                        { id: 9, question: "Your friend dares you to eat a whole green chili. You:", answers: [ { text: "Politely decline and question your friendship.", score: 3, feedback: "Self-preservation is important." }, { text: "Take a tiny, tiny bite from the tip.", score: 2, feedback: "The negotiator." }, { text: "Eat it without hesitation and ask for water later.", score: 1, feedback: "A true spice warrior." } ] },
+                        { id: 10, question: "Someone cuts you off in traffic. You:", answers: [ { text: "Honk feebly and then feel bad about it.", score: 3, feedback: "Sorry for honking at you cutting me off." }, { text: "Mutter curses under your breath where no one can hear.", score: 2, feedback: "The silent warrior." }, { text: "Roll down the window and give them a lecture on traffic rules.", score: 1, feedback: "The traffic teacher." } ] },
+                        { id: 11, question: "It's your turn to sing at karaoke. You:", answers: [ { text: "Suddenly develop a cough that lasts all night.", score: 3, feedback: "A mysterious and convenient illness." }, { text: "Choose a song everyone knows and hope they sing louder than you.", score: 2, feedback: "The power of the chorus." }, { text: "Grab the mic and sing a rock ballad with passion.", score: 1, feedback: "A star is born!" } ] },
+                        { id: 12, question: "You see a single cockroach in the kitchen. You:", answers: [ { text: "Move out. The house belongs to the cockroach now.", score: 3, feedback: "A peaceful transfer of power." }, { text: "Spray an entire can of bug spray on it.", score: 2, feedback: "The nuclear option." }, { text: "Deal with it quickly with a slipper.", score: 1, feedback: "The designated cockroach slayer." } ] },
+                        { id: 13, question: "The Golgappa-wala asks 'Aur teekha bhaiya?' You say:", answers: [ { text: "'No, no, this is perfect, thank you.' (while your eyes water)", score: 3, feedback: "The polite sufferer." }, { text: "'Just a little bit.' (and immediately regret it)", score: 2, feedback: "The risk-taker." }, { text: "'Yes! Make me cry!'", score: 1, feedback: "You are a legend." } ] },
+                        { id: 14, question: "You have to walk past a graveyard at night. You:", answers: [ { text: "Book a cab for a 100-meter distance.", score: 3, feedback: "Modern problems require modern solutions." }, { text: "Walk very fast while chanting prayers.", score: 2, feedback: "The spiritual sprinter." }, { text: "Walk slowly, enjoying the spooky ambiance.", score: 1, feedback: "Are you the ghost?" } ] },
+                        { id: 15, question: "Your mom says 'We need to talk.' Your first thought is:", answers: [ { text: "'What did I do wrong now?' and you list all 50 possibilities.", score: 3, feedback: "The overthinker's panic." }, { text: "'Okay, but can it wait until after my show?'", score: 2, feedback: "The master of delay." }, { text: "'Okay, I'm listening.'", score: 1, feedback: "Calm, cool, and collected." } ] },
+                        { id: 16, question: "A relative asks for your Wi-Fi password. You:", answers: [ { text: "Give it to them instantly.", score: 1, feedback: "A generous soul." }, { text: "Pretend you don't remember it.", score: 3, feedback: "My password? What password?" }, { text: "Give them the password but with one wrong character.", score: 2, feedback: "The subtle saboteur." } ] },
+                        { id: 17, question: "You're on a rollercoaster and it's about to drop. You:", answers: [ { text: "Close your eyes and pray to every god you know.", score: 3, feedback: "A multi-faith prayer." }, { text: "Scream your lungs out with a mix of fear and excitement.", score: 2, feedback: "The classic rollercoaster experience." }, { text: "Put your hands up and smile for the camera.", score: 1, feedback: "The thrill-seeker." } ] },
+                        { id: 18, question: "The dentist says, 'This won't hurt a bit.' You:", answers: [ { text: "Immediately start crying.", score: 3, feedback: "The pre-emptive strike." }, { text: "Believe them, but grip the chair for dear life.", score: 2, feedback: "Trust but verify." }, { text: "Say 'Okay, cool.' and relax.", score: 1, feedback: "You're made of steel." } ] },
+                        { id: 19, question: "You have to bargain with a shopkeeper. You:", answers: [ { text: "Pay the first price they say because you feel awkward.", score: 3, feedback: "Every shopkeeper's dream customer." }, { text: "Ask for a 10% discount and feel proud.", score: 2, feedback: "The reasonable bargainer." }, { text: "Start at half the price and refuse to budge.", score: 1, feedback: "The master negotiator." } ] },
+                        { id: 20, question: "Your crush is walking towards you. You:", answers: [ { text: "Immediately look at your phone and pretend to be busy.", score: 3, feedback: "The classic avoidance maneuver." }, { text: "Give a small, awkward wave.", score: 2, feedback: "A for effort." }, { text: "Smile and say 'Hi!' confidently.", score: 1, feedback: "Look at you, so smooth!" } ] },
+                        { id: 21, question: "You get a '4 missed calls from Mom' notification. You:", answers: [ { text: "Prepare a list of excuses before calling back.", score: 3, feedback: "The defense lawyer." }, { text: "Wait for the 5th call, because that's when it's serious.", score: 2, feedback: "Playing with fire." }, { text: "Call back immediately.", score: 1, feedback: "The responsible child." } ] },
+                        { id: 22, question: "You're watching a horror movie and the phone rings. You:", answers: [ { text: "Throw the phone across the room.", score: 3, feedback: "A perfectly normal reaction." }, { text: "Answer with a shaky 'Hello?'", score: 2, feedback: "The brave victim." }, { text: "Annoyedly answer, 'Who's disturbing my movie?'", score: 1, feedback: "The unshakeable." } ] },
+                        { id: 23, question: "You're asked to hold a baby. You:", answers: [ { text: "Say 'Oh, I think I'm allergic to babies.'", score: 3, feedback: "A rare and specific allergy." }, { text: "Hold it awkwardly like it's a bomb.", score: 2, feedback: "Please don't drop it." }, { text: "Hold it like a pro, making funny faces.", score: 1, feedback: "The baby whisperer." } ] },
+                        { id: 24, question: "You see a notification 'Someone tagged you in a photo'. You:", answers: [ { text: "Panic and hope it's not the one from last night.", score: 3, feedback: "The fear is real." }, { text: "Check it, but are ready to untag yourself immediately.", score: 2, feedback: "The quality control manager." }, { text: "Get excited to see a new picture of yourself.", score: 1, feedback: "The confident one." } ] },
+                        { id: 25, question: "The teacher asks 'Who can answer this question?' You:", answers: [ { text: "Avoid eye contact and pretend to be looking for something in your bag.", score: 3, feedback: "Suddenly, your bag is the most interesting thing in the world." }, { text: "Know the answer but stay quiet, hoping someone else answers.", score: 2, feedback: "The silent genius." }, { text: "Raise your hand enthusiastically, even if you're not 100% sure.", score: 1, feedback: "The eager beaver." } ] }
+                    ]
+                },
+                hi: {
+                    title: "फट्टू मीटर",
+                    subtitle: "क्या दीवार पर छिपकली देखकर आप कमरा बदल लेते हैं? क्या आप राक्षसों के लिए बिस्तर के नीचे देखते हैं? आइए जानें कि आप शेर हैं या डरपोक बिल्ली!",
+                    name_placeholder: "अपना बहादुर नाम दर्ज करें...",
+                    privacy_disclaimer: "आपके डर हमारे पास सुरक्षित हैं। हम किसी को नहीं बताएंगे कि आप एक डरावनी फिल्म के दौरान चिल्लाए थे।",
+                    start_button: "मेरी हिम्मत का परीक्षण करें!",
+                    calculating_text: "आपकी दिल की धड़कनों को मापा जा रहा है...",
+                    result_level_label: "आपका फट्टू स्तर",
+                    result_level_label_personalized: "{name} का फट्टू स्तर",
+                    share_results_label: "अपना फट्टू रिपोर्ट कार्ड साझा करें और एक पदक प्राप्त करें!",
+                    restart_button: "मेरी हिम्मत का फिर से परीक्षण करें!",
+                    disclaimer: "अस्वीकरण: यह क्विज़ केवल मनोरंजन के उद्देश्य से है। उच्च स्कोर करने के बाद असली शेर से लड़ने का प्रयास न करें।",
+                    question_counter: "प्रश्न {current} / {total}",
+
+                    result_darpok_title: "परम डरपोक",
+                    result_darpok_desc: "ओह, {name}। आपकी परछाई शायद आपकी सबसे बड़ी दुश्मन है। आप एक कॉकरोच देखते हैं और घर बेचने के लिए तैयार हो जाते हैं। कोई बात नहीं, हम आपका हाथ पकड़ लेंगे।",
+                    result_sambhal_ke_title: "संभल के!",
+                    result_sambhal_ke_desc: "{name}, आप सतर्क हैं। आप एक-तरफा सड़क पार करने से पहले दोनों तरफ देखते हैं। आप डरे हुए नहीं हैं, आप बस... रणनीतिक रूप से जोखिम का आकलन कर रहे हैं। हर समय।",
+                    result_bahadur_title: "थोड़ा बहादुर",
+                    result_bahadur_desc: "हे {name}, बुरा नहीं है! आप मकड़ी को मार देंगे, लेकिन ऐसा करते समय चिल्लाएंगे। आप में बहादुरी के क्षण हैं, आमतौर पर जब कोई देख रहा होता है।",
+                    result_khiladi_title: "खतरों का खिलाड़ी",
+                    result_khiladi_desc: "{name}, क्या आप इंसान भी हैं? आप शायद सोने के लिए डरावनी फिल्में इस्तेमाल करते हैं। डर एक अवधारणा है जिसके बारे में आपने किताबों में पढ़ा है। हमें यकीन नहीं है कि हमें प्रभावित होना चाहिए या आपसे डरना चाहिए।",
+
+                    final_quote_darpok: "\"मैं डरा हुआ नहीं हूँ, मैं बस एक वास्तविक आपातकाल के लिए अपनी ऊर्जा बचा रहा हूँ... जैसे कि एक तेज आवाज।\"",
+                    final_quote_sambhal_ke: "\"इसे सावधान रहना कहते हैं। देख लो।\"",
+                    final_quote_bahadur: "\"मैं बहादुर हूँ। बस... एक सुरक्षित दूरी से।\"",
+                    final_quote_khiladi: "\"मेरा एकमात्र डर यह है कि डरने के लिए चीजें खत्म हो जाएंगी।\"",
+                    
+                    funny_comments: {
+                        darpok: [
+                            "आप शायद अंधेरे में अपनी रसोई खोजने के लिए जीपीएस का उपयोग करते हैं।",
+                            "अगर डर एक ओलंपिक खेल होता, तो आपके पास माइकल फेल्प्स से ज्यादा स्वर्ण पदक होते।",
+                            "आप अपने बिस्तर के नीचे राक्षसों की जांच करते हैं, और फिर उनके दोस्तों के लिए फिर से जांच करते हैं।",
+                            "एक बार एक तितली बहुत करीब आ गई और आपने पुलिस को बुलाने पर विचार किया।"
+                        ],
+                        sambhal_ke: [
+                            "आप नियम और शर्तें पढ़ते हैं। उन सभी को।",
+                            "आप वह व्यक्ति हैं जो एक फिल्म में प्राथमिक चिकित्सा किट लाता है।",
+                            "आप सोचते हैं कि बंजी जंपिंग केवल गुरुत्वाकर्षण का परीक्षण करने का एक शानदार तरीका है। आप इसके लिए नहीं गिर रहे हैं।",
+                            "आपका पसंदीदा वाक्यांश है 'चलो खुद से आगे न बढ़ें'।"
+                        ],
+                        bahadur: [
+                            "आप पहले अंधेरे कमरे में जाने के लिए स्वेच्छा से जाएंगे, लेकिन आप किसी और से दरवाजा खुला रखने के लिए कहेंगे।",
+                            "आपने एक बार अपने नंगे हाथों से एक मच्छर मारा और एक हफ्ते तक इसके बारे में बात की।",
+                            "आप एक डरावनी फिल्म देखने के लिए पर्याप्त बहादुर हैं... अपनी उंगलियों के अंतराल के माध्यम से।",
+                            "आप स्ट्रीट फूड की कोशिश करेंगे, लेकिन केवल एक विस्तृत सामग्री सूची मांगने के बाद।"
+                        ],
+                        khiladi: [
+                            "आप सोचते हैं कि रोलर कोस्टर ध्यान का एक हल्का रूप है।",
+                            "आप रात में एक अजीब आवाज सुनते हैं और आपका पहला विचार है 'ओह, एक नया दोस्त!'",
+                            "आप शायद 'गीला फर्श' चिन्ह को एक चुनौती के रूप में देखते हैं।",
+                            "आप ही कारण हैं कि उन्हें स्टंट शो पर 'प्रयास न करें' लिखना पड़ता है।"
+                        ]
+                    },
+
+                    journey_title: "आपकी बहादुरी का पदक!",
+                    journey_subtitle: "आपने अपना स्कोर साझा किया! एक पुरस्कार के रूप में, यहाँ आपकी बहादुरी (या भागीदारी) का आधिकारिक, डिजिटल रूप से प्रमाणित पदक है। इसे प्रिंट करें और अपनी दीवार पर लटकाएं!",
+                    go_back_button: "मेरे स्कोर पर वापस जाएं",
+
+                    explore_title: "आपका विश्लेषण अभी खत्म नहीं हुआ है!",
+                    explore_desc: "आपने अपनी हिम्मत का ऑडिट किया है, लेकिन आपके बाकी प्रफुल्लित करने वाले व्यक्तित्व के बारे में क्या? आपका प्रेम जीवन, आपके गुस्से के मुद्दे... पर्सनैलिटी पाठशाला में आपके लिए मज़ेदार कैलकुलेटर की एक पूरी कक्षा है।",
+                    explore_button: "पर्सनैलिटी पाठशाला पर जाएँ",
+                    support_title: "यह क्विज़ पसंद आया? और बनाने में हमारी मदद करें!",
+                    support_desc: "आपका छोटा सा योगदान हमारी रचनात्मकता को चालू रखता है और हमें और मज़ा परोसने में मदद करता है।",
+                    
+                    questions: [
+                        { id: 1, question: "आप दीवार पर एक छिपकली देखते हैं। आप:", answers: [ { text: "कमरा छोड़कर कभी वापस नहीं आते।", score: 3, feedback: "छिपकली अब आपके कमरे की मालिक है।" }, { text: "बैकअप के लिए बुलाते हैं (माँ/पिता/भाई-बहन)।", score: 2, feedback: "कर्तव्य का एक बुद्धिमान प्रतिनिधिमंडल।" }, { text: "आकस्मिक रूप से उसे पकड़कर बाहर छोड़ देते हैं।", score: 1, feedback: "छिपकली का फुसफुसाने वाला।" } ] },
+                        { id: 2, question: "रात में अचानक बत्ती चली जाती है। आप:", answers: [ { text: "जगह पर जम जाते हैं और वापस आने तक सांस लेना बंद कर देते हैं।", score: 3, feedback: "शायद भूत आपको नहीं देखेगा अगर आप नहीं हिलेंगे।" }, { text: "तुरंत अपने फोन की टॉर्च निकालते हैं।", score: 2, feedback: "आधुनिक समस्याएं, आधुनिक समाधान।" }, { text: "शांति से जाकर फ्यूज बॉक्स या मोमबत्ती ढूंढते हैं।", score: 1, feedback: "क्या आप एक सेवानिवृत्त इलेक्ट्रीशियन हैं?" } ] },
+                        { id: 3, question: "आपका दोस्त बंजी जंपिंग का सुझाव देता है। आप कहते हैं:", answers: [ { text: "'क्या तुम पागल हो? मैं कोई रबर की गेंद नहीं हूँ!'", score: 3, feedback: "एक बहुत ही तार्किक प्रतिक्रिया।" }, { text: "'हम्म, पहले मुझे इसका एक वीडियो देखने दो।'", score: 2, feedback: "शोधकर्ता।" }, { text: "'चलो चलें! जो आखिरी में नीचे आएगा वह एक सड़ा हुआ अंडा है!'", score: 1, feedback: "हम आपके लिए प्रार्थना करेंगे।" } ] },
+                        { id: 4, question: "आपको 100 लोगों के सामने एक प्रस्तुति देनी है। आप:", answers: [ { text: "अचानक बीमारी का नाटक करते हैं और घर चले जाते हैं।", score: 3, feedback: "क्लासिक पलायन।" }, { text: "50 बार अभ्यास करते हैं और पूरे समय पसीने से तर हथेलियाँ रहती हैं।", score: 2, feedback: "घबराया हुआ पेशेवर।" }, { text: "वहाँ जाकर आत्मविश्वास से काम लेते हैं।", score: 1, feedback: "या तो बहादुर या अति आत्मविश्वासी। शायद दोनों।" } ] },
+                        { id: 5, question: "एक गली का कुत्ता आप पर भौंकने लगता है। आप:", answers: [ { text: "सड़क पार करते हैं और 2 किमी का चक्कर लगाते हैं।", score: 3, feedback: "सुरक्षा पहले, और दूसरे, और तीसरे।" }, { text: "स्थिर खड़े रहते हैं और आँख से संपर्क से बचते हैं।", score: 2, feedback: "पाठ्यपुस्तक का उत्तर।" }, { text: "प्रभुत्व स्थापित करने के लिए वापस भौंकते हैं।", score: 1, feedback: "एक साहसी, यदि संदिग्ध, रणनीति।" } ] },
+                        { id: 6, question: "आपकी माँ पूछती हैं, 'यह महंगा फूलदान किसने तोड़ा?' आप:", answers: [ { text: "अपने छोटे भाई-बहन पर आरोप लगाते हैं, भले ही वे घर पर न हों।", score: 3, feedback: "एक क्लासिक फट्टू चाल।" }, { text: "कहते हैं 'यह हवा से हुआ होगा।'", score: 2, feedback: "आह हाँ, इनडोर तूफान।" }, { text: "'यह मुझसे हुआ। मुझे खेद है।'", score: 1, feedback: "सत्यवादी! बहुत बहादुर।" } ] },
+                        { id: 7, question: "आप घर पर अकेले हैं और नीचे एक अजीब आवाज सुनते हैं। आप:", answers: [ { text: "कंबल के नीचे छिप जाते हैं और अपने दोस्तों को अलविदा टेक्स्ट करते हैं।", score: 3, feedback: "आपसे मिलकर अच्छा लगा।" }, { text: "अपने पास की सबसे भारी वस्तु पकड़ते हैं और धीरे-धीरे जांच करते हैं।", score: 2, feedback: "अनिच्छुक नायक।" }, { text: "चिल्लाते हैं, 'मेरे पास एक ब्लैक बेल्ट है और मैं इसका उपयोग करने से नहीं डरता!'", score: 1, feedback: "आत्मविश्वास महत्वपूर्ण है, भले ही यह एक झूठ हो।" } ] },
+                        { id: 8, question: "आप 'परीक्षा परिणाम आ गए हैं' की अधिसूचना देखते हैं। आप:", answers: [ { text: "अपना फोन बंद कर देते हैं और ऐसा दिखावा करते हैं कि आपने इसे कभी नहीं देखा।", score: 3, feedback: "अज्ञानता परमानंद है।" }, { text: "पहले अपने लिए जाँच करने के लिए एक दोस्त से पूछते हैं।", score: 2, feedback: "बफर सिस्टम।" }, { text: "अपने भाग्य का सामना करने के लिए इसे तुरंत खोलते हैं।", score: 1, feedback: "एक चैंपियन की तरह संगीत का सामना करना।" } ] },
+                        { id: 9, question: "आपका दोस्त आपको एक पूरी हरी मिर्च खाने की हिम्मत देता है। आप:", answers: [ { text: "विनम्रता से मना करते हैं और अपनी दोस्ती पर सवाल उठाते हैं।", score: 3, feedback: "आत्म-संरक्षण महत्वपूर्ण है।" }, { text: "टिप से एक छोटा, छोटा टुकड़ा लेते हैं।", score: 2, feedback: "वार्ताकार।" }, { text: "बिना किसी हिचकिचाहट के इसे खाते हैं और बाद में पानी मांगते हैं।", score: 1, feedback: "एक सच्चा मसाला योद्धा।" } ] },
+                        { id: 10, question: "कोई आपको ट्रैफिक में काटता है। आप:", answers: [ { text: "कमजोरी से हॉर्न बजाते हैं और फिर इसके बारे में बुरा महसूस करते हैं।", score: 3, feedback: "मुझे काटने के लिए आप पर हॉर्न बजाने के लिए क्षमा करें।" }, { text: "अपनी सांस के नीचे श्राप बड़बड़ाते हैं जहाँ कोई नहीं सुन सकता।", score: 2, feedback: "चुप योद्धा।" }, { text: "खिड़की नीचे करते हैं और उन्हें यातायात नियमों पर एक व्याख्यान देते हैं।", score: 1, feedback: "यातायात शिक्षक।" } ] },
+                        { id: 11, question: "कराओके में गाने की आपकी बारी है। आप:", answers: [ { text: "अचानक एक खांसी विकसित होती है जो पूरी रात रहती है।", score: 3, feedback: "एक रहस्यमय और सुविधाजनक बीमारी।" }, { text: "एक ऐसा गाना चुनें जिसे हर कोई जानता हो और उम्मीद करें कि वे आपसे ज्यादा जोर से गाएंगे।", score: 2, feedback: "कोरस की शक्ति।" }, { text: "माइक पकड़ो और जुनून के साथ एक रॉक गीत गाओ।", score: 1, feedback: "एक सितारा पैदा हुआ है!" } ] },
+                        { id: 12, question: "आप रसोई में एक कॉकरोच देखते हैं। आप:", answers: [ { text: "बाहर चले जाओ। घर अब कॉकरोच का है।", score: 3, feedback: "सत्ता का एक शांतिपूर्ण हस्तांतरण।" }, { text: "उस पर बग स्प्रे का एक पूरा कैन स्प्रे करें।", score: 2, feedback: "परमाणु विकल्प।" }, { text: "एक चप्पल से जल्दी से इससे निपटें।", score: 1, feedback: "नामित कॉकरोच कातिल।" } ] },
+                        { id: 13, question: "गोलगप्पे वाला पूछता है 'और तीखा भैया?' आप कहते हैं:", answers: [ { text: "'नहीं, नहीं, यह एकदम सही है, धन्यवाद।' (जब आपकी आंखों में पानी आ रहा हो)", score: 3, feedback: "विनम्र पीड़ित।" }, { text: "'बस थोड़ा सा।' (और तुरंत पछतावा)", score: 2, feedback: "जोखिम लेने वाला।" }, { text: "'हाँ! मुझे रुला दो!'", score: 1, feedback: "आप एक किंवदंती हैं।" } ] },
+                        { id: 14, question: "आपको रात में एक कब्रिस्तान के पास से चलना है। आप:", answers: [ { text: "100 मीटर की दूरी के लिए एक टैक्सी बुक करें।", score: 3, feedback: "आधुनिक समस्याओं के लिए आधुनिक समाधान चाहिए।" }, { text: "प्रार्थना करते हुए बहुत तेजी से चलें।", score: 2, feedback: "आध्यात्मिक धावक।" }, { text: "डरावने माहौल का आनंद लेते हुए धीरे-धीरे चलें।", score: 1, feedback: "क्या आप भूत हैं?" } ] },
+                        { id: 15, question: "आपकी माँ कहती हैं 'हमें बात करनी है।' आपका पहला विचार है:", answers: [ { text: "'अब मैंने क्या गलत किया?' और आप सभी 50 संभावनाओं को सूचीबद्ध करते हैं।", score: 3, feedback: "अति-सोचने वाले की घबराहट।" }, { text: "'ठीक है, लेकिन क्या यह मेरे शो के बाद तक इंतजार कर सकता है?'", score: 2, feedback: "देरी का स्वामी।" }, { text: "'ठीक है, मैं सुन रहा हूँ।'", score: 1, feedback: "शांत, ठंडा और एकत्र।" } ] },
+                        { id: 16, question: "एक रिश्तेदार आपका वाई-फाई पासवर्ड मांगता है। आप:", answers: [ { text: "उन्हें तुरंत दे दो।", score: 1, feedback: "एक उदार आत्मा।" }, { text: "ऐसा दिखावा करो कि तुम्हें यह याद नहीं है।", score: 3, feedback: "मेरा पासवर्ड? कौन सा पासवर्ड?" }, { text: "उन्हें पासवर्ड दो लेकिन एक गलत अक्षर के साथ।", score: 2, feedback: "सूक्ष्म सबोटूर।" } ] },
+                        { id: 17, question: "आप एक रोलरकोस्टर पर हैं और यह नीचे गिरने वाला है। आप:", answers: [ { text: "अपनी आँखें बंद करो और हर उस भगवान से प्रार्थना करो जिसे तुम जानते हो।", score: 3, feedback: "एक बहु-विश्वास प्रार्थना।" }, { text: "डर और उत्साह के मिश्रण से अपने फेफड़ों को चीखो।", score: 2, feedback: "क्लासिक रोलरकोस्टर अनुभव।" }, { text: "अपने हाथ ऊपर करो और कैमरे के लिए मुस्कुराओ।", score: 1, feedback: "रोमांच चाहने वाला।" } ] },
+                        { id: 18, question: "दंत चिकित्सक कहता है, 'यह थोड़ा भी दर्द नहीं करेगा।' आप:", answers: [ { text: "तुरंत रोना शुरू कर दो।", score: 3, feedback: "पूर्व-खाली हड़ताल।" }, { text: "उन पर विश्वास करो, लेकिन कुर्सी को प्रिय जीवन के लिए पकड़ो।", score: 2, feedback: "विश्वास करो लेकिन सत्यापित करो।" }, { text: "कहो 'ठीक है, अच्छा है।' और आराम करो।", score: 1, feedback: "आप स्टील के बने हैं।" } ] },
+                        { id: 19, question: "आपको एक दुकानदार से मोलभाव करना है। आप:", answers: [ { text: "वे जो पहली कीमत कहते हैं, उसका भुगतान करें क्योंकि आप अजीब महसूस करते हैं।", score: 3, feedback: "हर दुकानदार का सपना ग्राहक।" }, { text: "10% छूट मांगें और गर्व महसूस करें।", score: 2, feedback: "उचित मोलभाव करने वाला।" }, { text: "आधी कीमत से शुरू करें और हिलने से इनकार करें।", score: 1, feedback: "मास्टर वार्ताकार।" } ] },
+                        { id: 20, question: "आपकी क्रश आपकी ओर चल रही है। आप:", answers: [ { text: "तुरंत अपने फोन को देखो और व्यस्त होने का नाटक करो।", score: 3, feedback: "क्लासिक परिहार पैंतरेबाज़ी।" }, { text: "एक छोटी, अजीब लहर दो।", score: 2, feedback: "प्रयास के लिए ए।" }, { text: "मुस्कुराओ और आत्मविश्वास से 'हाय!' कहो।", score: 1, feedback: "तुम्हें देखो, इतना चिकना!" } ] },
+                        { id: 21, question: "आपको 'माँ से 4 मिस्ड कॉल' की सूचना मिलती है। आप:", answers: [ { text: "वापस बुलाने से पहले बहानों की एक सूची तैयार करें।", score: 3, feedback: "रक्षा वकील।" }, { text: "5 वीं कॉल की प्रतीक्षा करें, क्योंकि तब यह गंभीर है।", score: 2, feedback: "आग से खेलना।" }, { text: "तुरंत वापस बुलाओ।", score: 1, feedback: "जिम्मेदार बच्चा।" } ] },
+                        { id: 22, question: "आप एक डरावनी फिल्म देख रहे हैं और फोन बजता है। आप:", answers: [ { text: "फोन को कमरे के पार फेंक दो।", score: 3, feedback: "एक पूरी तरह से सामान्य प्रतिक्रिया।" }, { text: "एक कांपती हुई 'हैलो?' के साथ जवाब दो।", score: 2, feedback: "बहादुर पीड़ित।" }, { text: "चिढ़कर जवाब दो, 'मेरी फिल्म कौन परेशान कर रहा है?'", score: 1, feedback: "अडिग।" } ] },
+                        { id: 23, question: "आपसे एक बच्चा पकड़ने के लिए कहा जाता है। आप:", answers: [ { text: "कहो 'ओह, मुझे लगता है कि मुझे बच्चों से एलर्जी है।'", score: 3, feedback: "एक दुर्लभ और विशिष्ट एलर्जी।" }, { text: "इसे अजीब तरह से पकड़ो जैसे कि यह एक बम है।", score: 2, feedback: "कृपया इसे मत गिराओ।" }, { text: "इसे एक पेशेवर की तरह पकड़ो, मजाकिया चेहरे बनाते हुए।", score: 1, feedback: "बच्चे को फुसलाने वाला।" } ] },
+                        { id: 24, question: "आपको एक अधिसूचना मिलती है 'किसी ने आपको एक तस्वीर में टैग किया है'। आप:", answers: [ { text: "घबराओ और उम्मीद करो कि यह कल रात वाली नहीं है।", score: 3, feedback: "डर असली है।" }, { text: "इसे जांचें, लेकिन तुरंत खुद को अनटैग करने के लिए तैयार हैं।", score: 2, feedback: "गुणवत्ता नियंत्रण प्रबंधक।" }, { text: "अपनी एक नई तस्वीर देखने के लिए उत्साहित हों।", score: 1, feedback: "आत्मविश्वासी।" } ] },
+                        { id: 25, question: "शिक्षक पूछता है 'इस सवाल का जवाब कौन दे सकता है?' आप:", answers: [ { text: "आंख से संपर्क से बचें और अपने बैग में कुछ ढूंढने का नाटक करें।", score: 3, feedback: "अचानक, आपका बैग दुनिया की सबसे दिलचस्प चीज है।" }, { text: "उत्तर पता है लेकिन चुप रहो, उम्मीद है कि कोई और जवाब देगा।", score: 2, feedback: "चुप प्रतिभा।" }, { text: "उत्साह से अपना हाथ उठाएं, भले ही आप 100% निश्चित न हों।", score: 1, feedback: "उत्सुक ऊदबिलाव।" } ] }
+                    ]
+                }
+            };
+            
+            // --- STATE MANAGEMENT & DOM ELEMENTS ---
+            let currentQuestionIndex = 0;
+            let userAnswers = {};
+            let currentLang = 'en';
+            let quizQuestions = [];
+            let userName = '';
+            const QUESTIONS_PER_QUIZ = 15;
+
+            const allLangElements = document.querySelectorAll('[data-lang-key]');
+            const langPlaceholderElements = document.querySelectorAll('[data-lang-placeholder]');
+            const languageToggle = document.getElementById('language-toggle');
+            const startScreen = document.getElementById('start-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const calculatingScreen = document.getElementById('calculating-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const journeyScreen = document.getElementById('journey-screen');
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const goBackBtn = document.getElementById('go-back-btn');
+            const backToMainBtn = document.getElementById('back-to-main-btn');
+            const nameInput = document.getElementById('name-input');
+            const questionContainer = document.getElementById('question-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const finalScoreEl = document.getElementById('final-score');
+            const resultTitleEl = document.getElementById('result-title');
+            const resultDescriptionEl = document.getElementById('result-description');
+            const finalQuoteEl = document.getElementById('final-quote');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const shareButtonsContainer = document.getElementById('share-buttons');
+            const exploreBtn = document.getElementById('explore-btn');
+
+            // --- LANGUAGE LOGIC ---
+            const updateLanguage = (lang) => {
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                document.documentElement.lang = lang;
+                
+                languageToggle.innerHTML = (lang === 'en') 
+                    ? `<i class="fa-solid fa-language mr-2"></i> हिन्दी`
+                    : `<i class="fa-solid fa-language mr-2"></i> English`;
+
+                allLangElements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    const value = getNestedValue(content[lang], key);
+                    if (value) el.innerHTML = value;
+                });
+                
+                langPlaceholderElements.forEach(el => {
+                    const key = el.dataset.langPlaceholder;
+                    const value = getNestedValue(content[lang], key);
+                    if(value) el.placeholder = value;
+                });
+            };
+
+            const getNestedValue = (obj, key) => key.split('.').reduce((acc, part) => acc && acc[part], obj);
+
+            // --- THEME LOGIC ---
+            const applyTheme = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIconDark.classList.remove('hidden');
+                    themeIconLight.classList.add('hidden');
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
+            applyTheme(isDarkMode);
+
+            // --- UI FUNCTIONS ---
+            const renderQuestion = () => {
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const q_id = quizQuestions[currentQuestionIndex];
+                    const q_data_en = content.en.questions.find(item => item.id === q_id);
+                    const q_lang = content[currentLang].questions.find(item => item.id === q_id);
+                    
+                    if(!q_data_en || !q_lang) {
+                        goHome();
+                        return;
+                    }
+
+                    const shuffledAnswers = [...q_lang.answers].sort(() => Math.random() - 0.5);
+
+                    let answersHTML = shuffledAnswers.map(answer => {
+                        return `
+                        <button data-score="${answer.score}" class="choice-btn w-full text-left p-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-purple-100 dark:hover:bg-purple-500 transition-colors duration-200">
+                            ${answer.text}
+                        </button>
+                    `}).join('');
+                    
+                    const counterText = content[currentLang].question_counter
+                        .replace('{current}', currentQuestionIndex + 1)
+                        .replace('{total}', QUESTIONS_PER_QUIZ);
+
+                    questionContainer.innerHTML = `
+                        <div class="fade-in">
+                            <p class="text-lg font-semibold dark-mode-subtext mb-4">${counterText}</p>
+                            <h2 class="text-2xl md:text-3xl font-bold dark-mode-text mb-8">${q_lang.question.replace(/{name}/g, `<strong>${userName}</strong>`)}</h2>
+                            <div class="flex flex-col items-center space-y-4">${answersHTML}</div>
+                        </div>
+                    `;
+                    feedbackContainer.innerHTML = '';
+                    updateProgressBar();
+                } else {
+                    showCalculatingScreen();
+                }
+            };
+            
+            const updateProgressBar = () => {
+                const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            };
+
+            // --- CORE LOGIC ---
+            const startQuiz = () => {
+                userName = nameInput.value.trim();
+                if (!userName) {
+                    userName = (currentLang === 'en') ? 'Braveheart' : 'बहादुर';
+                }
+
+                let allQuestionIds = content.en.questions.map(q => q.id);
+                allQuestionIds.sort(() => Math.random() - 0.5);
+                quizQuestions = allQuestionIds.slice(0, QUESTIONS_PER_QUIZ);
+                currentQuestionIndex = 0;
+                userAnswers = {};
+
+                startScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    startScreen.classList.add('hidden');
+                    startScreen.classList.remove('fade-out');
+                    quizScreen.classList.remove('hidden');
+                    quizScreen.classList.add('fade-in');
+                    progressContainer.classList.remove('hidden');
+                    backToMainBtn.classList.remove('hidden');
+                    renderQuestion();
+                }, 500);
+            };
+
+            const handleAnswer = (e) => {
+                const selectedBtn = e.target.closest('.choice-btn');
+                if (!selectedBtn) return;
+
+                const score = parseInt(selectedBtn.dataset.score);
+                const question_id = quizQuestions[currentQuestionIndex];
+                const question_data_lang = content[currentLang].questions.find(item => item.id === question_id);
+                
+                const answer_data_lang = question_data_lang.answers.find(a => a.score === score);
+                if (answer_data_lang) {
+                    feedbackContainer.innerHTML = `<p class="fade-in font-semibold text-lg text-teal-600 dark:text-teal-400">${answer_data_lang.feedback}</p>`;
+                }
+
+                userAnswers[question_id] = score;
+                
+                questionContainer.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn !== selectedBtn) {
+                        btn.classList.add('opacity-50');
+                    } else {
+                        btn.classList.add('ring-4', 'ring-purple-400');
+                    }
+                });
+                
+                setTimeout(() => {
+                    if (questionContainer.firstElementChild) {
+                        questionContainer.firstElementChild.classList.replace('fade-in', 'fade-out');
+                    }
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    }, 500);
+                }, 1800);
+            };
+
+            const showCalculatingScreen = () => {
+                quizScreen.classList.add('fade-out');
+                progressContainer.classList.add('hidden');
+                backToMainBtn.classList.add('hidden');
+                setTimeout(() => {
+                    quizScreen.classList.add('hidden');
+                    quizScreen.classList.remove('fade-out');
+                    calculatingScreen.classList.remove('hidden');
+                    calculatingScreen.classList.add('fade-in');
+                    const calculatingTexts = [
+                        content[currentLang].calculating_text, 
+                        (currentLang === 'en' ? "Checking for monsters under the bed..." : "बिस्तर के नीचे राक्षसों की जाँच हो रही है..."),
+                        (currentLang === 'en' ? "Asking a lizard for its opinion..." : "एक छिपकली से उसकी राय पूछी जा रही है...")
+                    ];
+                    document.getElementById('calculating-text').innerText = calculatingTexts[Math.floor(Math.random()*calculatingTexts.length)];
+                    setTimeout(showResults, 2500);
+                }, 500);
+            }
+            
+            const showResults = (isThemeOrLangUpdate = false) => {
+                if (!isThemeOrLangUpdate) {
+                     calculatingScreen.classList.add('fade-out');
+                     setTimeout(() => {
+                        calculatingScreen.classList.add('hidden');
+                        calculatingScreen.classList.remove('fade-out');
+                        resultsScreen.classList.remove('hidden');
+                        resultsScreen.classList.add('slide-up');
+                        calculateAndDisplayScores();
+                    }, 500);
+                } else {
+                    calculateAndDisplayScores();
+                }
+            };
+
+            const calculateAndDisplayScores = () => {
+                let totalScore = 0;
+                Object.values(userAnswers).forEach(score => {
+                    totalScore += score;
+                });
+
+                const minPossibleScore = QUESTIONS_PER_QUIZ * 1;
+                const maxPossibleScore = QUESTIONS_PER_QUIZ * 3;
+                const scoreRange = maxPossibleScore - minPossibleScore;
+                const userScoreOffset = totalScore - minPossibleScore;
+
+                let fattuPercentage = 0;
+                if (scoreRange > 0) {
+                    // Invert the score because a higher score means more "fattu"
+                    fattuPercentage = 100 - Math.round((userScoreOffset / scoreRange) * 100);
+                }
+                
+                finalScoreEl.classList.remove('score-reveal');
+                void finalScoreEl.offsetWidth; // Trigger reflow
+                finalScoreEl.classList.add('score-reveal');
+
+                let startValue = 0;
+                const duration = 1200;
+                const endValue = fattuPercentage;
+                const startTime = performance.now();
+
+                function animateCountUp(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    if (elapsedTime < duration) {
+                        const progress = elapsedTime / duration;
+                        const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+                        const currentValue = Math.round(startValue + (endValue - startValue) * easedProgress);
+                        finalScoreEl.textContent = `${currentValue}%`;
+                        requestAnimationFrame(animateCountUp);
+                    } else {
+                        finalScoreEl.textContent = `${endValue}%`;
+                    }
+                }
+                requestAnimationFrame(animateCountUp);
+
+                let resultKey;
+                if (fattuPercentage <= 25) resultKey = 'darpok';
+                else if (fattuPercentage <= 50) resultKey = 'sambhal_ke';
+                else if (fattuPercentage <= 75) resultKey = 'bahadur';
+                else resultKey = 'khiladi';
+                
+                finalQuoteEl.dataset.resultKey = resultKey;
+                document.getElementById('medal-name').textContent = userName;
+
+                const personalizedLabel = content[currentLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+
+                resultTitleEl.textContent = content[currentLang][`result_${resultKey}_title`];
+                resultDescriptionEl.innerHTML = content[currentLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                finalQuoteEl.textContent = content[currentLang][`final_quote_${resultKey}`];
+                
+                displayFunnyComments(resultKey);
+                updateShareLinks(fattuPercentage, content[currentLang][`result_${resultKey}_title`]);
+            };
+
+            const startBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                stopBackgroundAnimations();
+                
+                const emojis = ['👻', '😨', '😱', '🦁', '💪', '🔥', '💥'];
+                const numEmojis = 25;
+
+                for (let i = 0; i < numEmojis; i++) {
+                    const emoji = document.createElement('span');
+                    emoji.className = 'floating-emoji';
+                    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    emoji.style.left = `${Math.random() * 100}vw`;
+                    emoji.style.fontSize = `${1 + Math.random() * 2}rem`;
+                    const duration = 8 + Math.random() * 10;
+                    const delay = Math.random() * 7;
+                    const translateX = `${(Math.random() - 0.5) * 200}px`;
+                    const rotate = `${(Math.random() - 0.5) * 720}deg`;
+                    
+                    emoji.style.setProperty('--translateX', translateX);
+                    emoji.style.setProperty('--rotate', rotate);
+                    emoji.style.animation = `floatUp ${duration}s ease-in ${delay}s infinite`;
+                    
+                    container.appendChild(emoji);
+                }
+            };
+
+            const stopBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (container) {
+                    container.innerHTML = '';
+                }
+            };
+
+            const typewriter = (element, text, callback) => {
+                let i = 0;
+                const speed = 40; // milliseconds per character
+                const originalHTML = element.innerHTML;
+                element.innerHTML = originalHTML + '<span class="typing-text"></span><span class="typing-cursor border-l-2 border-purple-500 h-6 inline-block align-middle">&nbsp;</span>';
+                const textSpan = element.querySelector('.typing-text');
+                const cursorSpan = element.querySelector('.typing-cursor');
+                
+                function type() {
+                    if (i < text.length) {
+                        textSpan.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        if(cursorSpan) {
+                           cursorSpan.style.display = 'none';
+                        }
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+
+            const displayFunnyComments = (resultKey) => {
+                const commentsContainer = document.getElementById('funny-comments-container');
+                if (!commentsContainer) return;
+                commentsContainer.innerHTML = '';
+                const commentsPool = content[currentLang].funny_comments[resultKey] || [];
+                
+                const shuffledComments = [...commentsPool].sort(() => 0.5 - Math.random());
+                const selectedComments = shuffledComments.slice(0, 3);
+
+                let commentIndex = 0;
+
+                function typeNextComment() {
+                    if (commentIndex < selectedComments.length) {
+                        const commentText = selectedComments[commentIndex];
+                        
+                        const card = document.createElement('div');
+                        card.className = 'funny-comment-card bg-purple-100 dark:bg-gray-800 p-4 rounded-lg mb-4 text-gray-700 dark:text-purple-300 italic shadow-md';
+                        
+                        const p = document.createElement('p');
+                        p.innerHTML = `<i class="fa-solid fa-quote-left mr-2 text-purple-500"></i> `;
+                        card.appendChild(p);
+
+                        card.style.animationDelay = `0.2s`;
+                        
+                        commentsContainer.appendChild(card);
+                        
+                        setTimeout(() => {
+                            typewriter(p, commentText, () => {
+                                commentIndex++;
+                                setTimeout(typeNextComment, 800); 
+                            });
+                        }, 600);
+                    }
+                }
+                
+                startBackgroundAnimations();
+                typeNextComment();
+            };
+
+
+            const updateShareLinks = (percentage, title) => {
+                const text = encodeURIComponent(`My Fattu Score is ${percentage}%! Turns out I'm a "${title}". Find out how brave you are:`);
+                const url = encodeURIComponent(window.location.href);
+                
+                document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                document.getElementById('telegram-share').href = `https://t.me/share/url?url=${url}&text=${text}`;
+                document.getElementById('instagram-share').href = `https://www.instagram.com/`;
+            };
+            
+            const goHome = () => {
+                stopBackgroundAnimations();
+                [quizScreen, resultsScreen, journeyScreen, progressContainer, backToMainBtn, calculatingScreen].forEach(el => el.classList.add('hidden'));
+                startScreen.classList.remove('hidden', 'fade-out');
+                startScreen.classList.add('fade-in');
+                nameInput.value = '';
+                currentQuestionIndex = 0;
+                userAnswers = {};
+                quizQuestions = [];
+                progressBar.style.width = '0%';
+            };
+
+            const showJourneyScreen = (e) => {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                resultsScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    resultsScreen.classList.add('hidden');
+                    resultsScreen.classList.remove('fade-out');
+                    journeyScreen.classList.remove('hidden');
+                    journeyScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            const showResultsScreenFromJourney = () => {
+                journeyScreen.classList.add('fade-out');
+                 setTimeout(() => {
+                    journeyScreen.classList.add('hidden');
+                    journeyScreen.classList.remove('fade-out');
+                    resultsScreen.classList.remove('hidden');
+                    resultsScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            // --- EVENT LISTENERS ---
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', goHome);
+            backToMainBtn.addEventListener('click', goHome);
+            goBackBtn.addEventListener('click', showResultsScreenFromJourney);
+            quizScreen.addEventListener('click', handleAnswer);
+            shareButtonsContainer.addEventListener('click', (e) => {
+                const shareBtn = e.target.closest('a.share-btn');
+                if (shareBtn && shareBtn.href && shareBtn.href !== '#') {
+                    showJourneyScreen(e);
+                }
+            });
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+                if (!resultsScreen.classList.contains('hidden')) { showResults(true); }
+            });
+            languageToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'hi' : 'en';
+                updateLanguage(newLang);
+                if (!quizScreen.classList.contains('hidden') || !calculatingScreen.classList.contains('hidden')) { 
+                    goHome();
+                } else if (!resultsScreen.classList.contains('hidden')) {
+                    const resultKey = finalQuoteEl.dataset.resultKey;
+                    const personalizedLabel = content[newLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                    document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+                    resultTitleEl.textContent = content[newLang][`result_${resultKey}_title`];
+                    resultDescriptionEl.innerHTML = content[newLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                    finalQuoteEl.textContent = content[newLang][`final_quote_${resultKey}`];
+                    displayFunnyComments(resultKey);
+                }
+            });
+
+            // Initial Load
+            const savedLang = localStorage.getItem('language') || 'en';
+            updateLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0DL8SC5JKB');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advice Guru Meter - How Much Free Advice Do You Give?</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS for theme, animations, and additional styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Dark Mode --- */
+        .dark .dark-mode-bg { background-color: #111827; }
+        .dark .dark-mode-text { color: #f9fafb; }
+        .dark .dark-mode-surface { background-color: #1f2937; }
+        .dark .dark-mode-border { border-color: #374151; }
+        .dark .dark-mode-subtext { color: #9ca3af; }
+
+        /* --- Animations --- */
+        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .pulse { animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .9; transform: scale(1.02); }
+        }
+
+        /* --- Button Styles --- */
+        .choice-btn, .share-btn, .control-btn {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .choice-btn:hover, .share-btn:hover, .control-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Social Share Colors --- */
+        .whatsapp-btn { background-color: #25D366; }
+        .twitter-btn { background-color: #1DA1F2; }
+        .facebook-btn { background-color: #1877F2; }
+        .telegram-btn { background-color: #24A1DE; }
+        .instagram-btn {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        }
+
+        /* --- Score Animation --- */
+        .score-reveal {
+            animation: scoreReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.5), 0 0 20px rgba(16, 185, 129, 0.3); /* Emerald Shadow */
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* --- Funny Comments Styling --- */
+        .funny-comments-container {
+            perspective: 1000px;
+        }
+
+        .funny-comment-card {
+            opacity: 0;
+            transform: rotateX(-90deg) translateY(50px);
+            transform-origin: bottom center;
+            animation: revealComment 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .funny-comment-card p {
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1.75rem; /* leading-7 */
+        }
+
+        @media (min-width: 768px) {
+            .funny-comment-card p {
+                font-size: 1.5rem; /* md:text-2xl */
+                line-height: 2rem; /* md:leading-8 */
+            }
+        }
+
+
+        @keyframes revealComment {
+            from {
+                opacity: 0;
+                transform: rotateX(-90deg) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0deg) translateY(0);
+            }
+        }
+        
+        /* --- Typing Effect --- */
+        .typing-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #10b981; } /* emerald-500 */
+        }
+        
+        /* --- Background Animation --- */
+        #animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: -50px; /* Start from below the screen */
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--translateX)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode-bg text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+    <div id="animation-container"></div>
+    <!-- Header for Toggles -->
+    <header class="absolute top-4 w-full px-4 z-20 flex items-center justify-between">
+        <!-- Back to Main Page Button (Initially hidden) -->
+        <a id="back-to-main-btn" href="index.html" role="button" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </a>
+
+        <div class="flex items-center space-x-2 ml-auto">
+             <!-- Language Toggle -->
+            <button id="language-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 dark:focus:ring-offset-gray-900 w-28 h-10 flex items-center justify-center text-sm">
+                <!-- Text updated by JS -->
+            </button>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+                <svg id="theme-icon-dark" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg id="theme-icon-light" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-2 bg-gray-200 dark:bg-gray-700 z-10 hidden">
+        <div id="progress-bar" class="h-full bg-emerald-500 progress-bar-fill" style="width: 0%;"></div>
+    </div>
+    
+    <main class="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-screen relative z-10">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center max-w-2xl fade-in">
+            <h1 class="text-4xl md:text-6xl font-extrabold dark-mode-text tracking-tight mb-4">The <span class="text-emerald-500" data-lang-key="title">Advice Guru Meter</span></h1>
+            <p class="text-lg md:text-xl dark-mode-subtext mb-8" data-lang-key="subtitle">
+                Do you have an opinion on everything? Do you give advice that no one asked for? Let's find out if you're a silent supporter or a walking, talking advice column!
+            </p>
+            <div class="mb-6 w-full max-w-sm mx-auto">
+                <input type="text" id="name-input" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 dark:text-white" data-lang-placeholder="name_placeholder">
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-8 italic" data-lang-key="privacy_disclaimer"></p>
+            <button id="start-btn" data-lang-key="start_button" class="bg-emerald-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-emerald-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-emerald-300 pulse">
+                Give Me Advice!
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden w-full max-w-3xl">
+            <div id="question-container" class="text-center pt-16">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <div id="feedback-container" class="mt-6 text-center text-md dark-mode-subtext min-h-[60px]">
+                <!-- Feedback will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Calculating Screen -->
+        <div id="calculating-screen" class="hidden text-center w-full max-w-2xl">
+            <svg class="animate-spin h-16 w-16 text-emerald-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h2 id="calculating-text" class="text-2xl font-bold dark-mode-text" data-lang-key="calculating_text">Consulting the experts...</h2>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center w-full max-w-4xl pt-16">
+            <h2 class="text-2xl font-bold dark-mode-subtext mb-2" data-lang-key="result_level_label">Your Advice Guru Level</h2>
+            <div id="final-score" class="text-7xl md:text-8xl font-extrabold text-emerald-500 mb-4">0%</div>
+            <h3 id="result-title" class="text-3xl md:text-4xl font-extrabold dark-mode-text mb-3"></h3>
+            <p id="result-description" class="text-lg md:text-xl dark-mode-subtext mb-8 max-w-2xl mx-auto"></p>
+            
+            <div id="funny-comments-container" class="funny-comments-container mt-8 mb-8 max-w-2xl mx-auto">
+                <!-- Comments will be injected here -->
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="mb-8">
+                <p class="font-bold dark-mode-text mb-3" data-lang-key="share_results_label">Share Your Report & Get Your PhD in Advice!</p>
+                <div id="share-buttons" class="flex justify-center items-center flex-wrap gap-4">
+                    <a id="whatsapp-share" href="https://ppscore.co.in" target="_blank" class="share-btn whatsapp-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l.217.324-1.125 4.108 4.224-1.103.337.202z" /></svg>
+                    </a>
+                    <a id="twitter-share" href="https://ppscore.co.in" target="_blank" class="share-btn twitter-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.794 4.649-.69.188-1.433.23-2.184.085.617 1.914 2.408 3.258 4.53 3.301-1.724 1.352-3.883 2.093-6.138 1.795 1.815 1.163 3.973 1.84 6.262 1.84 7.218 0 11.168-5.986 11.168-11.168 0-.17-.003-.34-.01-.508.77-.556 1.438-1.248 1.968-2.04z"/></svg>
+                    </a>
+                    <a id="facebook-share" href="https://ppscore.co.in" target="_blank" class="share-btn facebook-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                    </a>                      
+                    <a id="telegram-share" href="https://ppscore.co.in" target="_blank" class="share-btn telegram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-1.39.2-1.62l15.97-5.85c.73-.27 1.36.17 1.15.99L16.4 18.28c-.21.83-1.2.5-1.54-.26L9.78 18.65z"/></svg>
+                    </a>
+                    <a id="instagram-share" href="https://ppscore.co.in" target="_blank" class="share-btn instagram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <p id="final-quote" class="text-lg dark-mode-text max-w-3xl mx-auto mb-8 italic">
+                <!-- Quote inserted by JS -->
+            </p>
+
+            <button id="restart-btn" data-lang-key="restart_button" class="bg-emerald-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-emerald-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-emerald-300">
+                Give More Advice!
+            </button>
+
+            <!-- Explore More Section -->
+            <div class="mt-16 py-8 border-t-2 border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
+                 <h3 class="text-2xl md:text-3xl font-extrabold dark-mode-text mb-4" data-lang-key="explore_title">Your Analysis Isn't Over Yet!</h3>
+                 <p class="text-lg dark-mode-subtext mb-8" data-lang-key="explore_desc">
+                   You've audited your advice-giving skills, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.
+                 </p>
+                 <a id="explore-btn" href="index.html" class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 inline-block" data-lang-key="explore_button">
+                   Visit PersonalityPaathshala
+                 </a>
+                 <div class="mt-8 mb-6">
+                    <p class="font-semibold mb-2 text-emerald-400 dark:text-emerald-300" data-lang-key="support_title">Loved this quiz? Help us create more!</p>
+                    <p class="text-base text-gray-700 dark:text-white mb-3" data-lang-key="support_desc">Your small contribution keeps our creative engine running and helps us serve more fun.</p>
+                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QvFHmdPg3T4Pqh" async> </script> </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Screen -->
+        <div id="journey-screen" class="hidden text-center w-full max-w-2xl pt-16">
+            <h2 class="text-4xl font-extrabold text-emerald-500 mb-4" data-lang-key="journey_title">Your PhD in Free Advice!</h2>
+            <p class="text-lg dark-mode-subtext mb-8" data-lang-key="journey_subtitle">You shared your score! The University of Gyan is proud to present you with this honorary doctorate.</p>
+            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-xl border-4 border-yellow-400">
+                <div class="text-center p-4">
+                    <h3 class="text-2xl font-bold dark-mode-text">University of Free Advice</h3>
+                    <p class="dark-mode-subtext mt-2 uppercase tracking-widest">Doctorate of Philosophy (PhD)</p>
+                    <div class="my-4 text-5xl text-emerald-500">
+                        🎓
+                    </div>
+                    <p class="dark-mode-subtext">Is Hereby Awarded to:</p>
+                    <p id="phd-name" class="text-3xl font-bold text-emerald-500 my-2">[Your Name]</p>
+                    <p class="dark-mode-text">For outstanding contributions to the field of unsolicited opinions.</p>
+                </div>
+            </div>
+             <button id="go-back-btn" href="index.html" data-lang-key="go_back_button" class="mt-8 bg-gray-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Back to My Score
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-xs text-gray-400 dark:text-gray-500">
+        <p data-lang-key="disclaimer">Disclaimer: This quiz is for fun. Please don't start charging your friends for your advice after this.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- LANGUAGE CONTENT STORE ---
+            const content = {
+                en: {
+                    title: "Advice Guru Meter",
+                    subtitle: "Do you have an opinion on everything? Do you give advice that no one asked for? Let's find out if you're a silent supporter or a walking, talking advice column!",
+                    name_placeholder: "Enter your 'gyaani' name...",
+                    privacy_disclaimer: "Your unsolicited advice is safe with us. We won't tell anyone you told a stranger how to live their life.",
+                    start_button: "Give Me Advice!",
+                    calculating_text: "Consulting the experts...",
+                    result_level_label: "Your Advice Guru Level",
+                    result_level_label_personalized: "{name}'s Advice Guru Level",
+                    share_results_label: "Share Your Report & Get Your PhD in Advice!",
+                    restart_button: "Give More Advice!",
+                    disclaimer: "Disclaimer: This quiz is for fun. Please don't start charging your friends for your advice after this.",
+                    question_counter: "Question {current} of {total}",
+                    
+                    result_listener_title: "The Silent Supporter",
+                    result_listener_desc: "{name}, you're a great listener. You believe people should solve their own problems. Your motto is 'less talk, more listen'.",
+                    result_guide_title: "The Helpful Guide",
+                    result_guide_desc: "{name}, you give advice, but only when asked. You're the wise friend everyone goes to with their problems. You're like Google, but with more empathy.",
+                    result_broadcaster_title: "The Advice Broadcaster",
+                    result_broadcaster_desc: "{name}, you have an opinion on everything, and you're not afraid to share it. You see a problem and you immediately have a 5-step plan to solve it, even if it's not your problem.",
+                    result_guru_title: "The Supreme Guru",
+                    result_guru_desc: "{name}, you don't just give advice, you give 'pravachans'. You have a solution for everything, from global warming to your friend's bad haircut. You are the final boss of free advice.",
+                    
+                    final_quote_listener: "\"Hmm, that's interesting. What do you think you should do?\"",
+                    final_quote_guide: "\"If I were you, I would...\"",
+                    final_quote_broadcaster: "\"You know what you should do?...\"",
+                    final_quote_guru: "\"Listen to me, I know what's best.\"",
+                    
+                    funny_comments: {
+                        listener: [
+                            "You've probably won awards for your listening skills.",
+                            "Your favorite response is a thoughtful nod.",
+                            "People tell you their deepest secrets, and you actually keep them.",
+                            "You think 'unsolicited advice' is a crime."
+                        ],
+                        guide: [
+                            "Your friends have you on speed dial for emergencies.",
+                            "You start your sentences with 'Have you tried...?'",
+                            "You give such good advice, you should probably start charging for it.",
+                            "You're like a human instruction manual."
+                        ],
+                        broadcaster: [
+                            "You've given career advice to your Uber driver.",
+                            "You see a stranger struggling and you have to stop and help... by telling them what to do.",
+                            "You have a solution for problems that don't even exist yet.",
+                            "You're not bossy, you just have better ideas."
+                        ],
+                        guru: [
+                            "You've probably tried to give advice to a rock.",
+                            "You think 'I don't know' is not a valid answer.",
+                            "Your family has a special signal for when you start giving a lecture.",
+                            "You're the reason your friends have learned to nod and smile."
+                        ]
+                    },
+
+                    journey_title: "Your PhD in Free Advice!",
+                    journey_subtitle: "You shared your score! The University of Gyan is proud to present you with this honorary doctorate.",
+                    go_back_button: "Back to My Score",
+
+                    explore_title: "Your Analysis Isn't Over Yet!",
+                    explore_desc: "You've audited your advice-giving skills, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.",
+                    explore_button: "Visit PersonalityPaathshala",
+                    support_title: "Loved this quiz? Help us create more!",
+                    support_desc: "Your small contribution keeps our creative engine running and helps us serve more fun.",
+
+                    questions: [
+                        { id: 1, question: "A friend is complaining about their job. You:", answers: [ { text: "Listen patiently and offer your support.", score: 1, feedback: "A great listener!" }, { text: "Immediately send them 10 job listings.", score: 3, feedback: "The problem-solver." }, { text: "Ask 'Have you tried just quitting?'", score: 2, feedback: "A bold suggestion." } ] },
+                        { id: 2, question: "You see someone struggling to park their car. You:", answers: [ { text: "Mind your own business.", score: 1, feedback: "The observer." }, { text: "Start giving them hand signals and directions from the sidewalk.", score: 3, feedback: "The traffic marshal." }, { text: "Silently judge their parking skills.", score: 2, feedback: "The silent critic." } ] },
+                        { id: 3, question: "Your favorite phrase is:", answers: [ { text: "'What do you think?'", score: 1, feedback: "The listener." }, { text: "'You know what you should do...'", score: 3, feedback: "The classic opener." }, { text: "'Let me tell you something...'", score: 2, feedback: "The storyteller." } ] },
+                        { id: 4, question: "A couple is having a minor argument in public. You:", answers: [ { text: "Pretend you don't notice.", score: 1, feedback: "The diplomat." }, { text: "Choose a side and silently cheer for them.", score: 2, feedback: "The spectator." }, { text: "Feel a strong urge to go and mediate.", score: 3, feedback: "The relationship counselor." } ] },
+                        { id: 5, question: "Someone is wearing their shirt inside out. You:", answers: [ { text: "Quietly tell them in private.", score: 2, feedback: "The helpful friend." }, { text: "Let them live their life. It's a fashion statement.", score: 1, feedback: "The non-judgmental one." }, { text: "Announce it to the group so everyone can have a laugh.", score: 3, feedback: "The public announcer." } ] },
+                        { id: 6, question: "When a friend has a problem, they come to you for:", answers: [ { text: "A hug and a shoulder to cry on.", score: 1, feedback: "The comforter." }, { text: "A detailed, 10-point action plan.", score: 3, feedback: "The strategist." }, { text: "A bit of both.", score: 2, feedback: "The all-rounder." } ] },
+                        { id: 7, question: "You're watching a movie and the main character makes a bad decision. You:", answers: [ { text: "Accept it as part of the plot.", score: 1, feedback: "The passive viewer." }, { text: "Yell 'DON'T GO IN THERE!' at the screen.", score: 3, feedback: "The director." }, { text: "Explain to your friend what the character should have done instead.", score: 2, feedback: "The script doctor." } ] },
+                        { id: 8, question: "The best way to help someone is to:", answers: [ { text: "Listen to them without judgment.", score: 1, feedback: "The therapist." }, { text: "Give them direct, honest advice.", score: 2, feedback: "The truth-teller." }, { text: "Take over and solve the problem for them.", score: 3, feedback: "The superhero." } ] },
+                        { id: 9, question: "How often do you start a sentence with 'Actually... '?", answers: [ { text: "Never.", score: 1, feedback: "The humble one." }, { text: "Sometimes, when I have a fun fact to share.", score: 2, feedback: "The enthusiast." }, { text: "Is there any other way to start a sentence?", score: 3, feedback: "The expert." } ] },
+                        { id: 10, question: "A junior at work asks for your help. You:", answers: [ { text: "Guide them to find the solution themselves.", score: 2, feedback: "The mentor." }, { text: "Give them the answer and a lecture on how to be more efficient.", score: 3, feedback: "The guru." }, { text: "Help them, of course.", score: 1, feedback: "The team player." } ] },
+                        { id: 11, question: "Your friend is complaining about their partner. You:", answers: [ { text: "Say 'Just break up with them'.", score: 3, feedback: "The decisive one." }, { text: "Listen and say 'That sounds tough'.", score: 1, feedback: "The empath." }, { text: "Analyze their entire relationship history and give them a full report.", score: 2, feedback: "The relationship analyst." } ] },
+                        { id: 12, question: "You see someone using their phone wrong. You:", answers: [ { text: "Mind your own business.", score: 1, feedback: "The wise choice." }, { text: "Feel a physical need to correct them.", score: 3, feedback: "The tech support." }, { text: "Silently feel superior.", score: 2, feedback: "The silent genius." } ] },
+                        { id: 13, question: "What is an 'opinion'?", answers: [ { text: "A personal belief.", score: 1, feedback: "The dictionary definition." }, { text: "A fact that other people just haven't realized yet.", score: 3, feedback: "The visionary." }, { text: "Something to be shared, always.", score: 2, feedback: "The broadcaster." } ] },
+                        { id: 14, question: "You're in a group project. You are the one who:", answers: [ { text: "Does all the work because you know best.", score: 3, feedback: "The leader." }, { text: "Does your part and trusts others to do theirs.", score: 1, feedback: "The team player." }, { text: "Tells everyone how they should be doing their part.", score: 2, feedback: "The manager." } ] },
+                        { id: 15, question: "How do you feel about 'unsolicited advice'?", answers: [ { text: "It's the best kind of advice!", score: 3, feedback: "The giver." }, { text: "It can be annoying.", score: 1, feedback: "The boundary setter." }, { text: "It depends on who is giving it.", score: 2, feedback: "The pragmatist." } ] },
+                        { id: 16, question: "Someone is cooking and adds 'too much' salt. You:", answers: [ { text: "Say nothing. It's their food.", score: 1, feedback: "The polite guest." }, { text: "Scream 'STOP!' and grab the salt shaker.", score: 3, feedback: "The culinary hero." }, { text: "Casually mention 'I read somewhere that too much salt is bad for you.'", score: 2, feedback: "The health guru." } ] },
+                        { id: 17, question: "Your friend is wearing mismatched socks. You:", answers: [ { text: "Point it out immediately.", score: 3, feedback: "The fashion police." }, { text: "Think it's a cool fashion statement.", score: 1, feedback: "The trendsetter." }, { text: "Debate whether or not you should tell them.", score: 2, feedback: "The overthinker." } ] },
+                        { id: 18, question: "When you learn a new life hack, you:", answers: [ { text: "Try it out for yourself.", score: 2, feedback: "The experimenter." }, { text: "Immediately share it in all your group chats.", score: 3, feedback: "The life hack distributor." }, { text: "Forget it in 5 minutes.", score: 1, feedback: "The casual learner." } ] },
+                        { id: 19, question: "The best way to learn is:", answers: [ { text: "From your own mistakes.", score: 1, feedback: "The school of life." }, { text: "From other people's mistakes.", score: 3, feedback: "The smart one." }, { text: "From a book.", score: 2, feedback: "The scholar." } ] },
+                        { id: 20, question: "A friend is looking for a new restaurant. You:", answers: [ { text: "Give them a list of 10 places with detailed pros and cons for each.", score: 3, feedback: "The Zomato expert." }, { text: "Ask them what kind of food they're in the mood for.", score: 2, feedback: "The thoughtful friend." }, { text: "Say 'I don't know, you choose.'", score: 1, feedback: "The easy-going one." } ] },
+                        { id: 21, question: "Someone asks for directions. You:", answers: [ { text: "Give them simple, clear directions.", score: 2, feedback: "The helpful guide." }, { text: "Draw them a map and also suggest three places they should visit nearby.", score: 3, feedback: "The tour guide." }, { text: "Say 'Sorry, I'm not from here,' even if you are.", score: 1, feedback: "The avoider." } ] },
+                        { id: 22, question: "Your favorite movie character is probably:", answers: [ { text: "The wise old mentor who gives all the advice.", score: 3, feedback: "Like Dumbledore or Yoda." }, { text: "The quiet sidekick who is just there for support.", score: 1, feedback: "The loyal friend." }, { text: "The hero who makes their own decisions.", score: 2, feedback: "The main character." } ] },
+                        { id: 23, question: "You see someone's shoelaces are untied. You:", answers: [ { text: "Tell them immediately.", score: 2, feedback: "The public service announcer." }, { text: "Worry that they might trip, but you're too shy to say anything.", score: 1, feedback: "The silent worrier." }, { text: "Stop them and offer to tie it for them.", score: 3, feedback: "The ultimate helper." } ] },
+                        { id: 24, question: "When a friend starts a sentence with 'I have a problem...', you:", answers: [ { text: "Prepare to listen.", score: 1, feedback: "The good friend." }, { text: "Interrupt them with 'I know exactly what you should do!'", score: 3, feedback: "The problem-solving machine." }, { text: "Take out a notebook to start taking notes.", score: 2, feedback: "The professional." } ] },
+                        { id: 25, question: "This quiz should:", answers: [ { text: "Give me some deep insights into my personality.", score: 2, feedback: "The analyst." }, { text: "Be taken less seriously.", score: 1, feedback: "The chill one." }, { text: "Listen to my advice on how it could be improved.", score: 3, feedback: "We're listening!" } ] }
+                    ]
+                },
+                hi: {
+                    title: "सलाह गुरु मीटर",
+                    subtitle: "क्या आपकी हर चीज़ पर एक राय है? क्या आप ऐसी सलाह देते हैं जो किसी ने नहीं मांगी? आइए जानें कि आप एक चुप समर्थक हैं या एक चलता-फिरता सलाह स्तंभ!",
+                    name_placeholder: "अपना 'ज्ञानी' नाम दर्ज करें...",
+                    privacy_disclaimer: "आपकी बिन मांगी सलाह हमारे पास सुरक्षित है। हम किसी को नहीं बताएंगे कि आपने एक अजनबी को बताया कि उन्हें अपना जीवन कैसे जीना चाहिए।",
+                    start_button: "मुझे सलाह दो!",
+                    calculating_text: "विशेषज्ञों से परामर्श...",
+                    result_level_label: "आपका सलाह गुरु स्तर",
+                    result_level_label_personalized: "{name} का सलाह गुरु स्तर",
+                    share_results_label: "अपनी रिपोर्ट साझा करें और सलाह में अपनी पीएचडी प्राप्त करें!",
+                    restart_button: "और सलाह दो!",
+                    disclaimer: "अस्वीकरण: यह क्विज़ मनोरंजन के लिए है। कृपया इसके बाद अपने दोस्तों से अपनी सलाह के लिए शुल्क लेना शुरू न करें।",
+                    question_counter: "प्रश्न {current} / {total}",
+
+                    result_listener_title: "चुप समर्थक",
+                    result_listener_desc: "{name}, आप एक महान श्रोता हैं। आप मानते हैं कि लोगों को अपनी समस्याओं का समाधान स्वयं करना चाहिए। आपका आदर्श वाक्य 'कम बात, ज्यादा सुनो' है।",
+                    result_guide_title: "सहायक मार्गदर्शक",
+                    result_guide_desc: "{name}, आप सलाह देते हैं, लेकिन केवल पूछे जाने पर। आप वह बुद्धिमान दोस्त हैं जिसके पास हर कोई अपनी समस्याओं के साथ जाता है। आप गूगल की तरह हैं, लेकिन अधिक सहानुभूति के साथ।",
+                    result_broadcaster_title: "सलाह प्रसारक",
+                    result_broadcaster_desc: "{name}, आपकी हर चीज़ पर एक राय है, और आप इसे साझा करने से नहीं डरते। आप एक समस्या देखते हैं और आपके पास इसे हल करने के लिए तुरंत एक 5-चरणीय योजना होती है, भले ही यह आपकी समस्या न हो।",
+                    result_guru_title: "सर्वोच्च गुरु",
+                    result_guru_desc: "{name}, आप सिर्फ सलाह नहीं देते, आप 'प्रवचन' देते हैं। आपके पास हर चीज का समाधान है, ग्लोबल वार्मिंग से लेकर आपके दोस्त के खराब हेयरकट तक। आप मुफ्त सलाह के अंतिम बॉस हैं।",
+
+                    final_quote_listener: "\"हम्म, यह दिलचस्प है। तुम्हें क्या लगता है कि तुम्हें क्या करना चाहिए?\"",
+                    final_quote_guide: "\"अगर मैं तुम्हारी जगह होता, तो मैं...\"",
+                    final_quote_broadcaster: "\"तुम्हें पता है तुम्हें क्या करना चाहिए?...\"",
+                    final_quote_guru: "\"मेरी बात सुनो, मुझे पता है कि सबसे अच्छा क्या है।\"",
+                    
+                    funny_comments: {
+                        listener: [
+                            "आपने शायद अपने सुनने के कौशल के लिए पुरस्कार जीते हैं।",
+                            "आपकी पसंदीदा प्रतिक्रिया एक विचारशील सिर हिलाना है।",
+                            "लोग आपको अपने गहरे रहस्य बताते हैं, और आप वास्तव में उन्हें रखते हैं।",
+                            "आप सोचते हैं 'बिन मांगी सलाह' एक अपराध है।"
+                        ],
+                        guide: [
+                            "आपके दोस्तों के पास आपात स्थिति के लिए आपका नंबर स्पीड डायल पर है।",
+                            "आप अपने वाक्य 'क्या तुमने कोशिश की है...?' से शुरू करते हैं।",
+                            "आप इतनी अच्छी सलाह देते हैं, आपको शायद इसके लिए शुल्क लेना शुरू कर देना चाहिए।",
+                            "आप एक मानव निर्देश पुस्तिका की तरह हैं।"
+                        ],
+                        broadcaster: [
+                            "आपने अपने उबर ड्राइवर को करियर सलाह दी है।",
+                            "आप एक अजनबी को संघर्ष करते हुए देखते हैं और आपको रुककर मदद करनी पड़ती है... उन्हें बताकर कि क्या करना है।",
+                            "आपके पास उन समस्याओं का समाधान है जो अभी तक मौजूद भी नहीं हैं।",
+                            "आप बॉसी नहीं हैं, आपके पास बस बेहतर विचार हैं।"
+                        ],
+                        guru: [
+                            "आपने शायद एक चट्टान को सलाह देने की कोशिश की है।",
+                            "आप सोचते हैं 'मुझे नहीं पता' एक वैध उत्तर नहीं है।",
+                            "आपके परिवार के पास एक विशेष संकेत है जब आप एक व्याख्यान देना शुरू करते हैं।",
+                            "आप ही कारण हैं कि आपके दोस्तों ने सिर हिलाना और मुस्कुराना सीख लिया है।"
+                        ]
+                    },
+
+                    journey_title: "मुफ्त सलाह में आपकी पीएचडी!",
+                    journey_subtitle: "आपने अपना स्कोर साझा किया! ज्ञान विश्वविद्यालय आपको इस मानद डॉक्टरेट से सम्मानित करते हुए गर्व महसूस कर रहा है।",
+                    go_back_button: "मेरे स्कोर पर वापस जाएं",
+
+                    explore_title: "आपका विश्लेषण अभी खत्म नहीं हुआ है!",
+                    explore_desc: "आपने अपने सलाह देने के कौशल का ऑडिट किया है, लेकिन आपके बाकी प्रफुल्लित करने वाले व्यक्तित्व के बारे में क्या? आपका प्रेम जीवन, आपके गुस्से के मुद्दे... पर्सनैलिटी पाठशाला में आपके लिए मज़ेदार कैलकुलेटर की एक पूरी कक्षा है।",
+                    explore_button: "पर्सनैलिटी पाठशाला पर जाएँ",
+                    support_title: "यह क्विज़ पसंद आया? और बनाने में हमारी मदद करें!",
+                    support_desc: "आपका छोटा सा योगदान हमारी रचनात्मकता को चालू रखता है और हमें और मज़ा परोसने में मदद करता है।",
+                    
+                    questions: [
+                        { id: 1, question: "एक दोस्त अपनी नौकरी के बारे में शिकायत कर रहा है। आप:", answers: [ { text: "धैर्यपूर्वक सुनें और अपना समर्थन दें।", score: 1, feedback: "एक महान श्रोता!" }, { text: "उन्हें तुरंत 10 नौकरी लिस्टिंग भेजें।", score: 3, feedback: "समस्या-समाधानकर्ता।" }, { text: "पूछें 'क्या तुमने बस छोड़ने की कोशिश की है?'", score: 2, feedback: "एक साहसिक सुझाव।" } ] },
+                        { id: 2, question: "आप किसी को अपनी कार पार्क करने में संघर्ष करते हुए देखते हैं। आप:", answers: [ { text: "अपने काम से काम रखें।", score: 1, feedback: "पर्यवेक्षक।" }, { text: "फुटपाथ से उन्हें हाथ के संकेत और दिशा-निर्देश देना शुरू करें।", score: 3, feedback: "यातायात मार्शल।" }, { text: "चुपचाप उनके पार्किंग कौशल का न्याय करें।", score: 2, feedback: "चुप आलोचक।" } ] },
+                        { id: 3, question: "आपका पसंदीदा वाक्यांश है:", answers: [ { text: "'तुम्हें क्या लगता है?'", score: 1, feedback: "श्रोता।" }, { text: "'तुम्हें पता है तुम्हें क्या करना चाहिए...'", score: 3, feedback: "क्लासिक ओपनर।" }, { text: "'मुझे तुम्हें कुछ बताने दो...'", score: 2, feedback: "कहानीकार।" } ] },
+                        { id: 4, question: "एक जोड़ा सार्वजनिक रूप से एक छोटी सी बहस कर रहा है। आप:", answers: [ { text: "दिखावा करें कि आपने ध्यान नहीं दिया।", score: 1, feedback: "राजनयिक।" }, { text: "एक पक्ष चुनें और चुपचाप उनके लिए जयकार करें।", score: 2, feedback: "दर्शक।" }, { text: "जाकर मध्यस्थता करने की तीव्र इच्छा महसूस करें।", score: 3, feedback: "संबंध परामर्शदाता।" } ] },
+                        { id: 5, question: "कोई अपनी शर्ट अंदर बाहर पहने हुए है। आप:", answers: [ { text: "उन्हें निजी तौर पर चुपचाप बताएं।", score: 2, feedback: "मददगार दोस्त।" }, { text: "उन्हें अपना जीवन जीने दें। यह एक फैशन स्टेटमेंट है।", score: 1, feedback: "गैर-न्यायिक।" }, { text: "समूह में इसकी घोषणा करें ताकि हर कोई हंस सके।", score: 3, feedback: "सार्वजनिक उद्घोषक।" } ] },
+                        { id: 6, question: "जब किसी दोस्त को कोई समस्या होती है, तो वे आपके पास आते हैं:", answers: [ { text: "एक गले और रोने के लिए एक कंधे के लिए।", score: 1, feedback: "आराम देने वाला।" }, { text: "एक विस्तृत, 10-सूत्रीय कार्य योजना के लिए।", score: 3, feedback: "रणनीतिकार।" }, { text: "दोनों का थोड़ा सा।", score: 2, feedback: "ऑल-राउंडर।" } ] },
+                        { id: 7, question: "आप एक फिल्म देख रहे हैं और मुख्य पात्र एक बुरा निर्णय लेता है। आप:", answers: [ { text: "इसे कथानक के हिस्से के रूप में स्वीकार करें।", score: 1, feedback: "निष्क्रिय दर्शक।" }, { text: "स्क्रीन पर 'वहाँ मत जाओ!' चिल्लाएं।", score: 3, feedback: "निर्देशक।" }, { text: "अपने दोस्त को समझाएं कि चरित्र को इसके बजाय क्या करना चाहिए था।", score: 2, feedback: "स्क्रिप्ट डॉक्टर।" } ] },
+                        { id: 8, question: "किसी की मदद करने का सबसे अच्छा तरीका है:", answers: [ { text: "बिना किसी निर्णय के उन्हें सुनना।", score: 1, feedback: "चिकित्सक।" }, { text: "उन्हें सीधी, ईमानदार सलाह दें।", score: 2, feedback: "सत्य-बताने वाला।" }, { text: "संभालें और उनके लिए समस्या का समाधान करें।", score: 3, feedback: "सुपरहीरो।" } ] },
+                        { id: 9, question: "आप कितनी बार 'असल में...' से एक वाक्य शुरू करते हैं?", answers: [ { text: "कभी नहीं।", score: 1, feedback: "विनम्र।" }, { text: "कभी-कभी, जब मेरे पास साझा करने के लिए एक मजेदार तथ्य होता है।", score: 2, feedback: "उत्साही।" }, { text: "क्या एक वाक्य शुरू करने का कोई और तरीका है?", score: 3, feedback: "विशेषज्ञ।" } ] },
+                        { id: 10, question: "काम पर एक जूनियर आपकी मदद मांगता है। आप:", answers: [ { text: "उन्हें समाधान खोजने के लिए मार्गदर्शन करें।", score: 2, feedback: "गुरु।" }, { text: "उन्हें जवाब दें और अधिक कुशल कैसे बनें, इस पर एक व्याख्यान दें।", score: 3, feedback: "गुरु।" }, { text: "बेशक, उनकी मदद करें।", score: 1, feedback: "टीम खिलाड़ी।" } ] },
+                        { id: 11, question: "आपका दोस्त अपने साथी के बारे में शिकायत कर रहा है। आप:", answers: [ { text: "कहें 'बस उनसे संबंध तोड़ लो'।" , score: 3, feedback: "निर्णायक।" }, { text: "सुनें और कहें 'यह कठिन लगता है'।" , score: 1, feedback: "सहानुभूति रखने वाला।" }, { text: "उनके पूरे संबंध इतिहास का विश्लेषण करें और उन्हें एक पूरी रिपोर्ट दें।", score: 2, feedback: "संबंध विश्लेषक।" } ] },
+                        { id: 12, question: "आप किसी को अपना फोन गलत तरीके से इस्तेमाल करते हुए देखते हैं। आप:", answers: [ { text: "अपने काम से काम रखें।", score: 1, feedback: "बुद्धिमान पसंद।" }, { text: "उन्हें ठीक करने की एक शारीरिक आवश्यकता महसूस करें।", score: 3, feedback: "तकनीकी सहायता।" }, { text: "चुपचाप श्रेष्ठ महसूस करें।", score: 2, feedback: "चुप प्रतिभा।" } ] },
+                        { id: 13, question: "'राय' क्या है?", answers: [ { text: "एक व्यक्तिगत विश्वास।", score: 1, feedback: "शब्दकोश की परिभाषा।" }, { text: "एक तथ्य जिसे दूसरे लोगों ने अभी तक महसूस नहीं किया है।", score: 3, feedback: "दूरदर्शी।" }, { text: "कुछ ऐसा जिसे साझा किया जाना चाहिए, हमेशा।", score: 2, feedback: "प्रसारक।" } ] },
+                        { id: 14, question: "आप एक समूह परियोजना में हैं। आप वह हैं जो:", answers: [ { text: "सारा काम करता है क्योंकि आप सबसे अच्छा जानते हैं।", score: 3, feedback: "नेता।" }, { text: "अपना हिस्सा करता है और दूसरों पर भरोसा करता है कि वे अपना करेंगे।", score: 1, feedback: "टीम खिलाड़ी।" }, { text: "सभी को बताता है कि उन्हें अपना हिस्सा कैसे करना चाहिए।", score: 2, feedback: "प्रबंधक।" } ] },
+                        { id: 15, question: "आप 'बिन मांगी सलाह' के बारे में कैसा महसूस करते हैं?", answers: [ { text: "यह सबसे अच्छी तरह की सलाह है!", score: 3, feedback: "देने वाला।" }, { text: "यह कष्टप्रद हो सकता है।", score: 1, feedback: "सीमा सेटर।" }, { text: "यह इस पर निर्भर करता है कि इसे कौन दे रहा है।", score: 2, feedback: "व्यावहारिक।" } ] },
+                        { id: 16, question: "कोई खाना बना रहा है और 'बहुत ज्यादा' नमक डालता है। आप:", answers: [ { text: "कुछ न कहें। यह उनका भोजन है।", score: 1, feedback: "विनम्र अतिथि।" }, { text: "'रुको!' चिल्लाएं और नमकदानी पकड़ें।", score: 3, feedback: "पाक नायक।" }, { text: "लापरवाही से उल्लेख करें 'मैंने कहीं पढ़ा है कि बहुत ज्यादा नमक आपके लिए बुरा है।'", score: 2, feedback: "स्वास्थ्य गुरु।" } ] },
+                        { id: 17, question: "आपका दोस्त बेमेल मोजे पहने हुए है। आप:", answers: [ { text: "तुरंत बताएं।", score: 3, feedback: "फैशन पुलिस।" }, { text: "सोचें कि यह एक अच्छा फैशन स्टेटमेंट है।", score: 1, feedback: "ट्रेंडसेटर।" }, { text: "बहस करें कि आपको उन्हें बताना चाहिए या नहीं।", score: 2, feedback: "अति-सोचने वाला।" } ] },
+                        { id: 18, question: "जब आप एक नया जीवन हैक सीखते हैं, तो आप:", answers: [ { text: "इसे अपने लिए आज़माएँ।", score: 2, feedback: "प्रयोग करने वाला।" }, { text: "इसे तुरंत अपने सभी समूह चैट में साझा करें।", score: 3, feedback: "जीवन हैक वितरक।" }, { text: "5 मिनट में इसे भूल जाओ।", score: 1, feedback: "आकस्मिक सीखने वाला।" } ] },
+                        { id: 19, question: "सीखने का सबसे अच्छा तरीका है:", answers: [ { text: "अपनी गलतियों से।", score: 1, feedback: "जीवन का स्कूल।" }, { text: "दूसरे लोगों की गलतियों से।", score: 3, feedback: "स्मार्ट।" }, { text: "एक किताब से।", score: 2, feedback: "विद्वान।" } ] },
+                        { id: 20, question: "एक दोस्त एक नया रेस्तरां ढूंढ रहा है। आप:", answers: [ { text: "उन्हें प्रत्येक के लिए विस्तृत पेशेवरों और विपक्षों के साथ 10 स्थानों की एक सूची दें।", score: 3, feedback: "ज़ोमैटो विशेषज्ञ।" }, { text: "उनसे पूछें कि वे किस तरह के भोजन के मूड में हैं।", score: 2, feedback: "विचारशील दोस्त।" }, { text: "कहो 'मुझे नहीं पता, तुम चुनो।'", score: 1, feedback: "आसान-मिजाज।" } ] },
+                        { id: 21, question: "कोई आपसे दिशा-निर्देश मांगता है। आप:", answers: [ { text: "उन्हें सरल, स्पष्ट दिशा-निर्देश दें।", score: 2, feedback: "मददगार मार्गदर्शक।" }, { text: "उन्हें एक नक्शा बनाएं और आस-पास घूमने के लिए तीन स्थानों का सुझाव भी दें।", score: 3, feedback: "टूर गाइड।" }, { text: "कहो 'क्षमा करें, मैं यहाँ से नहीं हूँ,' भले ही आप हों।", score: 1, feedback: "बचने वाला।" } ] },
+                        { id: 22, question: "आपका पसंदीदा फिल्म चरित्र शायद है:", answers: [ { text: "बुद्धिमान बूढ़ा गुरु जो सारी सलाह देता है।", score: 3, feedback: "डंबलडोर या योदा की तरह।" }, { text: "चुप सहायक जो सिर्फ समर्थन के लिए है।", score: 1, feedback: "वफादार दोस्त।" }, { text: "नायक जो अपने निर्णय खुद लेता है।", score: 2, feedback: "मुख्य पात्र।" } ] },
+                        { id: 23, question: "आप किसी के जूते के फीते खुले हुए देखते हैं। आप:", answers: [ { text: "उन्हें तुरंत बताएं।", score: 2, feedback: "सार्वजनिक सेवा उद्घोषक।" }, { text: "चिंता करें कि वे गिर सकते हैं, लेकिन आप कुछ भी कहने में बहुत शर्माते हैं।", score: 1, feedback: "चुप चिंता करने वाला।" }, { text: "उन्हें रोकें और उनके लिए इसे बांधने की पेशकश करें।", score: 3, feedback: "परम सहायक।" } ] },
+                        { id: 24, question: "जब कोई दोस्त 'मुझे एक समस्या है...' से एक वाक्य शुरू करता है, तो आप:", answers: [ { text: "सुनने के लिए तैयार रहें।", score: 1, feedback: "अच्छा दोस्त।" }, { text: "'मुझे ठीक-ठीक पता है कि तुम्हें क्या करना चाहिए!' के साथ उन्हें बाधित करें", score: 3, feedback: "समस्या-समाधान मशीन।" }, { text: "नोट्स लेना शुरू करने के लिए एक नोटबुक निकालें।", score: 2, feedback: "पेशेवर।" } ] },
+                        { id: 25, question: "इस क्विज़ को चाहिए:", answers: [ { text: "मुझे मेरे व्यक्तित्व के बारे में कुछ गहरी अंतर्दृष्टि दें।", score: 2, feedback: "विश्लेषक।" }, { text: "कम गंभीरता से लिया जाए।", score: 1, feedback: "शांत।" }, { text: "इसे कैसे बेहतर बनाया जा सकता है, इस पर मेरी सलाह सुनें।", score: 3, feedback: "हम सुन रहे हैं!" } ] }
+                    ]
+                }
+            };
+            
+            // --- STATE MANAGEMENT & DOM ELEMENTS ---
+            let currentQuestionIndex = 0;
+            let userAnswers = {};
+            let currentLang = 'en';
+            let quizQuestions = [];
+            let userName = '';
+            const QUESTIONS_PER_QUIZ = 15;
+
+            const allLangElements = document.querySelectorAll('[data-lang-key]');
+            const langPlaceholderElements = document.querySelectorAll('[data-lang-placeholder]');
+            const languageToggle = document.getElementById('language-toggle');
+            const startScreen = document.getElementById('start-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const calculatingScreen = document.getElementById('calculating-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const journeyScreen = document.getElementById('journey-screen');
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const goBackBtn = document.getElementById('go-back-btn');
+            const backToMainBtn = document.getElementById('back-to-main-btn');
+            const nameInput = document.getElementById('name-input');
+            const questionContainer = document.getElementById('question-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const finalScoreEl = document.getElementById('final-score');
+            const resultTitleEl = document.getElementById('result-title');
+            const resultDescriptionEl = document.getElementById('result-description');
+            const finalQuoteEl = document.getElementById('final-quote');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const shareButtonsContainer = document.getElementById('share-buttons');
+            const exploreBtn = document.getElementById('explore-btn');
+
+            // --- LANGUAGE LOGIC ---
+            const updateLanguage = (lang) => {
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                document.documentElement.lang = lang;
+                
+                languageToggle.innerHTML = (lang === 'en') 
+                    ? `<i class="fa-solid fa-language mr-2"></i> हिन्दी`
+                    : `<i class="fa-solid fa-language mr-2"></i> English`;
+
+                allLangElements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    const value = getNestedValue(content[lang], key);
+                    if (value) el.innerHTML = value;
+                });
+                
+                langPlaceholderElements.forEach(el => {
+                    const key = el.dataset.langPlaceholder;
+                    const value = getNestedValue(content[lang], key);
+                    if(value) el.placeholder = value;
+                });
+            };
+
+            const getNestedValue = (obj, key) => key.split('.').reduce((acc, part) => acc && acc[part], obj);
+
+            // --- THEME LOGIC ---
+            const applyTheme = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIconDark.classList.remove('hidden');
+                    themeIconLight.classList.add('hidden');
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
+            applyTheme(isDarkMode);
+
+            // --- UI FUNCTIONS ---
+            const renderQuestion = () => {
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const q_id = quizQuestions[currentQuestionIndex];
+                    const q_data_en = content.en.questions.find(item => item.id === q_id);
+                    const q_lang = content[currentLang].questions.find(item => item.id === q_id);
+                    
+                    if(!q_data_en || !q_lang) {
+                        goHome();
+                        return;
+                    }
+
+                    const shuffledAnswers = [...q_lang.answers].sort(() => Math.random() - 0.5);
+
+                    let answersHTML = shuffledAnswers.map(answer => {
+                        return `
+                        <button data-score="${answer.score}" class="choice-btn w-full text-left p-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-emerald-100 dark:hover:bg-emerald-500 transition-colors duration-200">
+                            ${answer.text}
+                        </button>
+                    `}).join('');
+                    
+                    const counterText = content[currentLang].question_counter.replace('{current}', currentQuestionIndex + 1).replace('{total}', QUESTIONS_PER_QUIZ);
+
+                    questionContainer.innerHTML = `
+                        <div class="fade-in">
+                            <p class="text-lg font-semibold dark-mode-subtext mb-4">${counterText}</p>
+                            <h2 class="text-2xl md:text-3xl font-bold dark-mode-text mb-8">${q_lang.question.replace(/{name}/g, `<strong>${userName}</strong>`)}</h2>
+                            <div class="flex flex-col items-center space-y-4">${answersHTML}</div>
+                        </div>
+                    `;
+                    feedbackContainer.innerHTML = '';
+                    updateProgressBar();
+                } else {
+                    showCalculatingScreen();
+                }
+            };
+            
+            const updateProgressBar = () => {
+                const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            };
+
+            // --- CORE LOGIC ---
+            const startQuiz = () => {
+                userName = nameInput.value.trim();
+                if (!userName) {
+                    userName = (currentLang === 'en') ? 'Guru' : 'गुरु';
+                }
+
+                let allQuestionIds = content.en.questions.map(q => q.id);
+                allQuestionIds.sort(() => Math.random() - 0.5);
+                quizQuestions = allQuestionIds.slice(0, QUESTIONS_PER_QUIZ);
+                currentQuestionIndex = 0;
+                userAnswers = {};
+
+                startScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    startScreen.classList.add('hidden');
+                    startScreen.classList.remove('fade-out');
+                    quizScreen.classList.remove('hidden');
+                    quizScreen.classList.add('fade-in');
+                    progressContainer.classList.remove('hidden');
+                    backToMainBtn.classList.remove('hidden');
+                    renderQuestion();
+                }, 500);
+            };
+
+            const handleAnswer = (e) => {
+                const selectedBtn = e.target.closest('.choice-btn');
+                if (!selectedBtn) return;
+
+                const score = parseInt(selectedBtn.dataset.score);
+                const question_id = quizQuestions[currentQuestionIndex];
+                const question_data_lang = content[currentLang].questions.find(item => item.id === question_id);
+                
+                const answer_data_lang = question_data_lang.answers.find(a => a.score === score);
+                if (answer_data_lang) {
+                    feedbackContainer.innerHTML = `<p class="fade-in font-semibold text-lg text-teal-600 dark:text-teal-400">${answer_data_lang.feedback}</p>`;
+                }
+
+                userAnswers[question_id] = score;
+                
+                questionContainer.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn !== selectedBtn) {
+                        btn.classList.add('opacity-50');
+                    } else {
+                        btn.classList.add('ring-4', 'ring-emerald-400');
+                    }
+                });
+                
+                setTimeout(() => {
+                    if (questionContainer.firstElementChild) {
+                        questionContainer.firstElementChild.classList.replace('fade-in', 'fade-out');
+                    }
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    }, 500);
+                }, 1800);
+            };
+
+            const showCalculatingScreen = () => {
+                quizScreen.classList.add('fade-out');
+                progressContainer.classList.add('hidden');
+                backToMainBtn.classList.add('hidden');
+                setTimeout(() => {
+                    quizScreen.classList.add('hidden');
+                    quizScreen.classList.remove('fade-out');
+                    calculatingScreen.classList.remove('hidden');
+                    calculatingScreen.classList.add('fade-in');
+                    const calculatingTexts = [
+                        content[currentLang].calculating_text, 
+                        (currentLang === 'en' ? "Writing a self-help book..." : "एक स्वयं सहायता पुस्तक लिख रहा है..."),
+                        (currentLang === 'en' ? "Preparing your TED Talk..." : "आपकी टेड टॉक की तैयारी हो रही है...")
+                    ];
+                    document.getElementById('calculating-text').innerText = calculatingTexts[Math.floor(Math.random()*calculatingTexts.length)];
+                    setTimeout(showResults, 2500);
+                }, 500);
+            }
+            
+            const showResults = (isThemeOrLangUpdate = false) => {
+                if (!isThemeOrLangUpdate) {
+                     calculatingScreen.classList.add('fade-out');
+                     setTimeout(() => {
+                        calculatingScreen.classList.add('hidden');
+                        calculatingScreen.classList.remove('fade-out');
+                        resultsScreen.classList.remove('hidden');
+                        resultsScreen.classList.add('slide-up');
+                        calculateAndDisplayScores();
+                    }, 500);
+                } else {
+                    calculateAndDisplayScores();
+                }
+            };
+
+            const calculateAndDisplayScores = () => {
+                let totalScore = 0;
+                Object.values(userAnswers).forEach(score => {
+                    totalScore += score;
+                });
+
+                const minPossibleScore = QUESTIONS_PER_QUIZ * 1;
+                const maxPossibleScore = QUESTIONS_PER_QUIZ * 3;
+                const scoreRange = maxPossibleScore - minPossibleScore;
+                const userScoreOffset = totalScore - minPossibleScore;
+
+                let advicePercentage = 0;
+                if (scoreRange > 0) {
+                    advicePercentage = Math.round((userScoreOffset / scoreRange) * 100);
+                }
+                
+                finalScoreEl.classList.remove('score-reveal');
+                void finalScoreEl.offsetWidth; // Trigger reflow
+                finalScoreEl.classList.add('score-reveal');
+
+                let startValue = 0;
+                const duration = 1200;
+                const endValue = advicePercentage;
+                const startTime = performance.now();
+
+                function animateCountUp(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    if (elapsedTime < duration) {
+                        const progress = elapsedTime / duration;
+                        const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+                        const currentValue = Math.round(startValue + (endValue - startValue) * easedProgress);
+                        finalScoreEl.textContent = `${currentValue}%`;
+                        requestAnimationFrame(animateCountUp);
+                    } else {
+                        finalScoreEl.textContent = `${endValue}%`;
+                    }
+                }
+                requestAnimationFrame(animateCountUp);
+
+                let resultKey;
+                if (advicePercentage <= 25) resultKey = 'listener';
+                else if (advicePercentage <= 50) resultKey = 'guide';
+                else if (advicePercentage <= 75) resultKey = 'broadcaster';
+                else resultKey = 'guru';
+                
+                finalQuoteEl.dataset.resultKey = resultKey;
+                document.getElementById('phd-name').textContent = userName;
+
+                const personalizedLabel = content[currentLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+
+                resultTitleEl.textContent = content[currentLang][`result_${resultKey}_title`];
+                resultDescriptionEl.innerHTML = content[currentLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                finalQuoteEl.textContent = content[currentLang][`final_quote_${resultKey}`];
+                
+                displayFunnyComments(resultKey);
+                updateShareLinks(advicePercentage, content[currentLang][`result_${resultKey}_title`]);
+            };
+
+            const startBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                stopBackgroundAnimations();
+                
+                const emojis = ['💡', '🤔', '😂', '🤓', '🎓', '📚', '🗣️'];
+                const numEmojis = 25;
+
+                for (let i = 0; i < numEmojis; i++) {
+                    const emoji = document.createElement('span');
+                    emoji.className = 'floating-emoji';
+                    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    emoji.style.left = `${Math.random() * 100}vw`;
+                    emoji.style.fontSize = `${1 + Math.random() * 2}rem`;
+                    const duration = 8 + Math.random() * 10;
+                    const delay = Math.random() * 7;
+                    const translateX = `${(Math.random() - 0.5) * 200}px`;
+                    const rotate = `${(Math.random() - 0.5) * 720}deg`;
+                    
+                    emoji.style.setProperty('--translateX', translateX);
+                    emoji.style.setProperty('--rotate', rotate);
+                    emoji.style.animation = `floatUp ${duration}s ease-in ${delay}s infinite`;
+                    
+                    container.appendChild(emoji);
+                }
+            };
+
+            const stopBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (container) {
+                    container.innerHTML = '';
+                }
+            };
+
+            const typewriter = (element, text, callback) => {
+                let i = 0;
+                const speed = 40; // milliseconds per character
+                const originalHTML = element.innerHTML;
+                element.innerHTML = originalHTML + '<span class="typing-text"></span><span class="typing-cursor border-l-2 border-emerald-500 h-6 inline-block align-middle">&nbsp;</span>';
+                const textSpan = element.querySelector('.typing-text');
+                const cursorSpan = element.querySelector('.typing-cursor');
+                
+                function type() {
+                    if (i < text.length) {
+                        textSpan.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        if(cursorSpan) {
+                           cursorSpan.style.display = 'none';
+                        }
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+
+            const displayFunnyComments = (resultKey) => {
+                const commentsContainer = document.getElementById('funny-comments-container');
+                if (!commentsContainer) return;
+                commentsContainer.innerHTML = '';
+                const commentsPool = content[currentLang].funny_comments[resultKey] || [];
+                
+                const shuffledComments = [...commentsPool].sort(() => 0.5 - Math.random());
+                const selectedComments = shuffledComments.slice(0, 3);
+
+                let commentIndex = 0;
+
+                function typeNextComment() {
+                    if (commentIndex < selectedComments.length) {
+                        const commentText = selectedComments[commentIndex];
+                        
+                        const card = document.createElement('div');
+                        card.className = 'funny-comment-card bg-emerald-100 dark:bg-gray-800 p-4 rounded-lg mb-4 text-gray-700 dark:text-emerald-300 italic shadow-md';
+                        
+                        const p = document.createElement('p');
+                        p.innerHTML = `<i class="fa-solid fa-quote-left mr-2 text-emerald-500"></i> `;
+                        card.appendChild(p);
+
+                        card.style.animationDelay = `0.2s`;
+                        
+                        commentsContainer.appendChild(card);
+                        
+                        setTimeout(() => {
+                            typewriter(p, commentText, () => {
+                                commentIndex++;
+                                setTimeout(typeNextComment, 800); 
+                            });
+                        }, 600);
+                    }
+                }
+                
+                startBackgroundAnimations();
+                typeNextComment();
+            };
+
+
+            const updateShareLinks = (percentage, title) => {
+                const text = encodeURIComponent(`My Advice Guru Score is ${percentage}%! Turns out I'm a "${title}". Find out your advice-giving style:`);
+                const url = encodeURIComponent(window.location.href);
+                
+                document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                document.getElementById('telegram-share').href = `https://t.me/share/url?url=${url}&text=${text}`;
+                document.getElementById('instagram-share').href = `https://www.instagram.com/`;
+            };
+            
+            const goHome = () => {
+                stopBackgroundAnimations();
+                [quizScreen, resultsScreen, journeyScreen, progressContainer, backToMainBtn, calculatingScreen].forEach(el => el.classList.add('hidden'));
+                startScreen.classList.remove('hidden', 'fade-out');
+                startScreen.classList.add('fade-in');
+                nameInput.value = '';
+                currentQuestionIndex = 0;
+                userAnswers = {};
+                quizQuestions = [];
+                progressBar.style.width = '0%';
+            };
+
+            const showJourneyScreen = (e) => {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                resultsScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    resultsScreen.classList.add('hidden');
+                    resultsScreen.classList.remove('fade-out');
+                    journeyScreen.classList.remove('hidden');
+                    journeyScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            const showResultsScreenFromJourney = () => {
+                journeyScreen.classList.add('fade-out');
+                 setTimeout(() => {
+                    journeyScreen.classList.add('hidden');
+                    journeyScreen.classList.remove('fade-out');
+                    resultsScreen.classList.remove('hidden');
+                    resultsScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            // --- EVENT LISTENERS ---
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', goHome);
+            backToMainBtn.addEventListener('click', goHome);
+            goBackBtn.addEventListener('click', showResultsScreenFromJourney);
+            quizScreen.addEventListener('click', handleAnswer);
+            shareButtonsContainer.addEventListener('click', (e) => {
+                const shareBtn = e.target.closest('a.share-btn');
+                if (shareBtn && shareBtn.href && shareBtn.href !== '#') {
+                    showJourneyScreen(e);
+                }
+            });
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+                if (!resultsScreen.classList.contains('hidden')) { showResults(true); }
+            });
+            languageToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'hi' : 'en';
+                updateLanguage(newLang);
+                if (!quizScreen.classList.contains('hidden') || !calculatingScreen.classList.contains('hidden')) { 
+                    goHome();
+                } else if (!resultsScreen.classList.contains('hidden')) {
+                    const resultKey = finalQuoteEl.dataset.resultKey;
+                    const personalizedLabel = content[newLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                    document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+                    resultTitleEl.textContent = content[newLang][`result_${resultKey}_title`];
+                    resultDescriptionEl.innerHTML = content[newLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                    finalQuoteEl.textContent = content[newLang][`final_quote_${resultKey}`];
+                    displayFunnyComments(resultKey);
+                }
+            });
+
+            // Initial Load
+            const savedLang = localStorage.getItem('language') || 'en';
+            updateLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>

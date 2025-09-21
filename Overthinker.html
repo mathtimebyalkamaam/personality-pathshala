@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0DL8SC5JKB');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overthinker Meter - How Much Do You Overthink?</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS for theme, animations, and additional styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Dark Mode --- */
+        .dark .dark-mode-bg { background-color: #111827; }
+        .dark .dark-mode-text { color: #f9fafb; }
+        .dark .dark-mode-surface { background-color: #1f2937; }
+        .dark .dark-mode-border { border-color: #374151; }
+        .dark .dark-mode-subtext { color: #9ca3af; }
+
+        /* --- Animations --- */
+        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .pulse { animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .9; transform: scale(1.02); }
+        }
+
+        /* --- Button Styles --- */
+        .choice-btn, .share-btn, .control-btn {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .choice-btn:hover, .share-btn:hover, .control-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Social Share Colors --- */
+        .whatsapp-btn { background-color: #25D366; }
+        .twitter-btn { background-color: #1DA1F2; }
+        .facebook-btn { background-color: #1877F2; }
+        .telegram-btn { background-color: #24A1DE; }
+        .instagram-btn {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        }
+
+        /* --- Score Animation --- */
+        .score-reveal {
+            animation: scoreReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.3); /* Blue Shadow */
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* --- Funny Comments Styling --- */
+        .funny-comments-container {
+            perspective: 1000px;
+        }
+
+        .funny-comment-card {
+            opacity: 0;
+            transform: rotateX(-90deg) translateY(50px);
+            transform-origin: bottom center;
+            animation: revealComment 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .funny-comment-card p {
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1.75rem; /* leading-7 */
+        }
+
+        @media (min-width: 768px) {
+            .funny-comment-card p {
+                font-size: 1.5rem; /* md:text-2xl */
+                line-height: 2rem; /* md:leading-8 */
+            }
+        }
+
+
+        @keyframes revealComment {
+            from {
+                opacity: 0;
+                transform: rotateX(-90deg) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0deg) translateY(0);
+            }
+        }
+        
+        /* --- Typing Effect --- */
+        .typing-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #3b82f6; } /* blue-500 */
+        }
+        
+        /* --- Background Animation --- */
+        #animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: -50px; /* Start from below the screen */
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--translateX)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode-bg text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+    <div id="animation-container"></div>
+    <!-- Header for Toggles -->
+    <header class="absolute top-4 w-full px-4 z-20 flex items-center justify-between">
+        <!-- Back to Main Page Button (Initially hidden) -->
+        <a id="back-to-main-btn" href="index.html" role="button" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </a>
+
+        <div class="flex items-center space-x-2 ml-auto">
+             <!-- Language Toggle -->
+            <button id="language-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-28 h-10 flex items-center justify-center text-sm">
+                <!-- Text updated by JS -->
+            </button>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+                <svg id="theme-icon-dark" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg id="theme-icon-light" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-2 bg-gray-200 dark:bg-gray-700 z-10 hidden">
+        <div id="progress-bar" class="h-full bg-blue-500 progress-bar-fill" style="width: 0%;"></div>
+    </div>
+    
+    <main class="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-screen relative z-10">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center max-w-2xl fade-in">
+            <h1 class="text-4xl md:text-6xl font-extrabold dark-mode-text tracking-tight mb-4">The <span class="text-blue-500" data-lang-key="title">Overthinker Meter</span></h1>
+            <p class="text-lg md:text-xl dark-mode-subtext mb-8" data-lang-key="subtitle">
+                Do you analyze a simple 'Hi' for 3 hours? Do you have a backup plan for your backup plan's backup plan? Let's find out if your brain ever takes a holiday!
+            </p>
+            <div class="mb-6 w-full max-w-sm mx-auto">
+                <input type="text" id="name-input" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white" data-lang-placeholder="name_placeholder">
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-8 italic" data-lang-key="privacy_disclaimer"></p>
+            <button id="start-btn" data-lang-key="start_button" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-blue-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 pulse">
+                Analyze My Thoughts!
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden w-full max-w-3xl">
+            <div id="question-container" class="text-center pt-16">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <div id="feedback-container" class="mt-6 text-center text-md dark-mode-subtext min-h-[60px]">
+                <!-- Feedback will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Calculating Screen -->
+        <div id="calculating-screen" class="hidden text-center w-full max-w-2xl">
+            <svg class="animate-spin h-16 w-16 text-blue-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h2 id="calculating-text" class="text-2xl font-bold dark-mode-text" data-lang-key="calculating_text">Analyzing all 1,483 possible outcomes...</h2>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center w-full max-w-4xl pt-16">
+            <h2 class="text-2xl font-bold dark-mode-subtext mb-2" data-lang-key="result_level_label">Your Overthinking Level</h2>
+            <div id="final-score" class="text-7xl md:text-8xl font-extrabold text-blue-500 mb-4">0%</div>
+            <h3 id="result-title" class="text-3xl md:text-4xl font-extrabold dark-mode-text mb-3"></h3>
+            <p id="result-description" class="text-lg md:text-xl dark-mode-subtext mb-8 max-w-2xl mx-auto"></p>
+            
+            <div id="funny-comments-container" class="funny-comments-container mt-8 mb-8 max-w-2xl mx-auto">
+                <!-- Comments will be injected here -->
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="mb-8">
+                <p class="font-bold dark-mode-text mb-3" data-lang-key="share_results_label">Share Your Report & Get a Prescription to Chill!</p>
+                <div id="share-buttons" class="flex justify-center items-center flex-wrap gap-4">
+                    <a id="whatsapp-share" href="https://ppscore.co.in" target="_blank" class="share-btn whatsapp-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l.217.324-1.125 4.108 4.224-1.103.337.202z" /></svg>
+                    </a>
+                    <a id="twitter-share" href="https://ppscore.co.in" target="_blank" class="share-btn twitter-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.794 4.649-.69.188-1.433.23-2.184.085.617 1.914 2.408 3.258 4.53 3.301-1.724 1.352-3.883 2.093-6.138 1.795 1.815 1.163 3.973 1.84 6.262 1.84 7.218 0 11.168-5.986 11.168-11.168 0-.17-.003-.34-.01-.508.77-.556 1.438-1.248 1.968-2.04z"/></svg>
+                    </a>
+                    <a id="facebook-share" href="https://ppscore.co.in" target="_blank" class="share-btn facebook-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                    </a>                      
+                    <a id="telegram-share" href="https://ppscore.co.in" target="_blank" class="share-btn telegram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-1.39.2-1.62l15.97-5.85c.73-.27 1.36.17 1.15.99L16.4 18.28c-.21.83-1.2.5-1.54-.26L9.78 18.65z"/></svg>
+                    </a>
+                    <a id="instagram-share" href="https://ppscore.co.in" target="_blank" class="share-btn instagram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <p id="final-quote" class="text-lg dark-mode-text max-w-3xl mx-auto mb-8 italic">
+                <!-- Quote inserted by JS -->
+            </p>
+
+            <button id="restart-btn" data-lang-key="restart_button" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-blue-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                Re-think My Answers!
+            </button>
+
+            <!-- Explore More Section -->
+            <div class="mt-16 py-8 border-t-2 border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
+                 <h3 class="text-2xl md:text-3xl font-extrabold dark-mode-text mb-4" data-lang-key="explore_title">Your Analysis Isn't Over Yet!</h3>
+                 <p class="text-lg dark-mode-subtext mb-8" data-lang-key="explore_desc">
+                   You've audited your thoughts, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.
+                 </p>
+                 <a id="explore-btn" href="index.html" class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 inline-block" data-lang-key="explore_button">
+                   Visit PersonalityPaathshala
+                 </a>
+                 <div class="mt-8 mb-6">
+                    <p class="font-semibold mb-2 text-blue-400 dark:text-blue-300" data-lang-key="support_title">Loved this quiz? Help us create more!</p>
+                    <p class="text-base text-gray-700 dark:text-white mb-3" data-lang-key="support_desc">Your small contribution keeps our creative engine running and helps us serve more fun.</p>
+                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QvFHmdPg3T4Pqh" async> </script> </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Screen -->
+        <div id="journey-screen" class="hidden text-center w-full max-w-2xl pt-16">
+            <h2 class="text-4xl font-extrabold text-blue-500 mb-4" data-lang-key="journey_title">Your Official Prescription!</h2>
+            <p class="text-lg dark-mode-subtext mb-8" data-lang-key="journey_subtitle">You shared your score! As a reward, here is a prescription from Dr. LOL. Use as directed.</p>
+            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-xl border-4 border-gray-400">
+                <div class="text-center p-4">
+                    <h3 class="text-2xl font-bold dark-mode-text">Dr. LOL's Clinic of Comedy</h3>
+                    <p class="dark-mode-subtext mt-2 uppercase tracking-widest">Official Prescription</p>
+                    <div class="my-4">
+                        <i class="fas fa-pills text-5xl text-blue-500"></i>
+                    </div>
+                    <p class="dark-mode-subtext">For:</p>
+                    <p id="prescription-name" class="text-3xl font-bold text-blue-500 my-2">[Your Name]</p>
+                    <p class="dark-mode-text"><strong>Rx:</strong> One dose of 'Chill Pill'. Take once daily, or whenever you start planning for the year 2050.</p>
+                </div>
+            </div>
+             <button id="go-back-btn" data-lang-key="go_back_button" class="mt-8 bg-gray-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Back to My Score
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-xs text-gray-400 dark:text-gray-500">
+        <p data-lang-key="disclaimer">Disclaimer: This quiz is for fun. If your overthinking is causing distress, please consider talking to a real professional, not a funny online quiz.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- LANGUAGE CONTENT STORE ---
+            const content = {
+                en: {
+                    title: "Overthinker Meter",
+                    subtitle: "Do you analyze a simple 'Hi' for 3 hours? Do you have a backup plan for your backup plan's backup plan? Let's find out if your brain ever takes a holiday!",
+                    name_placeholder: "Enter your thoughtful name...",
+                    privacy_disclaimer: "Your 5-year plans for a simple coffee run are safe with us.",
+                    start_button: "Analyze My Thoughts!",
+                    calculating_text: "Analyzing all 1,483 possible outcomes...",
+                    result_level_label: "Your Overthinking Level",
+                    result_level_label_personalized: "{name}'s Overthinking Level",
+                    share_results_label: "Share Your Report & Get a Prescription to Chill!",
+                    restart_button: "Re-think My Answers!",
+                    disclaimer: "Disclaimer: This quiz is for fun. If your overthinking is causing distress, please consider talking to a real professional, not a funny online quiz.",
+                    question_counter: "Question {current} of {total}",
+                    
+                    result_chill_title: "The Chill Panda",
+                    result_chill_desc: "{name}, are you even awake? Your mind is a calm, peaceful lake. You probably hear 'what if...' and think it's a new brand of water.",
+                    result_planner_title: "The Planner",
+                    result_planner_desc: "{name}, you're a thinker, not a worrier. You have a plan A, a plan B, and a plan C just in case. You're prepared, but you still sleep at night.",
+                    result_detective_title: "The Mind Detective",
+                    result_detective_desc: "{name}, no detail is too small for your analysis. You can decode the hidden meaning in a single emoji. Your friends come to you to analyze their texts.",
+                    result_ceo_title: "CEO of a Khayali Pulao Company",
+                    result_ceo_desc: "{name}, your brain has more scenarios running than a Netflix server. You've already planned your reaction to an alien invasion. We're impressed by your dedication.",
+                    
+                    final_quote_chill: "\"It is what it is.\"",
+                    final_quote_planner: "\"What's the plan? And the backup plan?\"",
+                    final_quote_detective: "\"But what did they *really* mean by that?\"",
+                    final_quote_ceo: "\"Okay, but what if...?\"",
+                    
+                    funny_comments: {
+                        chill: [
+                            "You probably choose a restaurant in under 30 seconds. A true superpower.",
+                            "Your brain's screensaver is just a blank screen.",
+                            "You hear 'let's just go with the flow' and you actually do it.",
+                            "You've never re-read an email after sending it."
+                        ],
+                        planner: [
+                            "You have a to-do list for your to-do lists.",
+                            "You pack for a trip a week in advance, including a contingency outfit.",
+                            "You're not overthinking, you're 'strategizing'.",
+                            "You've already thought about what you'll have for dinner next Tuesday."
+                        ],
+                        detective: [
+                            "A simple 'k.' in a text can send you into a 3-hour investigation.",
+                            "You've analyzed your friend's story from 17 different angles.",
+                            "You need a flowchart to decide what to watch.",
+                            "You've created a conspiracy theory about why the wifi is slow."
+                        ],
+                        ceo: [
+                            "You've already planned the conversation you'll have with your boss in 2027.",
+                            "Your brain has more branches than a family tree.",
+                            "You lie in bed at night thinking about a conversation you had in 2012.",
+                            "You need a moment of silence... for the 500 thoughts you're having right now."
+                        ]
+                    },
+
+                    journey_title: "Your Official Prescription!",
+                    journey_subtitle: "You shared your score! As a reward, here is a prescription from Dr. LOL. Use as directed.",
+                    go_back_button: "Back to My Score",
+
+                    explore_title: "Your Analysis Isn't Over Yet!",
+                    explore_desc: "You've audited your thoughts, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.",
+                    explore_button: "Visit PersonalityPaathshala",
+                    support_title: "Loved this quiz? Help us create more!",
+                    support_desc: "Your small contribution keeps our creative engine running and helps us serve more fun.",
+
+                    questions: [
+                        { id: 1, question: "Someone sends you a text that just says 'Hi'. You:", answers: [ { text: "Reply 'Hi' back.", score: 1, feedback: "Simple, direct. What a concept." }, { text: "Check your last 10 conversations to see if you did something wrong.", score: 3, feedback: "The investigation has begun." }, { text: "Wait 20 minutes to reply so you don't seem too eager.", score: 2, feedback: "The strategist." } ] },
+                        { id: 2, question: "You have to choose a movie to watch. You:", answers: [ { text: "Pick one from the top 10 list and start watching.", score: 1, feedback: "A person of action!" }, { text: "Spend 45 minutes watching trailers and reading reviews.", score: 3, feedback: "By the time you choose, it's bedtime." }, { text: "Ask the group chat for recommendations and start a 2-hour debate.", score: 2, feedback: "Decision by committee." } ] },
+                        { id: 3, question: "You make a small mistake at work. You:", answers: [ { text: "Fix it and move on.", score: 1, feedback: "Wait, that's an option?" }, { text: "Replay the moment in your head all day, thinking of what you should have done.", score: 3, feedback: "Your brain's own instant replay." }, { text: "Apologize profusely to everyone, including the office plant.", score: 2, feedback: "The diplomat." } ] },
+                        { id: 4, question: "When you pack for a trip, you:", answers: [ { text: "Throw some clothes in a bag 10 minutes before leaving.", score: 1, feedback: "Living on the edge." }, { text: "Make a detailed list and pack for every possible weather scenario.", score: 3, feedback: "Ready for a heatwave and a blizzard." }, { text: "Pack a week in advance.", score: 2, feedback: "The planner." } ] },
+                        { id: 5, question: "A friend doesn't reply to your text for an hour. You think:", answers: [ { text: "They're probably busy.", score: 1, feedback: "A rational thought. How refreshing." }, { text: "They hate me now. What did I say? Is it because of that joke from 2018?", score: 3, feedback: "The mind detective." }, { text: "I'll just check their 'last seen' status every 5 minutes.", score: 2, feedback: "The online stalker." } ] },
+                        { id: 6, question: "The waiter asks 'Still or sparkling water?'. You:", answers: [ { text: "Say 'Normal is fine'.", score: 1, feedback: "Quick and easy." }, { text: "Ask about the source of the water, its mineral content, and the carbonation process.", score: 3, feedback: "The water connoisseur." }, { text: "Panic and say 'surprise me'.", score: 2, feedback: "A risky game." } ] },
+                        { id: 7, question: "Before going to bed, you:", answers: [ { text: "Just sleep.", score: 1, feedback: "Is it possible to learn this power?" }, { text: "Mentally plan your entire next day, minute by minute.", score: 2, feedback: "The scheduler." }, { text: "Remember an embarrassing moment from 5th grade and cringe for an hour.", score: 3, feedback: "The cringe historian." } ] },
+                        { id: 8, question: "You have to make a simple decision, like what to eat. You:", answers: [ { text: "Choose the first thing that comes to mind.", score: 1, feedback: "The decisive one." }, { text: "Open 3 different food delivery apps and compare menus for 30 minutes.", score: 3, feedback: "The food analyst." }, { text: "Ask everyone in the house what they want, even though you're eating alone.", score: 2, feedback: "The pollster." } ] },
+                        { id: 9, question: "Someone gives you a compliment. You:", answers: [ { text: "Say 'Thank you!'", score: 1, feedback: "Simple and confident." }, { text: "Spend the rest of the day wondering if they were being sarcastic.", score: 3, feedback: "The sarcasm detector." }, { text: "Downplay it by saying 'Oh, this old thing?'", score: 2, feedback: "The humble one." } ] },
+                        { id: 10, question: "The phrase 'Don't worry about it' makes you:", answers: [ { text: "Feel relieved.", score: 1, feedback: "The believer." }, { text: "Worry about it even more.", score: 3, feedback: "Now I'm definitely worried." }, { text: "Ask 'Are you sure? Like, 100% sure?'", score: 2, feedback: "The fact-checker." } ] },
+                        { id: 11, question: "You hear a group of people laughing nearby. You think:", answers: [ { text: "They must be having a good time.", score: 1, feedback: "A positive outlook." }, { text: "They are definitely laughing at me. Is my zipper open?", score: 3, feedback: "The center of the universe." }, { text: "I wonder what the joke was.", score: 2, feedback: "The curious one." } ] },
+                        { id: 12, question: "Before sending an important email, you:", answers: [ { text: "Give it a quick read-through and hit send.", score: 1, feedback: "The risk-taker." }, { text: "Read it 15 times, checking for every possible typo and grammatical error.", score: 3, feedback: "The editor-in-chief." }, { text: "Ask a friend to read it for you 'just in case'.", score: 2, feedback: "The second opinion." } ] },
+                        { id: 13, question: "You have a free weekend. You:", answers: [ { text: "Relax and do whatever you feel like.", score: 1, feedback: "The master of chilling." }, { text: "Create a detailed schedule to maximize your 'fun time'.", score: 3, feedback: "The fun-gineer." }, { text: "Feel stressed about not being productive.", score: 2, feedback: "The guilt-tripper." } ] },
+                        { id: 14, question: "Your boss says 'We need to talk'. Your mind instantly goes to:", answers: [ { text: "'Okay, I wonder what it's about.'", score: 1, feedback: "The calm professional." }, { text: "'I'm getting fired. I need to update my resume. Where will I live?'", score: 3, feedback: "The catastrophizer." }, { text: "A mental list of everything you've done wrong in the past month.", score: 2, feedback: "The internal audit." } ] },
+                        { id: 15, question: "When you leave the house, you:", answers: [ { text: "Lock the door and leave.", score: 1, feedback: "The trusting soul." }, { text: "Check if the door is locked 3 times, just to be sure.", score: 2, feedback: "The security chief." }, { text: "Check the lock, the gas, the lights, and then wonder if you forgot something on the way.", score: 3, feedback: "The checklist champion." } ] },
+                        { id: 16, question: "You're trying a new recipe. You:", answers: [ { text: "Follow the instructions exactly.", score: 1, feedback: "The rule-follower." }, { text: "Read 10 different versions of the recipe and watch 5 video tutorials before starting.", score: 3, feedback: "The research scholar." }, { text: "Add a little of this, a little of that, and hope for the best.", score: 2, feedback: "The improviser." } ] },
+                        { id: 17, question: "Someone doesn't use an emoji in a text. You assume:", answers: [ { text: "They're just typing fast.", score: 1, feedback: "The literalist." }, { text: "They are secretly angry at you.", score: 3, feedback: "The emoji psychologist." }, { text: "Maybe I should add an emoji to my reply to lighten the mood.", score: 2, feedback: "The peacekeeper." } ] },
+                        { id: 18, question: "When you can't sleep, it's usually because:", answers: [ { text: "You're just not tired.", score: 1, feedback: "Simple and logical." }, { text: "You're creating a detailed plan to survive a zombie apocalypse.", score: 3, feedback: "The survivalist." }, { text: "You're thinking about your to-do list for the next day.", score: 2, feedback: "The night-shift planner." } ] },
+                        { id: 19, question: "You have to choose an outfit for a party. You:", answers: [ { text: "Grab the first thing that looks clean.", score: 1, feedback: "The minimalist." }, { text: "Try on 10 different outfits and still feel like you have nothing to wear.", score: 3, feedback: "The fashion crisis." }, { text: "Plan your outfit a week in advance.", score: 2, feedback: "The fashion forecaster." } ] },
+                        { id: 20, question: "When you meet someone new, you:", answers: [ { text: "Enjoy the conversation.", score: 1, feedback: "The social butterfly." }, { text: "Wonder what they *really* think of you.", score: 3, feedback: "The mind reader." }, { text: "Replay the conversation later to analyze everything you said.", score: 2, feedback: "The conversation analyst." } ] },
+                        { id: 21, question: "A 'simple task' for you is usually:", answers: [ { text: "Something you can finish in 10 minutes.", score: 1, feedback: "The efficient one." }, { text: "A multi-step process that requires a flowchart.", score: 3, feedback: "The process engineer." }, { text: "Something that you'll think about for an hour before starting.", score: 2, feedback: "The pre-planner." } ] },
+                        { id: 22, question: "You're about to post a photo. You:", answers: [ { text: "Just post it.", score: 1, feedback: "The confident one." }, { text: "Spend 20 minutes thinking of the perfect caption.", score: 3, feedback: "The caption writer." }, { text: "Ask a friend which filter looks better.", score: 2, feedback: "The consultant." } ] },
+                        { id: 23, question: "When you hear a new song, you:", answers: [ { text: "Just enjoy the music.", score: 1, feedback: "The music lover." }, { text: "Immediately look up the lyrics to understand their deep, hidden meaning.", score: 3, feedback: "The lyric analyst." }, { text: "Wonder if it will be a hit.", score: 2, feedback: "The music critic." } ] },
+                        { id: 24, question: "You're going on a first date. You:", answers: [ { text: "Go with the flow and see what happens.", score: 1, feedback: "The spontaneous romantic." }, { text: "Plan 10 conversation topics in advance, just in case.", score: 3, feedback: "The interview preparer." }, { text: "Stalk their entire social media history.", score: 2, feedback: "The background checker." } ] },
+                        { id: 25, question: "How much did you overthink your answers in this quiz?", answers: [ { text: "Not at all, I just picked the first one that felt right.", score: 1, feedback: "We believe you. Maybe." }, { text: "I've already created a spreadsheet to analyze my potential results.", score: 3, feedback: "We knew it." }, { text: "I thought about each one for a good 10 seconds.", score: 2, feedback: "A balanced approach." } ] }
+                    ]
+                },
+                hi: {
+                    title: "ओवरथिंकर मीटर",
+                    subtitle: "क्या आप एक साधारण 'हाय' का 3 घंटे तक विश्लेषण करते हैं? क्या आपके पास अपनी बैकअप योजना की बैकअप योजना के लिए भी एक बैकअप योजना है? आइए जानें कि आपका दिमाग कभी छुट्टी लेता है या नहीं!",
+                    name_placeholder: "अपना विचारशील नाम दर्ज करें...",
+                    privacy_disclaimer: "एक साधारण कॉफी रन के लिए आपकी 5-वर्षीय योजनाएं हमारे पास सुरक्षित हैं।",
+                    start_button: "मेरे विचारों का विश्लेषण करें!",
+                    calculating_text: "सभी 1,483 संभावित परिणामों का विश्लेषण किया जा रहा है...",
+                    result_level_label: "आपका ओवरथिंकिंग स्तर",
+                    result_level_label_personalized: "{name} का ओवरथिंकिंग स्तर",
+                    share_results_label: "अपनी रिपोर्ट साझा करें और चिल करने के लिए एक नुस्खा प्राप्त करें!",
+                    restart_button: "मेरे उत्तरों पर फिर से सोचो!",
+                    disclaimer: "अस्वीकरण: यह क्विज़ मनोरंजन के लिए है। यदि आपका अधिक सोचना संकट का कारण बन रहा है, तो कृपया एक वास्तविक पेशेवर से बात करने पर विचार करें, न कि एक मजेदार ऑनलाइन क्विज़ से।",
+                    question_counter: "प्रश्न {current} / {total}",
+
+                    result_chill_title: "चिल पांडा",
+                    result_chill_desc: "{name}, क्या तुम जागे भी हो? तुम्हारा मन एक शांत, शांतिपूर्ण झील है। तुम शायद 'क्या होगा अगर...' सुनते हो और सोचते हो कि यह पानी का एक नया ब्रांड है।",
+                    result_planner_title: "योजनाकार",
+                    result_planner_desc: "{name}, तुम एक विचारक हो, चिंता करने वाले नहीं। तुम्हारे पास एक योजना ए, एक योजना बी, और एक योजना सी है बस मामले में। तुम तैयार हो, लेकिन तुम अभी भी रात में सोते हो।",
+                    result_detective_title: "मन जासूस",
+                    result_detective_desc: "{name}, तुम्हारे विश्लेषण के लिए कोई भी विवरण बहुत छोटा नहीं है। तुम एक इमोजी में छिपे अर्थ को डिकोड कर सकते हो। तुम्हारे दोस्त अपने टेक्स्ट का विश्लेषण करने के लिए तुम्हारे पास आते हैं।",
+                    result_ceo_title: "एक खयाली पुलाव कंपनी के सीईओ",
+                    result_ceo_desc: "{name}, तुम्हारे दिमाग में एक नेटफ्लिक्स सर्वर से अधिक परिदृश्य चल रहे हैं। तुमने पहले ही एक विदेशी आक्रमण पर अपनी प्रतिक्रिया की योजना बना ली है। हम तुम्हारे समर्पण से प्रभावित हैं।",
+
+                    final_quote_chill: "\"जो है सो है।\"",
+                    final_quote_planner: "\"योजना क्या है? और बैकअप योजना?\"",
+                    final_quote_detective: "\"लेकिन उनका *वास्तव में* क्या मतलब था?\"",
+                    final_quote_ceo: "\"ठीक है, लेकिन क्या होगा अगर...?\"",
+                    
+                    funny_comments: {
+                        chill: [
+                            "आप शायद 30 सेकंड से कम में एक रेस्तरां चुनते हैं। एक सच्ची महाशक्ति।",
+                            "आपके दिमाग का स्क्रीनसेवर सिर्फ एक खाली स्क्रीन है।",
+                            "आप 'बस प्रवाह के साथ चलो' सुनते हैं और आप वास्तव में ऐसा करते हैं।",
+                            "आपने भेजने के बाद कभी भी एक ईमेल को दोबारा नहीं पढ़ा है।"
+                        ],
+                        planner: [
+                            "आपके पास अपनी टू-डू सूचियों के लिए एक टू-डू सूची है।",
+                            "आप एक सप्ताह पहले एक यात्रा के लिए पैक करते हैं, जिसमें एक आकस्मिक पोशाक भी शामिल है।",
+                            "आप अधिक नहीं सोच रहे हैं, आप 'रणनीति' बना रहे हैं।",
+                            "आपने पहले ही सोच लिया है कि आप अगले मंगलवार को रात के खाने में क्या खाएंगे।"
+                        ],
+                        detective: [
+                            "एक टेक्स्ट में एक साधारण 'k.' आपको 3 घंटे की जांच में भेज सकता है।",
+                            "आपने अपने दोस्त की कहानी का 17 अलग-अलग कोणों से विश्लेषण किया है।",
+                            "आपको यह तय करने के लिए एक फ्लोचार्ट की आवश्यकता है कि क्या देखना है।",
+                            "आपने वाईफाई धीमा क्यों है, इस पर एक साजिश का सिद्धांत बनाया है।"
+                        ],
+                        ceo: [
+                            "आपने पहले ही उस बातचीत की योजना बना ली है जो आप 2027 में अपने बॉस के साथ करेंगे।",
+                            "आपके दिमाग में एक परिवार के पेड़ से अधिक शाखाएँ हैं।",
+                            "आप रात में बिस्तर पर लेटे हुए 2012 में हुई बातचीत के बारे में सोच रहे हैं।",
+                            "आपको एक पल की चुप्पी चाहिए... आपके 500 विचारों के लिए जो आप अभी कर रहे हैं।"
+                        ]
+                    },
+
+                    journey_title: "आपकी आधिकारिक पर्ची!",
+                    journey_subtitle: "आपने अपना स्कोर साझा किया! एक पुरस्कार के रूप में, यहाँ डॉ. एलओएल से एक नुस्खा है। निर्देशानुसार उपयोग करें।",
+                    go_back_button: "मेरे स्कोर पर वापस जाएं",
+
+                    explore_title: "आपका विश्लेषण अभी खत्म नहीं हुआ है!",
+                    explore_desc: "आपने अपने विचारों का ऑडिट किया है, लेकिन आपके बाकी प्रफुल्लित करने वाले व्यक्तित्व के बारे में क्या? आपका प्रेम जीवन, आपके गुस्से के मुद्दे... पर्सनैलिटी पाठशाला में आपके लिए मज़ेदार कैलकुलेटर की एक पूरी कक्षा है।",
+                    explore_button: "पर्सनैलिटी पाठशाला पर जाएँ",
+                    support_title: "यह क्विज़ पसंद आया? और बनाने में हमारी मदद करें!",
+                    support_desc: "आपका छोटा सा योगदान हमारी रचनात्मकता को चालू रखता है और हमें और मज़ा परोसने में मदद करता है।",
+                    
+                    questions: [
+                        { id: 1, question: "कोई आपको एक टेक्स्ट भेजता है जिसमें सिर्फ 'हाय' लिखा है। आप:", answers: [ { text: "'हाय' वापस जवाब दें।", score: 1, feedback: "सरल, सीधा। क्या अवधारणा है।" }, { text: "यह देखने के लिए अपनी पिछली 10 बातचीतें जांचें कि क्या आपने कुछ गलत किया है।", score: 3, feedback: "जांच शुरू हो गई है।" }, { text: "जवाब देने के लिए 20 मिनट प्रतीक्षा करें ताकि आप बहुत उत्सुक न लगें।", score: 2, feedback: "रणनीतिकार।" } ] },
+                        { id: 2, question: "आपको देखने के लिए एक फिल्म चुननी है। आप:", answers: [ { text: "शीर्ष 10 सूची में से एक चुनें और देखना शुरू करें।", score: 1, feedback: "एक क्रिया का व्यक्ति!" }, { text: "ट्रेलर देखने और समीक्षा पढ़ने में 45 मिनट बिताएं।", score: 3, feedback: "जब तक आप चुनते हैं, तब तक सोने का समय हो जाता है।" }, { text: "समूह चैट से सिफारिशें मांगें और 2 घंटे की बहस शुरू करें।", score: 2, feedback: "समिति द्वारा निर्णय।" } ] },
+                        { id: 3, question: "आप काम पर एक छोटी सी गलती करते हैं। आप:", answers: [ { text: "इसे ठीक करें और आगे बढ़ें।", score: 1, feedback: "रुको, यह एक विकल्प है?" }, { text: "दिन भर उस पल को अपने दिमाग में दोहराएं, यह सोचते हुए कि आपको क्या करना चाहिए था।", score: 3, feedback: "आपके दिमाग का अपना तत्काल रीप्ले।" }, { text: "कार्यालय के पौधे सहित सभी से बहुत माफी मांगें।", score: 2, feedback: "राजनयिक।" } ] },
+                        { id: 4, question: "जब आप एक यात्रा के लिए पैक करते हैं, तो आप:", answers: [ { text: "जाने से 10 मिनट पहले एक बैग में कुछ कपड़े फेंको।", score: 1, feedback: "धार पर जीना।" }, { text: "एक विस्तृत सूची बनाएं और हर संभव मौसम परिदृश्य के लिए पैक करें।", score: 3, feedback: "एक गर्मी की लहर और एक बर्फ़ीले तूफ़ान के लिए तैयार।" }, { text: "एक सप्ताह पहले पैक करें।", score: 2, feedback: "योजनाकार।" } ] },
+                        { id: 5, question: "एक दोस्त एक घंटे के लिए आपके टेक्स्ट का जवाब नहीं देता है। आप सोचते हैं:", answers: [ { text: "वे शायद व्यस्त हैं।", score: 1, feedback: "एक तर्कसंगत विचार। कितना ताज़ा।" }, { text: "वे अब मुझसे नफरत करते हैं। मैंने क्या कहा? क्या यह 2018 के उस मजाक के कारण है?", score: 3, feedback: "मन जासूस।" }, { text: "मैं हर 5 मिनट में उनकी 'आखिरी बार देखी गई' स्थिति की जांच करूँगा।", score: 2, feedback: "ऑनलाइन stalker।" } ] },
+                        { id: 6, question: "वेटर पूछता है 'स्थिर या स्पार्कलिंग पानी?'। आप:", answers: [ { text: "'सामान्य ठीक है' कहो।" , score: 1, feedback: "जल्दी और आसान।" }, { text: "पानी के स्रोत, इसकी खनिज सामग्री और कार्बोनेशन प्रक्रिया के बारे में पूछें।", score: 3, feedback: "पानी का पारखी।" }, { text: "घबराओ और कहो 'मुझे आश्चर्यचकित करो'।" , score: 2, feedback: "एक जोखिम भरा खेल।" } ] },
+                        { id: 7, question: "बिस्तर पर जाने से पहले, आप:", answers: [ { text: "बस सो जाओ।", score: 1, feedback: "क्या इस शक्ति को सीखना संभव है?" }, { text: "अपने पूरे अगले दिन की मिनट-दर-मिनट मानसिक रूप से योजना बनाएं।", score: 2, feedback: "अनुसूचक।" }, { text: "5 वीं कक्षा से एक शर्मनाक क्षण याद रखें और एक घंटे के लिए शर्मिंदा हों।", score: 3, feedback: "शर्मिंदगी का इतिहासकार।" } ] },
+                        { id: 8, question: "आपको एक साधारण निर्णय लेना है, जैसे कि क्या खाना है। आप:", answers: [ { text: "जो दिमाग में पहली चीज आती है उसे चुनें।", score: 1, feedback: "निर्णायक।" }, { text: "3 अलग-अलग खाद्य वितरण ऐप खोलें और 30 मिनट के लिए मेनू की तुलना करें।", score: 3, feedback: "खाद्य विश्लेषक।" }, { text: "घर में सभी से पूछें कि वे क्या चाहते हैं, भले ही आप अकेले खा रहे हों।", score: 2, feedback: "पोलस्टर।" } ] },
+                        { id: 9, question: "कोई आपको एक तारीफ देता है। आप:", answers: [ { text: "'धन्यवाद!' कहें", score: 1, feedback: "सरल और आत्मविश्वासी।" }, { text: "बाकी दिन यह सोचते हुए बिताएं कि क्या वे व्यंग्यात्मक थे।", score: 3, feedback: "व्यंग्य डिटेक्टर।" }, { text: "यह कहकर इसे कम करें 'ओह, यह पुरानी बात?'", score: 2, feedback: "विनम्र।" } ] },
+                        { id: 10, question: "वाक्यांश 'इसके बारे में चिंता न करें' आपको बनाता है:", answers: [ { text: "राहत महसूस करें।", score: 1, feedback: "विश्वासी।" }, { text: "इसके बारे में और भी चिंता करें।", score: 3, feedback: "अब मैं निश्चित रूप से चिंतित हूँ।" }, { text: "पूछें 'क्या आप निश्चित हैं? जैसे, 100% निश्चित हैं?'", score: 2, feedback: "तथ्य-जांचकर्ता।" } ] },
+                        { id: 11, question: "आप पास में हंसते हुए लोगों का एक समूह सुनते हैं। आप सोचते हैं:", answers: [ { text: "वे एक अच्छा समय बिता रहे होंगे।", score: 1, feedback: "एक सकारात्मक दृष्टिकोण।" }, { text: "वे निश्चित रूप से मुझ पर हंस रहे हैं। क्या मेरी जिप खुली है?", score: 3, feedback: "ब्रह्मांड का केंद्र।" }, { text: "मुझे आश्चर्य है कि मजाक क्या था।", score: 2, feedback: "जिज्ञासु।" } ] },
+                        { id: 12, question: "एक महत्वपूर्ण ईमेल भेजने से पहले, आप:", answers: [ { text: "इसे एक त्वरित पठन दें और भेजें दबाएं।", score: 1, feedback: "जोखिम लेने वाला।" }, { text: "इसे 15 बार पढ़ें, हर संभव टाइपो और व्याकरण संबंधी त्रुटि की जाँच करें।", score: 3, feedback: "संपादक-इन-चीफ।" }, { text: "'बस मामले में' के लिए इसे पढ़ने के लिए एक दोस्त से पूछें।", score: 2, feedback: "दूसरी राय।" } ] },
+                        { id: 13, question: "आपके पास एक मुफ्त सप्ताहांत है। आप:", answers: [ { text: "आराम करें और जो भी आपका मन करे वह करें।", score: 1, feedback: "चिलिंग का मास्टर।" }, { text: "अपने 'मजेदार समय' को अधिकतम करने के लिए एक विस्तृत कार्यक्रम बनाएं।", score: 3, feedback: "मजेदार-इंजीनियर।" }, { text: "उत्पादक न होने के बारे में तनाव महसूस करें।", score: 2, feedback: "अपराध-बोध कराने वाला।" } ] },
+                        { id: 14, question: "आपका बॉस कहता है 'हमें बात करनी है'। आपका मन तुरंत जाता है:", answers: [ { text: "'ठीक है, मुझे आश्चर्य है कि यह किस बारे में है।'", score: 1, feedback: "शांत पेशेवर।" }, { text: "'मुझे निकाल दिया जा रहा है। मुझे अपना बायोडाटा अपडेट करने की आवश्यकता है। मैं कहाँ रहूँगा?'", score: 3, feedback: "आपदावादी।" }, { text: "पिछले महीने में आपने जो कुछ भी गलत किया है उसकी एक मानसिक सूची।", score: 2, feedback: "आंतरिक लेखा परीक्षा।" } ] },
+                        { id: 15, question: "जब आप घर से निकलते हैं, तो आप:", answers: [ { text: "दरवाजा बंद करो और चले जाओ।", score: 1, feedback: "भरोसेमंद आत्मा।" }, { text: "जांचें कि क्या दरवाजा 3 बार बंद है, बस सुनिश्चित करने के लिए।", score: 2, feedback: "सुरक्षा प्रमुख।" }, { text: "ताला, गैस, बत्ती जांचें, और फिर आश्चर्य करें कि क्या आप रास्ते में कुछ भूल गए हैं।", score: 3, feedback: "चेकलिस्ट चैंपियन।" } ] },
+                        { id: 16, question: "आप एक नई रेसिपी आज़मा रहे हैं। आप:", answers: [ { text: "निर्देशों का ठीक से पालन करें।", score: 1, feedback: "नियम-पालक।" }, { text: "शुरू करने से पहले रेसिपी के 10 अलग-अलग संस्करण पढ़ें और 5 वीडियो ट्यूटोरियल देखें।", score: 3, feedback: "शोध विद्वान।" }, { text: "इसका थोड़ा, उसका थोड़ा डालें, और सर्वश्रेष्ठ की उम्मीद करें।", score: 2, feedback: "सुधारक।" } ] },
+                        { id: 17, question: "कोई एक टेक्स्ट में एक इमोजी का उपयोग नहीं करता है। आप मानते हैं:", answers: [ { text: "वे बस तेजी से टाइप कर रहे हैं।", score: 1, feedback: "शाब्दिक।" }, { text: "वे चुपके से आपसे नाराज हैं।", score: 3, feedback: "इमोजी मनोवैज्ञानिक।" }, { text: "शायद मुझे मूड को हल्का करने के लिए अपने जवाब में एक इमोजी जोड़ना चाहिए।", score: 2, feedback: "शांतिदूत।" } ] },
+                        { id: 18, question: "जब आप सो नहीं सकते, तो यह आमतौर पर इसलिए होता है क्योंकि:", answers: [ { text: "आप बस थके नहीं हैं।", score: 1, feedback: "सरल और तार्किक।" }, { text: "आप एक ज़ोंबी सर्वनाश से बचने के लिए एक विस्तृत योजना बना रहे हैं।", score: 3, feedback: "उत्तरजीवी।" }, { text: "आप अगले दिन के लिए अपनी टू-डू सूची के बारे में सोच रहे हैं।", score: 2, feedback: "नाइट-शिफ्ट प्लानर।" } ] },
+                        { id: 19, question: "आपको एक पार्टी के लिए एक पोशाक चुननी है। आप:", answers: [ { text: "जो साफ दिखता है उसे पहले पकड़ो।", score: 1, feedback: "न्यूनतमवादी।" }, { text: "10 अलग-अलग पोशाकें आज़माएँ और फिर भी ऐसा महसूस करें कि आपके पास पहनने के लिए कुछ नहीं है।", score: 3, feedback: "फैशन संकट।" }, { text: "एक सप्ताह पहले अपनी पोशाक की योजना बनाएं।", score: 2, feedback: "फैशन भविष्यवक्ता।" } ] },
+                        { id: 20, question: "जब आप किसी नए व्यक्ति से मिलते हैं, तो आप:", answers: [ { text: "बातचीत का आनंद लें।", score: 1, feedback: "सामाजिक तितली।" }, { text: "आश्चर्य है कि वे *वास्तव में* आपके बारे में क्या सोचते हैं।", score: 3, feedback: "मन पढ़ने वाला।" }, { text: "बाद में बातचीत को फिर से चलाएं ताकि आपके द्वारा कही गई हर बात का विश्लेषण किया जा सके।", score: 2, feedback: "बातचीत विश्लेषक।" } ] },
+                        { id: 21, question: "आपके लिए एक 'सरल कार्य' आमतौर पर होता है:", answers: [ { text: "कुछ ऐसा जिसे आप 10 मिनट में खत्म कर सकते हैं।", score: 1, feedback: "कुशल।" }, { text: "एक बहु-चरणीय प्रक्रिया जिसके लिए एक फ्लोचार्ट की आवश्यकता होती है।", score: 3, feedback: "प्रक्रिया इंजीनियर।" }, { text: "कुछ ऐसा जिसके बारे में आप शुरू करने से पहले एक घंटे तक सोचेंगे।", score: 2, feedback: "पूर्व-योजनाकार।" } ] },
+                        { id: 22, question: "आप एक तस्वीर पोस्ट करने वाले हैं। आप:", answers: [ { text: "बस इसे पोस्ट करें।", score: 1, feedback: "आत्मविश्वासी।" }, { text: "सही कैप्शन सोचने में 20 मिनट बिताएं।", score: 3, feedback: "कैप्शन लेखक।" }, { text: "एक दोस्त से पूछें कि कौन सा फिल्टर बेहतर दिखता है।", score: 2, feedback: "सलाहकार।" } ] },
+                        { id: 23, question: "जब आप एक नया गाना सुनते हैं, तो आप:", answers: [ { text: "बस संगीत का आनंद लें।", score: 1, feedback: "संगीत प्रेमी।" }, { text: "उनके गहरे, छिपे अर्थ को समझने के लिए तुरंत गीत देखें।", score: 3, feedback: "गीत विश्लेषक।" }, { text: "आश्चर्य है कि क्या यह एक हिट होगा।", score: 2, feedback: "संगीत समीक्षक।" } ] },
+                        { id: 24, question: "आप पहली डेट पर जा रहे हैं। आप:", answers: [ { text: "प्रवाह के साथ चलो और देखो कि क्या होता है।", score: 1, feedback: "सहज रोमांटिक।" }, { text: "बस मामले में, पहले से 10 बातचीत के विषय की योजना बनाएं।", score: 3, feedback: "साक्षात्कार की तैयारी करने वाला।" }, { text: "उनके पूरे सोशल मीडिया इतिहास को स्टॉक करें।", score: 2, feedback: "पृष्ठभूमि जांचकर्ता।" } ] },
+                        { id: 25, question: "आपने इस क्विज़ में अपने उत्तरों पर कितना अधिक विचार किया?", answers: [ { text: "बिल्कुल नहीं, मैंने बस पहला चुना जो सही लगा।", score: 1, feedback: "हम आप पर विश्वास करते हैं। शायद।" }, { text: "मैंने अपने संभावित परिणामों का विश्लेषण करने के लिए पहले ही एक स्प्रेडशीट बना ली है।", score: 3, feedback: "हम जानते थे।" }, { text: "मैंने प्रत्येक के बारे में अच्छे 10 सेकंड तक सोचा।", score: 2, feedback: "एक संतुलित दृष्टिकोण।" } ] }
+                    ]
+                }
+            };
+            
+            // --- STATE MANAGEMENT & DOM ELEMENTS ---
+            let currentQuestionIndex = 0;
+            let userAnswers = {};
+            let currentLang = 'en';
+            let quizQuestions = [];
+            let userName = '';
+            const QUESTIONS_PER_QUIZ = 15;
+
+            const allLangElements = document.querySelectorAll('[data-lang-key]');
+            const langPlaceholderElements = document.querySelectorAll('[data-lang-placeholder]');
+            const languageToggle = document.getElementById('language-toggle');
+            const startScreen = document.getElementById('start-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const calculatingScreen = document.getElementById('calculating-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const journeyScreen = document.getElementById('journey-screen');
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const goBackBtn = document.getElementById('go-back-btn');
+            const backToMainBtn = document.getElementById('back-to-main-btn');
+            const nameInput = document.getElementById('name-input');
+            const questionContainer = document.getElementById('question-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const finalScoreEl = document.getElementById('final-score');
+            const resultTitleEl = document.getElementById('result-title');
+            const resultDescriptionEl = document.getElementById('result-description');
+            const finalQuoteEl = document.getElementById('final-quote');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const shareButtonsContainer = document.getElementById('share-buttons');
+            const exploreBtn = document.getElementById('explore-btn');
+
+            // --- LANGUAGE LOGIC ---
+            const updateLanguage = (lang) => {
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                document.documentElement.lang = lang;
+                
+                languageToggle.innerHTML = (lang === 'en') 
+                    ? `<i class="fa-solid fa-language mr-2"></i> हिन्दी`
+                    : `<i class="fa-solid fa-language mr-2"></i> English`;
+
+                allLangElements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    const value = getNestedValue(content[lang], key);
+                    if (value) el.innerHTML = value;
+                });
+                
+                langPlaceholderElements.forEach(el => {
+                    const key = el.dataset.langPlaceholder;
+                    const value = getNestedValue(content[lang], key);
+                    if(value) el.placeholder = value;
+                });
+            };
+
+            const getNestedValue = (obj, key) => key.split('.').reduce((acc, part) => acc && acc[part], obj);
+
+            // --- THEME LOGIC ---
+            const applyTheme = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIconDark.classList.remove('hidden');
+                    themeIconLight.classList.add('hidden');
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
+            applyTheme(isDarkMode);
+
+            // --- UI FUNCTIONS ---
+            const renderQuestion = () => {
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const q_id = quizQuestions[currentQuestionIndex];
+                    const q_data_en = content.en.questions.find(item => item.id === q_id);
+                    const q_lang = content[currentLang].questions.find(item => item.id === q_id);
+                    
+                    if(!q_data_en || !q_lang) {
+                        goHome();
+                        return;
+                    }
+
+                    const shuffledAnswers = [...q_lang.answers].sort(() => Math.random() - 0.5);
+
+                    let answersHTML = shuffledAnswers.map(answer => {
+                        return `
+                        <button data-score="${answer.score}" class="choice-btn w-full text-left p-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-blue-500 transition-colors duration-200">
+                            ${answer.text}
+                        </button>
+                    `}).join('');
+                    
+                    const counterText = content[currentLang].question_counter
+                        .replace('{current}', currentQuestionIndex + 1)
+                        .replace('{total}', QUESTIONS_PER_QUIZ);
+
+                    questionContainer.innerHTML = `
+                        <div class="fade-in">
+                            <p class="text-lg font-semibold dark-mode-subtext mb-4">${counterText}</p>
+                            <h2 class="text-2xl md:text-3xl font-bold dark-mode-text mb-8">${q_lang.question.replace(/{name}/g, `<strong>${userName}</strong>`)}</h2>
+                            <div class="flex flex-col items-center space-y-4">${answersHTML}</div>
+                        </div>
+                    `;
+                    feedbackContainer.innerHTML = '';
+                    updateProgressBar();
+                } else {
+                    showCalculatingScreen();
+                }
+            };
+            
+            const updateProgressBar = () => {
+                const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            };
+
+            // --- CORE LOGIC ---
+            const startQuiz = () => {
+                userName = nameInput.value.trim();
+                if (!userName) {
+                    userName = (currentLang === 'en') ? 'Thinker' : 'विचारक';
+                }
+
+                let allQuestionIds = content.en.questions.map(q => q.id);
+                allQuestionIds.sort(() => Math.random() - 0.5);
+                quizQuestions = allQuestionIds.slice(0, QUESTIONS_PER_QUIZ);
+                currentQuestionIndex = 0;
+                userAnswers = {};
+
+                startScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    startScreen.classList.add('hidden');
+                    startScreen.classList.remove('fade-out');
+                    quizScreen.classList.remove('hidden');
+                    quizScreen.classList.add('fade-in');
+                    progressContainer.classList.remove('hidden');
+                    backToMainBtn.classList.remove('hidden');
+                    renderQuestion();
+                }, 500);
+            };
+
+            const handleAnswer = (e) => {
+                const selectedBtn = e.target.closest('.choice-btn');
+                if (!selectedBtn) return;
+
+                const score = parseInt(selectedBtn.dataset.score);
+                const question_id = quizQuestions[currentQuestionIndex];
+                const question_data_lang = content[currentLang].questions.find(item => item.id === question_id);
+                
+                const answer_data_lang = question_data_lang.answers.find(a => a.score === score);
+                if (answer_data_lang) {
+                    feedbackContainer.innerHTML = `<p class="fade-in font-semibold text-lg text-teal-600 dark:text-teal-400">${answer_data_lang.feedback}</p>`;
+                }
+
+                userAnswers[question_id] = score;
+                
+                questionContainer.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn !== selectedBtn) {
+                        btn.classList.add('opacity-50');
+                    } else {
+                        btn.classList.add('ring-4', 'ring-blue-400');
+                    }
+                });
+                
+                setTimeout(() => {
+                    if (questionContainer.firstElementChild) {
+                        questionContainer.firstElementChild.classList.replace('fade-in', 'fade-out');
+                    }
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    }, 500);
+                }, 1800);
+            };
+
+            const showCalculatingScreen = () => {
+                quizScreen.classList.add('fade-out');
+                progressContainer.classList.add('hidden');
+                backToMainBtn.classList.add('hidden');
+                setTimeout(() => {
+                    quizScreen.classList.add('hidden');
+                    quizScreen.classList.remove('fade-out');
+                    calculatingScreen.classList.remove('hidden');
+                    calculatingScreen.classList.add('fade-in');
+                    const calculatingTexts = [
+                        content[currentLang].calculating_text, 
+                        (currentLang === 'en' ? "Consulting a panel of experts..." : "विशेषज्ञों के एक पैनल से परामर्श..."),
+                        (currentLang === 'en' ? "Running a deep-thought simulation..." : "एक गहरे विचार सिमुलेशन चल रहा है...")
+                    ];
+                    document.getElementById('calculating-text').innerText = calculatingTexts[Math.floor(Math.random()*calculatingTexts.length)];
+                    setTimeout(showResults, 2500);
+                }, 500);
+            }
+            
+            const showResults = (isThemeOrLangUpdate = false) => {
+                if (!isThemeOrLangUpdate) {
+                     calculatingScreen.classList.add('fade-out');
+                     setTimeout(() => {
+                        calculatingScreen.classList.add('hidden');
+                        calculatingScreen.classList.remove('fade-out');
+                        resultsScreen.classList.remove('hidden');
+                        resultsScreen.classList.add('slide-up');
+                        calculateAndDisplayScores();
+                    }, 500);
+                } else {
+                    calculateAndDisplayScores();
+                }
+            };
+
+            const calculateAndDisplayScores = () => {
+                let totalScore = 0;
+                Object.values(userAnswers).forEach(score => {
+                    totalScore += score;
+                });
+
+                const minPossibleScore = QUESTIONS_PER_QUIZ * 1;
+                const maxPossibleScore = QUESTIONS_PER_QUIZ * 3;
+                const scoreRange = maxPossibleScore - minPossibleScore;
+                const userScoreOffset = totalScore - minPossibleScore;
+
+                let overthinkingPercentage = 0;
+                if (scoreRange > 0) {
+                    overthinkingPercentage = Math.round((userScoreOffset / scoreRange) * 100);
+                }
+                
+                finalScoreEl.classList.remove('score-reveal');
+                void finalScoreEl.offsetWidth; // Trigger reflow
+                finalScoreEl.classList.add('score-reveal');
+
+                let startValue = 0;
+                const duration = 1200;
+                const endValue = overthinkingPercentage;
+                const startTime = performance.now();
+
+                function animateCountUp(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    if (elapsedTime < duration) {
+                        const progress = elapsedTime / duration;
+                        const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+                        const currentValue = Math.round(startValue + (endValue - startValue) * easedProgress);
+                        finalScoreEl.textContent = `${currentValue}%`;
+                        requestAnimationFrame(animateCountUp);
+                    } else {
+                        finalScoreEl.textContent = `${endValue}%`;
+                    }
+                }
+                requestAnimationFrame(animateCountUp);
+
+                let resultKey;
+                if (overthinkingPercentage <= 25) resultKey = 'chill';
+                else if (overthinkingPercentage <= 50) resultKey = 'planner';
+                else if (overthinkingPercentage <= 75) resultKey = 'detective';
+                else resultKey = 'ceo';
+                
+                finalQuoteEl.dataset.resultKey = resultKey;
+                document.getElementById('prescription-name').textContent = userName;
+
+                const personalizedLabel = content[currentLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+
+                resultTitleEl.textContent = content[currentLang][`result_${resultKey}_title`];
+                resultDescriptionEl.innerHTML = content[currentLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                finalQuoteEl.textContent = content[currentLang][`final_quote_${resultKey}`];
+                
+                displayFunnyComments(resultKey);
+                updateShareLinks(overthinkingPercentage, content[currentLang][`result_${resultKey}_title`]);
+            };
+
+            const startBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                stopBackgroundAnimations();
+                
+                const emojis = ['🤔', '🤯', '🧠', '📜', '🧐', '😂', '💡'];
+                const numEmojis = 25;
+
+                for (let i = 0; i < numEmojis; i++) {
+                    const emoji = document.createElement('span');
+                    emoji.className = 'floating-emoji';
+                    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    emoji.style.left = `${Math.random() * 100}vw`;
+                    emoji.style.fontSize = `${1 + Math.random() * 2}rem`;
+                    const duration = 8 + Math.random() * 10;
+                    const delay = Math.random() * 7;
+                    const translateX = `${(Math.random() - 0.5) * 200}px`;
+                    const rotate = `${(Math.random() - 0.5) * 720}deg`;
+                    
+                    emoji.style.setProperty('--translateX', translateX);
+                    emoji.style.setProperty('--rotate', rotate);
+                    emoji.style.animation = `floatUp ${duration}s ease-in ${delay}s infinite`;
+                    
+                    container.appendChild(emoji);
+                }
+            };
+
+            const stopBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (container) {
+                    container.innerHTML = '';
+                }
+            };
+
+            const typewriter = (element, text, callback) => {
+                let i = 0;
+                const speed = 40; // milliseconds per character
+                const originalHTML = element.innerHTML;
+                element.innerHTML = originalHTML + '<span class="typing-text"></span><span class="typing-cursor border-l-2 border-blue-500 h-6 inline-block align-middle">&nbsp;</span>';
+                const textSpan = element.querySelector('.typing-text');
+                const cursorSpan = element.querySelector('.typing-cursor');
+                
+                function type() {
+                    if (i < text.length) {
+                        textSpan.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        if(cursorSpan) {
+                           cursorSpan.style.display = 'none';
+                        }
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+
+            const displayFunnyComments = (resultKey) => {
+                const commentsContainer = document.getElementById('funny-comments-container');
+                if (!commentsContainer) return;
+                commentsContainer.innerHTML = '';
+                const commentsPool = content[currentLang].funny_comments[resultKey] || [];
+                
+                const shuffledComments = [...commentsPool].sort(() => 0.5 - Math.random());
+                const selectedComments = shuffledComments.slice(0, 3);
+
+                let commentIndex = 0;
+
+                function typeNextComment() {
+                    if (commentIndex < selectedComments.length) {
+                        const commentText = selectedComments[commentIndex];
+                        
+                        const card = document.createElement('div');
+                        card.className = 'funny-comment-card bg-blue-100 dark:bg-gray-800 p-4 rounded-lg mb-4 text-gray-700 dark:text-blue-300 italic shadow-md';
+                        
+                        const p = document.createElement('p');
+                        p.innerHTML = `<i class="fa-solid fa-quote-left mr-2 text-blue-500"></i> `;
+                        card.appendChild(p);
+
+                        card.style.animationDelay = `0.2s`;
+                        
+                        commentsContainer.appendChild(card);
+                        
+                        setTimeout(() => {
+                            typewriter(p, commentText, () => {
+                                commentIndex++;
+                                setTimeout(typeNextComment, 800); 
+                            });
+                        }, 600);
+                    }
+                }
+                
+                startBackgroundAnimations();
+                typeNextComment();
+            };
+
+
+            const updateShareLinks = (percentage, title) => {
+                const text = encodeURIComponent(`My Overthinking Score is ${percentage}%! Turns out I'm a "${title}". Find out how much you overthink:`);
+                const url = encodeURIComponent(window.location.href);
+                
+                document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                document.getElementById('telegram-share').href = `https://t.me/share/url?url=${url}&text=${text}`;
+                document.getElementById('instagram-share').href = `https://www.instagram.com/`;
+            };
+            
+            const goHome = () => {
+                stopBackgroundAnimations();
+                [quizScreen, resultsScreen, journeyScreen, progressContainer, backToMainBtn, calculatingScreen].forEach(el => el.classList.add('hidden'));
+                startScreen.classList.remove('hidden', 'fade-out');
+                startScreen.classList.add('fade-in');
+                nameInput.value = '';
+                currentQuestionIndex = 0;
+                userAnswers = {};
+                quizQuestions = [];
+                progressBar.style.width = '0%';
+            };
+
+            const showJourneyScreen = (e) => {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                resultsScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    resultsScreen.classList.add('hidden');
+                    resultsScreen.classList.remove('fade-out');
+                    journeyScreen.classList.remove('hidden');
+                    journeyScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            const showResultsScreenFromJourney = () => {
+                journeyScreen.classList.add('fade-out');
+                 setTimeout(() => {
+                    journeyScreen.classList.add('hidden');
+                    journeyScreen.classList.remove('fade-out');
+                    resultsScreen.classList.remove('hidden');
+                    resultsScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            // --- EVENT LISTENERS ---
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', goHome);
+            backToMainBtn.addEventListener('click', goHome);
+            goBackBtn.addEventListener('click', showResultsScreenFromJourney);
+            quizScreen.addEventListener('click', handleAnswer);
+            shareButtonsContainer.addEventListener('click', (e) => {
+                const shareBtn = e.target.closest('a.share-btn');
+                if (shareBtn && shareBtn.href && shareBtn.href !== '#') {
+                    showJourneyScreen(e);
+                }
+            });
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+                if (!resultsScreen.classList.contains('hidden')) { showResults(true); }
+            });
+            languageToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'hi' : 'en';
+                updateLanguage(newLang);
+                if (!quizScreen.classList.contains('hidden') || !calculatingScreen.classList.contains('hidden')) { 
+                    goHome();
+                } else if (!resultsScreen.classList.contains('hidden')) {
+                    const resultKey = finalQuoteEl.dataset.resultKey;
+                    const personalizedLabel = content[newLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                    document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+                    resultTitleEl.textContent = content[newLang][`result_${resultKey}_title`];
+                    resultDescriptionEl.innerHTML = content[newLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                    finalQuoteEl.textContent = content[newLang][`final_quote_${resultKey}`];
+                    displayFunnyComments(resultKey);
+                }
+            });
+
+            // Initial Load
+            const savedLang = localStorage.getItem('language') || 'en';
+            updateLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>

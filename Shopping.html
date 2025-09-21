@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0DL8SC5JKB');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Addict Meter - How Much Do You Love to Shop?</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS for theme, animations, and additional styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Dark Mode --- */
+        .dark .dark-mode-bg { background-color: #111827; }
+        .dark .dark-mode-text { color: #f9fafb; }
+        .dark .dark-mode-surface { background-color: #1f2937; }
+        .dark .dark-mode-border { border-color: #374151; }
+        .dark .dark-mode-subtext { color: #9ca3af; }
+
+        /* --- Animations --- */
+        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .pulse { animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .9; transform: scale(1.02); }
+        }
+
+        /* --- Button Styles --- */
+        .choice-btn, .share-btn, .control-btn {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .choice-btn:hover, .share-btn:hover, .control-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Social Share Colors --- */
+        .whatsapp-btn { background-color: #25D366; }
+        .twitter-btn { background-color: #1DA1F2; }
+        .facebook-btn { background-color: #1877F2; }
+        .telegram-btn { background-color: #24A1DE; }
+        .instagram-btn {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        }
+
+        /* --- Score Animation --- */
+        .score-reveal {
+            animation: scoreReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 10px rgba(236, 72, 153, 0.5), 0 0 20px rgba(236, 72, 153, 0.3); /* Pink Shadow */
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* --- Funny Comments Styling --- */
+        .funny-comments-container {
+            perspective: 1000px;
+        }
+
+        .funny-comment-card {
+            opacity: 0;
+            transform: rotateX(-90deg) translateY(50px);
+            transform-origin: bottom center;
+            animation: revealComment 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .funny-comment-card p {
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1.75rem; /* leading-7 */
+        }
+
+        @media (min-width: 768px) {
+            .funny-comment-card p {
+                font-size: 1.5rem; /* md:text-2xl */
+                line-height: 2rem; /* md:leading-8 */
+            }
+        }
+
+
+        @keyframes revealComment {
+            from {
+                opacity: 0;
+                transform: rotateX(-90deg) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0deg) translateY(0);
+            }
+        }
+        
+        /* --- Typing Effect --- */
+        .typing-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #ec4899; } /* pink-500 */
+        }
+        
+        /* --- Background Animation --- */
+        #animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: -50px; /* Start from below the screen */
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--translateX)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode-bg text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+    <div id="animation-container"></div>
+    <!-- Header for Toggles -->
+    <header class="absolute top-4 w-full px-4 z-20 flex items-center justify-between">
+        <!-- Back to Main Page Button (Initially hidden) -->
+        <a id="back-to-main-btn" href="index.html" role="button" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </a>
+
+        <div class="flex items-center space-x-2 ml-auto">
+             <!-- Language Toggle -->
+            <button id="language-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 dark:focus:ring-offset-gray-900 w-28 h-10 flex items-center justify-center text-sm">
+                <!-- Text updated by JS -->
+            </button>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+                <svg id="theme-icon-dark" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg id="theme-icon-light" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-2 bg-gray-200 dark:bg-gray-700 z-10 hidden">
+        <div id="progress-bar" class="h-full bg-pink-500 progress-bar-fill" style="width: 0%;"></div>
+    </div>
+    
+    <main class="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-screen relative z-10">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center max-w-2xl fade-in">
+            <h1 class="text-4xl md:text-6xl font-extrabold dark-mode-text tracking-tight mb-4">The <span class="text-pink-500" data-lang-key="title">Shopping Addict Meter</span></h1>
+            <p class="text-lg md:text-xl dark-mode-subtext mb-8" data-lang-key="subtitle">
+                Do you prefer 'Add to Cart' over 'I Love You'? Is your favorite exercise running... to a sale? Let's find out if you're a window shopper or a shopping blackhole!
+            </p>
+            <div class="mb-6 w-full max-w-sm mx-auto">
+                <input type="text" id="name-input" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-pink-500 text-gray-900 dark:text-white" data-lang-placeholder="name_placeholder">
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-8 italic" data-lang-key="privacy_disclaimer"></p>
+            <button id="start-btn" data-lang-key="start_button" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-pink-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300 pulse">
+                Let's Go Shopping!
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden w-full max-w-3xl">
+            <div id="question-container" class="text-center pt-16">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <div id="feedback-container" class="mt-6 text-center text-md dark-mode-subtext min-h-[60px]">
+                <!-- Feedback will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Calculating Screen -->
+        <div id="calculating-screen" class="hidden text-center w-full max-w-2xl">
+            <svg class="animate-spin h-16 w-16 text-pink-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h2 id="calculating-text" class="text-2xl font-bold dark-mode-text" data-lang-key="calculating_text">Checking your bank balance...</h2>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center w-full max-w-4xl pt-16">
+            <h2 class="text-2xl font-bold dark-mode-subtext mb-2" data-lang-key="result_level_label">Your Shopping Addiction Level</h2>
+            <div id="final-score" class="text-7xl md:text-8xl font-extrabold text-pink-500 mb-4">0%</div>
+            <h3 id="result-title" class="text-3xl md:text-4xl font-extrabold dark-mode-text mb-3"></h3>
+            <p id="result-description" class="text-lg md:text-xl dark-mode-subtext mb-8 max-w-2xl mx-auto"></p>
+            
+            <div id="funny-comments-container" class="funny-comments-container mt-8 mb-8 max-w-2xl mx-auto">
+                <!-- Comments will be injected here -->
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="mb-8">
+                <p class="font-bold dark-mode-text mb-3" data-lang-key="share_results_label">Share Your Report & Get a Platinum Card!</p>
+                <div id="share-buttons" class="flex justify-center items-center flex-wrap gap-4">
+                    <a id="whatsapp-share" href="https://ppscore.co.in" target="_blank" class="share-btn whatsapp-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l.217.324-1.125 4.108 4.224-1.103.337.202z" /></svg>
+                    </a>
+                    <a id="twitter-share" href="https://ppscore.co.in" target="_blank" class="share-btn twitter-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.794 4.649-.69.188-1.433.23-2.184.085.617 1.914 2.408 3.258 4.53 3.301-1.724 1.352-3.883 2.093-6.138 1.795 1.815 1.163 3.973 1.84 6.262 1.84 7.218 0 11.168-5.986 11.168-11.168 0-.17-.003-.34-.01-.508.77-.556 1.438-1.248 1.968-2.04z"/></svg>
+                    </a>
+                    <a id="facebook-share" href="https://ppscore.co.in" target="_blank" class="share-btn facebook-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                    </a>                      
+                    <a id="telegram-share" href="https://ppscore.co.in" target="_blank" class="share-btn telegram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-1.39.2-1.62l15.97-5.85c.73-.27 1.36.17 1.15.99L16.4 18.28c-.21.83-1.2.5-1.54-.26L9.78 18.65z"/></svg>
+                    </a>
+                    <a id="instagram-share" href="https://ppscore.co.in" target="_blank" class="share-btn instagram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <p id="final-quote" class="text-lg dark-mode-text max-w-3xl mx-auto mb-8 italic">
+                <!-- Quote inserted by JS -->
+            </p>
+
+            <button id="restart-btn" data-lang-key="restart_button" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-pink-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300">
+                Shop Again!
+            </button>
+
+            <!-- Explore More Section -->
+            <div class="mt-16 py-8 border-t-2 border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
+                 <h3 class="text-2xl md:text-3xl font-extrabold dark-mode-text mb-4" data-lang-key="explore_title">Your Analysis Isn't Over Yet!</h3>
+                 <p class="text-lg dark-mode-subtext mb-8" data-lang-key="explore_desc">
+                   You've audited your shopping habits, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.
+                 </p>
+                 <a id="explore-btn" href="index.html" class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 inline-block" data-lang-key="explore_button">
+                   Visit PersonalityPaathshala
+                 </a>
+                 <div class="mt-8 mb-6">
+                    <p class="font-semibold mb-2 text-pink-400 dark:text-pink-300" data-lang-key="support_title">Loved this quiz? Help us create more!</p>
+                    <p class="text-base text-gray-700 dark:text-white mb-3" data-lang-key="support_desc">Your small contribution keeps our creative engine running and helps us serve more fun.</p>
+                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QvFHmdPg3T4Pqh" async> </script> </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Screen -->
+        <div id="journey-screen" class="hidden text-center w-full max-w-2xl pt-16">
+            <h2 class="text-4xl font-extrabold text-pink-500 mb-4" data-lang-key="journey_title">Your Platinum Shopper Card!</h2>
+            <p class="text-lg dark-mode-subtext mb-8" data-lang-key="journey_subtitle">You shared your score, you legend! As a reward, please accept this unlimited credit, no-questions-asked, platinum shopper card (Disclaimer: not real money).</p>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-xl border-2 border-gray-500 text-white transform rotate-3">
+                <div class="flex justify-between items-center">
+                    <p class="font-bold text-xl">Platinum Club</p>
+                    <i class="fas fa-sim-card text-3xl text-yellow-400"></i>
+                </div>
+                <div class="my-8 text-left">
+                    <p class="text-3xl tracking-widest">**** **** **** 1234</p>
+                </div>
+                <div class="flex justify-between items-end">
+                    <div>
+                        <p class="text-xs uppercase">Card Holder</p>
+                        <p id="card-name" class="font-bold text-lg">[Your Name]</p>
+                    </div>
+                    <p class="text-2xl font-bold italic">SHOPAHOLIC</p>
+                </div>
+            </div>
+             <button id="go-back-btn" data-lang-key="go_back_button" class="mt-8 bg-gray-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Back to My Score
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-xs text-gray-400 dark:text-gray-500">
+        <p data-lang-key="disclaimer">Disclaimer: This quiz is for fun. We are not responsible for any impulse purchases made after taking this quiz.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- LANGUAGE CONTENT STORE ---
+            const content = {
+                en: {
+                    title: "Shopping Addict Meter",
+                    subtitle: "Do you prefer 'Add to Cart' over 'I Love You'? Is your favorite exercise running... to a sale? Let's find out if you're a window shopper or a shopping blackhole!",
+                    name_placeholder: "Enter your shopper name...",
+                    privacy_disclaimer: "Your secret online shopping carts are safe with us.",
+                    start_button: "Let's Go Shopping!",
+                    calculating_text: "Checking your bank balance...",
+                    result_level_label: "Your Shopping Addiction Level",
+                    result_level_label_personalized: "{name}'s Shopping Addiction",
+                    share_results_label: "Share Your Report & Get a Platinum Card!",
+                    restart_button: "Shop Again!",
+                    disclaimer: "Disclaimer: This quiz is for fun. We are not responsible for any impulse purchases made after taking this quiz.",
+                    question_counter: "Question {current} of {total}",
+                    
+                    result_window_shopper_title: "The Window Shopper",
+                    result_window_shopper_desc: "{name}, you have the self-control of a monk. You enjoy the 'idea' of shopping more than the act itself. Your cart is empty, but your heart is full (of money).",
+                    result_calculated_buyer_title: "The Calculated Buyer",
+                    result_calculated_buyer_desc: "{name}, you're a smart shopper. You make a list, you check for discounts, and you only buy what you need... most of the time. That one impulse buy doesn't count.",
+                    result_addict_title: "The Add-to-Cart Addict",
+                    result_addict_desc: "{name}, your favorite hobby is filling up online shopping carts and then abandoning them like a dramatic movie scene. You love the thrill of the hunt, but not the commitment.",
+                    result_blackhole_title: "The Shopping Blackhole",
+                    result_blackhole_desc: "{name}, the delivery person is your best friend. Packages arrive at your house more frequently than relatives. You don't know what you bought, but you know it's coming tomorrow.",
+                    
+                    final_quote_window_shopper: "\"I'm not cheap, I'm just enjoying the free experience of looking.\"",
+                    final_quote_calculated_buyer: "\"A 10% discount is a 100% reason to buy.\"",
+                    final_quote_addict: "\"My shopping cart is my vision board.\"",
+                    final_quote_blackhole: "\"I have a shopping problem? No, I'm helping the economy!\"",
+                    
+                    funny_comments: {
+                        window_shopper: [
+                            "You have more screenshots of things you want than actual photos.",
+                            "You've walked through an entire mall and your only purchase was a bottle of water.",
+                            "Your favorite phrase is 'I'm just looking'.",
+                            "You believe window shopping is a form of cardio."
+                        ],
+                        calculated_buyer: [
+                            "You have a separate email address just for spam and promotional offers.",
+                            "You know the exact day every sale starts.",
+                            "You've abandoned your cart because the delivery fee was Rs. 50.",
+                            "You believe a good budget is the key to happiness."
+                        ],
+                        addict: [
+                            "You have items in your online cart that are now out of stock.",
+                            "You get more 'Your order is on its way' emails than personal ones.",
+                            "You have a special bond with the 'Add to Wishlist' button.",
+                            "You've filled a cart with Rs. 50,000 worth of items just to 'see something'."
+                        ],
+                        blackhole: [
+                            "You have unopened packages from last month's sale.",
+                            "The delivery guy has his own special knock for your door.",
+                            "You hide new purchases from your family like they're state secrets.",
+                            "You believe the meaning of life is to find things to buy."
+                        ]
+                    },
+
+                    journey_title: "Your Platinum Shopper Card!",
+                    journey_subtitle: "You shared your score, you legend! As a reward, please accept this unlimited credit, no-questions-asked, platinum shopper card (Disclaimer: not real money).",
+                    go_back_button: "Back to My Score",
+
+                    explore_title: "Your Analysis Isn't Over Yet!",
+                    explore_desc: "You've audited your shopping habits, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.",
+                    explore_button: "Visit PersonalityPaathshala",
+                    support_title: "Loved this quiz? Help us create more!",
+                    support_desc: "Your small contribution keeps our creative engine running and helps us serve more fun.",
+
+                    questions: [
+                        { id: 1, question: "You get an email with a '50% OFF' subject line. You:", answers: [ { text: "Delete it without opening. It's a trap.", score: 1, feedback: "The self-control is admirable." }, { text: "Open it just to 'see what they have'.", score: 2, feedback: "The famous last words of a wallet." }, { text: "Immediately click and buy at least three things.", score: 3, feedback: "The sale's most valuable player." } ] },
+                        { id: 2, question: "How many items are in your primary online shopping cart right now?", answers: [ { text: "0-5. I keep it clean.", score: 1, feedback: "A minimalist. We're impressed." }, { text: "6-20. A healthy mix of needs and wants.", score: 2, feedback: "A carefully curated collection." }, { text: "Over 20. It's more of a long-term wishlist.", score: 3, feedback: "Your cart is a museum of desires." } ] },
+                        { id: 3, question: "The delivery person knows you by:", answers: [ { text: "Your address.", score: 1, feedback: "A professional relationship." }, { text: "Your face and name.", score: 2, feedback: "You're a regular customer." }, { text: "Your dog's name and your chai preference.", score: 3, feedback: "You're basically family now." } ] },
+                        { id: 4, question: "The phrase 'treat yourself' means:", answers: [ { text: "Having an extra cup of chai.", score: 1, feedback: "Simple pleasures." }, { text: "Buying that one thing you've been eyeing for a week.", score: 2, feedback: "A well-deserved reward." }, { text: "A full-blown shopping spree that requires an extra suitcase.", score: 3, feedback: "You're treating yourself, your ancestors, and your future generations." } ] },
+                        { id: 5, question: "Your phone's photo gallery is mostly full of:", answers: [ { text: "Pictures of family and friends.", score: 1, feedback: "A person of memories." }, { text: "Screenshots of things you want to buy later.", score: 3, feedback: "A digital wishlist." }, { text: "A healthy mix of both.", score: 2, feedback: "Balanced, as all things should be." } ] },
+                        { id: 6, question: "An empty cardboard box is:", answers: [ { text: "Something to be recycled immediately.", score: 1, feedback: "The responsible citizen." }, { text: "A great storage box for the attic.", score: 2, feedback: "The organizer." }, { text: "A potential cat castle or a spaceship for a child.", score: 3, feedback: "The imaginative one." } ] },
+                        { id: 7, question: "When you're sad, you:", answers: [ { text: "Talk to a friend or listen to music.", score: 1, feedback: "A healthy coping mechanism." }, { text: "Scroll through online shopping apps 'just to feel better'.", score: 2, feedback: "The digital therapy session." }, { text: "Believe in 'retail therapy' and buy something to cheer yourself up.", score: 3, feedback: "Shopping is cheaper than a therapist." } ] },
+                        { id: 8, question: "You see something you like, but it's expensive. You:", answers: [ { text: "Admire it and walk away.", score: 1, feedback: "The sensible one." }, { text: "Wait for it to go on sale, even if it takes months.", score: 2, feedback: "The patient hunter." }, { text: "Think 'YOLO' and buy it anyway.", score: 3, feedback: "You only live once, but you'll be paying for it thrice." } ] },
+                        { id: 9, question: "How do you feel about brand loyalty?", answers: [ { text: "I'll buy whatever is cheapest.", score: 2, feedback: "The value shopper." }, { text: "I have a few favorite brands I stick to.", score: 1, feedback: "The loyal customer." }, { text: "I must have the latest model from my favorite brand, always.", score: 3, feedback: "The brand ambassador." } ] },
+                        { id: 10, question: "You have 10 minutes of free time. You:", answers: [ { text: "Read a book or check the news.", score: 1, feedback: "The intellectual." }, { text: "Quickly open a shopping app to see the 'deals of the day'.", score: 3, feedback: "The speed shopper." }, { text: "Scroll through Instagram.", score: 2, feedback: "The socialite." } ] },
+                        { id: 11, question: "When you go on vacation, your suitcase is:", answers: [ { text: "Perfectly packed with just the essentials.", score: 1, feedback: "The minimalist traveler." }, { text: "Half-empty, to leave room for shopping.", score: 3, feedback: "The strategic shopper." }, { text: "Already overweight before you even leave.", score: 2, feedback: "The prepared one." } ] },
+                        { id: 12, question: "You're at a friend's house and love their new lamp. You:", answers: [ { text: "Compliment them on it.", score: 1, feedback: "The good friend." }, { text: "Ask where they got it from so you can check it out.", score: 2, feedback: "The curious shopper." }, { text: "Secretly open your phone to see if you can buy it online right now.", score: 3, feedback: "The instant gratifier." } ] },
+                        { id: 13, question: "How many unread promotional emails do you have?", answers: [ { text: "Almost none. I unsubscribe from everything.", score: 1, feedback: "The inbox zero hero." }, { text: "A few hundred. I'll get to them eventually.", score: 2, feedback: "The email collector." }, { text: "Thousands. They are a treasure trove of future discounts.", score: 3, feedback: "The digital hoarder." } ] },
+                        { id: 14, question: "The word 'budget' makes you feel:", answers: [ { text: "Safe and in control.", score: 1, feedback: "The financial planner." }, { text: "Like it's a personal attack.", score: 3, feedback: "The rebel." }, { text: "Like it's a good idea, in theory.", score: 2, feedback: "The dreamer." } ] },
+                        { id: 15, question: "You're returning an item. It feels:", answers: [ { text: "Like a normal, easy process.", score: 1, feedback: "The realist." }, { text: "Like you're breaking up with the item.", score: 3, feedback: "The sentimentalist." }, { text: "A little awkward.", score: 2, feedback: "The shy shopper." } ] },
+                        { id: 16, question: "You see 'Limited Edition' on a product. You:", answers: [ { text: "Feel an immediate, uncontrollable urge to own it.", score: 3, feedback: "The collector." }, { text: "Consider if you actually need it.", score: 2, feedback: "The thoughtful one." }, { text: "Ignore it. It's just a marketing trick.", score: 1, feedback: "The wise one." } ] },
+                        { id: 17, question: "How do you track your packages?", answers: [ { text: "I wait for them to arrive.", score: 1, feedback: "The patient one." }, { text: "I check the tracking link once a day.", score: 2, feedback: "The informed customer." }, { text: "I refresh the tracking page every 5 minutes and know the delivery person's entire route.", score: 3, feedback: "The logistics expert." } ] },
+                        { id: 18, question: "Your favorite type of notification is:", answers: [ { text: "A message from a friend.", score: 1, feedback: "The social one." }, { text: "'Your order has been shipped!'", score: 3, feedback: "Music to your ears." }, { text: "'Flash Sale starts now!'", score: 2, feedback: "The deal hunter." } ] },
+                        { id: 19, question: "What is 'window shopping'?", answers: [ { text: "A fun, free activity.", score: 1, feedback: "The browser." }, { text: "A dangerous sport that always ends in a purchase.", score: 2, feedback: "The honest one." }, { text: "The appetizer before the main course of actual shopping.", score: 3, feedback: "The strategist." } ] },
+                        { id: 20, question: "You have multiple versions of the same black t-shirt because:", answers: [ { text: "I don't. I only have one.", score: 1, feedback: "The minimalist." }, { text: "They're all slightly different shades of black.", score: 3, feedback: "The connoisseur." }, { text: "It's good to have backups.", score: 2, feedback: "The planner." } ] },
+                        { id: 21, question: "Your closet is:", answers: [ { text: "Perfectly organized with space to spare.", score: 1, feedback: "The dream." }, { text: "Full, but you know where everything is.", score: 2, feedback: "Organized chaos." }, { text: "A black hole from which clothes never return.", score: 3, feedback: "The abyss." } ] },
+                        { id: 22, question: "The phrase 'Add to Cart' gives you:", answers: [ { text: "A small sense of satisfaction.", score: 2, feedback: "A little dopamine hit." }, { text: "More joy than almost anything else in the world.", score: 3, feedback: "The ultimate thrill." }, { text: "Nothing. It's just a button.", score: 1, feedback: "The stoic." } ] },
+                        { id: 23, question: "You're trying to save money. You:", answers: [ { text: "Make a strict budget and stick to it.", score: 1, feedback: "The disciplined one." }, { text: "Uninstall all shopping apps... for a day.", score: 2, feedback: "A valiant effort." }, { text: "Buy things on sale and tell yourself you're 'saving' money.", score: 3, feedback: "The master of self-deception." } ] },
+                        { id: 24, question: "When you see an ad for something you just talked about, you think:", answers: [ { text: "'My phone is listening to me!'", score: 2, feedback: "The classic conspiracy." }, { text: "'Wow, what a coincidence!'", score: 1, feedback: "The innocent one." }, { text: "'Ooh, I should check that out!'", score: 3, feedback: "The target audience." } ] },
+                        { id: 25, question: "The perfect day involves:", answers: [ { text: "Relaxing at home with a good book.", score: 1, feedback: "The chill one." }, { text: "Receiving a package you forgot you ordered.", score: 3, feedback: "A surprise gift from your past self." }, { text: "Browsing your favorite stores, online or offline.", score: 2, feedback: "The dedicated shopper." } ] }
+                    ]
+                },
+                hi: {
+                    title: "शॉपिंग एडिक्ट मीटर",
+                    subtitle: "क्या आप 'आई लव यू' से ज्यादा 'कार्ट में जोड़ें' पसंद करते हैं? क्या आपका पसंदीदा व्यायाम दौड़ना है... एक बिक्री के लिए? आइए जानें कि आप एक विंडो शॉपर हैं या एक शॉपिंग ब्लैकहोल!",
+                    name_placeholder: "अपना दुकानदार नाम दर्ज करें...",
+                    privacy_disclaimer: "आपकी गुप्त ऑनलाइन शॉपिंग कार्ट हमारे पास सुरक्षित हैं।",
+                    start_button: "चलो खरीदारी करें!",
+                    calculating_text: "आपके बैंक बैलेंस की जाँच हो रही है...",
+                    result_level_label: "आपकी शॉपिंग की लत का स्तर",
+                    result_level_label_personalized: "{name} की शॉपिंग की लत",
+                    share_results_label: "अपनी रिपोर्ट साझा करें और एक प्लेटिनम कार्ड प्राप्त करें!",
+                    restart_button: "फिर से खरीदारी करें!",
+                    disclaimer: "अस्वीकरण: यह क्विज़ मनोरंजन के लिए है। हम इस क्विज़ को लेने के बाद की गई किसी भी आवेगी खरीद के लिए जिम्मेदार नहीं हैं।",
+                    question_counter: "प्रश्न {current} / {total}",
+
+                    result_window_shopper_title: "विंडो शॉपर",
+                    result_window_shopper_desc: "{name}, आप में एक साधु का आत्म-नियंत्रण है। आप खरीदारी के कार्य से अधिक खरीदारी के 'विचार' का आनंद लेते हैं। आपकी गाड़ी खाली है, लेकिन आपका दिल भरा हुआ है (पैसे से)।",
+                    result_calculated_buyer_title: "गणना करने वाला खरीदार",
+                    result_calculated_buyer_desc: "{name}, आप एक स्मार्ट दुकानदार हैं। आप एक सूची बनाते हैं, आप छूट की जांच करते हैं, और आप केवल वही खरीदते हैं जिसकी आपको आवश्यकता है... अधिकांश समय। वह एक आवेगी खरीद नहीं गिनी जाती।",
+                    result_addict_title: "कार्ट में जोड़ने का आदी",
+                    result_addict_desc: "{name}, आपका पसंदीदा शौक ऑनलाइन शॉपिंग कार्ट भरना है और फिर उन्हें एक नाटकीय फिल्म के दृश्य की तरह छोड़ देना है। आप शिकार के रोमांच से प्यार करते हैं, लेकिन प्रतिबद्धता से नहीं।",
+                    result_blackhole_title: "शॉपिंग ब्लैकहोल",
+                    result_blackhole_desc: "{name}, डिलीवरी वाला व्यक्ति आपका सबसे अच्छा दोस्त है। आपके घर पर रिश्तेदारों से अधिक बार पैकेज आते हैं। आप नहीं जानते कि आपने क्या खरीदा है, लेकिन आप जानते हैं कि यह कल आ रहा है।",
+
+                    final_quote_window_shopper: "\"मैं सस्ता नहीं हूँ, मैं सिर्फ देखने के मुफ्त अनुभव का आनंद ले रहा हूँ।\"",
+                    final_quote_calculated_buyer: "\"10% की छूट खरीदने का 100% कारण है।\"",
+                    final_quote_addict: "\"मेरी शॉपिंग कार्ट मेरा विजन बोर्ड है।\"",
+                    final_quote_blackhole: "\"मुझे खरीदारी की समस्या है? नहीं, मैं अर्थव्यवस्था की मदद कर रहा हूँ!\"",
+                    
+                    funny_comments: {
+                        window_shopper: [
+                            "आपके पास वास्तविक तस्वीरों से अधिक उन चीजों के स्क्रीनशॉट हैं जो आप चाहते हैं।",
+                            "आप एक पूरे मॉल से गुजरे हैं और आपकी एकमात्र खरीद पानी की एक बोतल थी।",
+                            "आपका पसंदीदा वाक्यांश है 'मैं बस देख रहा हूँ'।" ,
+                            "आप मानते हैं कि विंडो शॉपिंग कार्डियो का एक रूप है।"
+                        ],
+                        calculated_buyer: [
+                            "आपके पास केवल स्पैम और प्रचार प्रस्तावों के लिए एक अलग ईमेल पता है।",
+                            "आपको पता है कि हर बिक्री किस दिन शुरू होती है।",
+                            "आपने अपनी गाड़ी छोड़ दी है क्योंकि डिलीवरी शुल्क 50 रुपये था।",
+                            "आप मानते हैं कि एक अच्छा बजट खुशी की कुंजी है।"
+                        ],
+                        addict: [
+                            "आपकी ऑनलाइन कार्ट में ऐसे आइटम हैं जो अब स्टॉक से बाहर हैं।",
+                            "आपको व्यक्तिगत ईमेल से अधिक 'आपका ऑर्डर रास्ते में है' ईमेल मिलते हैं।",
+                            "आपका 'इच्छा सूची में जोड़ें' बटन के साथ एक विशेष बंधन है।",
+                            "आपने सिर्फ 'कुछ देखने' के लिए 50,000 रुपये की कीमत वाली एक गाड़ी भर दी है।"
+                        ],
+                        blackhole: [
+                            "आपके पास पिछले महीने की बिक्री से न खोले गए पैकेज हैं।",
+                            "डिलीवरी वाले के पास आपके दरवाजे के लिए एक विशेष दस्तक है।",
+                            "आप अपने परिवार से नई खरीद छिपाते हैं जैसे कि वे राज्य के रहस्य हों।",
+                            "आप मानते हैं कि जीवन का अर्थ खरीदने के लिए चीजें ढूंढना है।"
+                        ]
+                    },
+
+                    journey_title: "आपका प्लेटिनम शॉपर कार्ड!",
+                    journey_subtitle: "आपने अपना स्कोर साझा किया, आप महान हैं! एक पुरस्कार के रूप में, कृपया इस असीमित क्रेडिट, बिना किसी सवाल के पूछे जाने वाले, प्लेटिनम शॉपर कार्ड को स्वीकार करें (अस्वीकरण: असली पैसा नहीं)।",
+                    go_back_button: "मेरे स्कोर पर वापस जाएं",
+
+                    explore_title: "आपका विश्लेषण अभी खत्म नहीं हुआ है!",
+                    explore_desc: "आपने अपनी खरीदारी की आदतों का ऑडिट किया है, लेकिन आपके बाकी प्रफुल्लित करने वाले व्यक्तित्व के बारे में क्या? आपका प्रेम जीवन, आपके गुस्से के मुद्दे... पर्सनैलिटी पाठशाला में आपके लिए मज़ेदार कैलकुलेटर की एक पूरी कक्षा है।",
+                    explore_button: "पर्सनैलिटी पाठशाला पर जाएँ",
+                    support_title: "यह क्विज़ पसंद आया? और बनाने में हमारी मदद करें!",
+                    support_desc: "आपका छोटा सा योगदान हमारी रचनात्मकता को चालू रखता है और हमें और मज़ा परोसने में मदद करता है।",
+                    
+                    questions: [
+                        { id: 1, question: "आपको '50% छूट' विषय वाली एक ईमेल मिलती है। आप:", answers: [ { text: "इसे खोले बिना हटा दें। यह एक जाल है।", score: 1, feedback: "आत्म-नियंत्रण सराहनीय है।" }, { text: "इसे सिर्फ 'देखने के लिए' खोलें कि उनके पास क्या है।", score: 2, feedback: "एक बटुए के प्रसिद्ध अंतिम शब्द।" }, { text: "तुरंत क्लिक करें और कम से कम तीन चीजें खरीदें।", score: 3, feedback: "बिक्री का सबसे मूल्यवान खिलाड़ी।" } ] },
+                        { id: 2, question: "आपकी प्राथमिक ऑनलाइन शॉपिंग कार्ट में अभी कितने आइटम हैं?", answers: [ { text: "0-5। मैं इसे साफ रखता हूँ।", score: 1, feedback: "एक न्यूनतमवादी। हम प्रभावित हैं।" }, { text: "6-20। जरूरतों और चाहतों का एक स्वस्थ मिश्रण।", score: 2, feedback: "एक सावधानीपूर्वक क्यूरेट किया गया संग्रह।" }, { text: "20 से अधिक। यह एक दीर्घकालिक इच्छा सूची से अधिक है।", score: 3, feedback: "आपकी गाड़ी इच्छाओं का एक संग्रहालय है।" } ] },
+                        { id: 3, question: "डिलीवरी वाला व्यक्ति आपको जानता है:", answers: [ { text: "आपके पते से।", score: 1, feedback: "एक पेशेवर संबंध।" }, { text: "आपके चेहरे और नाम से।", score: 2, feedback: "आप एक नियमित ग्राहक हैं।" }, { text: "आपके कुत्ते के नाम और आपकी चाय की पसंद से।", score: 3, feedback: "आप मूल रूप से अब परिवार हैं।" } ] },
+                        { id: 4, question: "वाक्यांश 'खुद का इलाज करें' का अर्थ है:", answers: [ { text: "एक अतिरिक्त कप चाय पीना।", score: 1, feedback: "सरल सुख।" }, { text: "वह एक चीज खरीदना जिसे आप एक हफ्ते से देख रहे हैं।", score: 2, feedback: "एक अच्छी तरह से योग्य इनाम।" }, { text: "एक पूर्ण विकसित खरीदारी की होड़ जिसके लिए एक अतिरिक्त सूटकेस की आवश्यकता होती है।", score: 3, feedback: "आप खुद का, अपने पूर्वजों का और अपनी भावी पीढ़ियों का इलाज कर रहे हैं।" } ] },
+                        { id: 5, question: "आपके फोन की फोटो गैलरी ज्यादातर भरी हुई है:", answers: [ { text: "परिवार और दोस्तों की तस्वीरों से।", score: 1, feedback: "यादों का एक व्यक्ति।" }, { text: "उन चीजों के स्क्रीनशॉट से जिन्हें आप बाद में खरीदना चाहते हैं।", score: 3, feedback: "एक डिजिटल इच्छा सूची।" }, { text: "दोनों का एक स्वस्थ मिश्रण।", score: 2, feedback: "संतुलित, जैसा कि सभी चीजों को होना चाहिए।" } ] },
+                        { id: 6, question: "एक खाली गत्ता बॉक्स है:", answers: [ { text: "तुरंत पुनर्नवीनीकरण किया जाने वाला कुछ।", score: 1, feedback: "जिम्मेदार नागरिक।" }, { text: "अटारी के लिए एक बढ़िया भंडारण बॉक्स।", score: 2, feedback: "आयोजक।" }, { text: "एक संभावित बिल्ली महल या एक बच्चे के लिए एक अंतरिक्ष यान।", score: 3, feedback: "कल्पनाशील।" } ] },
+                        { id: 7, question: "जब आप दुखी होते हैं, तो आप:", answers: [ { text: "एक दोस्त से बात करें या संगीत सुनें।", score: 1, feedback: "एक स्वस्थ मुकाबला तंत्र।" }, { text: "'बस बेहतर महसूस करने के लिए' ऑनलाइन शॉपिंग ऐप स्क्रॉल करें।", score: 2, feedback: "डिजिटल थेरेपी सत्र।" }, { text: "'खुदरा थेरेपी' में विश्वास करें और खुद को खुश करने के लिए कुछ खरीदें।", score: 3, feedback: "खरीदारी एक चिकित्सक से सस्ती है।" } ] },
+                        { id: 8, question: "आप कुछ ऐसा देखते हैं जो आपको पसंद है, लेकिन यह महंगा है। आप:", answers: [ { text: "इसकी प्रशंसा करें और चले जाएं।", score: 1, feedback: "समझदार।" }, { text: "इसके बिक्री पर जाने की प्रतीक्षा करें, भले ही इसमें महीनों लगें।", score: 2, feedback: "धैर्यवान शिकारी।" }, { text: "'YOLO' सोचें और वैसे भी इसे खरीदें।", score: 3, feedback: "आप केवल एक बार जीते हैं, लेकिन आप इसके लिए तीन बार भुगतान करेंगे।" } ] },
+                        { id: 9, question: "ब्रांड निष्ठा के बारे में आप कैसा महसूस करते हैं?", answers: [ { text: "मैं जो सबसे सस्ता है वह खरीदूंगा।", score: 2, feedback: "मूल्य दुकानदार।" }, { text: "मेरे कुछ पसंदीदा ब्रांड हैं जिनसे मैं जुड़ा रहता हूँ।", score: 1, feedback: "वफादार ग्राहक।" }, { text: "मेरे पास मेरे पसंदीदा ब्रांड का नवीनतम मॉडल होना चाहिए, हमेशा।", score: 3, feedback: "ब्रांड एंबेसडर।" } ] },
+                        { id: 10, question: "आपके पास 10 मिनट का खाली समय है। आप:", answers: [ { text: "एक किताब पढ़ें या समाचार देखें।", score: 1, feedback: "बौद्धिक।" }, { text: "'दिन के सौदे' देखने के लिए जल्दी से एक शॉपिंग ऐप खोलें।", score: 3, feedback: "स्पीड शॉपर।" }, { text: "इंस्टाग्राम पर स्क्रॉल करें।", score: 2, feedback: "सोशलाइट।" } ] },
+                        { id: 11, question: "जब आप छुट्टी पर जाते हैं, तो आपका सूटकेस होता है:", answers: [ { text: "केवल आवश्यक चीजों के साथ पूरी तरह से पैक।", score: 1, feedback: "न्यूनतमवादी यात्री।" }, { text: "आधा-खाली, खरीदारी के लिए जगह छोड़ने के लिए।", score: 3, feedback: "रणनीतिक दुकानदार।" }, { text: "जाने से पहले ही अधिक वजन वाला।", score: 2, feedback: "तैयार।" } ] },
+                        { id: 12, question: "आप एक दोस्त के घर पर हैं और उनके नए दीपक से प्यार करते हैं। आप:", answers: [ { text: "उस पर उनकी तारीफ करें।", score: 1, feedback: "अच्छा दोस्त।" }, { text: "पूछें कि उन्होंने इसे कहाँ से लिया ताकि आप इसे देख सकें।", score: 2, feedback: "जिज्ञासु दुकानदार।" }, { text: "यह देखने के लिए कि क्या आप इसे अभी ऑनलाइन खरीद सकते हैं, चुपके से अपना फोन खोलें।", score: 3, feedback: "तत्काल संतुष्ट करने वाला।" } ] },
+                        { id: 13, question: "आपके पास कितने अपठित प्रचार ईमेल हैं?", answers: [ { text: "लगभग कोई नहीं। मैं हर चीज से अनसब्सक्राइब करता हूँ।", score: 1, feedback: "इनबॉक्स शून्य नायक।" }, { text: "कुछ सौ। मैं अंततः उन तक पहुँच जाऊँगा।", score: 2, feedback: "ईमेल संग्रहकर्ता।" }, { text: "हजारों। वे भविष्य की छूट का एक खजाना हैं।", score: 3, feedback: "डिजिटल होर्डर।" } ] },
+                        { id: 14, question: "'बजट' शब्द आपको कैसा महसूस कराता है:", answers: [ { text: "सुरक्षित और नियंत्रण में।", score: 1, feedback: "वित्तीय योजनाकार।" }, { text: "जैसे यह एक व्यक्तिगत हमला है।", score: 3, feedback: "विद्रोही।" }, { text: "जैसे यह एक अच्छा विचार है, सिद्धांत रूप में।", score: 2, feedback: "सपने देखने वाला।" } ] },
+                        { id: 15, question: "आप एक आइटम वापस कर रहे हैं। यह महसूस होता है:", answers: [ { text: "एक सामान्य, आसान प्रक्रिया की तरह।", score: 1, feedback: "यथार्थवादी।" }, { text: "जैसे आप आइटम के साथ संबंध तोड़ रहे हैं।", score: 3, feedback: "भावुकतावादी।" }, { text: "थोड़ा अजीब।", score: 2, feedback: "शर्मीला दुकानदार।" } ] },
+                        { id: 16, question: "आप एक उत्पाद पर 'सीमित संस्करण' देखते हैं। आप:", answers: [ { text: "इसे अपना बनाने की एक तत्काल, बेकाबू इच्छा महसूस करें।", score: 3, feedback: "संग्राहक।" }, { text: "विचार करें कि क्या आपको वास्तव में इसकी आवश्यकता है।", score: 2, feedback: "विचारशील।" }, { text: "इसे अनदेखा करें। यह सिर्फ एक विपणन चाल है।", score: 1, feedback: "बुद्धिमान।" } ] },
+                        { id: 17, question: "आप अपने पैकेज को कैसे ट्रैक करते हैं?", answers: [ { text: "मैं उनके आने का इंतजार करता हूँ।", score: 1, feedback: "धैर्यवान।" }, { text: "मैं दिन में एक बार ट्रैकिंग लिंक की जांच करता हूँ।", score: 2, feedback: "सूचित ग्राहक।" }, { text: "मैं हर 5 मिनट में ट्रैकिंग पेज को रीफ्रेश करता हूँ और डिलीवरी करने वाले का पूरा मार्ग जानता हूँ।", score: 3, feedback: "लॉजिस्टिक्स विशेषज्ञ।" } ] },
+                        { id: 18, question: "आपकी पसंदीदा प्रकार की सूचना है:", answers: [ { text: "एक दोस्त का एक संदेश।", score: 1, feedback: "सामाजिक।" }, { text: "'आपका ऑर्डर भेज दिया गया है!'", score: 3, feedback: "आपके कानों के लिए संगीत।" }, { text: "'फ्लैश सेल अब शुरू होती है!'", score: 2, feedback: "डील शिकारी।" } ] },
+                        { id: 19, question: "'विंडो शॉपिंग' क्या है?", answers: [ { text: "एक मजेदार, मुफ्त गतिविधि।", score: 1, feedback: "ब्राउज़र।" }, { text: "एक खतरनाक खेल जो हमेशा एक खरीद में समाप्त होता है।", score: 2, feedback: "ईमानदार।" }, { text: "वास्तविक खरीदारी के मुख्य पाठ्यक्रम से पहले क्षुधावर्धक।", score: 3, feedback: "रणनीतिकार।" } ] },
+                        { id: 20, question: "आपके पास एक ही काली टी-शर्ट के कई संस्करण हैं क्योंकि:", answers: [ { text: "मेरे पास नहीं है। मेरे पास केवल एक है।", score: 1, feedback: "न्यूनतमवादी।" }, { text: "वे सभी काले रंग के थोड़े अलग शेड हैं।", score: 3, feedback: "पारखी।" }, { text: "बैकअप रखना अच्छा है।", score: 2, feedback: "योजनाकार।" } ] },
+                        { id: 21, question: "आपकी अलमारी है:", answers: [ { text: "अतिरिक्त जगह के साथ पूरी तरह से व्यवस्थित।", score: 1, feedback: "सपना।" }, { text: "भरा हुआ, लेकिन आप जानते हैं कि सब कुछ कहाँ है।", score: 2, feedback: "संगठित अराजकता।" }, { text: "एक ब्लैक होल जिससे कपड़े कभी वापस नहीं आते।", score: 3, feedback: "अथाह गड्ढा।" } ] },
+                        { id: 22, question: "वाक्यांश 'कार्ट में जोड़ें' आपको देता है:", answers: [ { text: "एक छोटी सी संतुष्टि की भावना।", score: 2, feedback: "एक छोटा डोपामाइन हिट।" }, { text: "दुनिया में लगभग किसी भी चीज़ से ज्यादा खुशी।", score: 3, feedback: "परम रोमांच।" }, { text: "कुछ नहीं। यह सिर्फ एक बटन है।", score: 1, feedback: "तपस्वी।" } ] },
+                        { id: 23, question: "आप पैसे बचाने की कोशिश कर रहे हैं। आप:", answers: [ { text: "एक सख्त बजट बनाएं और उस पर टिके रहें।", score: 1, feedback: "अनुशासित।" }, { text: "सभी शॉपिंग ऐप अनइंस्टॉल करें... एक दिन के लिए।", score: 2, feedback: "एक बहादुर प्रयास।" }, { text: "बिक्री पर चीजें खरीदें और खुद को बताएं कि आप पैसे 'बचा' रहे हैं।", score: 3, feedback: "आत्म-धोखे का मास्टर।" } ] },
+                        { id: 24, question: "जब आप किसी ऐसी चीज़ का विज्ञापन देखते हैं जिसके बारे में आपने अभी बात की है, तो आप सोचते हैं:", answers: [ { text: "'मेरा फोन मेरी बातें सुन रहा है!'", score: 2, feedback: "क्लासिक साजिश।" }, { text: "'वाह, क्या संयोग है!'", score: 1, feedback: "मासूम।" }, { text: "'ओह, मुझे वह देखना चाहिए!'", score: 3, feedback: "लक्षित दर्शक।" } ] },
+                        { id: 25, question: "एक आदर्श दिन में शामिल है:", answers: [ { text: "एक अच्छी किताब के साथ घर पर आराम करना।", score: 1, feedback: "शांत।" }, { text: "एक पैकेज प्राप्त करना जिसे आपने ऑर्डर करना भूल गए थे।", score: 3, feedback: "आपके अतीत से एक आश्चर्यजनक उपहार।" }, { text: "अपने पसंदीदा स्टोर ब्राउज़ करना, ऑनलाइन या ऑफलाइन।", score: 2, feedback: "समर्पित दुकानदार।" } ] }
+                    ]
+                }
+            };
+            
+            // --- STATE MANAGEMENT & DOM ELEMENTS ---
+            let currentQuestionIndex = 0;
+            let userAnswers = {};
+            let currentLang = 'en';
+            let quizQuestions = [];
+            let userName = '';
+            const QUESTIONS_PER_QUIZ = 15;
+
+            const allLangElements = document.querySelectorAll('[data-lang-key]');
+            const langPlaceholderElements = document.querySelectorAll('[data-lang-placeholder]');
+            const languageToggle = document.getElementById('language-toggle');
+            const startScreen = document.getElementById('start-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const calculatingScreen = document.getElementById('calculating-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const journeyScreen = document.getElementById('journey-screen');
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const goBackBtn = document.getElementById('go-back-btn');
+            const backToMainBtn = document.getElementById('back-to-main-btn');
+            const nameInput = document.getElementById('name-input');
+            const questionContainer = document.getElementById('question-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const finalScoreEl = document.getElementById('final-score');
+            const resultTitleEl = document.getElementById('result-title');
+            const resultDescriptionEl = document.getElementById('result-description');
+            const finalQuoteEl = document.getElementById('final-quote');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const shareButtonsContainer = document.getElementById('share-buttons');
+            const exploreBtn = document.getElementById('explore-btn');
+
+            // --- LANGUAGE LOGIC ---
+            const updateLanguage = (lang) => {
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                document.documentElement.lang = lang;
+                
+                languageToggle.innerHTML = (lang === 'en') 
+                    ? `<i class="fa-solid fa-language mr-2"></i> हिन्दी`
+                    : `<i class="fa-solid fa-language mr-2"></i> English`;
+
+                allLangElements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    const value = getNestedValue(content[lang], key);
+                    if (value) el.innerHTML = value;
+                });
+                
+                langPlaceholderElements.forEach(el => {
+                    const key = el.dataset.langPlaceholder;
+                    const value = getNestedValue(content[lang], key);
+                    if(value) el.placeholder = value;
+                });
+            };
+
+            const getNestedValue = (obj, key) => key.split('.').reduce((acc, part) => acc && acc[part], obj);
+
+            // --- THEME LOGIC ---
+            const applyTheme = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIconDark.classList.remove('hidden');
+                    themeIconLight.classList.add('hidden');
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
+            applyTheme(isDarkMode);
+
+            // --- UI FUNCTIONS ---
+            const renderQuestion = () => {
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const q_id = quizQuestions[currentQuestionIndex];
+                    const q_data_en = content.en.questions.find(item => item.id === q_id);
+                    const q_lang = content[currentLang].questions.find(item => item.id === q_id);
+                    
+                    if(!q_data_en || !q_lang) {
+                        goHome();
+                        return;
+                    }
+
+                    const shuffledAnswers = [...q_lang.answers].sort(() => Math.random() - 0.5);
+
+                    let answersHTML = shuffledAnswers.map(answer => {
+                        return `
+                        <button data-score="${answer.score}" class="choice-btn w-full text-left p-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-pink-100 dark:hover:bg-pink-500 transition-colors duration-200">
+                            ${answer.text}
+                        </button>
+                    `}).join('');
+                    
+                    const counterText = content[currentLang].question_counter
+                        .replace('{current}', currentQuestionIndex + 1)
+                        .replace('{total}', QUESTIONS_PER_QUIZ);
+
+                    questionContainer.innerHTML = `
+                        <div class="fade-in">
+                            <p class="text-lg font-semibold dark-mode-subtext mb-4">${counterText}</p>
+                            <h2 class="text-2xl md:text-3xl font-bold dark-mode-text mb-8">${q_lang.question.replace(/{name}/g, `<strong>${userName}</strong>`)}</h2>
+                            <div class="flex flex-col items-center space-y-4">${answersHTML}</div>
+                        </div>
+                    `;
+                    feedbackContainer.innerHTML = '';
+                    updateProgressBar();
+                } else {
+                    showCalculatingScreen();
+                }
+            };
+            
+            const updateProgressBar = () => {
+                const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            };
+
+            // --- CORE LOGIC ---
+            const startQuiz = () => {
+                userName = nameInput.value.trim();
+                if (!userName) {
+                    userName = (currentLang === 'en') ? 'Shopper' : 'दुकानदार';
+                }
+
+                let allQuestionIds = content.en.questions.map(q => q.id);
+                allQuestionIds.sort(() => Math.random() - 0.5);
+                quizQuestions = allQuestionIds.slice(0, QUESTIONS_PER_QUIZ);
+                currentQuestionIndex = 0;
+                userAnswers = {};
+
+                startScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    startScreen.classList.add('hidden');
+                    startScreen.classList.remove('fade-out');
+                    quizScreen.classList.remove('hidden');
+                    quizScreen.classList.add('fade-in');
+                    progressContainer.classList.remove('hidden');
+                    backToMainBtn.classList.remove('hidden');
+                    renderQuestion();
+                }, 500);
+            };
+
+            const handleAnswer = (e) => {
+                const selectedBtn = e.target.closest('.choice-btn');
+                if (!selectedBtn) return;
+
+                const score = parseInt(selectedBtn.dataset.score);
+                const question_id = quizQuestions[currentQuestionIndex];
+                const question_data_lang = content[currentLang].questions.find(item => item.id === question_id);
+                
+                const answer_data_lang = question_data_lang.answers.find(a => a.score === score);
+                if (answer_data_lang) {
+                    feedbackContainer.innerHTML = `<p class="fade-in font-semibold text-lg text-teal-600 dark:text-teal-400">${answer_data_lang.feedback}</p>`;
+                }
+
+                userAnswers[question_id] = score;
+                
+                questionContainer.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn !== selectedBtn) {
+                        btn.classList.add('opacity-50');
+                    } else {
+                        btn.classList.add('ring-4', 'ring-pink-400');
+                    }
+                });
+                
+                setTimeout(() => {
+                    if (questionContainer.firstElementChild) {
+                        questionContainer.firstElementChild.classList.replace('fade-in', 'fade-out');
+                    }
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    }, 500);
+                }, 1800);
+            };
+
+            const showCalculatingScreen = () => {
+                quizScreen.classList.add('fade-out');
+                progressContainer.classList.add('hidden');
+                backToMainBtn.classList.add('hidden');
+                setTimeout(() => {
+                    quizScreen.classList.add('hidden');
+                    quizScreen.classList.remove('fade-out');
+                    calculatingScreen.classList.remove('hidden');
+                    calculatingScreen.classList.add('fade-in');
+                    const calculatingTexts = [
+                        content[currentLang].calculating_text, 
+                        (currentLang === 'en' ? "Checking your credit card statement..." : "आपके क्रेडिट कार्ड स्टेटमेंट की जाँच हो रही है..."),
+                        (currentLang === 'en' ? "Hiding your packages from your mom..." : "आपकी माँ से आपके पैकेज छिपाए जा रहे हैं...")
+                    ];
+                    document.getElementById('calculating-text').innerText = calculatingTexts[Math.floor(Math.random()*calculatingTexts.length)];
+                    setTimeout(showResults, 2500);
+                }, 500);
+            }
+            
+            const showResults = (isThemeOrLangUpdate = false) => {
+                if (!isThemeOrLangUpdate) {
+                     calculatingScreen.classList.add('fade-out');
+                     setTimeout(() => {
+                        calculatingScreen.classList.add('hidden');
+                        calculatingScreen.classList.remove('fade-out');
+                        resultsScreen.classList.remove('hidden');
+                        resultsScreen.classList.add('slide-up');
+                        calculateAndDisplayScores();
+                    }, 500);
+                } else {
+                    calculateAndDisplayScores();
+                }
+            };
+
+            const calculateAndDisplayScores = () => {
+                let totalScore = 0;
+                Object.values(userAnswers).forEach(score => {
+                    totalScore += score;
+                });
+
+                const minPossibleScore = QUESTIONS_PER_QUIZ * 1;
+                const maxPossibleScore = QUESTIONS_PER_QUIZ * 3;
+                const scoreRange = maxPossibleScore - minPossibleScore;
+                const userScoreOffset = totalScore - minPossibleScore;
+
+                let shoppingPercentage = 0;
+                if (scoreRange > 0) {
+                    shoppingPercentage = Math.round((userScoreOffset / scoreRange) * 100);
+                }
+                
+                finalScoreEl.classList.remove('score-reveal');
+                void finalScoreEl.offsetWidth; // Trigger reflow
+                finalScoreEl.classList.add('score-reveal');
+
+                let startValue = 0;
+                const duration = 1200;
+                const endValue = shoppingPercentage;
+                const startTime = performance.now();
+
+                function animateCountUp(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    if (elapsedTime < duration) {
+                        const progress = elapsedTime / duration;
+                        const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+                        const currentValue = Math.round(startValue + (endValue - startValue) * easedProgress);
+                        finalScoreEl.textContent = `${currentValue}%`;
+                        requestAnimationFrame(animateCountUp);
+                    } else {
+                        finalScoreEl.textContent = `${endValue}%`;
+                    }
+                }
+                requestAnimationFrame(animateCountUp);
+
+                let resultKey;
+                if (shoppingPercentage <= 25) resultKey = 'window_shopper';
+                else if (shoppingPercentage <= 50) resultKey = 'calculated_buyer';
+                else if (shoppingPercentage <= 75) resultKey = 'addict';
+                else resultKey = 'blackhole';
+                
+                finalQuoteEl.dataset.resultKey = resultKey;
+                document.getElementById('card-name').textContent = userName;
+
+                const personalizedLabel = content[currentLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+
+                resultTitleEl.textContent = content[currentLang][`result_${resultKey}_title`];
+                resultDescriptionEl.innerHTML = content[currentLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                finalQuoteEl.textContent = content[currentLang][`final_quote_${resultKey}`];
+                
+                displayFunnyComments(resultKey);
+                updateShareLinks(shoppingPercentage, content[currentLang][`result_${resultKey}_title`]);
+            };
+
+            const startBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                stopBackgroundAnimations();
+                
+                const emojis = ['🛍️', '💳', '🛒', '👠', '💰', '✨', '🎁'];
+                const numEmojis = 25;
+
+                for (let i = 0; i < numEmojis; i++) {
+                    const emoji = document.createElement('span');
+                    emoji.className = 'floating-emoji';
+                    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    emoji.style.left = `${Math.random() * 100}vw`;
+                    emoji.style.fontSize = `${1 + Math.random() * 2}rem`;
+                    const duration = 8 + Math.random() * 10;
+                    const delay = Math.random() * 7;
+                    const translateX = `${(Math.random() - 0.5) * 200}px`;
+                    const rotate = `${(Math.random() - 0.5) * 720}deg`;
+                    
+                    emoji.style.setProperty('--translateX', translateX);
+                    emoji.style.setProperty('--rotate', rotate);
+                    emoji.style.animation = `floatUp ${duration}s ease-in ${delay}s infinite`;
+                    
+                    container.appendChild(emoji);
+                }
+            };
+
+            const stopBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (container) {
+                    container.innerHTML = '';
+                }
+            };
+
+            const typewriter = (element, text, callback) => {
+                let i = 0;
+                const speed = 40; // milliseconds per character
+                const originalHTML = element.innerHTML;
+                element.innerHTML = originalHTML + '<span class="typing-text"></span><span class="typing-cursor border-l-2 border-pink-500 h-6 inline-block align-middle">&nbsp;</span>';
+                const textSpan = element.querySelector('.typing-text');
+                const cursorSpan = element.querySelector('.typing-cursor');
+                
+                function type() {
+                    if (i < text.length) {
+                        textSpan.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        if(cursorSpan) {
+                           cursorSpan.style.display = 'none';
+                        }
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+
+            const displayFunnyComments = (resultKey) => {
+                const commentsContainer = document.getElementById('funny-comments-container');
+                if (!commentsContainer) return;
+                commentsContainer.innerHTML = '';
+                const commentsPool = content[currentLang].funny_comments[resultKey] || [];
+                
+                const shuffledComments = [...commentsPool].sort(() => 0.5 - Math.random());
+                const selectedComments = shuffledComments.slice(0, 3);
+
+                let commentIndex = 0;
+
+                function typeNextComment() {
+                    if (commentIndex < selectedComments.length) {
+                        const commentText = selectedComments[commentIndex];
+                        
+                        const card = document.createElement('div');
+                        card.className = 'funny-comment-card bg-pink-100 dark:bg-gray-800 p-4 rounded-lg mb-4 text-gray-700 dark:text-pink-300 italic shadow-md';
+                        
+                        const p = document.createElement('p');
+                        p.innerHTML = `<i class="fa-solid fa-quote-left mr-2 text-pink-500"></i> `;
+                        card.appendChild(p);
+
+                        card.style.animationDelay = `0.2s`;
+                        
+                        commentsContainer.appendChild(card);
+                        
+                        setTimeout(() => {
+                            typewriter(p, commentText, () => {
+                                commentIndex++;
+                                setTimeout(typeNextComment, 800); 
+                            });
+                        }, 600);
+                    }
+                }
+                
+                startBackgroundAnimations();
+                typeNextComment();
+            };
+
+
+            const updateShareLinks = (percentage, title) => {
+                const text = encodeURIComponent(`My Shopping Addict Score is ${percentage}%! Turns out I'm a "${title}". Find out your shopping style:`);
+                const url = encodeURIComponent(window.location.href);
+                
+                document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                document.getElementById('telegram-share').href = `https://t.me/share/url?url=${url}&text=${text}`;
+                document.getElementById('instagram-share').href = `https://www.instagram.com/`;
+            };
+            
+            const goHome = () => {
+                stopBackgroundAnimations();
+                [quizScreen, resultsScreen, journeyScreen, progressContainer, backToMainBtn, calculatingScreen].forEach(el => el.classList.add('hidden'));
+                startScreen.classList.remove('hidden', 'fade-out');
+                startScreen.classList.add('fade-in');
+                nameInput.value = '';
+                currentQuestionIndex = 0;
+                userAnswers = {};
+                quizQuestions = [];
+                progressBar.style.width = '0%';
+            };
+
+            const showJourneyScreen = (e) => {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                resultsScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    resultsScreen.classList.add('hidden');
+                    resultsScreen.classList.remove('fade-out');
+                    journeyScreen.classList.remove('hidden');
+                    journeyScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            const showResultsScreenFromJourney = () => {
+                journeyScreen.classList.add('fade-out');
+                 setTimeout(() => {
+                    journeyScreen.classList.add('hidden');
+                    journeyScreen.classList.remove('fade-out');
+                    resultsScreen.classList.remove('hidden');
+                    resultsScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            // --- EVENT LISTENERS ---
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', goHome);
+            backToMainBtn.addEventListener('click', goHome);
+            goBackBtn.addEventListener('click', showResultsScreenFromJourney);
+            quizScreen.addEventListener('click', handleAnswer);
+            shareButtonsContainer.addEventListener('click', (e) => {
+                const shareBtn = e.target.closest('a.share-btn');
+                if (shareBtn && shareBtn.href && shareBtn.href !== '#') {
+                    showJourneyScreen(e);
+                }
+            });
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+                if (!resultsScreen.classList.contains('hidden')) { showResults(true); }
+            });
+            languageToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'hi' : 'en';
+                updateLanguage(newLang);
+                if (!quizScreen.classList.contains('hidden') || !calculatingScreen.classList.contains('hidden')) { 
+                    goHome();
+                } else if (!resultsScreen.classList.contains('hidden')) {
+                    const resultKey = finalQuoteEl.dataset.resultKey;
+                    const personalizedLabel = content[newLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                    document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+                    resultTitleEl.textContent = content[newLang][`result_${resultKey}_title`];
+                    resultDescriptionEl.innerHTML = content[newLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                    finalQuoteEl.textContent = content[newLang][`final_quote_${resultKey}`];
+                    displayFunnyComments(resultKey);
+                }
+            });
+
+            // Initial Load
+            const savedLang = localStorage.getItem('language') || 'en';
+            updateLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0DL8SC5JKB');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Party Animal Meter - Are You the Life of the Party?</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS for theme, animations, and additional styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Dark Mode --- */
+        .dark .dark-mode-bg { background-color: #111827; }
+        .dark .dark-mode-text { color: #f9fafb; }
+        .dark .dark-mode-surface { background-color: #1f2937; }
+        .dark .dark-mode-border { border-color: #374151; }
+        .dark .dark-mode-subtext { color: #9ca3af; }
+
+        /* --- Animations --- */
+        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .pulse { animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .9; transform: scale(1.02); }
+        }
+
+        /* --- Button Styles --- */
+        .choice-btn, .share-btn, .control-btn {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .choice-btn:hover, .share-btn:hover, .control-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Social Share Colors --- */
+        .whatsapp-btn { background-color: #25D366; }
+        .twitter-btn { background-color: #1DA1F2; }
+        .facebook-btn { background-color: #1877F2; }
+        .telegram-btn { background-color: #24A1DE; }
+        .instagram-btn {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        }
+
+        /* --- Score Animation --- */
+        .score-reveal {
+            animation: scoreReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 10px rgba(236, 72, 153, 0.5), 0 0 20px rgba(236, 72, 153, 0.3); /* Pink Shadow */
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* --- Funny Comments Styling --- */
+        .funny-comments-container {
+            perspective: 1000px;
+        }
+
+        .funny-comment-card {
+            opacity: 0;
+            transform: rotateX(-90deg) translateY(50px);
+            transform-origin: bottom center;
+            animation: revealComment 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .funny-comment-card p {
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1.75rem; /* leading-7 */
+        }
+
+        @media (min-width: 768px) {
+            .funny-comment-card p {
+                font-size: 1.5rem; /* md:text-2xl */
+                line-height: 2rem; /* md:leading-8 */
+            }
+        }
+
+
+        @keyframes revealComment {
+            from {
+                opacity: 0;
+                transform: rotateX(-90deg) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0deg) translateY(0);
+            }
+        }
+        
+        /* --- Typing Effect --- */
+        .typing-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #ec4899; } /* pink-500 */
+        }
+        
+        /* --- Background Animation --- */
+        #animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: -50px; /* Start from below the screen */
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--translateX)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode-bg text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+    <div id="animation-container"></div>
+    <!-- Header for Toggles -->
+    <header class="absolute top-4 w-full px-4 z-20 flex items-center justify-between">
+        <!-- Back to Main Page Button (Initially hidden) -->
+        <a id="back-to-main-btn" href="index.html" role="button" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </a>
+
+        <div class="flex items-center space-x-2 ml-auto">
+             <!-- Language Toggle -->
+            <button id="language-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 dark:focus:ring-offset-gray-900 w-28 h-10 flex items-center justify-center text-sm">
+                <!-- Text updated by JS -->
+            </button>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+                <svg id="theme-icon-dark" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg id="theme-icon-light" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-2 bg-gray-200 dark:bg-gray-700 z-10 hidden">
+        <div id="progress-bar" class="h-full bg-pink-500 progress-bar-fill" style="width: 0%;"></div>
+    </div>
+    
+    <main class="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-screen relative z-10">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center max-w-2xl fade-in">
+            <h1 class="text-4xl md:text-6xl font-extrabold dark-mode-text tracking-tight mb-4">The <span class="text-pink-500" data-lang-key="title">Party Animal Meter</span></h1>
+            <p class="text-lg md:text-xl dark-mode-subtext mb-8" data-lang-key="subtitle">
+                Is your weekend a quiet night in or an all-night rager? Let's find out if you're a wallflower or the life of the party!
+            </p>
+            <div class="mb-6 w-full max-w-sm mx-auto">
+                <input type="text" id="name-input" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-pink-500 text-gray-900 dark:text-white" data-lang-placeholder="name_placeholder">
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-8 italic" data-lang-key="privacy_disclaimer"></p>
+            <button id="start-btn" data-lang-key="start_button" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-pink-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300 pulse">
+                Let's Party!
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden w-full max-w-3xl">
+            <div id="question-container" class="text-center pt-16">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <div id="feedback-container" class="mt-6 text-center text-md dark-mode-subtext min-h-[60px]">
+                <!-- Feedback will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Calculating Screen -->
+        <div id="calculating-screen" class="hidden text-center w-full max-w-2xl">
+            <svg class="animate-spin h-16 w-16 text-pink-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h2 id="calculating-text" class="text-2xl font-bold dark-mode-text" data-lang-key="calculating_text">Putting on our party shoes...</h2>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center w-full max-w-4xl pt-16">
+            <h2 class="text-2xl font-bold dark-mode-subtext mb-2" data-lang-key="result_level_label">Your Party Persona</h2>
+            <div id="final-score" class="text-7xl md:text-8xl font-extrabold text-pink-500 mb-4">0%</div>
+            <h3 id="result-title" class="text-3xl md:text-4xl font-extrabold dark-mode-text mb-3"></h3>
+            <p id="result-description" class="text-lg md:text-xl dark-mode-subtext mb-8 max-w-2xl mx-auto"></p>
+            
+            <div id="funny-comments-container" class="funny-comments-container mt-8 mb-8 max-w-2xl mx-auto">
+                <!-- Comments will be injected here -->
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="mb-8">
+                <p class="font-bold dark-mode-text mb-3" data-lang-key="share_results_label">Share Your Report & Get a VIP Pass!</p>
+                <div id="share-buttons" class="flex justify-center items-center flex-wrap gap-4">
+                    <a id="whatsapp-share" href="https://ppscore.co.in" target="_blank" class="share-btn whatsapp-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l.217.324-1.125 4.108 4.224-1.103.337.202z" /></svg>
+                    </a>
+                    <a id="twitter-share" href="https://ppscore.co.in" target="_blank" class="share-btn twitter-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.794 4.649-.69.188-1.433.23-2.184.085.617 1.914 2.408 3.258 4.53 3.301-1.724 1.352-3.883 2.093-6.138 1.795 1.815 1.163 3.973 1.84 6.262 1.84 7.218 0 11.168-5.986 11.168-11.168 0-.17-.003-.34-.01-.508.77-.556 1.438-1.248 1.968-2.04z"/></svg>
+                    </a>
+                    <a id="facebook-share" href="https://ppscore.co.in" target="_blank" class="share-btn facebook-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                    </a>                      
+                    <a id="telegram-share" href="https://ppscore.co.in" target="_blank" class="share-btn telegram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-1.39.2-1.62l15.97-5.85c.73-.27 1.36.17 1.15.99L16.4 18.28c-.21.83-1.2.5-1.54-.26L9.78 18.65z"/></svg>
+                    </a>
+                    <a id="instagram-share" href="https://ppscore.co.in" target="_blank" class="share-btn instagram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <p id="final-quote" class="text-lg dark-mode-text max-w-3xl mx-auto mb-8 italic">
+                <!-- Quote inserted by JS -->
+            </p>
+
+            <button id="restart-btn" data-lang-key="restart_button" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-pink-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300">
+                Let's Party Again!
+            </button>
+
+            <!-- Explore More Section -->
+            <div class="mt-16 py-8 border-t-2 border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
+                 <h3 class="text-2xl md:text-3xl font-extrabold dark-mode-text mb-4" data-lang-key="explore_title">Your Analysis Isn't Over Yet!</h3>
+                 <p class="text-lg dark-mode-subtext mb-8" data-lang-key="explore_desc">
+                   You've audited your party skills, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.
+                 </p>
+                 <a id="explore-btn" href="index.html" class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 inline-block" data-lang-key="explore_button">
+                   Visit PersonalityPaathshala
+                 </a>
+                 <div class="mt-8 mb-6">
+                    <p class="font-semibold mb-2 text-pink-400 dark:text-pink-300" data-lang-key="support_title">Loved this quiz? Help us create more!</p>
+                    <p class="text-base text-gray-700 dark:text-white mb-3" data-lang-key="support_desc">Your small contribution keeps our creative engine running and helps us serve more fun.</p>
+                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QvFHmdPg3T4Pqh" async> </script> </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Screen -->
+        <div id="journey-screen" class="hidden text-center w-full max-w-2xl pt-16">
+            <h2 class="text-4xl font-extrabold text-pink-500 mb-4" data-lang-key="journey_title">Your Official VIP Pass!</h2>
+            <p class="text-lg dark-mode-subtext mb-8" data-lang-key="journey_subtitle">You shared your score! The party gods are impressed. As a reward, here is your all-access VIP pass to every party, everywhere, forever.</p>
+            <div class="bg-gray-800 p-4 rounded-lg shadow-xl border-4 border-yellow-400 text-white transform -rotate-3">
+                <div class="text-center p-4 border-2 border-dashed border-gray-500">
+                    <h3 class="text-2xl font-bold" style="font-family: serif;">VIP ALL ACCESS</h3>
+                    <div class="my-4 text-5xl text-pink-400">
+                        <i class="fas fa-glass-cheers"></i>
+                    </div>
+                    <p class="dark-mode-text">Admit One:</p>
+                    <p id="vip-name" class="text-3xl font-bold text-yellow-300 my-2">[Your Name]</p>
+                    <p class="dark-mode-subtext uppercase tracking-widest">Life of the Party</p>
+                </div>
+            </div>
+             <button id="go-back-btn" data-lang-key="go_back_button" class="mt-8 bg-gray-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Back to My Score
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-xs text-gray-400 dark:text-gray-500">
+        <p data-lang-key="disclaimer">Disclaimer: This quiz is for fun. Please don't show your VIP pass to an actual bouncer.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- LANGUAGE CONTENT STORE ---
+            const content = {
+                en: {
+                    title: "Party Animal Meter",
+                    subtitle: "Is your weekend a quiet night in or an all-night rager? Let's find out if you're a wallflower or the life of the party!",
+                    name_placeholder: "Enter your party name...",
+                    privacy_disclaimer: "Your secret dance moves are safe with us. We won't tell anyone you practice in front of the mirror.",
+                    start_button: "Let's Party!",
+                    calculating_text: "Putting on our party shoes...",
+                    result_level_label: "Your Party Persona",
+                    result_level_label_personalized: "{name}'s Party Persona",
+                    share_results_label: "Share Your Report & Get a VIP Pass!",
+                    restart_button: "Let's Party Again!",
+                    disclaimer: "Disclaimer: This quiz is for fun. Please don't show your VIP pass to an actual bouncer.",
+                    question_counter: "Question {current} of {total}",
+                    
+                    result_wallflower_title: "The Wallflower",
+                    result_wallflower_desc: "{name}, you and the corner of the room are best friends. You attend parties, but your main goal is to find the food and avoid small talk. Your social battery is more like a small coin cell.",
+                    result_sipper_title: "The Selective Socializer",
+                    result_sipper_desc: "{name}, you enjoy a good party, but you need to be in the mood. You prefer small groups and meaningful conversations over loud music. You're the one who leaves at a reasonable hour.",
+                    result_deewana_title: "The Dance Floor Deewana",
+                    result_deewana_desc: "{name}, if there's music, you're dancing. You're the first one on the dance floor and the last one to leave. You don't need a reason to party, you ARE the reason.",
+                    result_jaan_title: "Mehfil ki Jaan (Life of the Party)",
+                    result_jaan_desc: "{name}, the party doesn't start until you walk in. You know everyone, and if you don't, you will by the end of the night. Your energy is infectious and your laughter is the main soundtrack.",
+                    
+                    final_quote_wallflower: "\"I came, I saw, I stood awkwardly in a corner.\"",
+                    final_quote_sipper: "\"I love parties. The part where I go home.\"",
+                    final_quote_deewana: "\"Why walk when you can dance?\"",
+                    final_quote_jaan: "\"My blood type is Party Positive.\"",
+                    
+                    funny_comments: {
+                        wallflower: [
+                            "You've had a deeper conversation with the host's pet than with any human at the party.",
+                            "Your favorite part of a party is the snack table.",
+                            "You've perfected the art of looking busy on your phone.",
+                            "You think 'mingling' is a type of new vegetable."
+                        ],
+                        sipper: [
+                            "You need 3-5 business days to recover from a single social event.",
+                            "Your party strategy is to find a good chair and stay there.",
+                            "You love your friends, but you also love your bed.",
+                            "You've used the phrase 'I'll make a late entry' and then 'forgot' to go."
+                        ],
+                        deewana: [
+                            "You've started a dance party in a grocery store aisle.",
+                            "You believe any song can be a dance song if you're brave enough.",
+                            "Your friends have to physically drag you off the dance floor.",
+                            "You don't need a dance partner, the whole room is your partner."
+                        ],
+                        jaan: [
+                            "You've made friends with the DJ, the caterer, and the security guard.",
+                            "If you're not at a party, the party probably got cancelled.",
+                            "You have a separate wardrobe just for party clothes.",
+                            "Your 'social battery' is nuclear-powered."
+                        ]
+                    },
+
+                    journey_title: "Your Official VIP Pass!",
+                    journey_subtitle: "You shared your score! The party gods are impressed. As a reward, here is your all-access VIP pass to every party, everywhere, forever.",
+                    go_back_button: "Back to My Score",
+
+                    explore_title: "Your Analysis Isn't Over Yet!",
+                    explore_desc: "You've audited your party skills, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.",
+                    explore_button: "Visit PersonalityPaathshala",
+                    support_title: "Loved this quiz? Help us create more!",
+                    support_desc: "Your small contribution keeps our creative engine running and helps us serve more fun.",
+
+                    questions: [
+                        { id: 1, question: "A friend invites you to a party. Your first thought is:", answers: [ { text: "'How can I get out of this?'", score: 1, feedback: "The master of excuses." }, { text: "'Who else is going?'", score: 2, feedback: "A strategic inquiry." }, { text: "'I'm in! What should I wear?'", score: 3, feedback: "The party is on!" } ] },
+                        { id: 2, question: "The DJ plays a song you don't know. You:", answers: [ { text: "Go to the snack table until a better song comes on.", score: 1, feedback: "Snacks never disappoint." }, { text: "Try to copy the dance moves of the person next to you.", score: 2, feedback: "Fake it till you make it." }, { text: "Dance with even more energy, pretending you know the song.", score: 3, feedback: "Confidence is key." } ] },
+                        { id: 3, question: "Your ideal party size is:", answers: [ { text: "Me, my couch, and Netflix.", score: 1, feedback: "The ultimate trio." }, { text: "A small group of 5-10 close friends.", score: 2, feedback: "Quality over quantity." }, { text: "The more the merrier! 50+ people!", score: 3, feedback: "A human festival." } ] },
+                        { id: 4, question: "How do you feel about small talk?", answers: [ { text: "It's my worst nightmare.", score: 1, feedback: "The struggle is real." }, { text: "I can do it, but I don't enjoy it.", score: 2, feedback: "A necessary social skill." }, { text: "I love it! I could talk about the weather for hours.", score: 3, feedback: "The master of conversation." } ] },
+                        { id: 5, question: "You arrive at a party. The first thing you do is:", answers: [ { text: "Find the person you know and stick with them all night.", score: 1, feedback: "The loyal sidekick." }, { text: "Scan the room to see who's there.", score: 2, feedback: "The observer." }, { text: "Shout 'The party is here!' and start greeting everyone.", score: 3, feedback: "The grand entrance." } ] },
+                        { id: 6, question: "Your social battery after 2 hours at a party is at:", answers: [ { text: "1%. Please send help.", score: 1, feedback: "Running on fumes." }, { text: "A solid 50%. I can keep going.", score: 2, feedback: "Pacing yourself." }, { text: "110%. I'm just getting started!", score: 3, feedback: "The energizer bunny." } ] },
+                        { id: 7, question: "The best part of any party is:", answers: [ { text: "The food and drinks.", score: 2, feedback: "A person of priorities." }, { text: "The music and dancing.", score: 3, feedback: "The life of the dance floor." }, { text: "Going home to your bed.", score: 1, feedback: "The ultimate destination." } ] },
+                        { id: 8, question: "A stranger starts talking to you. You:", answers: [ { text: "Pretend you have an important phone call and walk away.", score: 1, feedback: "The classic escape." }, { text: "Have a polite, but short, conversation.", score: 2, feedback: "The diplomat." }, { text: "End up becoming their new best friend.", score: 3, feedback: "The social magnet." } ] },
+                        { id: 9, question: "You're asked to play a party game. You:", answers: [ { text: "Suddenly feel very tired and need to sit down.", score: 1, feedback: "The game avoider." }, { text: "Play along, but don't take it too seriously.", score: 2, feedback: "The casual player." }, { text: "Play to win, with intense competitive spirit.", score: 3, feedback: "The champion." } ] },
+                        { id: 10, question: "What is your 'going out' to 'staying in' ratio?", answers: [ { text: "90% staying in, 10% going out.", score: 1, feedback: "A connoisseur of comfort." }, { text: "A perfect 50/50 split.", score: 2, feedback: "The master of balance." }, { text: "10% staying in, 90% going out.", score: 3, feedback: "Your home is just a place to change clothes." } ] },
+                        { id: 11, question: "You're in charge of the music. You play:", answers: [ { text: "Something chill that everyone likes.", score: 2, feedback: "The crowd-pleaser." }, { text: "Loud, high-energy dance music.", score: 3, feedback: "The DJ." }, { text: "Whatever I want to listen to, even if it's sad songs.", score: 1, feedback: "The mood-setter." } ] },
+                        { id: 12, question: "The day after a big party, you are:", answers: [ { text: "In bed all day, recovering.", score: 2, feedback: "The price of fun." }, { text: "Already planning the next party.", score: 3, feedback: "The party must go on." }, { text: "What party? I was at home.", score: 1, feedback: "The well-rested one." } ] },
+                        { id: 13, question: "Your definition of a 'get-together' is:", answers: [ { text: "A deep conversation with one or two friends.", score: 1, feedback: "The philosopher." }, { text: "A house party with at least 20 people.", score: 3, feedback: "The event planner." }, { text: "A casual brunch or dinner.", score: 2, feedback: "The social diner." } ] },
+                        { id: 14, question: "What's your favorite dance move?", answers: [ { text: "The awkward head nod.", score: 1, feedback: "A classic for a reason." }, { text: "The 'I'm the main character' solo performance.", score: 3, feedback: "The spotlight is on you." }, { text: "The energetic Bhangra.", score: 2, feedback: "The life of the party." } ] },
+                        { id: 15, question: "You receive an invitation that says 'optional'. You:", answers: [ { text: "Treat it as 'definitely not going'.", score: 1, feedback: "The literal translator." }, { text: "Will go if my close friends are going.", score: 2, feedback: "The social strategist." }, { text: "See it as an opportunity to meet new people.", score: 3, feedback: "The networker." } ] },
+                        { id: 16, question: "The perfect plus-one for you at a party is:", answers: [ { text: "A book.", score: 1, feedback: "The intellectual." }, { text: "Your most outgoing friend who can do all the talking.", score: 2, feedback: "The smart delegator." }, { text: "Who needs a plus-one? I'll make friends there.", score: 3, feedback: "The independent star." } ] },
+                        { id: 17, question: "You hear 'Let's take a group photo!'. You:", answers: [ { text: "Run and hide in the bathroom.", score: 1, feedback: "The photo-avoider." }, { text: "Jump in the middle and make a funny face.", score: 3, feedback: "The center of attention." }, { text: "Stand at the back and smile politely.", score: 2, feedback: "The safe player." } ] },
+                        { id: 18, question: "How long does it take you to get ready for a party?", answers: [ { text: "15 minutes. I'm always ready.", score: 3, feedback: "The natural." }, { text: "A solid hour of preparation.", score: 2, feedback: "The planner." }, { text: "What party? I'm not going.", score: 1, feedback: "The ultimate homebody." } ] },
+                        { id: 19, question: "Your favorite part of a wedding reception is:", answers: [ { text: "The open bar.", score: 3, feedback: "A person of refined tastes." }, { text: "The part where you can leave without anyone noticing.", score: 1, feedback: "The Irish goodbye." }, { text: "The Sangeet performances.", score: 2, feedback: "The dance enthusiast." } ] },
+                        { id: 20, question: "When you leave a party, you:", answers: [ { text: "Say a long, heartfelt goodbye to every single person.", score: 3, feedback: "The farewell tour." }, { text: "Just disappear into the night.", score: 1, feedback: "The ghost." }, { text: "Say goodbye to the host and a few close friends.", score: 2, feedback: "The polite exit." } ] },
+                        { id: 21, question: "A house party is better than a club because:", answers: [ { text: "You can control the music.", score: 2, feedback: "The DJ." }, { text: "You can leave your shoes at the door.", score: 1, feedback: "The comfort seeker." }, { text: "It's not. Clubs are way better.", score: 3, feedback: "The party professional." } ] },
+                        { id: 22, question: "Your phone is at 10% at a party. You:", answers: [ { text: "Feel a deep sense of panic and start looking for a charger.", score: 2, feedback: "The lifeline." }, { text: "See it as a sign from the universe to go home.", score: 1, feedback: "The sign-reader." }, { text: "Don't care. You're too busy having fun.", score: 3, feedback: "Living in the moment." } ] },
+                        { id: 23, question: "Your 'socializing' skills are best when:", answers: [ { text: "You're with people you know well.", score: 2, feedback: "The comfort zone." }, { text: "You're in a room full of strangers.", score: 3, feedback: "A new audience!" }, { text: "You're at home, alone.", score: 1, feedback: "The master of solitude." } ] },
+                        { id: 24, question: "The main reason you go to parties is:", answers: [ { text: "To meet new people and network.", score: 3, feedback: "The connector." }, { text: "Because your friends forced you to.", score: 1, feedback: "The reluctant guest." }, { text: "For the free food and good music.", score: 2, feedback: "The connoisseur." } ] },
+                        { id: 25, question: "How do you feel after a night of socializing?", answers: [ { text: "Energized and happy.", score: 3, feedback: "The extrovert." }, { text: "Completely drained and in need of a 3-day nap.", score: 1, feedback: "The introvert." }, { text: "A happy kind of tired.", score: 2, feedback: "The ambivert." } ] }
+                    ]
+                },
+                hi: {
+                    title: "पार्टी एनिमल मीटर",
+                    subtitle: "क्या आपका सप्ताहांत एक शांत रात है या एक पूरी रात की रेव? आइए जानें कि आप एक दीवार के फूल हैं या पार्टी की जान!",
+                    name_placeholder: "अपना पार्टी नाम दर्ज करें...",
+                    privacy_disclaimer: "आपके गुप्त नृत्य चालें हमारे पास सुरक्षित हैं। हम किसी को नहीं बताएंगे कि आप आईने के सामने अभ्यास करते हैं।",
+                    start_button: "चलो पार्टी करें!",
+                    calculating_text: "हमारे पार्टी के जूते पहन रहे हैं...",
+                    result_level_label: "आपका पार्टी व्यक्तित्व",
+                    result_level_label_personalized: "{name} का पार्टी व्यक्तित्व",
+                    share_results_label: "अपनी रिपोर्ट साझा करें और एक वीआईपी पास प्राप्त करें!",
+                    restart_button: "चलो फिर से पार्टी करें!",
+                    disclaimer: "अस्वीकरण: यह क्विज़ मनोरंजन के लिए है। कृपया अपना वीआईपी पास एक वास्तविक बाउंसर को न दिखाएं।",
+                    question_counter: "प्रश्न {current} / {total}",
+
+                    result_wallflower_title: "दीवार का फूल",
+                    result_wallflower_desc: "{name}, आप और कमरे का कोना सबसे अच्छे दोस्त हैं। आप पार्टियों में शामिल होते हैं, लेकिन आपका मुख्य लक्ष्य भोजन ढूंढना और छोटी-छोटी बातों से बचना है। आपकी सामाजिक बैटरी एक छोटे सिक्के सेल की तरह अधिक है।",
+                    result_sipper_title: "चयनात्मक सोशलाइज़र",
+                    result_sipper_desc: "{name}, आप एक अच्छी पार्टी का आनंद लेते हैं, लेकिन आपको मूड में होना चाहिए। आप तेज संगीत पर छोटे समूहों और सार्थक बातचीत को पसंद करते हैं। आप वह हैं जो एक उचित समय पर चले जाते हैं।",
+                    result_deewana_title: "डांस फ्लोर दीवाना",
+                    result_deewana_desc: "{name}, अगर संगीत है, तो आप नाच रहे हैं। आप डांस फ्लोर पर सबसे पहले और जाने वाले आखिरी व्यक्ति हैं। आपको पार्टी करने के लिए किसी कारण की आवश्यकता नहीं है, आप ही कारण हैं।",
+                    result_jaan_title: "महफिल की जान (पार्टी की जान)",
+                    result_jaan_desc: "{name}, पार्टी तब तक शुरू नहीं होती जब तक आप अंदर नहीं आते। आप सबको जानते हैं, और अगर आप नहीं जानते हैं, तो आप रात के अंत तक जान जाएंगे। आपकी ऊर्जा संक्रामक है और आपकी हंसी मुख्य साउंडट्रैक है।",
+
+                    final_quote_wallflower: "\"मैं आया, मैंने देखा, मैं एक कोने में अजीब तरह से खड़ा रहा।\"",
+                    final_quote_sipper: "\"मुझे पार्टियां पसंद हैं। वह हिस्सा जहां मैं घर जाता हूँ।\"",
+                    final_quote_deewana: "\"जब तुम नाच सकते हो तो क्यों चलें?\"",
+                    final_quote_jaan: "\"मेरा ब्लड ग्रुप पार्टी पॉजिटिव है।\"",
+                    
+                    funny_comments: {
+                        wallflower: [
+                            "आपने पार्टी में किसी भी इंसान से ज्यादा मेजबान के पालतू जानवर के साथ गहरी बातचीत की है।",
+                            "एक पार्टी का आपका पसंदीदा हिस्सा स्नैक टेबल है।",
+                            "आपने अपने फोन पर व्यस्त दिखने की कला में महारत हासिल कर ली है।",
+                            "आप सोचते हैं 'मिलना-जुलना' एक नई तरह की सब्जी है।"
+                        ],
+                        sipper: [
+                            "आपको एक सामाजिक कार्यक्रम से उबरने के लिए 3-5 व्यावसायिक दिनों की आवश्यकता होती है।",
+                            "आपकी पार्टी की रणनीति एक अच्छी कुर्सी ढूंढना और वहीं रहना है।",
+                            "आप अपने दोस्तों से प्यार करते हैं, लेकिन आप अपने बिस्तर से भी प्यार करते हैं।",
+                            "आपने 'मैं देर से प्रवेश करूँगा' वाक्यांश का उपयोग किया है और फिर जाना 'भूल' गए।"
+                        ],
+                        deewana: [
+                            "आपने एक किराने की दुकान के गलियारे में एक डांस पार्टी शुरू की है।",
+                            "आप मानते हैं कि कोई भी गाना एक डांस सॉन्ग हो सकता है यदि आप पर्याप्त बहादुर हों।",
+                            "आपके दोस्तों को आपको डांस फ्लोर से शारीरिक रूप से खींचना पड़ता है।",
+                            "आपको एक डांस पार्टनर की जरूरत नहीं है, पूरा कमरा आपका पार्टनर है।"
+                        ],
+                        jaan: [
+                            "आपने डीजे, कैटरर और सुरक्षा गार्ड से दोस्ती की है।",
+                            "अगर आप किसी पार्टी में नहीं हैं, तो पार्टी शायद रद्द हो गई है।",
+                            "आपके पास सिर्फ पार्टी के कपड़ों के लिए एक अलग अलमारी है।",
+                            "आपकी 'सामाजिक बैटरी' परमाणु-संचालित है।"
+                        ]
+                    },
+
+                    journey_title: "आपका आधिकारिक वीआईपी पास!",
+                    journey_subtitle: "आपने अपना स्कोर साझा किया! पार्टी के देवता प्रभावित हैं। एक पुरस्कार के रूप में, यहाँ हर पार्टी, हर जगह, हमेशा के लिए आपका ऑल-एक्सेस वीआईपी पास है।",
+                    go_back_button: "मेरे स्कोर पर वापस जाएं",
+
+                    explore_title: "आपका विश्लेषण अभी खत्म नहीं हुआ है!",
+                    explore_desc: "आपने अपने पार्टी कौशल का ऑडिट किया है, लेकिन आपके बाकी प्रफुल्लित करने वाले व्यक्तित्व के बारे में क्या? आपका प्रेम जीवन, आपके गुस्से के मुद्दे... पर्सनैलिटी पाठशाला में आपके लिए मज़ेदार कैलकुलेटर की एक पूरी कक्षा है।",
+                    explore_button: "पर्सनैलिटी पाठशाला पर जाएँ",
+                    support_title: "यह क्विज़ पसंद आया? और बनाने में हमारी मदद करें!",
+                    support_desc: "आपका छोटा सा योगदान हमारी रचनात्मकता को चालू रखता है और हमें और मज़ा परोसने में मदद करता है।",
+                    
+                    questions: [
+                        { id: 1, question: "एक दोस्त आपको एक पार्टी में आमंत्रित करता है। आपका पहला विचार है:", answers: [ { text: "'मैं इससे कैसे बाहर निकल सकता हूँ?'", score: 1, feedback: "बहाने का मास्टर।" }, { text: "'और कौन जा रहा है?'", score: 2, feedback: "एक रणनीतिक जांच।" }, { text: "'मैं अंदर हूँ! मुझे क्या पहनना चाहिए?'", score: 3, feedback: "पार्टी चालू है!" } ] },
+                        { id: 2, question: "डीजे एक ऐसा गाना बजाता है जिसे आप नहीं जानते। आप:", answers: [ { text: "एक बेहतर गाना आने तक स्नैक टेबल पर जाएं।", score: 1, feedback: "स्नैक्स कभी निराश नहीं करते।" }, { text: "अपने बगल वाले व्यक्ति के डांस मूव्स की नकल करने की कोशिश करें।", score: 2, feedback: "जब तक आप इसे नहीं बना लेते तब तक इसका नाटक करें।" }, { text: "और भी अधिक ऊर्जा के साथ नृत्य करें, यह दिखावा करते हुए कि आप गाना जानते हैं।", score: 3, feedback: "आत्मविश्वास महत्वपूर्ण है।" } ] },
+                        { id: 3, question: "आपकी आदर्श पार्टी का आकार है:", answers: [ { text: "मैं, मेरा सोफा, और नेटफ्लिक्स।", score: 1, feedback: "परम तिकड़ी।" }, { text: "5-10 करीबी दोस्तों का एक छोटा समूह।", score: 2, feedback: "गुणवत्ता मात्रा से अधिक।" }, { text: "जितने अधिक, उतना अच्छा! 50+ लोग!", score: 3, feedback: "एक मानव त्योहार।" } ] },
+                        { id: 4, question: "आप छोटी-मोटी बातों के बारे में कैसा महसूस करते हैं?", answers: [ { text: "यह मेरा सबसे बुरा सपना है।", score: 1, feedback: "संघर्ष वास्तविक है।" }, { text: "मैं यह कर सकता हूँ, लेकिन मुझे इसमें मज़ा नहीं आता।", score: 2, feedback: "एक आवश्यक सामाजिक कौशल।" }, { text: "मुझे यह पसंद है! मैं घंटों मौसम के बारे में बात कर सकता हूँ।", score: 3, feedback: "बातचीत का चैंपियन।" } ] },
+                        { id: 5, question: "आप एक पार्टी में पहुंचते हैं। पहली चीज जो आप करते हैं वह है:", answers: [ { text: "जिस व्यक्ति को आप जानते हैं उसे ढूंढें और पूरी रात उसके साथ रहें।", score: 1, feedback: "वफादार सहायक।" }, { text: "यह देखने के लिए कमरे को स्कैन करें कि कौन है।", score: 2, feedback: "पर्यवेक्षक।" }, { text: "'पार्टी यहाँ है!' चिल्लाएं और सभी को बधाई देना शुरू करें।", score: 3, feedback: "भव्य प्रवेश।" } ] },
+                        { id: 6, question: "एक पार्टी में 2 घंटे के बाद आपकी सामाजिक बैटरी है:", answers: [ { text: "1%। कृपया मदद भेजें।", score: 1, feedback: "धुएं पर चल रहा है।" }, { text: "एक ठोस 50%। मैं जारी रख सकता हूँ।", score: 2, feedback: "अपनी गति बनाए रखना।" }, { text: "110%। मैं अभी शुरू कर रहा हूँ!", score: 3, feedback: "एनर्जाइज़र बन्नी।" } ] },
+                        { id: 7, question: "किसी भी पार्टी का सबसे अच्छा हिस्सा है:", answers: [ { text: "भोजन और पेय।", score: 2, feedback: "प्राथमिकताओं का एक व्यक्ति।" }, { text: "संगीत और नृत्य।", score: 3, feedback: "डांस फ्लोर की जान।" }, { text: "अपने बिस्तर पर घर जाना।", score: 1, feedback: "परम गंतव्य।" } ] },
+                        { id: 8, question: "एक अजनबी आपसे बात करना शुरू करता है। आप:", answers: [ { text: "एक महत्वपूर्ण फोन कॉल का नाटक करें और चले जाएं।", score: 1, feedback: "क्लासिक पलायन।" }, { text: "एक विनम्र, लेकिन छोटी, बातचीत करें।", score: 2, feedback: "राजनयिक।" }, { text: "उनके नए सबसे अच्छे दोस्त बन जाते हैं।", score: 3, feedback: "सामाजिक चुंबक।" } ] },
+                        { id: 9, question: "आपसे एक पार्टी गेम खेलने के लिए कहा जाता है। आप:", answers: [ { text: "अचानक बहुत थका हुआ महसूस करें और बैठने की जरूरत है।", score: 1, feedback: "खेल से बचने वाला।" }, { text: "साथ खेलें, लेकिन इसे बहुत गंभीरता से न लें।", score: 2, feedback: "आकस्मिक खिलाड़ी।" }, { text: "तीव्र प्रतिस्पर्धी भावना के साथ जीतने के लिए खेलें।", score: 3, feedback: "चैंपियन।" } ] },
+                        { id: 10, question: "आपका 'बाहर जाने' से 'अंदर रहने' का अनुपात क्या है?", answers: [ { text: "90% अंदर रहना, 10% बाहर जाना।", score: 1, feedback: "आराम का एक पारखी।" }, { text: "एक आदर्श 50/50 विभाजन।", score: 2, feedback: "संतुलन का स्वामी।" }, { text: "10% अंदर रहना, 90% बाहर जाना।", score: 3, feedback: "आपका घर सिर्फ कपड़े बदलने की जगह है।" } ] },
+                        { id: 11, question: "आप संगीत के प्रभारी हैं। आप बजाते हैं:", answers: [ { text: "कुछ शांत जो हर कोई पसंद करता है।", score: 2, feedback: "भीड़-प्रसन्न करने वाला।" }, { text: "जोरदार, उच्च-ऊर्जा वाला नृत्य संगीत।", score: 3, feedback: "डीजे।" }, { text: "जो कुछ भी मैं सुनना चाहता हूँ, भले ही वह दुखद गीत हो।", score: 1, feedback: "मूड-सेटर।" } ] },
+                        { id: 12, question: "एक बड़ी पार्टी के बाद का दिन, आप हैं:", answers: [ { text: "पूरे दिन बिस्तर पर, ठीक हो रहे हैं।", score: 2, feedback: "मज़े की कीमत।" }, { text: "पहले से ही अगली पार्टी की योजना बना रहे हैं।", score: 3, feedback: "पार्टी चलती रहनी चाहिए।" }, { text: "कौन सी पार्टी? मैं घर पर था।", score: 1, feedback: "अच्छी तरह से आराम किया हुआ।" } ] },
+                        { id: 13, question: "एक 'गेट-टुगेदर' की आपकी परिभाषा है:", answers: [ { text: "एक या दो दोस्तों के साथ एक गहरी बातचीत।", score: 1, feedback: "दार्शनिक।" }, { text: "कम से कम 20 लोगों के साथ एक हाउस पार्टी।", score: 3, feedback: "इवेंट प्लानर।" }, { text: "एक आकस्मिक ब्रंच या डिनर।", score: 2, feedback: "सामाजिक डिनर।" } ] },
+                        { id: 14, question: "आपका पसंदीदा डांस मूव क्या है?", answers: [ { text: "अजीब सिर हिलाना।", score: 1, feedback: "एक कारण के लिए एक क्लासिक।" }, { text: "'मैं मुख्य पात्र हूँ' एकल प्रदर्शन।", score: 3, feedback: "स्पॉटलाइट आप पर है।" }, { text: "ऊर्जावान भांगड़ा।", score: 2, feedback: "पार्टी की जान।" } ] },
+                        { id: 15, question: "आपको एक निमंत्रण मिलता है जिसमें 'वैकल्पिक' लिखा होता है। आप:", answers: [ { text: "इसे 'निश्चित रूप से नहीं जा रहा' के रूप में मानें।", score: 1, feedback: "शाब्दिक अनुवादक।" }, { text: "जाएंगे अगर मेरे करीबी दोस्त जा रहे हैं।", score: 2, feedback: "सामाजिक रणनीतिकार।" }, { text: "इसे नए लोगों से मिलने का एक अवसर के रूप में देखें।", score: 3, feedback: "नेटवर्कर।" } ] },
+                        { id: 16, question: "एक पार्टी में आपके लिए एकदम सही प्लस-वन है:", answers: [ { text: "एक किताब।", score: 1, feedback: "बौद्धिक।" }, { text: "आपका सबसे बहिर्मुखी दोस्त जो सारी बातें कर सकता है।", score: 2, feedback: "स्मार्ट प्रतिनिधि।" }, { text: "प्लस-वन की क्या जरूरत है? मैं वहां दोस्त बनाऊंगा।", score: 3, feedback: "स्वतंत्र सितारा।" } ] },
+                        { id: 17, question: "आप सुनते हैं 'चलो एक समूह तस्वीर लेते हैं!'। आप:", answers: [ { text: "बाथरूम में दौड़ें और छिप जाएं।", score: 1, feedback: "फोटो-बचने वाला।" }, { text: "बीच में कूदें और एक मजेदार चेहरा बनाएं।", score: 3, feedback: "ध्यान का केंद्र।" }, { text: "पीछे खड़े हों और विनम्रता से मुस्कुराएं।", score: 2, feedback: "सुरक्षित खिलाड़ी।" } ] },
+                        { id: 18, question: "एक पार्टी के लिए तैयार होने में आपको कितना समय लगता है?", answers: [ { text: "15 मिनट। मैं हमेशा तैयार रहता हूँ।", score: 3, feedback: "प्राकृतिक।" }, { text: "तैयारी का एक ठोस घंटा।", score: 2, feedback: "योजनाकार।" }, { text: "कौन सी पार्टी? मैं नहीं जा रहा हूँ।", score: 1, feedback: "परम होमबॉडी।" } ] },
+                        { id: 19, question: "एक शादी के रिसेप्शन का आपका पसंदीदा हिस्सा है:", answers: [ { text: "खुला बार।", score: 3, feedback: "परिष्कृत स्वाद का व्यक्ति।" }, { text: "वह हिस्सा जहाँ आप किसी के ध्यान दिए बिना जा सकते हैं।", score: 1, feedback: "आयरिश अलविदा।" }, { text: "संगीत प्रदर्शन।", score: 2, feedback: "नृत्य उत्साही।" } ] },
+                        { id: 20, question: "जब आप एक पार्टी छोड़ते हैं, तो आप:", answers: [ { text: "हर एक व्यक्ति को एक लंबा, हार्दिक अलविदा कहें।", score: 3, feedback: "विदाई दौरा।" }, { text: "बस रात में गायब हो जाओ।", score: 1, feedback: "भूत।" }, { text: "मेजबान और कुछ करीबी दोस्तों को अलविदा कहें।", score: 2, feedback: "विनम्र निकास।" } ] },
+                        { id: 21, question: "एक हाउस पार्टी एक क्लब से बेहतर है क्योंकि:", answers: [ { text: "आप संगीत को नियंत्रित कर सकते हैं।", score: 2, feedback: "डीजे।" }, { text: "आप दरवाजे पर अपने जूते छोड़ सकते हैं।", score: 1, feedback: "आराम चाहने वाला।" }, { text: "यह नहीं है। क्लब बहुत बेहतर हैं।", score: 3, feedback: "पार्टी पेशेवर।" } ] },
+                        { id: 22, question: "आपका फोन एक पार्टी में 10% पर है। आप:", answers: [ { text: "घबराहट की एक गहरी भावना महसूस करें और एक चार्जर की तलाश शुरू करें।", score: 2, feedback: "जीवन रेखा।" }, { text: "इसे घर जाने के लिए ब्रह्मांड से एक संकेत के रूप में देखें।", score: 1, feedback: "संकेत-पाठक।" }, { text: "परवाह नहीं। आप मस्ती करने में बहुत व्यस्त हैं।", score: 3, feedback: "पल में जीना।" } ] },
+                        { id: 23, question: "आपके 'सामाजिकता' कौशल सबसे अच्छे होते हैं जब:", answers: [ { text: "आप उन लोगों के साथ हैं जिन्हें आप अच्छी तरह से जानते हैं।", score: 2, feedback: "आराम क्षेत्र।" }, { text: "आप अजनबियों से भरे कमरे में हैं।", score: 3, feedback: "एक नया दर्शक!" }, { text: "आप घर पर हैं, अकेले।", score: 1, feedback: "एकांत का स्वामी।" } ] },
+                        { id: 24, question: "आप पार्टियों में जाने का मुख्य कारण है:", answers: [ { text: "नए लोगों से मिलना और नेटवर्क बनाना।", score: 3, feedback: "कनेक्टर।" }, { text: "क्योंकि आपके दोस्तों ने आपको मजबूर किया।", score: 1, feedback: "अनिच्छुक अतिथि।" }, { text: "मुफ्त भोजन और अच्छे संगीत के लिए।", score: 2, feedback: "पारखी।" } ] },
+                        { id: 25, question: "एक रात सामाजिकता के बाद आप कैसा महसूस करते हैं?", answers: [ { text: "ऊर्जावान और खुश।", score: 3, feedback: "बहिर्मुखी।" }, { text: "पूरी तरह से सूखा हुआ और 3-दिन की झपकी की जरूरत में।", score: 1, feedback: "अंतर्मुखी।" }, { text: "एक खुश तरह का थका हुआ।", score: 2, feedback: "उभयमुखी।" } ] }
+                    ]
+                }
+            };
+            
+            // --- STATE MANAGEMENT & DOM ELEMENTS ---
+            let currentQuestionIndex = 0;
+            let userAnswers = {};
+            let currentLang = 'en';
+            let quizQuestions = [];
+            let userName = '';
+            const QUESTIONS_PER_QUIZ = 15;
+
+            const allLangElements = document.querySelectorAll('[data-lang-key]');
+            const langPlaceholderElements = document.querySelectorAll('[data-lang-placeholder]');
+            const languageToggle = document.getElementById('language-toggle');
+            const startScreen = document.getElementById('start-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const calculatingScreen = document.getElementById('calculating-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const journeyScreen = document.getElementById('journey-screen');
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const goBackBtn = document.getElementById('go-back-btn');
+            const backToMainBtn = document.getElementById('back-to-main-btn');
+            const nameInput = document.getElementById('name-input');
+            const questionContainer = document.getElementById('question-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const finalScoreEl = document.getElementById('final-score');
+            const resultTitleEl = document.getElementById('result-title');
+            const resultDescriptionEl = document.getElementById('result-description');
+            const finalQuoteEl = document.getElementById('final-quote');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const shareButtonsContainer = document.getElementById('share-buttons');
+            const exploreBtn = document.getElementById('explore-btn');
+
+            // --- LANGUAGE LOGIC ---
+            const updateLanguage = (lang) => {
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                document.documentElement.lang = lang;
+                
+                languageToggle.innerHTML = (lang === 'en') 
+                    ? `<i class="fa-solid fa-language mr-2"></i> हिन्दी`
+                    : `<i class="fa-solid fa-language mr-2"></i> English`;
+
+                allLangElements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    const value = getNestedValue(content[lang], key);
+                    if (value) el.innerHTML = value;
+                });
+                
+                langPlaceholderElements.forEach(el => {
+                    const key = el.dataset.langPlaceholder;
+                    const value = getNestedValue(content[lang], key);
+                    if(value) el.placeholder = value;
+                });
+            };
+
+            const getNestedValue = (obj, key) => key.split('.').reduce((acc, part) => acc && acc[part], obj);
+
+            // --- THEME LOGIC ---
+            const applyTheme = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIconDark.classList.remove('hidden');
+                    themeIconLight.classList.add('hidden');
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
+            applyTheme(isDarkMode);
+
+            // --- UI FUNCTIONS ---
+            const renderQuestion = () => {
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const q_id = quizQuestions[currentQuestionIndex];
+                    const q_data_en = content.en.questions.find(item => item.id === q_id);
+                    const q_lang = content[currentLang].questions.find(item => item.id === q_id);
+                    
+                    if(!q_data_en || !q_lang) {
+                        goHome();
+                        return;
+                    }
+
+                    const shuffledAnswers = [...q_lang.answers].sort(() => Math.random() - 0.5);
+
+                    let answersHTML = shuffledAnswers.map(answer => {
+                        return `
+                        <button data-score="${answer.score}" class="choice-btn w-full text-left p-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-pink-100 dark:hover:bg-pink-500 transition-colors duration-200">
+                            ${answer.text}
+                        </button>
+                    `}).join('');
+                    
+                    const counterText = content[currentLang].question_counter.replace('{current}', currentQuestionIndex + 1).replace('{total}', QUESTIONS_PER_QUIZ);
+
+                    questionContainer.innerHTML = `
+                        <div class="fade-in">
+                            <p class="text-lg font-semibold dark-mode-subtext mb-4">${counterText}</p>
+                            <h2 class="text-2xl md:text-3xl font-bold dark-mode-text mb-8">${q_lang.question.replace(/{name}/g, `<strong>${userName}</strong>`)}</h2>
+                            <div class="flex flex-col items-center space-y-4">${answersHTML}</div>
+                        </div>
+                    `;
+                    feedbackContainer.innerHTML = '';
+                    updateProgressBar();
+                } else {
+                    showCalculatingScreen();
+                }
+            };
+            
+            const updateProgressBar = () => {
+                const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            };
+
+            // --- CORE LOGIC ---
+            const startQuiz = () => {
+                userName = nameInput.value.trim();
+                if (!userName) {
+                    userName = (currentLang === 'en') ? 'Party Animal' : 'पार्टी एनिमल';
+                }
+
+                let allQuestionIds = content.en.questions.map(q => q.id);
+                allQuestionIds.sort(() => Math.random() - 0.5);
+                quizQuestions = allQuestionIds.slice(0, QUESTIONS_PER_QUIZ);
+                currentQuestionIndex = 0;
+                userAnswers = {};
+
+                startScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    startScreen.classList.add('hidden');
+                    startScreen.classList.remove('fade-out');
+                    quizScreen.classList.remove('hidden');
+                    quizScreen.classList.add('fade-in');
+                    progressContainer.classList.remove('hidden');
+                    backToMainBtn.classList.remove('hidden');
+                    renderQuestion();
+                }, 500);
+            };
+
+            const handleAnswer = (e) => {
+                const selectedBtn = e.target.closest('.choice-btn');
+                if (!selectedBtn) return;
+
+                const score = parseInt(selectedBtn.dataset.score);
+                const question_id = quizQuestions[currentQuestionIndex];
+                const question_data_lang = content[currentLang].questions.find(item => item.id === question_id);
+                
+                const answer_data_lang = question_data_lang.answers.find(a => a.score === score);
+                if (answer_data_lang) {
+                    feedbackContainer.innerHTML = `<p class="fade-in font-semibold text-lg text-teal-600 dark:text-teal-400">${answer_data_lang.feedback}</p>`;
+                }
+
+                userAnswers[question_id] = score;
+                
+                questionContainer.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn !== selectedBtn) {
+                        btn.classList.add('opacity-50');
+                    } else {
+                        btn.classList.add('ring-4', 'ring-pink-400');
+                    }
+                });
+                
+                setTimeout(() => {
+                    if (questionContainer.firstElementChild) {
+                        questionContainer.firstElementChild.classList.replace('fade-in', 'fade-out');
+                    }
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    }, 500);
+                }, 1800);
+            };
+
+            const showCalculatingScreen = () => {
+                quizScreen.classList.add('fade-out');
+                progressContainer.classList.add('hidden');
+                backToMainBtn.classList.add('hidden');
+                setTimeout(() => {
+                    quizScreen.classList.add('hidden');
+                    quizScreen.classList.remove('fade-out');
+                    calculatingScreen.classList.remove('hidden');
+                    calculatingScreen.classList.add('fade-in');
+                    const calculatingTexts = [
+                        content[currentLang].calculating_text, 
+                        (currentLang === 'en' ? "Checking your guest list..." : "आपकी मेहमान सूची की जाँच हो रही है..."),
+                        (currentLang === 'en' ? "Playing some party music..." : "कुछ पार्टी संगीत बजा रहा है...")
+                    ];
+                    document.getElementById('calculating-text').innerText = calculatingTexts[Math.floor(Math.random()*calculatingTexts.length)];
+                    setTimeout(showResults, 2500);
+                }, 500);
+            }
+            
+            const showResults = (isThemeOrLangUpdate = false) => {
+                if (!isThemeOrLangUpdate) {
+                     calculatingScreen.classList.add('fade-out');
+                     setTimeout(() => {
+                        calculatingScreen.classList.add('hidden');
+                        calculatingScreen.classList.remove('fade-out');
+                        resultsScreen.classList.remove('hidden');
+                        resultsScreen.classList.add('slide-up');
+                        calculateAndDisplayScores();
+                    }, 500);
+                } else {
+                    calculateAndDisplayScores();
+                }
+            };
+
+            const calculateAndDisplayScores = () => {
+                let totalScore = 0;
+                Object.values(userAnswers).forEach(score => {
+                    totalScore += score;
+                });
+
+                const minPossibleScore = QUESTIONS_PER_QUIZ * 1;
+                const maxPossibleScore = QUESTIONS_PER_QUIZ * 3;
+                const scoreRange = maxPossibleScore - minPossibleScore;
+                const userScoreOffset = totalScore - minPossibleScore;
+
+                let partyPercentage = 0;
+                if (scoreRange > 0) {
+                    partyPercentage = Math.round((userScoreOffset / scoreRange) * 100);
+                }
+                
+                finalScoreEl.classList.remove('score-reveal');
+                void finalScoreEl.offsetWidth; // Trigger reflow
+                finalScoreEl.classList.add('score-reveal');
+
+                let startValue = 0;
+                const duration = 1200;
+                const endValue = partyPercentage;
+                const startTime = performance.now();
+
+                function animateCountUp(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    if (elapsedTime < duration) {
+                        const progress = elapsedTime / duration;
+                        const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+                        const currentValue = Math.round(startValue + (endValue - startValue) * easedProgress);
+                        finalScoreEl.textContent = `${currentValue}%`;
+                        requestAnimationFrame(animateCountUp);
+                    } else {
+                        finalScoreEl.textContent = `${endValue}%`;
+                    }
+                }
+                requestAnimationFrame(animateCountUp);
+
+                let resultKey;
+                if (partyPercentage <= 25) resultKey = 'wallflower';
+                else if (partyPercentage <= 50) resultKey = 'sipper';
+                else if (partyPercentage <= 75) resultKey = 'deewana';
+                else resultKey = 'jaan';
+                
+                finalQuoteEl.dataset.resultKey = resultKey;
+                document.getElementById('vip-name').textContent = userName;
+
+                const personalizedLabel = content[currentLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+
+                resultTitleEl.textContent = content[currentLang][`result_${resultKey}_title`];
+                resultDescriptionEl.innerHTML = content[currentLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                finalQuoteEl.textContent = content[currentLang][`final_quote_${resultKey}`];
+                
+                displayFunnyComments(resultKey);
+                updateShareLinks(partyPercentage, content[currentLang][`result_${resultKey}_title`]);
+            };
+
+            const startBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                stopBackgroundAnimations();
+                
+                const emojis = ['🥳', '🎉', '🕺', '💃', '🥂', '😂', '😎'];
+                const numEmojis = 25;
+
+                for (let i = 0; i < numEmojis; i++) {
+                    const emoji = document.createElement('span');
+                    emoji.className = 'floating-emoji';
+                    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    emoji.style.left = `${Math.random() * 100}vw`;
+                    emoji.style.fontSize = `${1 + Math.random() * 2}rem`;
+                    const duration = 8 + Math.random() * 10;
+                    const delay = Math.random() * 7;
+                    const translateX = `${(Math.random() - 0.5) * 200}px`;
+                    const rotate = `${(Math.random() - 0.5) * 720}deg`;
+                    
+                    emoji.style.setProperty('--translateX', translateX);
+                    emoji.style.setProperty('--rotate', rotate);
+                    emoji.style.animation = `floatUp ${duration}s ease-in ${delay}s infinite`;
+                    
+                    container.appendChild(emoji);
+                }
+            };
+
+            const stopBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (container) {
+                    container.innerHTML = '';
+                }
+            };
+
+            const typewriter = (element, text, callback) => {
+                let i = 0;
+                const speed = 40; // milliseconds per character
+                const originalHTML = element.innerHTML;
+                element.innerHTML = originalHTML + '<span class="typing-text"></span><span class="typing-cursor border-l-2 border-pink-500 h-6 inline-block align-middle">&nbsp;</span>';
+                const textSpan = element.querySelector('.typing-text');
+                const cursorSpan = element.querySelector('.typing-cursor');
+                
+                function type() {
+                    if (i < text.length) {
+                        textSpan.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        if(cursorSpan) {
+                           cursorSpan.style.display = 'none';
+                        }
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+
+            const displayFunnyComments = (resultKey) => {
+                const commentsContainer = document.getElementById('funny-comments-container');
+                if (!commentsContainer) return;
+                commentsContainer.innerHTML = '';
+                const commentsPool = content[currentLang].funny_comments[resultKey] || [];
+                
+                const shuffledComments = [...commentsPool].sort(() => 0.5 - Math.random());
+                const selectedComments = shuffledComments.slice(0, 3);
+
+                let commentIndex = 0;
+
+                function typeNextComment() {
+                    if (commentIndex < selectedComments.length) {
+                        const commentText = selectedComments[commentIndex];
+                        
+                        const card = document.createElement('div');
+                        card.className = 'funny-comment-card bg-pink-100 dark:bg-gray-800 p-4 rounded-lg mb-4 text-gray-700 dark:text-pink-300 italic shadow-md';
+                        
+                        const p = document.createElement('p');
+                        p.innerHTML = `<i class="fa-solid fa-quote-left mr-2 text-pink-500"></i> `;
+                        card.appendChild(p);
+
+                        card.style.animationDelay = `0.2s`;
+                        
+                        commentsContainer.appendChild(card);
+                        
+                        setTimeout(() => {
+                            typewriter(p, commentText, () => {
+                                commentIndex++;
+                                setTimeout(typeNextComment, 800); 
+                            });
+                        }, 600);
+                    }
+                }
+                
+                startBackgroundAnimations();
+                typeNextComment();
+            };
+
+
+            const updateShareLinks = (percentage, title) => {
+                const text = encodeURIComponent(`My Party Animal Score is ${percentage}%! Turns out I'm a "${title}". Find out your party persona:`);
+                const url = encodeURIComponent(window.location.href);
+                
+                document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                document.getElementById('telegram-share').href = `https://t.me/share/url?url=${url}&text=${text}`;
+                document.getElementById('instagram-share').href = `https://www.instagram.com/`;
+            };
+            
+            const goHome = () => {
+                stopBackgroundAnimations();
+                [quizScreen, resultsScreen, journeyScreen, progressContainer, backToMainBtn, calculatingScreen].forEach(el => el.classList.add('hidden'));
+                startScreen.classList.remove('hidden', 'fade-out');
+                startScreen.classList.add('fade-in');
+                nameInput.value = '';
+                currentQuestionIndex = 0;
+                userAnswers = {};
+                quizQuestions = [];
+                progressBar.style.width = '0%';
+            };
+
+            const showJourneyScreen = (e) => {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                resultsScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    resultsScreen.classList.add('hidden');
+                    resultsScreen.classList.remove('fade-out');
+                    journeyScreen.classList.remove('hidden');
+                    journeyScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            const showResultsScreenFromJourney = () => {
+                journeyScreen.classList.add('fade-out');
+                 setTimeout(() => {
+                    journeyScreen.classList.add('hidden');
+                    journeyScreen.classList.remove('fade-out');
+                    resultsScreen.classList.remove('hidden');
+                    resultsScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            // --- EVENT LISTENERS ---
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', goHome);
+            backToMainBtn.addEventListener('click', goHome);
+            goBackBtn.addEventListener('click', showResultsScreenFromJourney);
+            quizScreen.addEventListener('click', handleAnswer);
+            shareButtonsContainer.addEventListener('click', (e) => {
+                const shareBtn = e.target.closest('a.share-btn');
+                if (shareBtn && shareBtn.href && shareBtn.href !== '#') {
+                    showJourneyScreen(e);
+                }
+            });
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+                if (!resultsScreen.classList.contains('hidden')) { showResults(true); }
+            });
+            languageToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'hi' : 'en';
+                updateLanguage(newLang);
+                if (!quizScreen.classList.contains('hidden') || !calculatingScreen.classList.contains('hidden')) { 
+                    goHome();
+                } else if (!resultsScreen.classList.contains('hidden')) {
+                    const resultKey = finalQuoteEl.dataset.resultKey;
+                    const personalizedLabel = content[newLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                    document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+                    resultTitleEl.textContent = content[newLang][`result_${resultKey}_title`];
+                    resultDescriptionEl.innerHTML = content[newLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                    finalQuoteEl.textContent = content[newLang][`final_quote_${resultKey}`];
+                    displayFunnyComments(resultKey);
+                }
+            });
+
+            // Initial Load
+            const savedLang = localStorage.getItem('language') || 'en';
+            updateLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>

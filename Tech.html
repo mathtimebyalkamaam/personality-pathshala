@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0DL8SC5JKB');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Savvy Meter - Are You a Guru or a Noob?</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS for theme, animations, and additional styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Dark Mode --- */
+        .dark .dark-mode-bg { background-color: #111827; }
+        .dark .dark-mode-text { color: #f9fafb; }
+        .dark .dark-mode-surface { background-color: #1f2937; }
+        .dark .dark-mode-border { border-color: #374151; }
+        .dark .dark-mode-subtext { color: #9ca3af; }
+
+        /* --- Animations --- */
+        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .pulse { animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .9; transform: scale(1.02); }
+        }
+
+        /* --- Button Styles --- */
+        .choice-btn, .share-btn, .control-btn {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .choice-btn:hover, .share-btn:hover, .control-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Social Share Colors --- */
+        .whatsapp-btn { background-color: #25D366; }
+        .twitter-btn { background-color: #1DA1F2; }
+        .facebook-btn { background-color: #1877F2; }
+        .telegram-btn { background-color: #24A1DE; }
+        .instagram-btn {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        }
+
+        /* --- Score Animation --- */
+        .score-reveal {
+            animation: scoreReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.3); /* Blue Shadow */
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* --- Funny Comments Styling --- */
+        .funny-comments-container {
+            perspective: 1000px;
+        }
+
+        .funny-comment-card {
+            opacity: 0;
+            transform: rotateX(-90deg) translateY(50px);
+            transform-origin: bottom center;
+            animation: revealComment 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .funny-comment-card p {
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1.75rem; /* leading-7 */
+        }
+
+        @media (min-width: 768px) {
+            .funny-comment-card p {
+                font-size: 1.5rem; /* md:text-2xl */
+                line-height: 2rem; /* md:leading-8 */
+            }
+        }
+
+
+        @keyframes revealComment {
+            from {
+                opacity: 0;
+                transform: rotateX(-90deg) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0deg) translateY(0);
+            }
+        }
+        
+        /* --- Typing Effect --- */
+        .typing-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #3b82f6; } /* blue-500 */
+        }
+        
+        /* --- Background Animation --- */
+        #animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: -50px; /* Start from below the screen */
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--translateX)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode-bg text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+    <div id="animation-container"></div>
+    <!-- Header for Toggles -->
+    <header class="absolute top-4 w-full px-4 z-20 flex items-center justify-between">
+        <!-- Back to Main Page Button (Initially hidden) -->
+        <a id="back-to-main-btn" href="index.html" role="button" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </a>
+
+        <div class="flex items-center space-x-2 ml-auto">
+             <!-- Language Toggle -->
+            <button id="language-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-28 h-10 flex items-center justify-center text-sm">
+                <!-- Text updated by JS -->
+            </button>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="control-btn p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 w-10 h-10">
+                <svg id="theme-icon-dark" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg id="theme-icon-light" class="h-6 w-6 mx-auto hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-2 bg-gray-200 dark:bg-gray-700 z-10 hidden">
+        <div id="progress-bar" class="h-full bg-blue-500 progress-bar-fill" style="width: 0%;"></div>
+    </div>
+    
+    <main class="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-screen relative z-10">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center max-w-2xl fade-in">
+            <h1 class="text-4xl md:text-6xl font-extrabold dark-mode-text tracking-tight mb-4">The <span class="text-blue-500" data-lang-key="title">Tech Savvy Meter</span></h1>
+            <p class="text-lg md:text-xl dark-mode-subtext mb-8" data-lang-key="subtitle">
+                Do you still think 'the cloud' is just in the sky? Is your password 'password123'? Let's find out if you're a tech guru or if your router is scared of you!
+            </p>
+            <div class="mb-6 w-full max-w-sm mx-auto">
+                <input type="text" id="name-input" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white" data-lang-placeholder="name_placeholder">
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-8 italic" data-lang-key="privacy_disclaimer"></p>
+            <button id="start-btn" data-lang-key="start_button" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-blue-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 pulse">
+                Scan My Skills!
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden w-full max-w-3xl">
+            <div id="question-container" class="text-center pt-16">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <div id="feedback-container" class="mt-6 text-center text-md dark-mode-subtext min-h-[60px]">
+                <!-- Feedback will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Calculating Screen -->
+        <div id="calculating-screen" class="hidden text-center w-full max-w-2xl">
+            <svg class="animate-spin h-16 w-16 text-blue-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h2 id="calculating-text" class="text-2xl font-bold dark-mode-text" data-lang-key="calculating_text">Googling the answers for you...</h2>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center w-full max-w-4xl pt-16">
+            <h2 class="text-2xl font-bold dark-mode-subtext mb-2" data-lang-key="result_level_label">Your Tech Savvy Level</h2>
+            <div id="final-score" class="text-7xl md:text-8xl font-extrabold text-blue-500 mb-4">0%</div>
+            <h3 id="result-title" class="text-3xl md:text-4xl font-extrabold dark-mode-text mb-3"></h3>
+            <p id="result-description" class="text-lg md:text-xl dark-mode-subtext mb-8 max-w-2xl mx-auto"></p>
+            
+            <div id="funny-comments-container" class="funny-comments-container mt-8 mb-8 max-w-2xl mx-auto">
+                <!-- Comments will be injected here -->
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="mb-8">
+                <p class="font-bold dark-mode-text mb-3" data-lang-key="share_results_label">Share Your Tech Report & Get a Certificate!</p>
+                <div id="share-buttons" class="flex justify-center items-center flex-wrap gap-4">
+                    <a id="whatsapp-share" href="https://ppscore.co.in" target="_blank" class="share-btn whatsapp-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l.217.324-1.125 4.108 4.224-1.103.337.202z" /></svg>
+                    </a>
+                    <a id="twitter-share" href="https://ppscore.co.in" target="_blank" class="share-btn twitter-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.794 4.649-.69.188-1.433.23-2.184.085.617 1.914 2.408 3.258 4.53 3.301-1.724 1.352-3.883 2.093-6.138 1.795 1.815 1.163 3.973 1.84 6.262 1.84 7.218 0 11.168-5.986 11.168-11.168 0-.17-.003-.34-.01-.508.77-.556 1.438-1.248 1.968-2.04z"/></svg>
+                    </a>
+                    <a id="facebook-share" href="https://ppscore.co.in" target="_blank" class="share-btn facebook-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                    </a>                      
+                    <a id="telegram-share" href="https://ppscore.co.in" target="_blank" class="share-btn telegram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-1.39.2-1.62l15.97-5.85c.73-.27 1.36.17 1.15.99L16.4 18.28c-.21.83-1.2.5-1.54-.26L9.78 18.65z"/></svg>
+                    </a>
+                    <a id="instagram-share" href="https://ppscore.co.in" target="_blank" class="share-btn instagram-btn text-white w-14 h-14 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <p id="final-quote" class="text-lg dark-mode-text max-w-3xl mx-auto mb-8 italic">
+                <!-- Quote inserted by JS -->
+            </p>
+
+            <button id="restart-btn" data-lang-key="restart_button" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-blue-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                Re-scan My Skills!
+            </button>
+
+            <!-- Explore More Section -->
+            <div class="mt-16 py-8 border-t-2 border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
+                 <h3 class="text-2xl md:text-3xl font-extrabold dark-mode-text mb-4" data-lang-key="explore_title">Your Analysis Isn't Over Yet!</h3>
+                 <p class="text-lg dark-mode-subtext mb-8" data-lang-key="explore_desc">
+                   You've audited your tech skills, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.
+                 </p>
+                 <a id="explore-btn" href="index.html" class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 inline-block" data-lang-key="explore_button">
+                   Visit PersonalityPaathshala
+                 </a>
+                 <div class="mt-8 mb-6">
+                    <p class="font-semibold mb-2 text-blue-400 dark:text-blue-300" data-lang-key="support_title">Loved this quiz? Help us create more!</p>
+                    <p class="text-base text-gray-700 dark:text-white mb-3" data-lang-key="support_desc">Your small contribution keeps our creative engine running and helps us serve more fun.</p>
+                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QvFHmdPg3T4Pqh" async> </script> </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Screen -->
+        <div id="journey-screen" class="hidden text-center w-full max-w-2xl pt-16">
+            <h2 class="text-4xl font-extrabold text-blue-500 mb-4" data-lang-key="journey_title">Your Tech Support Certificate!</h2>
+            <p class="text-lg dark-mode-subtext mb-8" data-lang-key="journey_subtitle">You shared your score! You are now officially certified. As a reward, please accept this certificate, which you can show to your family members next time they ask for tech help.</p>
+            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-xl border-4 border-gray-400">
+                <div class="text-center p-4 border-2 border-dashed border-gray-500">
+                    <h3 class="text-2xl font-bold dark-mode-text">Official Family IT Support</h3>
+                    <p class="dark-mode-subtext mt-2 uppercase tracking-widest">Certificate of Qualification</p>
+                    <div class="my-4 text-5xl text-blue-500">
+                        💻
+                    </div>
+                    <p class="dark-mode-subtext">This is to certify that</p>
+                    <p id="certificate-name" class="text-3xl font-bold text-blue-500 my-2">[Your Name]</p>
+                    <p class="dark-mode-text">is qualified to fix the Wi-Fi by turning it off and on again.</p>
+                </div>
+            </div>
+             <button id="go-back-btn" data-lang-key="go_back_button" class="mt-8 bg-gray-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Back to My Score
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-xs text-gray-400 dark:text-gray-500">
+        <p data-lang-key="disclaimer">Disclaimer: This quiz is for fun. We are not responsible if your family now expects you to fix their printer.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- LANGUAGE CONTENT STORE ---
+            const content = {
+                en: {
+                    title: "Tech Savvy Meter",
+                    subtitle: "Do you still think 'the cloud' is just in the sky? Is your password 'password123'? Let's find out if you're a tech guru or if your router is scared of you!",
+                    name_placeholder: "Enter your techy name...",
+                    privacy_disclaimer: "Your browser history is safe with us. We won't judge you for Googling 'how to open PDF'.",
+                    start_button: "Scan My Skills!",
+                    calculating_text: "Googling the answers for you...",
+                    result_level_label: "Your Tech Savvy Level",
+                    result_level_label_personalized: "{name}'s Tech Savvy Level",
+                    share_results_label: "Share Your Tech Report & Get a Certificate!",
+                    restart_button: "Re-scan My Skills!",
+                    disclaimer: "Disclaimer: This quiz is for fun. We are not responsible if your family now expects you to fix their printer.",
+                    question_counter: "Question {current} of {total}",
+                    
+                    result_boomer_title: "The Tech Boomer",
+                    result_boomer_desc: "{name}, you and technology are not best friends. You probably still think a 'virus' is something you catch when it's cold. Your kids are your personal IT department.",
+                    result_tourist_title: "The Digital Tourist",
+                    result_tourist_desc: "{name}, you know the basics. You can send an email and use WhatsApp, but a software update sends you into a mild panic. You're visiting the tech world, not living in it.",
+                    result_surfer_title: "The Cyber Surfer",
+                    result_surfer_desc: "{name}, you're comfortable online. You know your memes, your apps, and your shortcuts. You're the one your friends ask for tech advice (after they've tried turning it off and on).",
+                    result_god_title: "The Tech God",
+                    result_god_desc: "{name}, do you dream in code? You probably built your own phone. You don't follow tech trends; you set them. We bow to your superior knowledge.",
+                    
+                    final_quote_boomer: "\"How do I send this picture again?\"",
+                    final_quote_tourist: "\"Have you tried turning it off and on again?\"",
+                    final_quote_surfer: "\"There's an app for that.\"",
+                    final_quote_god: "\"I don't need Google. I am Google.\"",
+                    
+                    funny_comments: {
+                        boomer: [
+                            "You probably write 'www' before every website address.",
+                            "You've tried to zoom in on a printed photo by pinching it.",
+                            "Your password is your pet's name, and you're proud of it.",
+                            "You think 'the cloud' is just a fluffy white thing in the sky."
+                        ],
+                        tourist: [
+                            "You have 50 tabs open and you don't know how they got there.",
+                            "You still forward 'Good Morning' messages with flowers on WhatsApp.",
+                            "You've asked your kids to fix the Wi-Fi at least 10 times this month.",
+                            "You think a QR code is a modern art installation."
+                        ],
+                        surfer: [
+                            "You can type without looking at the keyboard. Most of the time.",
+                            "You know exactly which filter to use for the perfect selfie.",
+                            "You explain memes to your parents, and they still don't get it.",
+                            "Your thumb has a permanent scrolling injury."
+                        ],
+                        god: [
+                            "You don't get viruses; viruses get you.",
+                            "You could probably fix a broken spaceship with a paperclip.",
+                            "Your Wi-Fi signal is so strong, your neighbors get free internet.",
+                            "You knew the answers to this quiz before you even took it."
+                        ]
+                    },
+
+                    journey_title: "Your Tech Support Certificate!",
+                    journey_subtitle: "You shared your score! You are now officially certified. As a reward, please accept this certificate, which you can show to your family members next time they ask for tech help.",
+                    go_back_button: "Back to My Score",
+
+                    explore_title: "Your Analysis Isn't Over Yet!",
+                    explore_desc: "You've audited your tech skills, but what about the rest of your hilarious personality? Your love life, your anger issues... PersonalityPaathshala has a whole classroom of funny calculators waiting for you.",
+                    explore_button: "Visit PersonalityPaathshala",
+                    support_title: "Loved this quiz? Help us create more!",
+                    support_desc: "Your small contribution keeps our creative engine running and helps us serve more fun.",
+
+                    questions: [
+                        { id: 1, question: "The Wi-Fi stops working. Your first move is:", answers: [ { text: "Turn the router off and on again.", score: 2, feedback: "The universal IT solution! A true classic." }, { text: "Yell 'The Wi-Fi is down!' and wait for someone else to fix it.", score: 1, feedback: "Delegation is a key skill, after all." }, { text: "Open command prompt and start pinging Google.", score: 3, feedback: "Hackerman has entered the chat." } ] },
+                        { id: 2, question: "What is 'the cloud'?", answers: [ { text: "A place where data is stored on the internet.", score: 2, feedback: "Correct! Your head is in the cloud." }, { text: "The white fluffy things in the sky.", score: 1, feedback: "Well, you're not wrong, but also..." }, { text: "My personal hard drive that I carry everywhere.", score: 3, feedback: "You ARE the cloud! So powerful." } ] },
+                        { id: 3, question: "You get a notification for a software update. You:", answers: [ { text: "Ignore it for weeks, maybe months.", score: 1, feedback: "If it ain't broke, don't update it." }, { text: "Read the release notes before deciding to update.", score: 2, feedback: "A cautious user. We respect that." }, { text: "Update immediately to get the new features.", score: 3, feedback: "Living on the bleeding edge!" } ] },
+                        { id: 4, question: "Your computer is running slow. You:", answers: [ { text: "Close the 50 tabs you have open.", score: 2, feedback: "A logical first step for a tab-a-holic." }, { text: "Just restart it and hope for the best.", score: 1, feedback: "The classic 'turn it off and on again' prayer." }, { text: "Open the Task Manager to check which process is using up all the RAM.", score: 3, feedback: "The system analyst has arrived." } ] },
+                        { id: 5, question: "How do you share a funny video with a friend?", answers: [ { text: "Send them the link.", score: 2, feedback: "Simple, efficient, effective." }, { text: "Show them the video on your phone when you meet them.", score: 1, feedback: "The traditional, personal touch." }, { text: "Download it, edit it, and add your own watermark before sending.", score: 3, feedback: "The content creator has no chill." } ] },
+                        { id: 6, question: "What is a 'phishing' email?", answers: [ { text: "An email about fishing trips.", score: 1, feedback: "Not quite, but a good guess for a Saturday." }, { text: "A fake email trying to steal your passwords or personal information.", score: 3, feedback: "Correct! Your password is safe." }, { text: "An email with a lot of typos.", score: 2, feedback: "That's a big red flag, for sure!" } ] },
+                        { id: 7, question: "Your phone's storage is full. You:", answers: [ { text: "Delete some old photos and apps.", score: 2, feedback: "The sensible spring cleaner." }, { text: "Buy a new phone.", score: 1, feedback: "Ah, the 'money can solve anything' approach." }, { text: "Upload everything to the cloud and clear your cache.", score: 3, feedback: "The master of data management." } ] },
+                        { id: 8, question: "When you hear 'cookies', you think of:", answers: [ { text: "Delicious chocolate chip treats.", score: 1, feedback: "The tastiest answer, but incorrect." }, { text: "Small files websites store on your computer to track you.", score: 3, feedback: "The privacy expert has spoken!" }, { text: "Both. And now I'm hungry.", score: 2, feedback: "A person of culture and knowledge." } ] },
+                        { id: 9, question: "You need to create a strong password. You use:", answers: [ { text: "Your pet's name followed by '123'.", score: 1, feedback: "A hacker's dream come true!" }, { text: "A random combination of letters, numbers, and symbols.", score: 3, feedback: "Fort Knox has nothing on you." }, { text: "The same password for everything, but it's a good one.", score: 2, feedback: "Living life on the edge, I see." } ] },
+                        { id: 10, question: "What does 'RAM' stand for?", answers: [ { text: "A male sheep.", score: 1, feedback: "Technically correct. The best kind of correct." }, { text: "Random Access Memory.", score: 3, feedback: "Bingo! You know your hardware." }, { text: "Read A Manual.", score: 2, feedback: "Good advice, but not the answer." } ] },
+                        { id: 11, question: "You're setting up a new device. The instruction manual is for:", answers: [ { text: "Reading from start to finish.", score: 2, feedback: "A diligent student of technology." }, { text: "Propping up a wobbly table leg.", score: 1, feedback: "A practical, if unintended, use." }, { text: "I don't need a manual. I was born for this.", score: 3, feedback: "Born with a user manual in your brain." } ] },
+                        { id: 12, question: "You see a QR code in a restaurant. You:", answers: [ { text: "Know it's for the menu and scan it with your phone.", score: 2, feedback: "The modern, efficient diner." }, { text: "Ask the waiter for a physical menu.", score: 1, feedback: "Keeping traditions alive." }, { text: "Try to connect to its Bluetooth.", score: 3, feedback: "Points for creative thinking, even if it's wrong." } ] },
+                        { id: 13, question: "Your favorite keyboard shortcut is:", answers: [ { text: "What's a shortcut?", score: 1, feedback: "Oh, you're missing out on so much!" }, { text: "Ctrl+C, Ctrl+V.", score: 2, feedback: "The foundation of modern civilization." }, { text: "Alt+F4 to quickly close things when the boss walks by.", score: 3, feedback: "The ultimate 'boss is coming' move." } ] },
+                        { id: 14, question: "You need to send a large file to a friend. You:", answers: [ { text: "Try to send it on WhatsApp and fail.", score: 1, feedback: "We've all felt that pain." }, { text: "Use Google Drive or WeTransfer.", score: 3, feedback: "The efficient and modern way." }, { text: "Put it on a pen drive and mail it.", score: 2, feedback: "The postal service thanks you for your service." } ] },
+                        { id: 15, question: "Someone sends you a friend request from a person you don't know. You:", answers: [ { text: "Accept it. A new friend!", score: 2, feedback: "A new friend! Or a new scammer!" }, { text: "Ignore it.", score: 1, feedback: "The safe and wise choice." }, { text: "Analyze their profile for 20 minutes to see if you have any mutual friends.", score: 3, feedback: "The social media detective is on the case." } ] },
+                        { id: 16, question: "When a website asks you to 'accept cookies', you:", answers: [ { text: "Click 'accept all' without reading.", score: 1, feedback: "Living life on the digital wild side." }, { text: "Go into the settings to reject all non-essential cookies.", score: 3, feedback: "A true privacy advocate." }, { text: "Feel a little hungry.", score: 2, feedback: "A perfectly understandable reaction." } ] },
+                        { id: 17, question: "You want to watch a video, but it's 'not available in your country'. You:", answers: [ { text: "Give up and watch something else.", score: 1, feedback: "The law-abiding citizen." }, { text: "Use a VPN to change your location.", score: 3, feedback: "Hello, international spy." }, { text: "Complain about it on Twitter.", score: 2, feedback: "The voice of the people." } ] },
+                        { id: 18, question: "Your parents ask for help with their phone. You:", answers: [ { text: "Patiently help them for the 10th time.", score: 2, feedback: "You deserve a medal." }, { text: "Sigh loudly and say 'I've shown you this before!'", score: 1, feedback: "We feel your pain deeply." }, { text: "Install a remote access app so you can fix it from your own room.", score: 3, feedback: "The master of lazy efficiency." } ] },
+                        { id: 19, question: "What is a 'meme'?", answers: [ { text: "A funny picture or video on the internet.", score: 2, feedback: "You've got the basics down." }, { text: "The fundamental unit of culture.", score: 3, feedback: "The scholar has entered the chat." }, { text: "A type of French mime artist.", score: 1, feedback: "Close, but no imaginary box." } ] },
+                        { id: 20, question: "You have an old, slow laptop. You:", answers: [ { text: "Buy a new one.", score: 1, feedback: "The simple, expensive solution." }, { text: "Format it and install a lightweight version of Linux.", score: 3, feedback: "The system architect." }, { text: "Just complain about it every day but do nothing.", score: 2, feedback: "A time-honored tradition." } ] },
+                        { id: 21, question: "How many unread emails do you have?", answers: [ { text: "Zero. I'm a monster of organization.", score: 3, feedback: "Are you a wizard?" }, { text: "Maybe a few hundred.", score: 2, feedback: "A perfectly normal state of chaos." }, { text: "9999+. I've given up.", score: 1, feedback: "You have achieved email nirvana: total detachment." } ] },
+                        { id: 22, question: "You see someone using Internet Explorer. You:", answers: [ { text: "Silently judge them.", score: 2, feedback: "It's a universal reflex." }, { text: "Politely suggest they upgrade to a modern browser.", score: 3, feedback: "Doing the lord's work." }, { text: "Don't notice or care.", score: 1, feedback: "Live and let live." } ] },
+                        { id: 23, question: "How do you back up your photos?", answers: [ { text: "What's a backup?", score: 1, feedback: "You like to live dangerously." }, { text: "I have automatic cloud backup enabled.", score: 3, feedback: "The smart and responsible choice." }, { text: "I occasionally save them to my computer.", score: 2, feedback: "Better than nothing, for sure." } ] },
+                        { id: 24, question: "You hear the term 'blockchain'. You think:", answers: [ { text: "It's a new type of building block for kids.", score: 1, feedback: "An interesting, but incorrect, guess." }, { text: "It has something to do with cryptocurrency like Bitcoin.", score: 2, feedback: "You're in the right ballpark." }, { text: "'It's a decentralized, distributed ledger technology...'", score: 3, feedback: "Okay, we get it, you're a genius." } ] },
+                        { id: 25, question: "Your phone falls. Your heart stops for:", answers: [ { text: "The screen. Please be okay, screen.", score: 2, feedback: "The most expensive and fragile part." }, { text: "The data. Is my life's work still there?", score: 3, feedback: "My entire life is on that thing!" }, { text: "I have a thick, ugly case. I'm not worried.", score: 1, feedback: "The prepared one." } ] }
+                    ]
+                },
+                hi: {
+                    title: "टेक सेवी मीटर",
+                    subtitle: "क्या आप अभी भी सोचते हैं कि 'क्लाउड' सिर्फ आसमान में है? क्या आपका पासवर्ड 'password123' है? आइए जानें कि आप एक तकनीकी गुरु हैं या आपका राउटर आपसे डरता है!",
+                    name_placeholder: "अपना टेकी नाम दर्ज करें...",
+                    privacy_disclaimer: "आपकी ब्राउज़र हिस्ट्री हमारे पास सुरक्षित है। हम आपको 'पीडीएफ कैसे खोलें' गूगल करने के लिए जज नहीं करेंगे।",
+                    start_button: "मेरे कौशल को स्कैन करें!",
+                    calculating_text: "आपके लिए जवाब गूगल कर रहे हैं...",
+                    result_level_label: "आपका टेक सेवी स्तर",
+                    result_level_label_personalized: "{name} का टेक सेवी स्तर",
+                    share_results_label: "अपनी टेक रिपोर्ट साझा करें और एक प्रमाण पत्र प्राप्त करें!",
+                    restart_button: "मेरे कौशल को फिर से स्कैन करें!",
+                    disclaimer: "अस्वीकरण: यह क्विज़ मनोरंजन के लिए है। हम जिम्मेदार नहीं हैं यदि आपका परिवार अब आपसे उनके प्रिंटर को ठीक करने की उम्मीद करता है।",
+                    question_counter: "प्रश्न {current} / {total}",
+
+                    result_boomer_title: "टेक बूमर",
+                    result_boomer_desc: "{name}, आप और तकनीक सबसे अच्छे दोस्त नहीं हैं। आप शायद अभी भी सोचते हैं कि 'वायरस' कुछ ऐसा है जिसे आप ठंड लगने पर पकड़ते हैं। आपके बच्चे आपका व्यक्तिगत आईटी विभाग हैं।",
+                    result_tourist_title: "डिजिटल टूरिस्ट",
+                    result_tourist_desc: "{name}, आप मूल बातें जानते हैं। आप एक ईमेल भेज सकते हैं और व्हाट्सएप का उपयोग कर सकते हैं, लेकिन एक सॉफ्टवेयर अपडेट आपको हल्की घबराहट में डाल देता है। आप तकनीकी दुनिया का दौरा कर रहे हैं, उसमें रह नहीं रहे हैं।",
+                    result_surfer_title: "साइबर सर्फर",
+                    result_surfer_desc: "{name}, आप ऑनलाइन सहज हैं। आप अपने मीम्स, अपने ऐप्स और अपने शॉर्टकट जानते हैं। आप वह हैं जिनसे आपके दोस्त तकनीकी सलाह मांगते हैं (जब वे इसे बंद करने और चालू करने की कोशिश कर चुके होते हैं)।",
+                    result_god_title: "टेक गॉड",
+                    result_god_desc: "{name}, क्या तुम कोड में सपने देखते हो? तुमने शायद अपना खुद का फोन बनाया है। तुम तकनीकी रुझानों का पालन नहीं करते; तुम उन्हें सेट करते हो। हम तुम्हारे बेहतर ज्ञान को नमन करते हैं।",
+
+                    final_quote_boomer: "\"मैं इस तस्वीर को फिर से कैसे भेजूं?\"",
+                    final_quote_tourist: "\"क्या तुमने इसे बंद करके फिर से चालू करने की कोशिश की है?\"",
+                    final_quote_surfer: "\"इसके लिए एक ऐप है।\"",
+                    final_quote_god: "\"मुझे गूगल की जरूरत नहीं है। मैं गूगल हूँ।\"",
+                    
+                    funny_comments: {
+                        boomer: [
+                            "आप शायद हर वेबसाइट पते से पहले 'www' लिखते हैं।",
+                            "आपने एक मुद्रित तस्वीर पर ज़ूम इन करने की कोशिश की है उसे पिंच करके।",
+                            "आपका पासवर्ड आपके पालतू जानवर का नाम है, और आपको इस पर गर्व है।",
+                            "आप सोचते हैं कि 'क्लाउड' सिर्फ आसमान में एक रोएँदार सफेद चीज है।"
+                        ],
+                        tourist: [
+                            "आपके पास 50 टैब खुले हैं और आपको नहीं पता कि वे वहाँ कैसे पहुंचे।",
+                            "आप अभी भी व्हाट्सएप पर फूलों के साथ 'सुप्रभात' संदेश अग्रेषित करते हैं।",
+                            "आपने इस महीने कम से कम 10 बार अपने बच्चों से वाई-फाई ठीक करने के लिए कहा है।",
+                            "आप सोचते हैं कि एक क्यूआर कोड एक आधुनिक कला स्थापना है।"
+                        ],
+                        surfer: [
+                            "आप कीबोर्ड को देखे बिना टाइप कर सकते हैं। अधिकांश समय।",
+                            "आपको ठीक-ठीक पता है कि सही सेल्फी के लिए कौन सा फिल्टर इस्तेमाल करना है।",
+                            "आप अपने माता-पिता को मीम्स समझाते हैं, और वे अभी भी इसे नहीं समझते हैं।",
+                            "आपके अंगूठे में एक स्थायी स्क्रॉलिंग चोट है।"
+                        ],
+                        god: [
+                            "आपको वायरस नहीं लगते; वायरस आपको लगते हैं।",
+                            "आप शायद एक पेपरक्लिप से एक टूटे हुए अंतरिक्ष यान को ठीक कर सकते हैं।",
+                            "आपका वाई-फाई सिग्नल इतना मजबूत है कि आपके पड़ोसियों को मुफ्त इंटरनेट मिलता है।",
+                            "आप इस क्विज़ के उत्तरों को लेने से पहले ही जानते थे।"
+                        ]
+                    },
+
+                    journey_title: "आपका टेक सपोर्ट सर्टिफिकेट!",
+                    journey_subtitle: "आपने अपना स्कोर साझा किया! अब आप आधिकारिक तौर पर प्रमाणित हैं। एक पुरस्कार के रूप में, कृपया इस प्रमाण पत्र को स्वीकार करें, जिसे आप अगली बार जब आपके परिवार के सदस्य तकनीकी सहायता मांगें तो उन्हें दिखा सकते हैं।",
+                    go_back_button: "मेरे स्कोर पर वापस जाएं",
+
+                    explore_title: "आपका विश्लेषण अभी खत्म नहीं हुआ है!",
+                    explore_desc: "आपने अपने तकनीकी कौशल का ऑडिट किया है, लेकिन आपके बाकी प्रफुल्लित करने वाले व्यक्तित्व के बारे में क्या? आपका प्रेम जीवन, आपके गुस्से के मुद्दे... पर्सनैलिटी पाठशाला में आपके लिए मज़ेदार कैलकुलेटर की एक पूरी कक्षा है।",
+                    explore_button: "पर्सनैलिटी पाठशाला पर जाएँ",
+                    support_title: "यह क्विज़ पसंद आया? और बनाने में हमारी मदद करें!",
+                    support_desc: "आपका छोटा सा योगदान हमारी रचनात्मकता को चालू रखता है और हमें और मज़ा परोसने में मदद करता है।",
+                    
+                    questions: [
+                        { id: 1, question: "वाई-फाई काम करना बंद कर देता है। आपका पहला कदम है:", answers: [ { text: "राउटर को बंद करके फिर से चालू करें।", score: 2, feedback: "सार्वभौमिक समाधान! एक क्लासिक।" }, { text: "'वाई-फाई बंद हो गया!' चिल्लाएं और किसी और के इसे ठीक करने की प्रतीक्षा करें।", score: 1, feedback: "आह, क्लासिक 'किसी और पर दोष मढ़ने' की तकनीक।" }, { text: "कमांड प्रॉम्प्ट खोलें और गूगल को पिंग करना शुरू करें।", score: 3, feedback: "यहाँ एक असली हैकर है।" } ] },
+                        { id: 2, question: "'क्लाउड' क्या है?", answers: [ { text: "एक ऐसी जगह जहाँ डेटा इंटरनेट पर संग्रहीत होता है।", score: 2, feedback: "सही! आपका सिर क्लाउड में है।" }, { text: "आसमान में सफेद रोएँदार चीजें।", score: 1, feedback: "खैर, आप गलत नहीं हैं, लेकिन..." }, { text: "मेरा व्यक्तिगत हार्ड ड्राइव जिसे मैं हर जगह ले जाता हूँ।", score: 3, feedback: "आप ही क्लाउड हैं! इतना शक्तिशाली।" } ] },
+                        { id: 3, question: "आपको एक सॉफ्टवेयर अपडेट के लिए एक सूचना मिलती है। आप:", answers: [ { text: "इसे हफ्तों, शायद महीनों तक अनदेखा करें।", score: 1, feedback: "अगर यह टूटा नहीं है, तो इसे अपडेट न करें।" }, { text: "अपडेट करने का निर्णय लेने से पहले रिलीज नोट्स पढ़ें।", score: 2, feedback: "एक सतर्क उपयोगकर्ता। हम उसका सम्मान करते हैं।" }, { text: "नई सुविधाएँ प्राप्त करने के लिए तुरंत अपडेट करें।", score: 3, feedback: "अत्याधुनिक पर जीना!" } ] },
+                        { id: 4, question: "आपका कंप्यूटर धीमा चल रहा है। आप:", answers: [ { text: "आपके द्वारा खोले गए 50 टैब बंद करें।", score: 2, feedback: "एक टैब-ए-होलिक के लिए एक तार्किक पहला कदम।" }, { text: "बस इसे पुनरारंभ करें और सर्वश्रेष्ठ की उम्मीद करें।", score: 1, feedback: "क्लासिक 'इसे बंद करें और फिर से चालू करें' प्रार्थना।" }, { text: "यह जांचने के लिए कि कौन सी प्रक्रिया सभी रैम का उपयोग कर रही है, टास्क मैनेजर खोलें।", score: 3, feedback: "सिस्टम विश्लेषक आ गया है।" } ] },
+                        { id: 5, question: "आप एक दोस्त के साथ एक मजेदार वीडियो कैसे साझा करते हैं?", answers: [ { text: "उन्हें लिंक भेजें।", score: 2, feedback: "सरल, कुशल, प्रभावी।" }, { text: "जब आप उनसे मिलें तो उन्हें अपने फोन पर वीडियो दिखाएं।", score: 1, feedback: "पारंपरिक, व्यक्तिगत स्पर्श।" }, { text: "इसे डाउनलोड करें, इसे संपादित करें, और भेजने से पहले अपना खुद का वॉटरमार्क जोड़ें।", score: 3, feedback: "सामग्री निर्माता को कोई चिल नहीं है।" } ] },
+                        { id: 6, question: "'फ़िशिंग' ईमेल क्या है?", answers: [ { text: "मछली पकड़ने की यात्राओं के बारे में एक ईमेल।", score: 1, feedback: "बिल्कुल नहीं, लेकिन शनिवार के लिए एक अच्छा अनुमान है।" }, { text: "आपके पासवर्ड या व्यक्तिगत जानकारी को चुराने की कोशिश करने वाला एक नकली ईमेल।", score: 3, feedback: "सही! आपका पासवर्ड सुरक्षित है।" }, { text: "बहुत सारे टाइपो वाला एक ईमेल।", score: 2, feedback: "यह एक का एक बड़ा लाल झंडा है, निश्चित रूप से!" } ] },
+                        { id: 7, question: "आपके फोन का स्टोरेज भर गया है। आप:", answers: [ { text: "कुछ पुरानी तस्वीरें और ऐप हटा दें।", score: 2, feedback: "समझदार वसंत क्लीनर।" }, { text: "एक नया फोन खरीदें।", score: 1, feedback: "आह, 'पैसा कुछ भी हल कर सकता है' दृष्टिकोण।" }, { text: "सब कुछ क्लाउड पर अपलोड करें और अपना कैश साफ़ करें।", score: 3, feedback: "डेटा प्रबंधन का मास्टर।" } ] },
+                        { id: 8, question: "जब आप 'कुकीज़' सुनते हैं, तो आप सोचते हैं:", answers: [ { text: "स्वादिष्ट चॉकलेट चिप व्यवहार करता है।", score: 1, feedback: "सबसे स्वादिष्ट जवाब, लेकिन गलत।" }, { text: "छोटी फाइलें वेबसाइटें आपको ट्रैक करने के लिए आपके कंप्यूटर पर संग्रहीत करती हैं।", score: 3, feedback: "गोपनीयता विशेषज्ञ ने बात की है!" }, { text: "दोनों। और अब मुझे भूख लगी है।", score: 2, feedback: "संस्कृति और ज्ञान का व्यक्ति।" } ] },
+                        { id: 9, question: "आपको एक मजबूत पासवर्ड बनाने की आवश्यकता है। आप उपयोग करते हैं:", answers: [ { text: "आपके पालतू जानवर का नाम उसके बाद '123'।" , score: 1, feedback: "एक हैकर का सपना सच हो गया!" }, { text: "अक्षरों, संख्याओं और प्रतीकों का एक यादृच्छिक संयोजन।", score: 3, feedback: "फोर्ट नॉक्स में आप पर कुछ नहीं है।" }, { text: "हर चीज के लिए एक ही पासवर्ड, लेकिन यह एक अच्छा है।", score: 2, feedback: "धार पर जीवन जीना, मैं देख रहा हूँ।" } ] },
+                        { id: 10, question: "'RAM' का क्या अर्थ है?", answers: [ { text: "एक नर भेड़।", score: 1, feedback: "तकनीकी रूप से सही। सबसे अच्छा प्रकार का सही।" }, { text: "रैंडम एक्सेस मेमोरी।", score: 3, feedback: "बिंगो! आप अपना हार्डवेयर जानते हैं।" }, { text: "एक मैनुअल पढ़ें।", score: 2, feedback: "अच्छी सलाह, लेकिन जवाब नहीं।" } ] },
+                        { id: 11, question: "आप एक नया उपकरण स्थापित कर रहे हैं। निर्देश पुस्तिका है:", answers: [ { text: "शुरू से अंत तक पढ़ने के लिए।", score: 2, feedback: "प्रौद्योगिकी का एक मेहनती छात्र।" }, { text: "एक डगमगाती मेज के पैर को सहारा देने के लिए।", score: 1, feedback: "एक व्यावहारिक, यदि अनपेक्षित, उपयोग।" }, { text: "मुझे एक मैनुअल की आवश्यकता नहीं है। मैं इसके लिए पैदा हुआ था।", score: 3, feedback: "आपके मस्तिष्क में एक उपयोगकर्ता पुस्तिका के साथ पैदा हुआ।" } ] },
+                        { id: 12, question: "आप एक रेस्तरां में एक क्यूआर कोड देखते हैं। आप:", answers: [ { text: "जानते हैं कि यह मेनू के लिए है और इसे अपने फोन से स्कैन करें।", score: 2, feedback: "आधुनिक, कुशल डिनर।" }, { text: "वेटर से एक भौतिक मेनू मांगें।", score: 1, feedback: "परंपराओं को जीवित रखना।" }, { text: "इसके ब्लूटूथ से कनेक्ट करने का प्रयास करें।", score: 3, feedback: "रचनात्मक सोच के लिए अंक, भले ही यह गलत हो।" } ] },
+                        { id: 13, question: "आपका पसंदीदा कीबोर्ड शॉर्टकट है:", answers: [ { text: "शॉर्टकट क्या है?", score: 1, feedback: "ओह, आप बहुत कुछ खो रहे हैं!" }, { text: "Ctrl+C, Ctrl+V.", score: 2, feedback: "आधुनिक सभ्यता की नींव।" }, { text: "जब बॉस पास से गुजरता है तो चीजों को जल्दी से बंद करने के लिए Alt+F4।", score: 3, feedback: "परम 'बॉस आ रहा है' चाल।" } ] },
+                        { id: 14, question: "आपको एक दोस्त को एक बड़ी फ़ाइल भेजनी है। आप:", answers: [ { text: "इसे व्हाट्सएप पर भेजने की कोशिश करें और असफल रहें।", score: 1, feedback: "हम सबने वह दर्द महसूस किया है।" }, { text: "गूगल ड्राइव या WeTransfer का उपयोग करें।", score: 3, feedback: "कुशल और आधुनिक तरीका।" }, { text: "इसे एक पेन ड्राइव पर रखें और इसे मेल करें।", score: 2, feedback: "डाक सेवा आपकी सेवा के लिए आपको धन्यवाद देती है।" } ] },
+                        { id: 15, question: "कोई जिसे आप नहीं जानते उससे आपको एक फ्रेंड रिक्वेस्ट मिलती है। आप:", answers: [ { text: "इसे स्वीकार करें। एक नया दोस्त!", score: 2, feedback: "एक नया दोस्त! या एक नया स्कैमर!" }, { text: "इसे अनदेखा करें।", score: 1, feedback: "सुरक्षित और बुद्धिमान विकल्प।" }, { text: "यह देखने के लिए कि क्या आपके कोई आपसी दोस्त हैं, 20 मिनट के लिए उनके प्रोफ़ाइल का विश्लेषण करें।", score: 3, feedback: "सोशल मीडिया जासूस मामले पर है।" } ] },
+                        { id: 16, question: "जब कोई वेबसाइट आपसे 'कुकीज़ स्वीकार करें' के लिए कहती है, तो आप:", answers: [ { text: "बिना पढ़े 'सभी स्वीकार करें' पर क्लिक करें।", score: 1, feedback: "डिजिटल जंगली पक्ष पर जीना।" }, { text: "सभी गैर-आवश्यक कुकीज़ को अस्वीकार करने के लिए सेटिंग्स में जाएं।", score: 3, feedback: "एक सच्चा गोपनीयता पैरोकार।" }, { text: "थोड़ा भूखा महसूस करें।", score: 2, feedback: "एक पूरी तरह से समझने योग्य प्रतिक्रिया।" } ] },
+                        { id: 17, question: "आप एक वीडियो देखना चाहते हैं, लेकिन यह 'आपके देश में उपलब्ध नहीं है'।" , answers: [ { text: "हार मान लें और कुछ और देखें।", score: 1, feedback: "कानून का पालन करने वाला नागरिक।" }, { text: "अपना स्थान बदलने के लिए एक वीपीएन का उपयोग करें।", score: 3, feedback: "नमस्ते, अंतर्राष्ट्रीय जासूस।" }, { text: "इसके बारे में ट्विटर पर शिकायत करें।", score: 2, feedback: "लोगों की आवाज।" } ] },
+                        { id: 18, question: "आपके माता-पिता अपने फोन के साथ मदद मांगते हैं। आप:", answers: [ { text: "धैर्यपूर्वक 10 वीं बार उनकी मदद करें।", score: 2, feedback: "आप एक पदक के हकदार हैं।" }, { text: "जोर से आह भरें और कहें 'मैंने तुम्हें यह पहले दिखाया है!'", score: 1, feedback: "हम आपके दर्द को गहराई से महसूस करते हैं।" }, { text: "एक रिमोट एक्सेस ऐप इंस्टॉल करें ताकि आप इसे अपने कमरे से ठीक कर सकें।", score: 3, feedback: "आलसी दक्षता का मास्टर।" } ] },
+                        { id: 19, question: "'मीम' क्या है?", answers: [ { text: "इंटरनेट पर एक मजेदार तस्वीर या वीडियो।", score: 2, feedback: "आपने मूल बातें समझ ली हैं।" }, { text: "संस्कृति की मौलिक इकाई।", score: 3, feedback: "विद्वान चैट में प्रवेश कर चुका है।" }, { text: "एक प्रकार का फ्रांसीसी माइम कलाकार।", score: 1, feedback: "करीब, लेकिन कोई काल्पनिक बॉक्स नहीं।" } ] },
+                        { id: 20, question: "आपके पास एक पुराना, धीमा लैपटॉप है। आप:", answers: [ { text: "एक नया खरीदें।", score: 1, feedback: "सरल, महंगा समाधान।" }, { text: "इसे प्रारूपित करें और लिनक्स का एक हल्का संस्करण स्थापित करें।", score: 3, feedback: "सिस्टम वास्तुकार।" }, { text: "बस इसके बारे में हर दिन शिकायत करें लेकिन कुछ भी न करें।", score: 2, feedback: "एक समय-सम्मानित परंपरा।" } ] },
+                        { id: 21, question: "आपके पास कितने अपठित ईमेल हैं?", answers: [ { text: "शून्य। मैं संगठन का एक राक्षस हूँ।", score: 3, feedback: "क्या यह भी संभव है?" }, { text: "शायद कुछ सौ।", score: 2, feedback: "अराजकता की एक पूरी तरह से सामान्य स्थिति।" }, { text: "9999+। मैंने हार मान ली है।", score: 1, feedback: "आपने ईमेल निर्वाण प्राप्त कर लिया है: पूर्ण वैराग्य।" } ] },
+                        { id: 22, question: "आप किसी को इंटरनेट एक्सप्लोरर का उपयोग करते हुए देखते हैं। आप:", answers: [ { text: "चुपचाप उन्हें जज करें।", score: 2, feedback: "यह एक सार्वभौमिक प्रतिवर्त है।" }, { text: "विनम्रता से उन्हें एक आधुनिक ब्राउज़र में अपग्रेड करने का सुझाव दें।", score: 3, feedback: "प्रभु का कार्य करना।" }, { text: "नोटिस न करें या परवाह न करें।", score: 1, feedback: "जीयो और जीने दो।" } ] },
+                        { id: 23, question: "आप अपनी तस्वीरों का बैकअप कैसे लेते हैं?", answers: [ { text: "बैकअप क्या है?", score: 1, feedback: "आपको खतरनाक तरीके से जीना पसंद है।" }, { text: "मेरे पास स्वचालित क्लाउड बैकअप सक्षम है।", score: 3, feedback: "स्मार्ट और जिम्मेदार विकल्प।" }, { text: "मैं कभी-कभी उन्हें अपने कंप्यूटर पर सहेजता हूँ।", score: 2, feedback: "कुछ नहीं से बेहतर, निश्चित रूप से।" } ] },
+                        { id: 24, question: "आप 'ब्लॉकचेन' शब्द सुनते हैं। आप सोचते हैं:", answers: [ { text: "यह बच्चों के लिए एक नए प्रकार का बिल्डिंग ब्लॉक है।", score: 1, feedback: "एक दिलचस्प, लेकिन गलत, अनुमान।" }, { text: "इसका बिटकॉइन जैसी क्रिप्टोकरेंसी से कुछ लेना-देना है।", score: 2, feedback: "आप सही ballpark में हैं।" }, { text: "'यह एक विकेन्द्रीकृत, वितरित लेजर तकनीक है...'", score: 3, feedback: "ठीक है, हम समझ गए, आप एक प्रतिभाशाली हैं।" } ] },
+                        { id: 25, question: "आपका फोन गिरता है। आपका दिल रुक जाता है:", answers: [ { text: "स्क्रीन के लिए। कृपया ठीक हो जाओ, स्क्रीन।", score: 2, feedback: "सबसे महंगा और नाजुक हिस्सा।" }, { text: "डेटा के लिए। क्या मेरे जीवन का काम अभी भी वहाँ है?", score: 3, feedback: "मेरा पूरा जीवन उस चीज पर है!" }, { text: "मेरे पास एक मोटा, बदसूरत केस है। मुझे चिंता नहीं है।", score: 1, feedback: "तैयार।" } ] }
+                    ]
+                }
+            };
+            
+            // --- STATE MANAGEMENT & DOM ELEMENTS ---
+            let currentQuestionIndex = 0;
+            let userAnswers = {};
+            let currentLang = 'en';
+            let quizQuestions = [];
+            let userName = '';
+            const QUESTIONS_PER_QUIZ = 15;
+
+            const allLangElements = document.querySelectorAll('[data-lang-key]');
+            const langPlaceholderElements = document.querySelectorAll('[data-lang-placeholder]');
+            const languageToggle = document.getElementById('language-toggle');
+            const startScreen = document.getElementById('start-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const calculatingScreen = document.getElementById('calculating-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const journeyScreen = document.getElementById('journey-screen');
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const goBackBtn = document.getElementById('go-back-btn');
+            const backToMainBtn = document.getElementById('back-to-main-btn');
+            const nameInput = document.getElementById('name-input');
+            const questionContainer = document.getElementById('question-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const finalScoreEl = document.getElementById('final-score');
+            const resultTitleEl = document.getElementById('result-title');
+            const resultDescriptionEl = document.getElementById('result-description');
+            const finalQuoteEl = document.getElementById('final-quote');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const shareButtonsContainer = document.getElementById('share-buttons');
+            const exploreBtn = document.getElementById('explore-btn');
+
+            // --- LANGUAGE LOGIC ---
+            const updateLanguage = (lang) => {
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                document.documentElement.lang = lang;
+                
+                languageToggle.innerHTML = (lang === 'en') 
+                    ? `<i class="fa-solid fa-language mr-2"></i> हिन्दी`
+                    : `<i class="fa-solid fa-language mr-2"></i> English`;
+
+                allLangElements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    const value = getNestedValue(content[lang], key);
+                    if (value) el.innerHTML = value;
+                });
+                
+                langPlaceholderElements.forEach(el => {
+                    const key = el.dataset.langPlaceholder;
+                    const value = getNestedValue(content[lang], key);
+                    if(value) el.placeholder = value;
+                });
+            };
+
+            const getNestedValue = (obj, key) => key.split('.').reduce((acc, part) => acc && acc[part], obj);
+
+            // --- THEME LOGIC ---
+            const applyTheme = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIconDark.classList.remove('hidden');
+                    themeIconLight.classList.add('hidden');
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
+            applyTheme(isDarkMode);
+
+            // --- UI FUNCTIONS ---
+            const renderQuestion = () => {
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const q_id = quizQuestions[currentQuestionIndex];
+                    const q_data_en = content.en.questions.find(item => item.id === q_id);
+                    const q_lang = content[currentLang].questions.find(item => item.id === q_id);
+                    
+                    if(!q_data_en || !q_lang) {
+                        goHome();
+                        return;
+                    }
+
+                    const shuffledAnswers = [...q_lang.answers].sort(() => Math.random() - 0.5);
+
+                    let answersHTML = shuffledAnswers.map(answer => {
+                        return `
+                        <button data-score="${answer.score}" class="choice-btn w-full text-left p-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-blue-500 transition-colors duration-200">
+                            ${answer.text}
+                        </button>
+                    `}).join('');
+                    
+                    const counterText = content[currentLang].question_counter
+                        .replace('{current}', currentQuestionIndex + 1)
+                        .replace('{total}', QUESTIONS_PER_QUIZ);
+
+                    questionContainer.innerHTML = `
+                        <div class="fade-in">
+                            <p class="text-lg font-semibold dark-mode-subtext mb-4">${counterText}</p>
+                            <h2 class="text-2xl md:text-3xl font-bold dark-mode-text mb-8">${q_lang.question.replace(/{name}/g, `<strong>${userName}</strong>`)}</h2>
+                            <div class="flex flex-col items-center space-y-4">${answersHTML}</div>
+                        </div>
+                    `;
+                    feedbackContainer.innerHTML = '';
+                    updateProgressBar();
+                } else {
+                    showCalculatingScreen();
+                }
+            };
+            
+            const updateProgressBar = () => {
+                const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            };
+
+            // --- CORE LOGIC ---
+            const startQuiz = () => {
+                userName = nameInput.value.trim();
+                if (!userName) {
+                    userName = (currentLang === 'en') ? 'Techie' : 'टेकी';
+                }
+
+                let allQuestionIds = content.en.questions.map(q => q.id);
+                allQuestionIds.sort(() => Math.random() - 0.5);
+                quizQuestions = allQuestionIds.slice(0, QUESTIONS_PER_QUIZ);
+                currentQuestionIndex = 0;
+                userAnswers = {};
+
+                startScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    startScreen.classList.add('hidden');
+                    startScreen.classList.remove('fade-out');
+                    quizScreen.classList.remove('hidden');
+                    quizScreen.classList.add('fade-in');
+                    progressContainer.classList.remove('hidden');
+                    backToMainBtn.classList.remove('hidden');
+                    renderQuestion();
+                }, 500);
+            };
+
+            const handleAnswer = (e) => {
+                const selectedBtn = e.target.closest('.choice-btn');
+                if (!selectedBtn) return;
+
+                const score = parseInt(selectedBtn.dataset.score);
+                const question_id = quizQuestions[currentQuestionIndex];
+                const question_data_lang = content[currentLang].questions.find(item => item.id === question_id);
+                
+                const answer_data_lang = question_data_lang.answers.find(a => a.score === score);
+                if (answer_data_lang) {
+                    feedbackContainer.innerHTML = `<p class="fade-in font-semibold text-lg text-teal-600 dark:text-teal-400">${answer_data_lang.feedback}</p>`;
+                }
+
+                userAnswers[question_id] = score;
+                
+                questionContainer.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn !== selectedBtn) {
+                        btn.classList.add('opacity-50');
+                    } else {
+                        btn.classList.add('ring-4', 'ring-blue-400');
+                    }
+                });
+                
+                setTimeout(() => {
+                    if (questionContainer.firstElementChild) {
+                        questionContainer.firstElementChild.classList.replace('fade-in', 'fade-out');
+                    }
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    }, 500);
+                }, 1800);
+            };
+
+            const showCalculatingScreen = () => {
+                quizScreen.classList.add('fade-out');
+                progressContainer.classList.add('hidden');
+                backToMainBtn.classList.add('hidden');
+                setTimeout(() => {
+                    quizScreen.classList.add('hidden');
+                    quizScreen.classList.remove('fade-out');
+                    calculatingScreen.classList.remove('hidden');
+                    calculatingScreen.classList.add('fade-in');
+                    const calculatingTexts = [
+                        content[currentLang].calculating_text, 
+                        (currentLang === 'en' ? "Defragmenting your brain..." : "आपके मस्तिष्क को डीफ़्रेग्मेंट किया जा रहा है..."),
+                        (currentLang === 'en' ? "Installing latest updates..." : "नवीनतम अपडेट इंस्टॉल हो रहे हैं...")
+                    ];
+                    document.getElementById('calculating-text').innerText = calculatingTexts[Math.floor(Math.random()*calculatingTexts.length)];
+                    setTimeout(showResults, 2500);
+                }, 500);
+            }
+            
+            const showResults = (isThemeOrLangUpdate = false) => {
+                if (!isThemeOrLangUpdate) {
+                     calculatingScreen.classList.add('fade-out');
+                     setTimeout(() => {
+                        calculatingScreen.classList.add('hidden');
+                        calculatingScreen.classList.remove('fade-out');
+                        resultsScreen.classList.remove('hidden');
+                        resultsScreen.classList.add('slide-up');
+                        calculateAndDisplayScores();
+                    }, 500);
+                } else {
+                    calculateAndDisplayScores();
+                }
+            };
+
+            const calculateAndDisplayScores = () => {
+                let totalScore = 0;
+                Object.values(userAnswers).forEach(score => {
+                    totalScore += score;
+                });
+
+                const minPossibleScore = QUESTIONS_PER_QUIZ * 1;
+                const maxPossibleScore = QUESTIONS_PER_QUIZ * 3;
+                const scoreRange = maxPossibleScore - minPossibleScore;
+                const userScoreOffset = totalScore - minPossibleScore;
+
+                let techSavvyPercentage = 0;
+                if (scoreRange > 0) {
+                    techSavvyPercentage = Math.round((userScoreOffset / scoreRange) * 100);
+                }
+                
+                finalScoreEl.classList.remove('score-reveal');
+                void finalScoreEl.offsetWidth; // Trigger reflow
+                finalScoreEl.classList.add('score-reveal');
+
+                let startValue = 0;
+                const duration = 1200;
+                const endValue = techSavvyPercentage;
+                const startTime = performance.now();
+
+                function animateCountUp(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    if (elapsedTime < duration) {
+                        const progress = elapsedTime / duration;
+                        const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+                        const currentValue = Math.round(startValue + (endValue - startValue) * easedProgress);
+                        finalScoreEl.textContent = `${currentValue}%`;
+                        requestAnimationFrame(animateCountUp);
+                    } else {
+                        finalScoreEl.textContent = `${endValue}%`;
+                    }
+                }
+                requestAnimationFrame(animateCountUp);
+
+                let resultKey;
+                if (techSavvyPercentage <= 25) resultKey = 'boomer';
+                else if (techSavvyPercentage <= 50) resultKey = 'tourist';
+                else if (techSavvyPercentage <= 75) resultKey = 'surfer';
+                else resultKey = 'god';
+                
+                finalQuoteEl.dataset.resultKey = resultKey;
+                document.getElementById('certificate-name').textContent = userName;
+
+                const personalizedLabel = content[currentLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+
+                resultTitleEl.textContent = content[currentLang][`result_${resultKey}_title`];
+                resultDescriptionEl.innerHTML = content[currentLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                finalQuoteEl.textContent = content[currentLang][`final_quote_${resultKey}`];
+                
+                displayFunnyComments(resultKey);
+                updateShareLinks(techSavvyPercentage, content[currentLang][`result_${resultKey}_title`]);
+            };
+
+            const startBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                stopBackgroundAnimations();
+                
+                const emojis = ['💻', '📱', '💡', '😂', '🤖', '🚀', '🧠'];
+                const numEmojis = 25;
+
+                for (let i = 0; i < numEmojis; i++) {
+                    const emoji = document.createElement('span');
+                    emoji.className = 'floating-emoji';
+                    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    emoji.style.left = `${Math.random() * 100}vw`;
+                    emoji.style.fontSize = `${1 + Math.random() * 2}rem`;
+                    const duration = 8 + Math.random() * 10;
+                    const delay = Math.random() * 7;
+                    const translateX = `${(Math.random() - 0.5) * 200}px`;
+                    const rotate = `${(Math.random() - 0.5) * 720}deg`;
+                    
+                    emoji.style.setProperty('--translateX', translateX);
+                    emoji.style.setProperty('--rotate', rotate);
+                    emoji.style.animation = `floatUp ${duration}s ease-in ${delay}s infinite`;
+                    
+                    container.appendChild(emoji);
+                }
+            };
+
+            const stopBackgroundAnimations = () => {
+                const container = document.getElementById('animation-container');
+                if (container) {
+                    container.innerHTML = '';
+                }
+            };
+
+            const typewriter = (element, text, callback) => {
+                let i = 0;
+                const speed = 40; // milliseconds per character
+                const originalHTML = element.innerHTML;
+                element.innerHTML = originalHTML + '<span class="typing-text"></span><span class="typing-cursor border-l-2 border-blue-500 h-6 inline-block align-middle">&nbsp;</span>';
+                const textSpan = element.querySelector('.typing-text');
+                const cursorSpan = element.querySelector('.typing-cursor');
+                
+                function type() {
+                    if (i < text.length) {
+                        textSpan.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        if(cursorSpan) {
+                           cursorSpan.style.display = 'none';
+                        }
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+
+            const displayFunnyComments = (resultKey) => {
+                const commentsContainer = document.getElementById('funny-comments-container');
+                if (!commentsContainer) return;
+                commentsContainer.innerHTML = '';
+                const commentsPool = content[currentLang].funny_comments[resultKey] || [];
+                
+                const shuffledComments = [...commentsPool].sort(() => 0.5 - Math.random());
+                const selectedComments = shuffledComments.slice(0, 3);
+
+                let commentIndex = 0;
+
+                function typeNextComment() {
+                    if (commentIndex < selectedComments.length) {
+                        const commentText = selectedComments[commentIndex];
+                        
+                        const card = document.createElement('div');
+                        card.className = 'funny-comment-card bg-blue-100 dark:bg-gray-800 p-4 rounded-lg mb-4 text-gray-700 dark:text-blue-300 italic shadow-md';
+                        
+                        const p = document.createElement('p');
+                        p.innerHTML = `<i class="fa-solid fa-quote-left mr-2 text-blue-500"></i> `;
+                        card.appendChild(p);
+
+                        card.style.animationDelay = `0.2s`;
+                        
+                        commentsContainer.appendChild(card);
+                        
+                        setTimeout(() => {
+                            typewriter(p, commentText, () => {
+                                commentIndex++;
+                                setTimeout(typeNextComment, 800); 
+                            });
+                        }, 600);
+                    }
+                }
+                
+                startBackgroundAnimations();
+                typeNextComment();
+            };
+
+
+            const updateShareLinks = (percentage, title) => {
+                const text = encodeURIComponent(`My Tech Savvy Score is ${percentage}%! Turns out I'm a "${title}". Find out how techy you are:`);
+                const url = encodeURIComponent(window.location.href);
+                
+                document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                document.getElementById('telegram-share').href = `https://t.me/share/url?url=${url}&text=${text}`;
+                document.getElementById('instagram-share').href = `https://www.instagram.com/`;
+            };
+            
+            const goHome = () => {
+                stopBackgroundAnimations();
+                [quizScreen, resultsScreen, journeyScreen, progressContainer, backToMainBtn, calculatingScreen].forEach(el => el.classList.add('hidden'));
+                startScreen.classList.remove('hidden', 'fade-out');
+                startScreen.classList.add('fade-in');
+                nameInput.value = '';
+                currentQuestionIndex = 0;
+                userAnswers = {};
+                quizQuestions = [];
+                progressBar.style.width = '0%';
+            };
+
+            const showJourneyScreen = (e) => {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                resultsScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    resultsScreen.classList.add('hidden');
+                    resultsScreen.classList.remove('fade-out');
+                    journeyScreen.classList.remove('hidden');
+                    journeyScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            const showResultsScreenFromJourney = () => {
+                journeyScreen.classList.add('fade-out');
+                 setTimeout(() => {
+                    journeyScreen.classList.add('hidden');
+                    journeyScreen.classList.remove('fade-out');
+                    resultsScreen.classList.remove('hidden');
+                    resultsScreen.classList.add('slide-up');
+                }, 500);
+            };
+
+            // --- EVENT LISTENERS ---
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', goHome);
+            backToMainBtn.addEventListener('click', goHome);
+            goBackBtn.addEventListener('click', showResultsScreenFromJourney);
+            quizScreen.addEventListener('click', handleAnswer);
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+                if (!resultsScreen.classList.contains('hidden')) { showResults(true); }
+            });
+            languageToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'hi' : 'en';
+                updateLanguage(newLang);
+                if (!quizScreen.classList.contains('hidden') || !calculatingScreen.classList.contains('hidden')) { 
+                    goHome();
+                } else if (!resultsScreen.classList.contains('hidden')) {
+                    const resultKey = finalQuoteEl.dataset.resultKey;
+                    const personalizedLabel = content[newLang].result_level_label_personalized.replace('{name}', `<strong>${userName}</strong>`);
+                    document.querySelector('#results-screen [data-lang-key="result_level_label"]').innerHTML = personalizedLabel;
+                    resultTitleEl.textContent = content[newLang][`result_${resultKey}_title`];
+                    resultDescriptionEl.innerHTML = content[newLang][`result_${resultKey}_desc`].replace(/{name}/g, `<strong>${userName}</strong>`);
+                    finalQuoteEl.textContent = content[newLang][`final_quote_${resultKey}`];
+                    displayFunnyComments(resultKey);
+                }
+            });
+
+            // Initial Load
+            const savedLang = localStorage.getItem('language') || 'en';
+            updateLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>

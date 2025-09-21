@@ -107,11 +107,10 @@
                     <!-- Contact Form -->
                     <div>
                         <h2 class="text-2xl font-bold text-gray-800 mb-6">Send Us a Message</h2>
-                        <!-- FIXED FORM with thankyou.html redirect -->
-                        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="thankyou.html" class="space-y-6">
+                        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-6" id="contactForm">
                             <input type="hidden" name="form-name" value="contact" />
                             <p class="hidden">
-                                <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+                                <label>Do not fill this out if you are human: <input name="bot-field" /></label>
                             </p>
                             <div>
                                 <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
@@ -227,6 +226,25 @@
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
+            });
+        });
+    </script>
+
+    <script>
+        // Handle form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = this;
+            
+            fetch('/', {
+                method: 'POST',
+                body: new FormData(form),
+            })
+            .then(() => {
+                window.location.href = 'thankyou.html';
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
         });
     </script>

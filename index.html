@@ -324,19 +324,6 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
-        .loading-bar {
-            height: 4px;
-            width: 100%;
-            background: linear-gradient(to right, #8b5cf6, #ec4899, #f59e0b);
-            background-size: 200% 200%;
-            animation: loading 1.5s infinite ease-in-out, text-gradient-animation 3s infinite ease;
-        }
-        
-        @keyframes loading {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
         .featured-container {
             position: relative;
             overflow: hidden;
@@ -389,27 +376,9 @@
         gtag('js', new Date());
         gtag('config', 'G-XXXXXXXXXX');
     </script>
-    <script type="text/javascript">
-	atOptions = {
-		'key' : '328a745c04713d6c6bcf893afedf335a',
-		'format' : 'iframe',
-		'height' : 250,
-		'width' : 300,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/328a745c04713d6c6bcf893afedf335a/invoke.js"></script>
 </head>
 
 <body class="bg-slate-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
-
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="fixed inset-0 bg-white dark:bg-gray-900 z-50 flex flex-col items-center justify-center">
-        <div class="w-64 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-            <div class="loading-bar"></div>
-        </div>
-        <p class="mt-4 text-gray-600 dark:text-gray-400" data-lang-key="loading_text">Loading fun quizzes...</p>
-    </div>
 
     <!-- Header -->
     <header id="main-header" class="sticky top-0 z-30 bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl transition-shadow duration-300">
@@ -549,6 +518,12 @@
             </div>
         </section>
 
+        <!-- Native Ad Section -->
+        <section class="my-12 flex justify-center">
+             <script async="async" data-cfasync="false" src="//pl27726613.revenuecpmgate.com/4c2ecba60cb3572187d275e2c6f9f677/invoke.js"></script>
+            <div id="container-4c2ecba60cb3572187d275e2c6f9f677"></div>
+        </section>
+        
         <!-- Calculators Grid -->
         <section class="scroll-animate">
             <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10" data-lang-key="grid_title">Pick Your Paath (Path)!</h2>
@@ -612,8 +587,22 @@
             </div>
         </section>
 
-        <!-- Add this section before the footer or wherever you want it to appear -->
+        <!-- Banner Ad Section -->
+        <section class="my-12 flex justify-center">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '328a745c04713d6c6bcf893afedf335a',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/328a745c04713d6c6bcf893afedf335a/invoke.js"></script>
+        </section>
 
+
+        <!-- Explore Other Websites Section -->
         <section class="my-16 scroll-animate">
             <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12 gradient-text">Explore Our Other Websites</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -882,7 +871,6 @@
             const surpriseBtn = document.getElementById('surprise-btn');
             const mainHeader = document.getElementById('main-header');
             const backToTopButton = document.getElementById('back-to-top');
-            const loadingScreen = document.getElementById('loading-screen');
             const userCountElement = document.getElementById('user-count');
 
             const renderCalculators = (lang, category = 'all') => {
@@ -1085,16 +1073,8 @@
             handleScrollAnimations();
             simulateUserCount();
             
-            // Hide loading screen after content is loaded
-            setTimeout(() => {
-                loadingScreen.style.opacity = '0';
-                setTimeout(() => {
-                    loadingScreen.style.display = 'none';
-                }, 500);
-            }, 1500);
         });
     </script>
 </body>
 
 </html>
-

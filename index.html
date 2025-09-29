@@ -88,6 +88,7 @@
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden; /* Prevent horizontal scroll from breaking layout */
         }
 
         /* --- Backgrounds & Themes --- */
@@ -367,7 +368,6 @@
             color: #a78bfa;
         }
     </style>
-     
 </head>
 
 <body class="bg-slate-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
@@ -511,8 +511,7 @@
         </section>
 
         <!-- Native Ad Section -->
-        <!-- FIX: Added w-full and overflow-hidden to contain the ad and prevent layout breaking on mobile -->
-        <section class="my-12 w-full overflow-hidden flex justify-center">
+        <section class="my-12 flex justify-center">
              <script async="async" data-cfasync="false" src="//pl27726613.revenuecpmgate.com/4c2ecba60cb3572187d275e2c6f9f677/invoke.js"></script>
             <div id="container-4c2ecba60cb3572187d275e2c6f9f677"></div>
         </section>
@@ -581,8 +580,7 @@
         </section>
 
         <!-- Banner Ad Section -->
-        <!-- FIX: Added w-full and overflow-hidden to contain the ad and prevent layout breaking on mobile -->
-        <section class="my-12 w-full overflow-hidden flex justify-center">
+        <section class="my-12 flex justify-center">
             <script type="text/javascript">
                 atOptions = {
                     'key' : '328a745c04713d6c6bcf893afedf335a',
@@ -1072,4 +1070,3 @@
 </body>
 
 </html>
-

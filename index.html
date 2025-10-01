@@ -20,7 +20,7 @@
 <link rel="manifest" href="/site.webmanifest">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personality Paathshala - Funny Global & Indian Personality accessments</title>
+    <title>Personality Paathshala - Funny Indian Personality Quizzes & Tests</title>
     
     <!--
       IMPORTANT: This file must be saved with UTF-8 encoding for the 
@@ -32,26 +32,26 @@
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤔</text></svg>">
 
     <!-- SEO Meta Tags - Enhanced -->
-    <meta name="description" content="Free personality accessments in Hindi & English. Discover your true self with fun tests like Bhukkad-o-Meter, Drama Queen test, and more!">
-    <meta name="keywords" content="personality test, funny accessments, Global and Indian accessment, Hindi accessment, English quiz, free personality test, Bhukkad-o-Meter, Drama Queen test, Desi quiz">
+    <meta name="description" content="Free Indian personality accessments in Hindi & English. Discover your true self with fun tests like Bhukkad-o-Meter, Drama Queen test, and more!">
+    <meta name="keywords" content="personality test, funny accessments, Indian accessment, Hindi accessment, English quiz, free personality test, Bhukkad-o-Meter, Drama Queen test, Desi quiz">
     <meta name="author" content="Personality Paathshala">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://ppscore.co.in/">
 
     <!-- Open Graph Meta Tags for Social Sharing - Enhanced -->
-    <meta property="og:title" content="Personality Paathshala - Free Funny Personality Tests" />
-    <meta property="og:description" content="Discover your true personality with the funniest Tests! Take accessments in Hindi & English and share with friends." />
+    <meta property="og:title" content="Personality Paathshala - Free Funny Indian Personality Tests" />
+    <meta property="og:description" content="Discover your true personality with the funniest Indian Tests! Take tests in Hindi & English and share with friends." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ppscore.co.in/" />
-    <meta property="og:image" content="https://ppscore.co.in/images/og-image.jpg" />
-    <meta property="og:image:alt" content="Personality Paathshala - Fun loaded Personality Tests" />
+    <meta property="og:url" content="https://https://ppscore.co.in/" />
+    <meta property="og:image" content="https://https://ppscore.co.in/images/og-image.jpg" />
+    <meta property="og:image:alt" content="Personality Paathshala - Fun Indian Personality Tests" />
     <meta property="og:site_name" content="Personality Paathshala" />
 
     <!-- Twitter Card Meta Tags - Enhanced -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Personality Paathshala - Funny Personality Tests">
-    <meta name="twitter:description" content="Discover your true personality with the funniest tests! Take accessments in Hindi & English and share with friends.">
-    <meta name="twitter:image" content="https://ppscore.co.in/images/twitter-image.jpg">
+    <meta name="twitter:title" content="Personality Paathshala - Funny Indian Personality Tests">
+    <meta name="twitter:description" content Discover your true personality with the funniest Indian tests! Take tests in Hindi & English and share with friends.">
+    <meta name="twitter:image" content="https://https://ppscore.co.in/images/twitter-image.jpg">
     <meta name="twitter:creator" content="@personalitypaathshala">
 
     <!-- JSON-LD Structured Data for SEO - Enhanced -->
@@ -60,11 +60,11 @@
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "Personality Paathshala",
-      "url": "https://ppscore.co.in/",
-      "description": "Discover your true personality with the funniest and most relatable personality tests! Take hilarious tests in Hindi and English on everything from being a foodie to a drama queen.",
+      "url": "https://https://ppscore.co.in/",
+      "description": "Discover your true personality with the funniest and most relatable Indian personality tests! Take hilarious tests in Hindi and English on everything from being a foodie to a drama queen.",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://ppscore.co.in/search?q={search_term_string}",
+        "target": "https://https://ppscore.co.in/search?q={search_term_string}",
         "query-input": "required name=search_term_string"
       }
     }
@@ -83,6 +83,9 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -194,6 +197,7 @@
             box-shadow: 0 4px 20px -2px rgba(139, 92, 246, 0.2);
             border-color: #a78bfa;
         }
+
         /* "Surprise Me" button */
         .surprise-btn {
             animation: pulse-glow 3s infinite ease-in-out;
@@ -231,6 +235,16 @@
         /* Filter Buttons */
         .filter-btn { transition: all 0.2s ease-in-out; }
         .filter-btn.active { box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.3); }
+        
+        /* Ad placeholder styling */
+        .ad-placeholder {
+            border: 2px dashed #e2e8f0;
+            background-color: rgba(241, 245, 249, 0.5);
+        }
+        .dark .ad-placeholder {
+            border-color: #334155;
+            background-color: rgba(30, 41, 59, 0.3);
+        }
 
         /* Social Share Colors */
         .whatsapp-btn { background-color: #25D366; }
@@ -324,6 +338,19 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
+        .loading-bar {
+            height: 4px;
+            width: 100%;
+            background: linear-gradient(to right, #8b5cf6, #ec4899, #f59e0b);
+            background-size: 200% 200%;
+            animation: loading 1.5s infinite ease-in-out, text-gradient-animation 3s infinite ease;
+        }
+        
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
         .featured-container {
             position: relative;
             overflow: hidden;
@@ -379,6 +406,14 @@
 </head>
 
 <body class="bg-slate-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-white dark:bg-gray-900 z-50 flex flex-col items-center justify-center">
+        <div class="w-64 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+            <div class="loading-bar"></div>
+        </div>
+        <p class="mt-4 text-gray-600 dark:text-gray-400" data-lang-key="loading_text">Loading fun quizzes...</p>
+    </div>
 
     <!-- Header -->
     <header id="main-header" class="sticky top-0 z-30 bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl transition-shadow duration-300">
@@ -518,12 +553,12 @@
             </div>
         </section>
 
-        <!-- Native Ad Section -->
-        <section class="my-4 flex justify-center">
+        <!-- Top Ad Placeholder -->
+        <div class="w-full max-w-4xl mx-auto mb-16 h-24 ad-placeholder flex items-center justify-center rounded-lg scroll-animate">
             <script async="async" data-cfasync="false" src="//pl27726613.revenuecpmgate.com/4c2ecba60cb3572187d275e2c6f9f677/invoke.js"></script>
             <div id="container-4c2ecba60cb3572187d275e2c6f9f677"></div>
-        </section>
-        
+        </div>
+
         <!-- Calculators Grid -->
         <section class="scroll-animate">
             <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10" data-lang-key="grid_title">Pick Your Paath (Path)!</h2>
@@ -533,23 +568,21 @@
                 <!-- Filter buttons dynamically inserted -->
             </div>
             
-            <div class="category-header">
-                <h3 class="text-2xl font-bold dark:text-slate-100" data-lang-key="popular_accessments">Most Popular accessments</h3>
+            <div id="calculators-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-16">
+                <!-- All Accessments will be dynamically inserted here -->
             </div>
             
-            <div id="featured-quizzes" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                <!-- Popular quizzes will be inserted here -->
+            <div class="text-center mt-12">
+                <button id="load-more" class="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 font-semibold py-3 px-8 rounded-full hover:bg-indigo-200 dark:hover:bg-indigo-800/50 transition-colors">
+                    <span data-lang-key="load_more">Load More Accessments</span> <i class="fas fa-chevron-down ml-2"></i>
+                </button>
             </div>
-            
-            <div class="category-header">
-                <h3 class="text-2xl font-bold dark:text-slate-100" data-lang-key="all_quizzes">All Accessments</h3>
-            </div>
-            
-            <div id="calculators-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <!-- Calculator cards dynamically inserted -->
-            </div>
-            
         </section>
+
+        <!-- Mid Ad Placeholder -->
+        <div class="w-full max-w-4xl mx-auto my-20 h-48 ad-placeholder flex items-center justify-center rounded-lg scroll-animate">
+            <span class="text-gray-400 dark:text-gray-500" data-lang-key="ad_placeholder_2">In-Content Ad Placeholder</span>
+        </div>
 
         <!-- FAQ Section for SEO -->
         <section class="my-16 scroll-animate">
@@ -587,23 +620,47 @@
             </div>
         </section>
 
-        <!-- Banner Ad Section -->
-        <section class="my-12 flex justify-center">
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '328a745c04713d6c6bcf893afedf335a',
-                    'format' : 'iframe',
-                    'height' : 250,
-                    'width' : 300,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/328a745c04713d6c6bcf893afedf335a/invoke.js"></script>
-        </section>
+        <!-- Add this section before the footer or wherever you want it to appear -->
 
-     
+        <section class="my-16 scroll-animate">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12 gradient-text">Explore Our Other Websites</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Website 1 -->
+                <a href="https://electrosafe.homes" target="_blank" class="block bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 p-6 text-center">
+                    <div class="text-6xl mb-4">⚡</div>
+                    <h3 class="text-xl font-bold mb-2">ElectroSafe Homes</h3>
+                    <p class="text-sm">Scan any electrical item of your home to get instant AI safety tips and solutions.</p>
+                </a>
+                <!-- Website 2 -->
+                <a href="https://designcalculators.co.in" target="_blank" class="block bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 p-6 text-center">
+                    <div class="text-6xl mb-4">📐</div>
+                    <h3 class="text-xl font-bold mb-2">Design Calculators</h3>
+                    <p class="text-sm">Simplify your design calculations with our powerful tools.</p>
+                </a>
+                <!-- Website 3 -->
+                <a href="https://toolboxtalk.com" target="_blank" class="block bg-gradient-to-r from-green-500 to-amber-500 text-white rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 p-6 text-center">
+                    <div class="text-6xl mb-4">🛠️</div>
+                    <h3 class="text-xl font-bold mb-2">Toolbox Talk</h3>
+                    <p class="text-sm">Any industry, any department, any activity - Generate instant AI safety talks and resources for your workplace.</p>
+                </a>
+            </div>
+        </section>
     </main>
     
+    <!-- Bottom Ad Placeholder -->
+    <div class="w-full max-w-4xl mx-auto my-8 h-24 ad-placeholder flex items-center justify-center rounded-lg scroll-animate">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '328a745c04713d6c6bcf893afedf335a',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/328a745c04713d6c6bcf893afedf335a/invoke.js"></script>
+    </div>
+
     <!-- Back to Top Button -->
     <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-lg transform scale-0 opacity-0 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:bg-indigo-700 dark:focus:ring-offset-slate-900 z-40">
         <i class="fas fa-arrow-up"></i>
@@ -615,7 +672,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
                     <h4 class="font-bold text-lg mb-4 dark:text-slate-100">Personality Paathshala</h4>
-                    <p class="text-gray-600 dark:text-slate-200 mb-4" data-lang-key="footer_desc">Fun and free personality accessments for Global and Indian audience.</p>
+                    <p class="text-gray-600 dark:text-slate-200 mb-4" data-lang-key="footer_desc">Fun and free personality accessments for the Indian audience.</p>
                     <div class="flex space-x-4">
                         <a href="https://ppscore.co.in" class="text-gray-500 hover:text-indigo-500 dark:hover:text-indigo-400"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://ppscore.co.in" class="text-gray-500 hover:text-indigo-500 dark:hover:text-indigo-400"><i class="fab fa-instagram"></i></a>
@@ -626,21 +683,21 @@
                 <div>
                     <h4 class="font-bold text-lg mb-4 dark:text-slate-100" data-lang-key="footer_links">Quick Links</h4>
                     <ul class="space-y-2">
-                        <li><a href="index.html" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400" data-lang-key="footer_home">Home</a></li>
-                        <li><a href="aboutus.html" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400" data-lang-key="footer_about">About Us</a></li>
-                        <li><a href="contactus.html" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400" data-lang_key="footer_contact">Contact</a></li>
-                        <li><a href="privacy.html" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400" data-lang-key="footer_privacy">Privacy Policy</a></li>
-                        <li><a href="termsofservice.html" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400" data-lang-key="footer_terms">Terms of Service</a></li>
+                        <li><a href="https://ppscore.co.in" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400" data-lang-key="footer_home">Home</a></li>
+                        <li><a href="https://ppscore.co.in" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400" data-lang-key="footer_about">About Us</a></li>
+                        <li><a href="https://ppscore.co.in" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400" data-lang_key="footer_contact">Contact</a></li>
+                        <li><a href="https://ppscore.co.in/privacy.html" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400" data-lang-key="footer_privacy">Privacy Policy</a></li>
+                        <li><a href="https://ppscore.co.in/termsofservice.html" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400" data-lang-key="footer_terms">Terms of Service</a></li>
                         <li><a href="sitemap.html" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400" data-lang-key="footer_sitemap">Site Map</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-bold text-lg mb-4 dark:text-slate-100" data-lang-key="footer_popular">Popular accessments</h4>
                     <ul class="space-y-2">
-                        <li><a href="https://ppscore.netlify.app/Bhukkad.html" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400">Bhukkad-o-Meter</a></li>
-                        <li><a href="https://ppscore.netlify.app/Drama.html" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400">Drama Queen Test</a></li>
-                        <li><a href="https://ppscore.netlify.app/Filmy.html" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400">Filmy-Meter</a></li>
-                        <li><a href="https://ppscore.netlify.app/Alsi.html" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400">Alsi-Meter</a></li>
+                        <li><a href="https://ppscore.co.in/Bhukkad.html" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400">Bhukkad-o-Meter</a></li>
+                        <li><a href="https://ppscore.co.in/Drama.html" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400">Drama Queen Test</a></li>
+                        <li><a href="https://ppscore.co.in/Filmy.html" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400">Filmy-Meter</a></li>
+                        <li><a href="https://ppscore.co.in/Alsi.html" class="text-gray-600 hover:text-indigo-500 dark:text-slate-200 dark:hover:text-indigo-400">Alsi-Meter</a></li>
                     </ul>
                 </div>
                 <div>
@@ -655,6 +712,9 @@
                 </div>
             </div>
             
+    
+    
+
             <div class="border-t border-gray-200 dark:border-slate-700 mt-8 pt-8 text-center">
                 <p class="text-sm text-gray-500 dark:text-slate-200 mb-2" data-lang-key="disclaimer_title"><strong>Disclaimer:</strong> All accessments on this website are for entertainment purposes only.</p>
                 <p class="text-xs text-gray-500 dark:text-slate-200">&copy; 2025 Personality Paathshala by D&M. All Rights Reserved.</p>
@@ -682,6 +742,9 @@
                     value_2_desc: "We're the world's first platform for light-hearted self-discovery. No clinical tension, just hilarious \"that's so me!\" moments.",
                     value_3_title: "Know Yourself, Grow Yourself",
                     value_3_desc: "To improve, you must first know yourself. Our accessment are the hilarious first step on your journey to becoming a better you.",
+                    ad_placeholder: "Top Ad Placeholder",
+                    ad_placeholder_2: "In-Content Ad Placeholder",
+                    ad_placeholder_3: "Bottom Ad Placeholder",
                     grid_title: "Pick Your Paath (Path)!",
                     grid_subtitle: "Discover your true personality with our fun and engaging accessments",
                     share_title: "Liked this? Don't be a Kanjoos!",
@@ -710,20 +773,22 @@
                     faq_3_a: "Absolutely! We encourage you to share your results with friends. Each accessment has social sharing buttons to make it easy to post your results on WhatsApp, Facebook, Twitter, and other platforms.",
                     faq_4_q: "Are these accessments really free?",
                     faq_4_a: "Yes, all our accessments are completely free! We believe self-discovery should be accessible to everyone. We support the site through non-intrusive advertisements.",
-                    footer_desc: "Fun and free personality accessments for Global and Indian audience.",
+                    footer_desc: "Fun and free personality accessments for the Indian audience.",
                     footer_links: "Quick Links",
                     footer_home: "Home",
                     footer_about: "About Us",
                     footer_contact: "Contact",
                     footer_privacy: "Privacy Policy",
-                    footer_popular: "Popular Accessments",
+                    footer_terms: "Terms of Service",
+                    footer_sitemap: "Site Map",
+                    footer_popular: "Popular accessments",
                     footer_newsletter: "Newsletter",
                     footer_newsletter_desc: "Get updates on new accessments and features!",
                     loading_text: "Loading fun accessments...",
                     calculators: [
                         { key: 'chatur', emoji: '🤓', title: 'Chatur Calculator', desc: 'Are you a modern Chanakya or a sweet Bholaram? Test your wits!', link: 'Chatur.html', category: 'self', popular: true },
                         { key: 'modern', emoji: '🚀', title: 'Modern Mindset Meter', desc: 'Is your thinking from this century or the last? Let\'s find out!', link: 'Modern.html', category: 'self' },
-                        { key: 'darpok', emoji: '👻', title: 'Fattu-o-Meter', desc: 'How easily do you get scared? Are you a lion or a kitten?', link: 'fattu.html', category: 'fun', popular: true },
+                        { key: 'darpok', emoji: '👻', title: 'Fattu-o-Meter', desc: 'How easily do you get scared? Are you a lion or a kitten?', link: 'Darpok.html', category: 'fun', popular: true },
                         { key: 'jigyasu', emoji: '🧐', title: 'Jigyasu Calculator', desc: 'How curious are you? Let\'s measure your inner detective.', link: 'Jigyasu.html', category: 'self' },
                         { key: 'jealousy', emoji: '😒', title: 'Jealousy-o-Meter', desc: 'A little jealousy is spicy, too much burns! What\'s your level?', link: 'Jealousy.html', category: 'social' },
                         { key: 'alsi', emoji: '😴', title: 'The Alsi-Meter', desc: 'How lazy are you, really? Does your bed have a gravitational pull?', link: 'Alsi.html', category: 'habits', popular: true },
@@ -733,8 +798,9 @@
                         { key: 'kanjoos', emoji: '💰', title: 'The Kanjoos Calculator', desc: 'Do you ask for a discount even on a free sample?', link: 'Kanjoos.html', category: 'habits' },
                         { key: 'overthinker', emoji: '🤔', title: 'The Overthinker Scale', desc: 'Do you analyze a "Hi" text for 3 hours? This is for you.', link: 'Overthinker.html', category: 'self' },
                         { key: 'drama', emoji: '🎭', title: 'Drama Queen/King Meter', desc: 'Do you make a mountain out of a molehill? Let\'s see.', link: 'Drama.html', category: 'social', popular: true },
-                        { key: 'sanskari', emoji: '🙏', title: 'The Sanskari-Meter', desc: 'How traditional are you? Do you touch your elder cousin\'s feet?', link: 'Sanskari.html', category: 'social' },                        
-                        { key: 'parent', emoji: '👨‍👩‍👧‍👦', title: 'Desi Parent Checker', desc: 'Do you ask "Aur batao?" and compare Sharmaji ka beta?', link: 'desiparent.html', category: 'social' },
+                        { key: 'sanskari', emoji: '🙏', title: 'The Sanskari-Meter', desc: 'How traditional are you? Do you touch your elder cousin\'s feet?', link: 'Sanskari.html', category: 'social' },
+                        { key: 'procrastinator', emoji: '🛋️', title: 'The Procrastinator Prover', desc: 'Why do today what you can do tomorrow... or next week?', link: 'Procrastinator.html', category: 'habits' },
+                        { key: 'parent', emoji: '👨‍👩‍👧‍👦', title: 'Desi Parent Checker', desc: 'Do you ask "Aur batao?" and compare Sharmaji ka beta?', link: 'Parent.html', category: 'social' },
                         { key: 'social', emoji: '🎉', title: 'Social Butterfly-o-Meter', desc: 'Do you need people around you, or is your plant enough?', link: 'Social.html', category: 'social' },
                         { key: 'tech', emoji: '🤖', title: 'The Tech-Savvy Tester', desc: 'Can you explain blockchain, or is your VCR still blinking 12:00?', link: 'Tech.html', category: 'fun' },
                         { key: 'risk', emoji: '🎲', title: 'The Risk-Taker Rater', desc: 'Do you cross the road without looking? Let\'s check your risk appetite.', link: 'Risk.html', category: 'fun' },
@@ -742,7 +808,8 @@
                         { key: 'anger', emoji: '😡', title: 'The Anger-o-Meter', desc: 'Do you go from zero to Hulk in 3 seconds? Let\'s measure your rage levels!', link: 'Anger.html', category: 'self' },
                         { key: 'greed', emoji: '🤑', title: 'The Greed Gauge', desc: 'Would you fight a dragon for a gold coin? Find out if you\'re a miser or a magnate!', link: 'Greed.html', category: 'habits' },
                         { key: 'honesty', emoji: '🤥', title: 'The Honesty-o-Meter', desc: 'Do you tell your friends their new haircut looks great, even if it doesn\'t? Time to check your truthfulness!', link: 'Honesty.html', category: 'social' },
-                        { key: 'pizza', emoji: '🍕', title: 'Pizza Personality Test', desc: 'Are you a cheesy friend or a spicy one?', link: 'Pizza.html', category: 'fun' },                        
+                        { key: 'pizza', emoji: '🍕', title: 'Pizza Personality Test', desc: 'Are you a cheesy friend or a spicy one?', link: 'Pizza.html', category: 'fun' },
+                        { key: 'emoji', emoji: '😂', title: 'Emoji Communication Level', desc: 'Master of digital expression?', link: 'Emoji.html', category: 'social' },
                         { key: 'social_media', emoji: '📱', title: 'Social Media Personality', desc: 'Aspiring influencer or meme collector?', link: 'SocialMedia.html', category: 'social' },
                         { key: 'weekend', emoji: '💃', title: 'Weekend Warrior Type', desc: 'Homebody or adventure seeker?', link: 'Weekend.html', category: 'habits' },
                         { key: 'excuse_maker', emoji: '🤷‍♀️', title: 'The Excuse-o-Meter', desc: 'Late again? Did the dog eat your homework? Let\'s see how creative your excuses are!', link: 'Excusemeter.html', category: 'habits' },
@@ -750,7 +817,7 @@
                     ]
                 },
                 hi: {
-                    title_part1: " व्यक्तित्व",
+                    title_part1: "व्यक्तित्व",
                     title_part2: "पाठशाला",
                     hero_title: "क्या आप सच में खुद को जानते हैं?",
                     hero_subtitle: "राशिफल और गंभीर साइको टेस्ट को भूल जाइए। हम आपको असली 'आप' से मिलाते हैं... मज़ेदार तरीके से! हंसने, शरमाने और यह कहने के लिए तैयार हो जाइए, \"ओह माय गॉड, यह तो मैं ही हूँ!\"",
@@ -764,6 +831,9 @@
                     value_2_desc: "हम हल्के-फुल्के आत्म-खोज के लिए दुनिया का पहला मंच हैं। कोई नैदानिक तनाव नहीं, बस प्रफुल्लित करने वाले \"यह तो मैं ही हूँ!\" वाले पल।",
                     value_3_title: "खुद को जानें, खुद को बढ़ाएं",
                     value_3_desc: "सुधार करने के लिए, आपको पहले खुद को जानना होगा। हमारे क्विज़ एक बेहतर इंसान बनने की आपकी यात्रा का पहला मज़ेदार कदम हैं।",
+                    ad_placeholder: "शीर्ष विज्ञापन प्लेसहोल्डर",
+                    ad_placeholder_2: "इन-कंटेंट विज्ञापन प्लेसहोल्डर",
+                    ad_placeholder_3: "निचला विज्ञापन प्लेसहोल्डर",
                     grid_title: "अपना पाठ (रास्ता) चुनें!",
                     grid_subtitle: "हमारे मजेदार और आकर्षक क्विज़ के साथ अपने वास्तविक व्यक्तित्व की खोज करें",
                     share_title: "पसंद आया? कंजूस मत बनो!",
@@ -815,7 +885,8 @@
                         { key: 'kanjoos', emoji: '💰', title: 'कंजूस कैलकुलेटर', desc: 'क्या आप मुफ्त सैंपल पर भी छूट मांगते हैं?', link: 'Kanjoos.html', category: 'habits' },
                         { key: 'overthinker', emoji: '🤔', title: 'ओवरथिंकर स्केल', desc: 'क्या आप 3 घंटे तक "हाय" टेक्स्ट का विश्लेषण करते हैं? यह आपके लिए है।', link: 'Overthinker.html', category: 'self' },
                         { key: 'drama', emoji: '🎭', title: 'ड्रामा क्वीन/किंग मीटर', desc: 'क्या आप राई का पहाड़ बनाते हैं? चलो देखते हैं।', link: 'Drama.html', category: 'social', popular: true },
-                        { key: 'sanskari', emoji: '🙏', title: 'संस्कारी-मीटर', desc: 'आप कितने पारंपरिक हैं? क्या आप अपने बड़े चचेरे भाई के पैर छूते हैं?', link: 'Sanskari.html', category: 'social' },                        
+                        { key: 'sanskari', emoji: '🙏', title: 'संस्कारी-मीटर', desc: 'आप कितने पारंपरिक हैं? क्या आप अपने बड़े चचेरे भाई के पैर छूते हैं?', link: 'Sanskari.html', category: 'social' },
+                        { key: 'procrastinator', emoji: '🛋️', title: 'प्रोक्रैस्टिनेटर प्रोवर', desc: 'आज का काम कल क्यों करें... या अगले हफ्ते?', link: 'Procrastinator.html', category: 'habits' },
                         { key: 'parent', emoji: '👨‍👩‍👧‍👦', title: 'देसी पेरेंट चेकर', desc: 'क्या आप "और बताओ?" पूछते हैं और शर्माजी के बेटे से तुलना करते हैं?', link: 'Parent.html', category: 'social' },
                         { key: 'social', emoji: '🎉', title: 'सोशल बटरफ्लाई-ओ-मीटर', desc: 'क्या आपको अपने आस-पास लोगों की ज़रूरत है, या आपका पौधा ही काफी है?', link: 'Social.html', category: 'social' },
                         { key: 'tech', emoji: '🤖', title: 'टेक-सेवी टेस्टर', desc: 'क्या आप ब्लॉकचेन समझा सकते हैं, या आपका वीसीआर अभी भी 12:00 पर चमक रहा है?', link: 'Tech.html', category: 'fun' },
@@ -824,7 +895,8 @@
                         { key: 'anger', emoji: '😡', title: 'गुस्सा-ओ-मीटर', desc: 'क्या आप 3 सेकंड में शून्य से हल्क बन जाते हैं? आइए आपके गुस्से के स्तर को मापें!', link: 'Anger.html', category: 'self' },
                         { key: 'greed', emoji: '🤑', title: 'लालच गेज', desc: 'क्या आप सोने के सिक्के के लिए ड्रैगन से लड़ेंगे? पता करें कि आप कंजूस हैं या magnate!', link: 'Greed.html', category: 'habits' },
                         { key: 'honesty', emoji: '🤥', title: 'ईमानदारी-ओ-मीटर', desc: 'क्या आप अपने दोस्तों को बताते हैं कि उनका नया हेयरकट बहुत अच्छा लग रहा है, भले ही ऐसा न हो? अपनी सच्चाई की जांच करने का समय!', link: 'Honesty.html', category: 'social' },
-                        { key: 'pizza', emoji: '🍕', title: 'पिज़्ज़ा व्यक्तित्व परीक्षण', desc: 'क्या आप एक चीज़ी दोस्त हैं या एक मसालेदार?', link: 'Pizza.html', category: 'fun' },                        
+                        { key: 'pizza', emoji: '🍕', title: 'पिज़्ज़ा व्यक्तित्व परीक्षण', desc: 'क्या आप एक चीज़ी दोस्त हैं या एक मसालेदार?', link: 'Pizza.html', category: 'fun' },
+                        { key: 'emoji', emoji: '😂', title: 'इमोजी संचार स्तर', desc: 'डिजिटल अभिव्यक्ति के स्वामी?', link: 'Emoji.html', category: 'social' },
                         { key: 'social_media', emoji: '📱', title: 'सोशल मीडिया व्यक्तित्व', desc: 'महत्वाकांक्षी प्रभावशाली व्यक्ति या मीम कलेक्टर?', link: 'SocialMedia.html', category: 'social' },
                         { key: 'weekend', emoji: '💃', title: 'वीकेंड वारियर प्रकार', desc: 'घर पर रहने वाले या साहसिक साधक?', link: 'Weekend.html', category: 'habits' },
                         { key: 'excuse_maker', emoji: '🤷‍♀️', title: 'बहाना-ओ-मीटर', desc: 'फिर से देर हो गई? क्या कुत्ते ने आपका होमवर्क खा लिया? देखते हैं आपके बहाने कितने रचनात्मक हैं!', link: 'ExcuseMaker.html', category: 'habits' },
@@ -834,6 +906,7 @@
             };
             
             let currentLang = 'en';
+            let displayedQuizzes = 8; // Initial number of quizzes to show
 
             // DOM Elements
             const allLangElements = document.querySelectorAll('[data-lang-key]');
@@ -847,6 +920,8 @@
             const surpriseBtn = document.getElementById('surprise-btn');
             const mainHeader = document.getElementById('main-header');
             const backToTopButton = document.getElementById('back-to-top');
+            const loadMoreButton = document.getElementById('load-more');
+            const loadingScreen = document.getElementById('loading-screen');
             const userCountElement = document.getElementById('user-count');
 
             const renderCalculators = (lang, category = 'all') => {
@@ -854,8 +929,11 @@
                 const filteredCalculators = category === 'all' 
                     ? content[lang].calculators
                     : content[lang].calculators.filter(calc => calc.category === category);
+
+                // Show only the first 'displayedQuizzes' items
+                const quizzesToShow = filteredCalculators.slice(0, displayedQuizzes);
                 
-                filteredCalculators.forEach((calc, index) => {
+                quizzesToShow.forEach((calc, index) => {
                     const card = document.createElement('a');
                     card.href = calc.link;
                     card.className = 'quiz-card block rounded-2xl p-6 text-center card-enter relative';
@@ -875,6 +953,13 @@
                     `;
                     calculatorsGrid.appendChild(card);
                 });
+                
+                // Show or hide the load more button
+                if (displayedQuizzes >= filteredCalculators.length) {
+                    loadMoreButton.style.display = 'none';
+                } else {
+                    loadMoreButton.style.display = 'inline-flex';
+                }
             };
 
             const renderFeaturedQuizzes = (lang) => {
@@ -1022,6 +1107,8 @@
                 button.classList.add('active', 'bg-indigo-600', 'text-white', 'shine-btn');
                 button.classList.remove('bg-white/60', 'dark:bg-slate-700/50', 'text-slate-700', 'dark:text-slate-300');
                 
+                // Reset displayed quizzes count when changing category
+                displayedQuizzes = 8;
                 renderCalculators(currentLang, category);
             });
 
@@ -1037,6 +1124,12 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
             
+            loadMoreButton.addEventListener('click', () => {
+                displayedQuizzes += 8;
+                const activeCategory = document.querySelector('.filter-btn.active').dataset.category;
+                renderCalculators(currentLang, activeCategory);
+            });
+
             window.addEventListener('scroll', handleHeaderScroll);
             window.addEventListener('scroll', handleBackToTopScroll);
 
@@ -1049,8 +1142,14 @@
             handleScrollAnimations();
             simulateUserCount();
             
+            // Hide loading screen after content is loaded
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }, 1500);
         });
     </script>
 </body>
-
 </html>

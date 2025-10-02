@@ -2,22 +2,18 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0DL8SC5JKB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-0DL8SC5JKB');
-</script>
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
+      gtag('config', 'G-0DL8SC5JKB');
+    </script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personality Paathshala - Funny Indian Personality Quizzes & Tests</title>
@@ -169,7 +165,7 @@
             animation-delay: 1.5s;
         }
         .dark .shine-btn::after {
-             background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
         }
         @keyframes shine {
             0% { left: -75%; }
@@ -229,23 +225,12 @@
         /* Text Visibility */
         .dark .quiz-card h3 { color: #f1f5f9; }
         .dark .quiz-card p { color: #cbd5e1; }
-        /* REMOVED conflicting rule */
         .dark .text-gray-900 { color: #f8fafc; } /* slate-50 */
         
         /* Filter Buttons */
         .filter-btn { transition: all 0.2s ease-in-out; }
         .filter-btn.active { box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.3); }
         
-        /* Ad placeholder styling */
-        .ad-placeholder {
-            border: 2px dashed #e2e8f0;
-            background-color: rgba(241, 245, 249, 0.5);
-        }
-        .dark .ad-placeholder {
-            border-color: #334155;
-            background-color: rgba(30, 41, 59, 0.3);
-        }
-
         /* Social Share Colors */
         .whatsapp-btn { background-color: #25D366; }
         .twitter-btn { background-color: #000000; }
@@ -394,15 +379,6 @@
             color: #a78bfa;
         }
     </style>
-    
-    <!-- Google Analytics Script -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
-    </script>
 </head>
 
 <body class="bg-slate-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
@@ -553,10 +529,12 @@
             </div>
         </section>
 
-        <!-- Top Ad Placeholder -->
-        <div class="w-full max-w-4xl mx-auto mb-16 h-24 ad-placeholder flex items-center justify-center rounded-lg scroll-animate">
-            <script async="async" data-cfasync="false" src="//pl27726613.revenuecpmgate.com/4c2ecba60cb3572187d275e2c6f9f677/invoke.js"></script>
-            <div id="container-4c2ecba60cb3572187d275e2c6f9f677"></div>
+        <!-- Top Ad -->
+        <div class="w-full flex items-center justify-center my-16 scroll-animate">
+            <div>
+                <script async="async" data-cfasync="false" src="//pl27726613.revenuecpmgate.com/4c2ecba60cb3572187d275e2c6f9f677/invoke.js"></script>
+                <div id="container-4c2ecba60cb3572187d275e2c6f9f677"></div>
+            </div>
         </div>
 
         <!-- Calculators Grid -->
@@ -571,18 +549,17 @@
             <div id="calculators-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-16">
                 <!-- All Assessments will be dynamically inserted here -->
             </div>
-            
-            <div class="text-center mt-12">
-                <button id="load-more" class="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 font-semibold py-3 px-8 rounded-full hover:bg-indigo-200 dark:hover:bg-indigo-800/50 transition-colors">
-                    <span data-lang-key="load_more">Load More Assessments</span> <i class="fas fa-chevron-down ml-2"></i>
-                </button>
-            </div>
         </section>
 
-        <!-- Mid Ad Placeholder -->
-        <div class="w-full max-w-4xl mx-auto my-20 h-48 ad-placeholder flex items-center justify-center rounded-lg scroll-animate">
-            <span class="text-gray-400 dark:text-gray-500" data-lang-key="ad_placeholder_2">In-Content Ad Placeholder</span>
+        <!-- Mid Ad -->
+        <div class="w-full flex items-center justify-center my-20 scroll-animate">
+            <div>
+                <!-- Re-using an ad code as an example -->
+                <script async="async" data-cfasync="false" src="//pl27726613.revenuecpmgate.com/4c2ecba60cb3572187d275e2c6f9f677/invoke.js"></script>
+                <div id="container-4c2ecba60cb3572187d275e2c6f9f677-2"></div> <!-- Note: a unique container ID might be needed -->
+            </div>
         </div>
+
 
         <!-- FAQ Section for SEO -->
         <section class="my-16 scroll-animate">
@@ -619,47 +596,24 @@
                 <a id="telegram-share" href="https://ppscore.co.in" target="_blank" class="share-btn telegram-btn text-white w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center text-2xl sm:text-3xl shadow-lg transform hover:scale-110 transition-transform"><i class="fab fa-telegram"></i></a>
             </div>
         </section>
-
-        <!-- Add this section before the footer or wherever you want it to appear -->
-
-        <section class="my-16 scroll-animate">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12 gradient-text">Explore Our Other Websites</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                <!-- Website 1 -->
-                <a href="https://electrosafe.homes" target="_blank" class="block bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 p-6 text-center">
-                    <div class="text-6xl mb-4">⚡</div>
-                    <h3 class="text-xl font-bold mb-2">ElectroSafe Homes</h3>
-                    <p class="text-sm">Scan any electrical item of your home to get instant AI safety tips and solutions.</p>
-                </a>
-                <!-- Website 2 -->
-                <a href="https://designcalculators.co.in" target="_blank" class="block bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 p-6 text-center">
-                    <div class="text-6xl mb-4">📐</div>
-                    <h3 class="text-xl font-bold mb-2">Design Calculators</h3>
-                    <p class="text-sm">Simplify your design calculations with our powerful tools.</p>
-                </a>
-                <!-- Website 3 -->
-                <a href="https://toolboxtalk.com" target="_blank" class="block bg-gradient-to-r from-green-500 to-amber-500 text-white rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 p-6 text-center">
-                    <div class="text-6xl mb-4">🛠️</div>
-                    <h3 class="text-xl font-bold mb-2">Toolbox Talk</h3>
-                    <p class="text-sm">Any industry, any department, any activity - Generate instant AI safety talks and resources for your workplace.</p>
-                </a>
-            </div>
-        </section>
     </main>
     
-    <!-- Bottom Ad Placeholder -->
-    <div class="w-full max-w-4xl mx-auto my-8 h-24 ad-placeholder flex items-center justify-center rounded-lg scroll-animate">
-        <script type="text/javascript">
-            atOptions = {
-                'key' : '328a745c04713d6c6bcf893afedf335a',
-                'format' : 'iframe',
-                'height' : 250,
-                'width' : 300,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/328a745c04713d6c6bcf893afedf335a/invoke.js"></script>
+    <!-- Bottom Ad -->
+    <div class="w-full flex items-center justify-center my-8 scroll-animate">
+        <div>
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '328a745c04713d6c6bcf893afedf335a',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/328a745c04713d6c6bcf893afedf335a/invoke.js"></script>
+        </div>
     </div>
+
 
     <!-- Back to Top Button -->
     <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-lg transform scale-0 opacity-0 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:bg-indigo-700 dark:focus:ring-offset-slate-900 z-40">
@@ -741,9 +695,6 @@
                     value_2_desc: "We're the world's first platform for light-hearted self-discovery. No clinical tension, just hilarious \"that's so me!\" moments.",
                     value_3_title: "Know Yourself, Grow Yourself",
                     value_3_desc: "To improve, you must first know yourself. Our assessments are the hilarious first step on your journey to becoming a better you.",
-                    ad_placeholder: "Top Ad Placeholder",
-                    ad_placeholder_2: "In-Content Ad Placeholder",
-                    ad_placeholder_3: "Bottom Ad Placeholder",
                     grid_title: "Pick Your Paath (Path)!",
                     grid_subtitle: "Discover your true personality with our fun and engaging assessments",
                     share_title: "Liked this? Don't be a Kanjoos!",
@@ -753,7 +704,6 @@
                     categories: { all: 'All', self: 'Self-Awareness', social: 'Social Skills', habits: 'Habits', fun: 'Just for Fun' },
                     popular_quizzes: "Most Popular Assessments",
                     all_quizzes: "All Assessments",
-                    load_more: "Load More Assessments",
                     stats_users: "Happy Users",
                     stats_quizzes: "Fun Quizzes",
                     stats_languages: "Languages",
@@ -816,7 +766,7 @@
                     ]
                 },
                 hi: {
-                    title_part1: "व्यक्तित्व",
+                    title_part1: " व्यक्तित्व",
                     title_part2: "पाठशाला",
                     hero_title: "क्या आप सच में खुद को जानते हैं?",
                     hero_subtitle: "राशिफल और गंभीर साइको टेस्ट को भूल जाइए। हम आपको असली 'आप' से मिलाते हैं... मज़ेदार तरीके से! हंसने, शरमाने और यह कहने के लिए तैयार हो जाइए, \"ओह माय गॉड, यह तो मैं ही हूँ!\"",
@@ -830,9 +780,6 @@
                     value_2_desc: "हम हल्के-फुल्के आत्म-खोज के लिए दुनिया का पहला मंच हैं। कोई नैदानिक तनाव नहीं, बस प्रफुल्लित करने वाले \"यह तो मैं ही हूँ!\" वाले पल।",
                     value_3_title: "खुद को जानें, खुद को बढ़ाएं",
                     value_3_desc: "सुधार करने के लिए, आपको पहले खुद को जानना होगा। हमारे क्विज़ एक बेहतर इंसान बनने की आपकी यात्रा का पहला मज़ेदार कदम हैं।",
-                    ad_placeholder: "शीर्ष विज्ञापन प्लेसहोल्डर",
-                    ad_placeholder_2: "इन-कंटेंट विज्ञापन प्लेसहोल्डर",
-                    ad_placeholder_3: "निचला विज्ञापन प्लेसहोल्डर",
                     grid_title: "अपना पाठ (रास्ता) चुनें!",
                     grid_subtitle: "हमारे मजेदार और आकर्षक क्विज़ के साथ अपने वास्तविक व्यक्तित्व की खोज करें",
                     share_title: "पसंद आया? कंजूस मत बनो!",
@@ -842,7 +789,6 @@
                     categories: { all: 'सब', self: 'आत्म-जागरूकता', social: 'सामाजिक कौशल', habits: 'आदतें', fun: 'बस मजे के लिए' },
                     popular_assessments: "सबसे लोकप्रिय क्विज़",
                     all_assessments: "सभी क्विज़",
-                    load_more: "और क्विज़ लोड करें",
                     stats_users: "खुश उपयोगकर्ता",
                     stats_quizzes: "मज़ेदार क्विज़",
                     stats_languages: "भाषाएँ",
@@ -907,7 +853,6 @@
             };
             
             let currentLang = 'en';
-            let displayedQuizzes = 8; // Initial number of quizzes to show
 
             // DOM Elements
             const allLangElements = document.querySelectorAll('[data-lang-key]');
@@ -920,7 +865,6 @@
             const surpriseBtn = document.getElementById('surprise-btn');
             const mainHeader = document.getElementById('main-header');
             const backToTopButton = document.getElementById('back-to-top');
-            const loadMoreButton = document.getElementById('load-more');
             const loadingScreen = document.getElementById('loading-screen');
             const userCountElement = document.getElementById('user-count');
 
@@ -930,8 +874,8 @@
                     ? content[lang].calculators
                     : content[lang].calculators.filter(calc => calc.category === category);
 
-                // Show only the first 'displayedQuizzes' items
-                const quizzesToShow = filteredCalculators.slice(0, displayedQuizzes);
+                // Show all quizzes
+                const quizzesToShow = filteredCalculators;
                 
                 quizzesToShow.forEach((calc, index) => {
                     const card = document.createElement('a');
@@ -953,13 +897,6 @@
                     `;
                     calculatorsGrid.appendChild(card);
                 });
-                
-                // Show or hide the load more button
-                if (displayedQuizzes >= filteredCalculators.length) {
-                    loadMoreButton.style.display = 'none';
-                } else {
-                    loadMoreButton.style.display = 'inline-flex';
-                }
             };
 
             const renderFilters = (lang) => {
@@ -1085,8 +1022,6 @@
                 button.classList.add('active', 'bg-indigo-600', 'text-white', 'shine-btn');
                 button.classList.remove('bg-white/60', 'dark:bg-slate-700/50', 'text-slate-700', 'dark:text-slate-300');
                 
-                // Reset displayed quizzes count when changing category
-                displayedQuizzes = 8;
                 renderCalculators(currentLang, category);
             });
 
@@ -1102,12 +1037,6 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
             
-            loadMoreButton.addEventListener('click', () => {
-                displayedQuizzes += 8;
-                const activeCategory = document.querySelector('.filter-btn.active').dataset.category;
-                renderCalculators(currentLang, activeCategory);
-            });
-
             window.addEventListener('scroll', handleHeaderScroll);
             window.addEventListener('scroll', handleBackToTopScroll);
 
